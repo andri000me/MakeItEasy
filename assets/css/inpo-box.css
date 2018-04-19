@@ -1,0 +1,195 @@
+/*
+ * Component: Judul Input
+ * -------------------
+ */
+.judul-box {
+  display: block;
+  min-height: 60px;
+  /*background: #fff;*/
+  width: 100%;
+  /*box-shadow: 4px 3px 2px 1px rgba(0, 0, 0, 0.1);*/
+  border-radius: 2px;
+  margin-bottom: 8px;
+}
+.judul-box small {
+  font-size: 20px;
+}
+.judul-box .progress {
+  background: rgba(0, 0, 0, 0.2);
+  margin: 5px -10px 5px -10px;
+  height: 2px;
+}
+.judul-box .progress,
+.judul-box .progress .progress-bar {
+  border-radius: 0;
+}
+.judul-box .progress .progress-bar {
+  background: #fff;
+}
+.judul-box-icon {
+  border-top-left-radius: 2px;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 2px;
+  display: block;
+  float: left;
+  height: 210px;
+  width: 210px;
+  text-align: center;
+  font-size: 80px;
+/*  line-height: 210px;*/
+  background: rgba(0, 0, 0, 0.2);
+}
+.judul-box-icon > img {
+  max-width: 100%;
+}
+.judul-box-content {
+  padding: 5px 5px 0px 5px;
+  margin-left: 85px;
+}
+.judul-box-number {
+  display: block;
+  font-weight: bold;
+  font-size: 90px;
+}
+.judul-box-text {
+  display: block;
+  font-size: 30px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-top: -22px!important;
+}
+.judul-box-text {
+  text-transform: uppercase;
+}
+.judul-box-more {
+  display: block;
+}
+.progress-description {
+  margin: 0;
+}
+
+
+/*
+ * Component: inpo Box
+ * -------------------
+ */
+.inpo-box {
+  display: block;
+  min-height: 60px;
+  background: #fff;
+  width: 100%;
+  box-shadow: 4px 3px 2px 1px rgba(0, 0, 0, 0.1);
+  border-radius: 2px;
+  margin-bottom: 8px;
+}
+.inpo-box small {
+  font-size: 12px;
+}
+.inpo-box .progress {
+  background: rgba(0, 0, 0, 0.2);
+  margin: 5px -10px 5px -10px;
+  height: 2px;
+}
+.inpo-box .progress,
+.inpo-box .progress .progress-bar {
+  border-radius: 0;
+}
+.inpo-box .progress .progress-bar {
+  background: #fff;
+}
+.inpo-box-icon {
+  border-top-left-radius: 2px;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 2px;
+  display: block;
+  float: left;
+  height: 60px;
+  width: 60px;
+  text-align: center;
+  font-size: 30px;
+  line-height: 60px;
+  background: rgba(0, 0, 0, 0.2);
+}
+.inpo-box-icon > img {
+  max-width: 100%;
+}
+.inpo-box-content {
+  padding: 2px 5px;
+  margin-left: 62px;
+}
+.inpo-box-number {
+  display: block;
+  font-weight: bold;
+  font-size: 18px;
+}
+.progress-description,
+.inpo-box-text {
+  display: block;
+  font-size: 18px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.inpo-box-text {
+  text-transform: uppercase;
+}
+.inpo-box-more {
+  display: block;
+}
+.progress-description {
+  margin: 0;
+}
+
+/*buttonnya */
+.tombol-input {
+  border-radius:50%;
+  display: block;
+  float: left;
+  background-color: #fff;
+  height: 210px;
+  width: 210px;
+  text-align: center;
+  font-size: 80px;
+}
+
+.btn-setor {
+  border-radius: 3px;
+  position: relative;
+  padding: 15px 5px;
+  margin: 0 0 10px 10px;
+  width: 100px;
+  height: 90px;
+  text-align: center;
+  border: 1px solid #ddd;
+  background-color: #f4f4f4;
+  font-size: 12px;
+}
+.btn-setor > .fa,
+.btn-setor > .glyphicon,
+.btn-setor > .ion {
+  font-size: 40px;
+  display: block;
+}
+.btn-setor:hover {
+  background: #f4f4f4;
+  color: #444;
+  border-color: #aaa;
+}
+.btn-setor:active,
+.btn-setor:focus {
+  -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  -moz-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+}
+
+/*warna text*/
+.text-success {
+  color: #00a65a;
+}
+
+.text-danger {
+  color: #dd4b39;
+}
