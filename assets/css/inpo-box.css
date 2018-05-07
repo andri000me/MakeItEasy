@@ -185,6 +185,36 @@
   box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
 }
 
+/*input setoran*/
+.btn-setor-ver {
+  border-radius: 3px;
+  position: relative;
+  width: 100px;
+  height: 90px;
+  text-align: center;
+  border: 1px solid #ddd;
+  background-color: #f4f4f4;
+  font-size: 12px;
+}
+.btn-setor-ver > .fa,
+.btn-setor-ver > .glyphicon,
+.btn-setor-ver > .ion {
+  font-size: 40px;
+  display: block;
+}
+.btn-setor-ver:hover {
+  background: #f4f4f4;
+  color: #444;
+  border-color: #aaa;
+}
+.btn-setor-ver:active,
+.btn-setor-ver:focus {
+  -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  -moz-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+}
+/*end input setoran*/
+
 /*warna text*/
 .text-success {
   color: #00a65a;
