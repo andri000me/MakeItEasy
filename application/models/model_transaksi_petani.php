@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class model_transaksi_petani extends CI_Model {
 	public function tb_transaksi()
 	{
-		$query = $this->db->query("SELECT a.tanggal, b.nama, b.desa, a.kode_cabai, a.berat_bs, a.berat_bersih, a.jumlah_uang, a.bon, b.saldo FROM transaksi_petani a JOIN tb_petani b WHERE a.id_petani=b.id");
+		$query = $this->db->query("SELECT tanggal, nama_petani, asal_daerah, kode_cabai, berat_kotor, berat_bs, jumlah_uang FROM transaksi_petani");
   		if($query->num_rows() > 0)
   			{
   				return $query->result();
@@ -26,8 +26,8 @@ class model_transaksi_petani extends CI_Model {
     	$this->db->insert('transaksi_petani', $data);
     }
 
-  function harga_today($date){
-    $query = $this->db->query("SELECT a.kode, a.jenis, b.harga_bs, b.harga_bersih FROM tb_cabai a JOIN harga_cabai b WHERE a.id=b.id_cabai AND b.tanggal='$date'");
+  function tb_cabai(){
+    $query = $this->db->query("SELECT kode, jenis, harga_bs, harga_bersih FROM tb_cabai");
       if($query->num_rows() > 0)
         {
           return $query->result();
@@ -37,6 +37,24 @@ class model_transaksi_petani extends CI_Model {
           return array();
         }
   }
+
+  function dd_cabai()
+    {
+        // ambil data dari db
+        $result = $this->db->get('tb_cabai');
+        
+        // bikin array
+        // please select berikut ini merupakan tambahan saja agar saat pertama
+        // diload akan ditampilkan text please select.
+        $dd[''] = 'Pilih Jenis Cabai';
+        if ($result->num_rows() > 0) {
+            foreach ($result->result() as $row) {
+            // tentukan value (sebelah kiri) dan labelnya (sebelah kanan)
+                $dd[$row->kode] = $row->jenis;
+            }
+        }
+        return $dd;
+    }
 
   function petani($id_petani){
     $query = $this->db->query("SELECT nama, desa FROM tb_petani WHERE id='$id_petani'");
@@ -62,8 +80,8 @@ class model_transaksi_petani extends CI_Model {
         }
   }
 
-  function hargaBS_today($tanggal, $kode_cabai){
-    $query = $this->db->query("SELECT a.harga_bs FROM harga_cabai a JOIN tb_cabai b WHERE a.id_cabai=b.id AND a.tanggal='$tanggal' AND b.kode='$kode_cabai'");
+  function hargaBS($kode_cabai){
+    $query = $this->db->query("SELECT harga_bs FROM tb_cabai WHERE kode='$kode_cabai'");
       if($query->num_rows() > 0)
         {
           return $query->row()->harga_bs;
@@ -74,8 +92,8 @@ class model_transaksi_petani extends CI_Model {
         }
   }
 
-  function hargaBersih_today($tanggal, $kode_cabai){
-    $query = $this->db->query("SELECT a.harga_bersih FROM harga_cabai a JOIN tb_cabai b WHERE a.id_cabai=b.id AND a.tanggal='$tanggal' AND b.kode='$kode_cabai'");
+  function hargaBersih($kode_cabai){
+    $query = $this->db->query("SELECT harga_bersih FROM tb_cabai WHERE kode='$kode_cabai'");
       if($query->num_rows() > 0)
         {
           return $query->row()->harga_bersih;
@@ -84,6 +102,10 @@ class model_transaksi_petani extends CI_Model {
         {
           return array();
         }
+  }
+
+  function update_harga($data){
+    $this->db->update_batch('tb_cabai', $data, 'kode');
   }
 }
 ?>

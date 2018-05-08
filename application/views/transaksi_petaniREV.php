@@ -38,40 +38,23 @@
                     </tr>
                 </thead>
                 <tbody>
-                <tr>
-                  <td>1.</td>
-                  <td>A1</td>
-                  <td>Cabe Keriting</td>
-                  <td>10000</td>
-                  <td>2000</td>
-                </tr>
-                <tr>
-                  <td>2.</td>
-                  <td>A1</td>
-                  <td>Cabe Keriting</td>
-                  <td>10000</td>
-                  <td>2000</td>
-                </tr>
-                <tr>
-                  <td>3.</td>
-                  <td>A1</td>
-                  <td>Cabe Keriting</td>
-                  <td>10000</td>
-                  <td>2000</td>
-                </tr>
-                <tr>
-                  <td>4.</td>
-                  <td>A1</td>
-                  <td>Cabe Keriting</td>
-                  <td>10000</td>
-                  <td>2000</td>
-                </tr>
+
+                <?php $no=1; foreach ($tb_cabai as $tb): ?>
+                  <tr>
+                    <td><?= $no ?></td>
+                    <td><?= $tb->kode ?></td>
+                    <td><?= $tb->jenis ?></td>
+                    <td><?= $tb->harga_bs ?></td>
+                    <td><?= $tb->harga_bersih ?></td>
+                  </tr>
+                  <?php $no++; endforeach; ?>
+
                 </tbody>
               </table>
           </div>
           <div class="box-footer clearfix">
-            <button type="button" class="btn btn-sm btn-default pull-right">
-              <i class="fa fa-edit"></i> Lihat & Edit Harga </button>
+            <button type="button" class="btn btn-sm btn-default pull-right" data-toggle="modal" data-target="#editHarga">
+              <i class="fa fa-edit"></i> Edit Harga </button>
           </div>
                 <!-- /.box-body -->
         </div>
@@ -87,7 +70,7 @@
           <!-- /.box-header -->
           <div class="box-body" style="text-align: center;">
              <div class="btn-group-vertical">
-                <button type="button" class="btn btn-block btn-setor-ver bg-green"> <i class="fa fa-plus"></i> Inputkan Setoran</button>
+                <button type="button" class="btn btn-block btn-setor-ver bg-green" data-toggle="modal" data-target="#inputSetoran"> <i class="fa fa-plus"></i> Inputkan Setoran</button>
                 <button type="button" class="btn btn-block btn-setor-ver bg-yellow"> <i class="fa fa-user-plus"></i> Tambah petani</button>
             </div>
           </div>
@@ -225,68 +208,34 @@
             <div class="box-body table-responsive no-padding">
               <table class="table table-hover" style="font-size: 15px">
                 <tr class="bg-gray">
-                  <th style="text-align: center; line-height: 50px" rowspan="2">ID</th>
+                  <th style="text-align: center; line-height: 50px" rowspan="2">No</th>
+                  <th style="text-align: center; line-height: 50px" rowspan="2">Tanggal</th>
                   <th style="text-align: center; line-height: 50px" rowspan="2">Nama</th>
                   <th style="text-align: center; line-height: 50px" rowspan="2">Asal Daerah</th>
+                  <th style="text-align: center; line-height: 50px" rowspan="2">Jenis Cabai</th>
                   <th style="text-align: center;" colspan="3">Berat</th>
-                  <th style="text-align: center; line-height: 50px" rowspan="2">Harga</th>
                   <th style="text-align: center; line-height: 50px" rowspan="2">Jumlah Uang</th>
-                  <th style="text-align: center; line-height: 50px" rowspan="2">Bon</th>
-                  <th style="text-align: center; line-height: 50px" rowspan="2">Saldo</th>
                 </tr>
                 <tr class="bg-gray">
                   <th>Kotor </th>
                   <th>BS/ MTL </th>
                   <th>Bersih </th>
                 </tr>
+
+                <?php $no=1; foreach ($tb_transaksi as $tb): ?>
                 <tr>
-                  <td>183</td>
-                  <td>Menik</td>
-                  <td>Gombong</td>
-                  <td>28,5</td>
-                  <td>2</td>
-                  <td>26</td>
-                  <td>54000</td>
-                  <td>1.404.000</td>
-                  <td>35.000.000</td>
-                  <td class="text-success"><strong>D 22.9222.000</strong></td>
+                  <td><?= $no ?></td>
+                  <td><?= $tb->tanggal ?></td>
+                  <td><?= $tb->nama_petani ?></td>
+                  <td><?= $tb->asal_daerah ?></td>
+                  <td><?= $tb->kode_cabai ?></td>
+                  <td><?= $tb->berat_kotor ?></td>
+                  <td><?= $tb->berat_bs ?></td>
+                  <td><?= $tb->berat_kotor - $tb->berat_bs ?></td>
+                  <td><?= $tb->jumlah_uang ?></td>
                 </tr>
-                <tr>
-                  <td>219</td>
-                  <td>Annisa Amalia</td>
-                  <td>Talun</td>
-                  <td>28,5</td>
-                  <td>2</td>
-                  <td>26</td>
-                  <td>54000</td>
-                  <td>1.404.000</td>
-                  <td>35.000.000</td>
-                  <td class="text-success"><strong>D 22.9222.000</strong></td>
-                </tr>
-                <tr>
-                  <td>657</td>
-                  <td>Thufalifa</td>
-                  <td>Muntilan</td>
-                  <td>28,5</td>
-                  <td>2</td>
-                  <td>26</td>
-                  <td>54000</td>
-                  <td>1.404.000</td>
-                  <td>35.000.000</td>
-                  <td class="text-success"><strong>D 22.9222.000</strong></td>
-                </tr>
-                <tr>
-                  <td>175</td>
-                  <td>Paijo</td>
-                  <td>Bantul</td>
-                  <td>28,5</td>
-                  <td>2</td>
-                  <td>26</td>
-                  <td>54000</td>
-                  <td>1.404.000</td>
-                  <td>35.000.000</td>
-                  <td class="text-success"><strong>D 22.9222.000</strong></td>
-                </tr>
+                <?php $no++; endforeach ?>
+
               </table>
             </div>
             <!-- /.box-body -->
@@ -504,3 +453,134 @@
 
 <!-- ./wrapper -->
 
+<!-- Modal Input Setoran-->
+<div id="inputSetoran" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Input Setoran</h4>
+      </div>
+      <form action="<?php echo base_url().'Transaksi/tambah_transaksi'; ?>" method="post">
+      <div class="modal-body">
+
+        <div class="row" style="padding-bottom: 5px">
+          <div class="col-md-4">
+            <label>Tanggal :</label>
+          </div>
+          <div class="col-md-8">
+            <input type="text" name="tanggal" class="form-control input-tanggal datepicker">
+          </div>
+        </div>
+
+        <div class="row" style="padding-bottom: 5px">
+          <div class="col-md-4">
+            <label>Nama Petani :</label>
+          </div>
+          <div class="col-md-8">
+            <input type="text" name="nama_petani" class="form-control">
+          </div>
+        </div>
+
+        <div class="row" style="padding-bottom: 5px">
+          <div class="col-md-4">
+            <label>Asal Daerah :</label>
+          </div>
+          <div class="col-md-8">
+           <input type="text" name="asal_daerah" class="form-control">
+          </div>
+        </div>
+
+        <div class="row" style="padding-bottom: 5px">
+          <div class="col-md-4">
+           <label>Jenis Cabai :</label>
+          </div>
+          <div class="col-md-8">
+            <?php
+                $dd_cabai_attribute = 'class="form-control"';
+                echo form_dropdown('cabai', $dd_cabai, $cabai_selected, $dd_cabai_attribute);
+                ?>
+          </div>
+        </div>
+              
+        <div class="col-md-12" style="text-align: center; padding-bottom: 5px; padding-top: 10px">      
+          <b>Berat</b>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+              <label>Kotor</label>
+              <input type="text" name="berat_kotor">kg
+            </div>
+            <div class="col-md-6">
+              <label>BS</label>
+              <input type="text" name="berat_bs">kg
+            </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <input type="submit" class="btn btn-info" value="Submit">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+
+    </form>
+    </div>
+
+  </div>
+</div>
+<!-- END Modal Input Setoran -->
+
+<!-- Modal Input Setoran-->
+<div id="editHarga" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Edit Harga</h4>
+      </div>
+
+      <form action="<?php echo base_url().'Transaksi/edit_harga'; ?>" method="post">
+        <div class="modal-body">
+          <table class="table table-condensed no-margin">
+            <thead>
+              <tr>
+                <th style="text-align: center; line-height: 50px" rowspan="2">No</th>
+                <th style="text-align: center; line-height: 50px" rowspan="2">Kode</th>
+                <th style="text-align: center; line-height: 50px" rowspan="2">Jenis</th>
+                <th style="text-align: center;" colspan="2">Harga</th>
+              </tr>
+                <tr>
+                  <th>BS/ MTL </th>
+                  <th>Bersih </th>
+                </tr>
+            </thead>
+            <tbody>
+              
+            <?php $no=1; foreach ($tb_cabai as $tb): ?>
+              <tr>
+                <td><?= $no ?></td>
+                <td><?= $tb->kode ?></td>
+                <td><?= $tb->jenis ?></td>
+                <input type="hidden" name="kode<?= $tb->kode ?>" value="<?= $tb->kode ?>">
+                <td><input type="text" name="harga_bs<?= $tb->kode ?>" value="<?= $tb->harga_bs ?>"></td>
+                <td><input type="text" name="harga_bersih<?= $tb->kode ?>" value="<?= $tb->harga_bersih ?>"></td>
+              </tr>
+              <?php $no++; endforeach; ?>
+            </tbody>
+          </table>
+        </div>
+
+      <div class="modal-footer">
+        <input type="submit" class="btn btn-info" value="Submit">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+      </form>
+    </div>
+
+  </div>
+</div>
+<!-- END Modal Input Setoran -->
