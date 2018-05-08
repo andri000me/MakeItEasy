@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: May 07, 2018 at 11:37 AM
+-- Generation Time: May 09, 2018 at 01:56 AM
 -- Server version: 10.1.19-MariaDB
 -- PHP Version: 5.5.38
 
@@ -69,18 +69,20 @@ CREATE TABLE `tb_bon` (
 CREATE TABLE `tb_cabai` (
   `id` int(3) NOT NULL,
   `kode` varchar(10) NOT NULL,
-  `jenis` varchar(45) NOT NULL
+  `jenis` varchar(45) NOT NULL,
+  `harga_bs` int(10) NOT NULL,
+  `harga_bersih` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tb_cabai`
 --
 
-INSERT INTO `tb_cabai` (`id`, `kode`, `jenis`) VALUES
-(1, 'Rw', 'Cabai Rawit'),
-(2, 'Kr', 'Cabai Keriting'),
-(3, 'Mr', 'Cabai Merah'),
-(4, 'Hj', 'Cabai Hijau');
+INSERT INTO `tb_cabai` (`id`, `kode`, `jenis`, `harga_bs`, `harga_bersih`) VALUES
+(1, 'RW', 'Cabai Rawit', 2000, 10000),
+(2, 'KR', 'Cabai Keriting', 2000, 9000),
+(3, 'MR', 'Cabai Merah', 2000, 7500),
+(4, 'HJ', 'Cabai Hijau', 2000, 8000);
 
 -- --------------------------------------------------------
 
@@ -130,8 +132,10 @@ INSERT INTO `tb_petani` (`id`, `nama`, `usia`, `desa`, `alamat`, `no_telp`, `sal
 CREATE TABLE `transaksi_petani` (
   `id` int(8) NOT NULL,
   `tanggal` date NOT NULL,
-  `id_petani` int(6) NOT NULL,
+  `nama_petani` varchar(30) NOT NULL,
+  `asal_daerah` varchar(30) NOT NULL,
   `kode_cabai` varchar(4) NOT NULL,
+  `berat_kotor` int(5) NOT NULL,
   `berat_bs` int(4) NOT NULL,
   `berat_bersih` int(4) NOT NULL,
   `jumlah_uang` int(20) NOT NULL,
@@ -142,11 +146,17 @@ CREATE TABLE `transaksi_petani` (
 -- Dumping data for table `transaksi_petani`
 --
 
-INSERT INTO `transaksi_petani` (`id`, `tanggal`, `id_petani`, `kode_cabai`, `berat_bs`, `berat_bersih`, `jumlah_uang`, `bon`) VALUES
-(1, '2018-04-11', 2, '', 4, 21, 4300000, 2000),
-(2, '0000-00-00', 2, 'A', 4, 25, 0, 400000),
-(4, '0000-00-00', 2, 'r', 4, 67, 0, 30000),
-(5, '2018-04-23', 2, 'A', 3, 23, 0, 7000);
+INSERT INTO `transaksi_petani` (`id`, `tanggal`, `nama_petani`, `asal_daerah`, `kode_cabai`, `berat_kotor`, `berat_bs`, `berat_bersih`, `jumlah_uang`, `bon`) VALUES
+(1, '2018-04-11', 'Wulansari pustipa', 'muntilan', '', 50, 4, 21, 4300000, 2000),
+(2, '0000-00-00', 'Annisa Azizah', 'ngentak', 'A', 55, 4, 25, 0, 400000),
+(4, '0000-00-00', 'Suparman', 'Rogobangsan', 'r', 67, 4, 67, 0, 30000),
+(5, '2018-04-23', 'Sukiyem', 'Bimomartani', 'A', 15, 3, 23, 0, 7000),
+(7, '2018-05-24', 'Sukiman', 'Bojong Asem', 'RW', 35, 5, 0, 0, 0),
+(8, '2018-05-17', 'Suparman', 'Magelang', 'KR', 45, 3, 0, 384000, 0),
+(9, '2018-05-17', 'Suparman', 'APa ya', 'KR', 45, 4, 0, 377000, 0),
+(10, '2018-05-08', 'Supomo', 'Jogja', 'MR', 44, 2, 0, 319000, 0),
+(11, '2018-05-16', 'Lamuna', 'Magelang', 'RW', 90, 100, 0, 100000, 0),
+(12, '2018-05-18', 'tuntun', 'mana/', 'RW', 56, 40, 0, 240000, 0);
 
 --
 -- Indexes for dumped tables
@@ -187,8 +197,7 @@ ALTER TABLE `tb_petani`
 -- Indexes for table `transaksi_petani`
 --
 ALTER TABLE `transaksi_petani`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `FK_petani` (`id_petani`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -223,7 +232,7 @@ ALTER TABLE `tb_petani`
 -- AUTO_INCREMENT for table `transaksi_petani`
 --
 ALTER TABLE `transaksi_petani`
-  MODIFY `id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- Constraints for dumped tables
 --
@@ -233,12 +242,6 @@ ALTER TABLE `transaksi_petani`
 --
 ALTER TABLE `harga_cabai`
   ADD CONSTRAINT `FK_cabai` FOREIGN KEY (`id_cabai`) REFERENCES `tb_cabai` (`id`);
-
---
--- Constraints for table `transaksi_petani`
---
-ALTER TABLE `transaksi_petani`
-  ADD CONSTRAINT `FK_petani` FOREIGN KEY (`id_petani`) REFERENCES `tb_petani` (`id`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

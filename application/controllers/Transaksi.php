@@ -60,9 +60,9 @@ class Transaksi extends CI_Controller {
 
     function edit_harga(){
     	$tb_transaksi = $this->model_transaksi_petani->tb_transaksi();
-    	$data = array(
-    			'data_cabai' => array(),
-    		);
+    	// $data = array(
+    	// 		'data_cabai' => array(),
+    	// 	);
 
 		foreach ($tb_transaksi as $tb) {
 			$data_cabai = array(
@@ -72,7 +72,11 @@ class Transaksi extends CI_Controller {
     			);
 		}
 
-		echo $data_cabai;
+		foreach ($tb_transaksi as $tb) {
+			# code...
+		}
+
+		
 
 		$this->model_transaksi_petani->update_harga($data);
 		redirect('Transaksi/transpetani');
