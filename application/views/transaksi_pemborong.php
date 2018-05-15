@@ -1,10 +1,11 @@
+
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Widgets
-        <small>Preview page</small>
+        Transaksi Pembeli
+        <small>_</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -15,90 +16,590 @@
     <!-- Main content -->
     <section class="content">
 
-      <div class="row">
-        <div class="col-md-9 col-sm-9 col-xs-12">
-          <div class="judul-box">
-            <span class="judul-box-icon bg-maroon">
-              <span class="judul-box-number" style="margin-top: 10%">23</span>
-              <span class="judul-box-text">Oktober</span>
-            </span> 
-            <div class="judul-box-content">
-              <div class="row">
-                <div class="col-md-7 col-sm-5 col-xs-12 col-md-offset-2">
-                  
-                  <div class="inpo-box bg-red"> 
-                    <span class="inpo-box-icon"> <i class="fa fa-cart-plus"></i> </span>
-                    <div class="inpo-box-content">
-                      <span class="inpo-box-text">Jumlah penyetor hari ini</span>
-                      <span class="inpo-box-number">23</span>
-                    </div>
-                  </div>
-                </div>
-
-                  <div class="row">
-                    <div class="col-md-5 col-sm-12 ">
-
-                      <div class="inpo-box"> 
-                        <span class="inpo-box-icon bg-fuchsia"> <i class="fa fa-download"></i> </span>
-                        <div class="inpo-box-content">
-                          <span class="inpo-box-text">Cabai setoran</span>
-                          <span class="inpo-box-number">155 kg</span>
-                        </div>
-                      </div>
-
-                      <div class="inpo-box"> 
-                        <span class="inpo-box-icon bg-purple"> <i class="fa fa-upload"></i> </span>
-                        <div class="inpo-box-content">
-                          <span class="inpo-box-text">Cabai terjual</span>
-                          <span class="inpo-box-number">100 kg</span>
-                        </div>
-                      </div>
-                    </div>
-
-
-                    <div class="col-md-5 col-sm-12">
-                      <div class="inpo-box"> 
-                        <span class="inpo-box-icon bg-fuchsia"> <i class="glyphicon glyphicon-upload"></i> </span>
-                        <div class="inpo-box-content">
-                          <span class="inpo-box-text">Uang keluar</span>
-                          <span class="inpo-box-number">Rp. 6,890,000</span>
-                        </div>
-                      </div>
-
-                      <div class="inpo-box"> 
-                        <span class="inpo-box-icon bg-purple"> <i class="glyphicon glyphicon-download"></i> </span>
-                        <div class="inpo-box-content">
-                          <span class="inpo-box-text">Uang yang diterima</span>
-                          <span class="inpo-box-number">Rp. 16,900,000</span>
-                        </div>
-                      </div>
-
-                    </div>
-                  </div>
-              </div>
-            </div>
-            <!-- /.info-box-content -->
+  <div class="row">
+        <!-- Action Button -->
+    <div class="col-md-3">
+        <div class="box box-solid">
+          <div class="box-header">
+            <h3 class="box-title">Masukkan Transaksi</h3>
           </div>
-          <!-- /.info-box -->
+          <!-- /.box-header -->
+          <div class="box-body" style="text-align: center;">
+             <div class="btn-group-vertical">
+                <button type="button" class="btn btn-block btn-setor-ver bg-maroon" data-toggle="modal" data-target="#inputSetoran"> <i class="fa fa-plus"></i> Masukkan Transaksi</button>
+                <button type="button" class="btn btn-block btn-setor-ver bg-purple"> <i class="fa fa-user-plus"></i> Tambah pemborong</button>
+            </div>
+          </div>
+          <div class="box-footer clearfix">
+            <h5 class="pull-left">
+              Jumlah pembelian hari ini
+            </h5>
+            <h4 class="pull-right" style="font-weight: bold">
+              64
+            </h4>
+          </div>
+                <!-- /.box-body -->
         </div>
-        <!-- /.col -->
+    </div>
+    <!-- END Action Button -->
 
-        <!-- /.col -->
-        <div class="col-md-3 col-sm-3 col-xs-6">
-          <div class="box box-info">
-            <div class="box-header">
-              <div class="box-title"> Masukkan setoran 
+    <!--tanggal dan info -->
+    <div class="col-md-4">
+      <div class="box">
+        <div class="box-header bg-gray">
+          <b><h4 class="pull-right">
+            <?php
+            echo "" . date("h:i:sa");
+            ?>
+          </h4> </b>
+        </div>
+        <div class="box-body" style="text-align: center">
+        <!-- array hari dan bulan -->
+              <SCRIPT LANGUAGE="Javascript">
+
+                // Array of day names
+                var dayNames = new Array("Minggu","Senin","Selasa","Rabu",
+                        "Kamis","Jumat","Sabtu");
+
+                // Array of month Names
+                var monthNames = new Array(
+                "Januari","Februari","Maret","April","Mei","Juni","Juli",
+                "Agustus","September","Oktober","November","Desember");
+              </SCRIPT>
+          <!-- END array hari dan bulan -->
+
+          <!-- tampilan tanggal hari ini -->
+          <table class="table-responsive table-condensed">
+            <tr style="width: 100%; text-align: center">
+              <td style="text-align: center; padding: 0px 10px 0px 10px; width: 25%">
+                <span style="font-size:50px; font-weight: bold">
+                  <script language="javascript">
+                    var now = new Date();
+                    document.write(now.getDate());
+                  </script>
+                </span> 
+                <span style="font-size:20px; text-transform: uppercase;">
+                  <script language="javascript">
+                    var now = new Date();
+                    document.write(monthNames[now.getMonth()]);
+                  </script>
+                </span>
+              </td>
+              <td style="text-align: center; padding: 0px 10px 0px 10px; width: 65%">
+                <span style="font-size:40px; font-weight: bold; text-transform: uppercase;">
+                  <script language="javascript">
+                    var now = new Date();
+                    document.write(dayNames[now.getDay()]);
+                  </script>
+                </span> 
+              </td>
+              <td style="text-align: center; padding: 0px 10px 0px 10px; width: 10%">
+                <span style="font-size:20px;">
+                  <script language="javascript">
+                    var now = new Date();
+                    document.write(now.getFullYear());
+                  </script>
+                </span> 
+              </td>
+            </tr>
+          </table>
+          <!-- tampilan tanggal hari ini -->
+        </div>
+        <div class="box-footer">
+              <div class="row">
+                <div class="col-sm-4 col-xs-6">
+                  <div class="description-block border-right">
+                    <span class="description-percentage text-green"><i class="fa fa-download"></i></span>
+                    <h3 class="description-header">$35,210.43</h3>
+                    <p class="description-text">CABAI MASUK</p>
+                  </div>
+                  <!-- /.description-block -->
+                </div>
+                <!-- /.col -->
+                <div class="col-sm-4 col-xs-6">
+                  <div class="description-block border-right">
+                    <span class="text-red"><i class="fa fa-upload"></i></span>
+                    <h3 class="description-header">$10,390.90</h3>
+                    <p class="description-text">CABAI TERJUAL</p>
+                  </div>
+                  <!-- /.description-block -->
+                </div>
+                <!-- /.col -->
+                <div class="col-sm-4 col-xs-6">
+                  <div class="description-block border-right">
+                    <span class="description-percentage text-blue"><i class="fa fa-money"></i></span>
+                    <h3 class="description-header">$24,813.53</h3>
+                    <p class="description-text">UANG KELUAR</p>
+                  </div>
+                  <!-- /.description-block -->
+                </div>
+                <!-- /.col -->
               </div>
+              <!-- /.row -->
             </div>
+      </div>
+    </div>
+  </div>
+    <!-- END tanggal dan info -->
 
-            <div class="box-body" style="height: 160px; line-height:130px; text-align: center;">
-
-                <button type="button" class="btn btn-setor bg-maroon"> <i class="fa fa-plus"></i> Inputkan penjualan</button>
-              
-<!--               <a class="btn btn-setor">
-                <i class="fa fa-edit"></i> Edit
-              </a> -->
+  <div class="row">
+    <div class="col-md-12">
+      <!-- tabel -->
+          <div class="box">
+            <div class="box-header">
+              <h3 class="box-title">Data Table With Full Features</h3>
             </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+              <table id="example1" class="table table-bordered table-striped">
+                <thead>
+                <tr class="bg-gray">
+                  <th style="text-align: center; line-height: 50px" rowspan="2">No</th>
+                  <th style="text-align: center; line-height: 50px" rowspan="2">Tanggal</th>
+                  <th style="text-align: center; line-height: 50px" rowspan="2">Nama</th>
+                  <th style="text-align: center; line-height: 50px" rowspan="2">Asal Daerah</th>
+                  <th style="text-align: center; line-height: 50px" rowspan="2">Kode</th>
+                  <!-- <th style="text-align: center;" colspan="3">Berat</th>
+                  <th style="text-align: center; line-height: 50px" rowspan="2">Harga</th>
+                  <th style="text-align: center; line-height: 50px" rowspan="2">Jumlah Uang</th>
+                  <th style="text-align: center; line-height: 50px" rowspan="2">Transfer</th>
+                  <th style="text-align: center; line-height: 50px" rowspan="2">Edit</th>
+                </tr>
+                <tr class="bg-gray">
+                  <th>Kotor </th>
+                  <th>BS/ MTL </th>
+                  <th>Bersih </th> -->
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                  <td>Trident</td>
+                  <td>Internet
+                    Explorer 4.0
+                  </td>
+                  <td>Win 95+</td>
+                  <td> 4</td>
+                  <td>X</td>
+                </tr>
+                <tr>
+                  <td>Trident</td>
+                  <td>Internet
+                    Explorer 5.0
+                  </td>
+                  <td>Win 95+</td>
+                  <td>5</td>
+                  <td>C</td>
+                </tr>
+                <tr>
+                  <td>Trident</td>
+                  <td>Internet
+                    Explorer 5.5
+                  </td>
+                  <td>Win 95+</td>
+                  <td>5.5</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Trident</td>
+                  <td>Internet
+                    Explorer 6
+                  </td>
+                  <td>Win 98+</td>
+                  <td>6</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Trident</td>
+                  <td>Internet Explorer 7</td>
+                  <td>Win XP SP2+</td>
+                  <td>7</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Trident</td>
+                  <td>AOL browser (AOL desktop)</td>
+                  <td>Win XP</td>
+                  <td>6</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Gecko</td>
+                  <td>Firefox 1.0</td>
+                  <td>Win 98+ / OSX.2+</td>
+                  <td>1.7</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Gecko</td>
+                  <td>Firefox 1.5</td>
+                  <td>Win 98+ / OSX.2+</td>
+                  <td>1.8</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Gecko</td>
+                  <td>Firefox 2.0</td>
+                  <td>Win 98+ / OSX.2+</td>
+                  <td>1.8</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Gecko</td>
+                  <td>Firefox 3.0</td>
+                  <td>Win 2k+ / OSX.3+</td>
+                  <td>1.9</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Gecko</td>
+                  <td>Camino 1.0</td>
+                  <td>OSX.2+</td>
+                  <td>1.8</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Gecko</td>
+                  <td>Camino 1.5</td>
+                  <td>OSX.3+</td>
+                  <td>1.8</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Gecko</td>
+                  <td>Netscape 7.2</td>
+                  <td>Win 95+ / Mac OS 8.6-9.2</td>
+                  <td>1.7</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Gecko</td>
+                  <td>Netscape Browser 8</td>
+                  <td>Win 98SE+</td>
+                  <td>1.7</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Gecko</td>
+                  <td>Netscape Navigator 9</td>
+                  <td>Win 98+ / OSX.2+</td>
+                  <td>1.8</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Gecko</td>
+                  <td>Mozilla 1.0</td>
+                  <td>Win 95+ / OSX.1+</td>
+                  <td>1</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Gecko</td>
+                  <td>Mozilla 1.1</td>
+                  <td>Win 95+ / OSX.1+</td>
+                  <td>1.1</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Gecko</td>
+                  <td>Mozilla 1.2</td>
+                  <td>Win 95+ / OSX.1+</td>
+                  <td>1.2</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Gecko</td>
+                  <td>Mozilla 1.3</td>
+                  <td>Win 95+ / OSX.1+</td>
+                  <td>1.3</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Gecko</td>
+                  <td>Mozilla 1.4</td>
+                  <td>Win 95+ / OSX.1+</td>
+                  <td>1.4</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Gecko</td>
+                  <td>Mozilla 1.5</td>
+                  <td>Win 95+ / OSX.1+</td>
+                  <td>1.5</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Gecko</td>
+                  <td>Mozilla 1.6</td>
+                  <td>Win 95+ / OSX.1+</td>
+                  <td>1.6</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Gecko</td>
+                  <td>Mozilla 1.7</td>
+                  <td>Win 98+ / OSX.1+</td>
+                  <td>1.7</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Gecko</td>
+                  <td>Mozilla 1.8</td>
+                  <td>Win 98+ / OSX.1+</td>
+                  <td>1.8</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Gecko</td>
+                  <td>Seamonkey 1.1</td>
+                  <td>Win 98+ / OSX.2+</td>
+                  <td>1.8</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Gecko</td>
+                  <td>Epiphany 2.20</td>
+                  <td>Gnome</td>
+                  <td>1.8</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Webkit</td>
+                  <td>Safari 1.2</td>
+                  <td>OSX.3</td>
+                  <td>125.5</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Webkit</td>
+                  <td>Safari 1.3</td>
+                  <td>OSX.3</td>
+                  <td>312.8</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Webkit</td>
+                  <td>Safari 2.0</td>
+                  <td>OSX.4+</td>
+                  <td>419.3</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Webkit</td>
+                  <td>Safari 3.0</td>
+                  <td>OSX.4+</td>
+                  <td>522.1</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Webkit</td>
+                  <td>OmniWeb 5.5</td>
+                  <td>OSX.4+</td>
+                  <td>420</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Webkit</td>
+                  <td>iPod Touch / iPhone</td>
+                  <td>iPod</td>
+                  <td>420.1</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Webkit</td>
+                  <td>S60</td>
+                  <td>S60</td>
+                  <td>413</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Presto</td>
+                  <td>Opera 7.0</td>
+                  <td>Win 95+ / OSX.1+</td>
+                  <td>-</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Presto</td>
+                  <td>Opera 7.5</td>
+                  <td>Win 95+ / OSX.2+</td>
+                  <td>-</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Presto</td>
+                  <td>Opera 8.0</td>
+                  <td>Win 95+ / OSX.2+</td>
+                  <td>-</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Presto</td>
+                  <td>Opera 8.5</td>
+                  <td>Win 95+ / OSX.2+</td>
+                  <td>-</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Presto</td>
+                  <td>Opera 9.0</td>
+                  <td>Win 95+ / OSX.3+</td>
+                  <td>-</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Presto</td>
+                  <td>Opera 9.2</td>
+                  <td>Win 88+ / OSX.3+</td>
+                  <td>-</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Presto</td>
+                  <td>Opera 9.5</td>
+                  <td>Win 88+ / OSX.3+</td>
+                  <td>-</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Presto</td>
+                  <td>Opera for Wii</td>
+                  <td>Wii</td>
+                  <td>-</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Presto</td>
+                  <td>Nokia N800</td>
+                  <td>N800</td>
+                  <td>-</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Presto</td>
+                  <td>Nintendo DS browser</td>
+                  <td>Nintendo DS</td>
+                  <td>8.5</td>
+                  <td>C/A<sup>1</sup></td>
+                </tr>
+                <tr>
+                  <td>KHTML</td>
+                  <td>Konqureror 3.1</td>
+                  <td>KDE 3.1</td>
+                  <td>3.1</td>
+                  <td>C</td>
+                </tr>
+                <tr>
+                  <td>KHTML</td>
+                  <td>Konqureror 3.3</td>
+                  <td>KDE 3.3</td>
+                  <td>3.3</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>KHTML</td>
+                  <td>Konqureror 3.5</td>
+                  <td>KDE 3.5</td>
+                  <td>3.5</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Tasman</td>
+                  <td>Internet Explorer 4.5</td>
+                  <td>Mac OS 8-9</td>
+                  <td>-</td>
+                  <td>X</td>
+                </tr>
+                <tr>
+                  <td>Tasman</td>
+                  <td>Internet Explorer 5.1</td>
+                  <td>Mac OS 7.6-9</td>
+                  <td>1</td>
+                  <td>C</td>
+                </tr>
+                <tr>
+                  <td>Tasman</td>
+                  <td>Internet Explorer 5.2</td>
+                  <td>Mac OS 8-X</td>
+                  <td>1</td>
+                  <td>C</td>
+                </tr>
+                <tr>
+                  <td>Misc</td>
+                  <td>NetFront 3.1</td>
+                  <td>Embedded devices</td>
+                  <td>-</td>
+                  <td>C</td>
+                </tr>
+                <tr>
+                  <td>Misc</td>
+                  <td>NetFront 3.4</td>
+                  <td>Embedded devices</td>
+                  <td>-</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Misc</td>
+                  <td>Dillo 0.8</td>
+                  <td>Embedded devices</td>
+                  <td>-</td>
+                  <td>X</td>
+                </tr>
+                <tr>
+                  <td>Misc</td>
+                  <td>Links</td>
+                  <td>Text only</td>
+                  <td>-</td>
+                  <td>X</td>
+                </tr>
+                <tr>
+                  <td>Misc</td>
+                  <td>Lynx</td>
+                  <td>Text only</td>
+                  <td>-</td>
+                  <td>X</td>
+                </tr>
+                <tr>
+                  <td>Misc</td>
+                  <td>IE Mobile</td>
+                  <td>Windows Mobile 6</td>
+                  <td>-</td>
+                  <td>C</td>
+                </tr>
+                <tr>
+                  <td>Misc</td>
+                  <td>PSP browser</td>
+                  <td>PSP</td>
+                  <td>-</td>
+                  <td>C</td>
+                </tr>
+                <tr>
+                  <td>Other browsers</td>
+                  <td>All others</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>U</td>
+                </tr>
+                </tbody>
+                <tfoot>
+                <tr>
+                  <th>Rendering engine</th>
+                  <th>Browser</th>
+                  <th>Platform(s)</th>
+                  <th>Engine version</th>
+                  <th>CSS grade</th>
+                </tr>
+                </tfoot>
+              </table>
+            </div>
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box tabel -->
+
+
+    </div>
+  </div>  
+
+      </div>
           </div>
           <!-- /.info-box -->
         </div>
@@ -106,89 +607,6 @@
         <div class="clearfix"> </div>
       </div>
       <!-- /.row -->
-
-<!-- tabel -->
- <div class="row">
-        <div class="col-xs-12">
-          <div class="box">
-            <div class="box-header">
-              <h3 class="box-title">Catatan harian</h3>
-
-              <div class="box-tools">
-                <div class="input-group input-group-sm" style="width: 150px;">
-                  <input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
-
-                  <div class="input-group-btn">
-                    <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body table-responsive no-padding">
-              <table class="table table-hover" style="font-size: 15px">
-                <tr class="bg-gray">
-                  <th style="text-align: center; line-height: 50px" rowspan="2">Tanggal</th>
-                  <th style="text-align: center; line-height: 50px" rowspan="2">Nama</th>
-                  <th style="text-align: center; line-height: 50px" rowspan="2">Alamat</th>
-                  <th style="text-align: center;" colspan="3">Berat</th>
-                  <th style="text-align: center; line-height: 50px" rowspan="2">Harga</th>
-                  <th style="text-align: center; line-height: 50px" rowspan="2">Jumlah Uang </th>
-                  <th style="text-align: center; line-height: 50px" rowspan="2">Transfer</th>
-                  <th style="text-align: center; line-height: 50px" rowspan="2">Saldo</th>
-                  <th style="text-align: center; line-height: 50px" rowspan="2">Modal</th>
-                </tr>
-                <tr class="bg-gray">
-                  <th>Colly </th>
-                  <th>Kode </th>
-                  <th>Bersih </th>
-                </tr>
-                <tr>
-                  <td>1/9 2017</td>
-                  <td>Geprek Susu Gejayan</td>
-                  <td>Yogya</td>
-                  <td>10</td>
-                  <td>A</td>
-                  <td>300</td>
-                  <td>10000</td>
-                  <td>3.000.0000</td>
-                  <td>-</td>
-                  <td class="text-success"><strong>D 3.000.000</strong></td>
-                  <td>-</td>
-                </tr>
-                <tr>
-                  <td>5/9 2017</td>
-                  <td>Dua Kelinci</td>
-                  <td>Depok</td>
-                  <td>5</td>
-                  <td>B</td>
-                  <td>150</td>
-                  <td>11.0000</td>
-                  <td>1.500.000</td>
-                  <td>12.300.000</td>
-                  <td class="text-success"><strong>D 2.860.000</strong></td>
-                  <td>-</td>
-                </tr>
-                <tr>
-                  <td>6/9 2017</td>
-                  <td>Kacang Garuda</td>
-                  <td>Tangerang</td>
-                  <td>14</td>
-                  <td>A</td>
-                  <td>100</td>
-                  <td>12.0000</td>
-                  <td>2.400.000</td>
-                  <td>10.000.000</td>
-                  <td class="text-danger"><strong>K 500.000</strong></td>
-                  <td>-</td>
-                </tr>
-              </table>
-            </div>
-            <!-- /.box-body -->
-          </div>
-          <!-- /.box -->
-        </div>
-      </div>
 
 
     </section>
@@ -399,3 +817,83 @@
   <div class="control-sidebar-bg"></div>
 </div>
 <!-- ./wrapper -->
+
+<!-- Modal Input Setoran-->
+<div id="inputSetoran" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Input Setoran</h4>
+      </div>
+      <form action="<?php echo base_url().'Transaksi/tambah_transaksi'; ?>" method="post">
+      <div class="modal-body">
+
+        <div class="row" style="padding-bottom: 5px">
+          <div class="col-md-4">
+            <label>Tanggal :</label>
+          </div>
+          <div class="col-md-8">
+            <input type="text" name="tanggal" class="form-control input-tanggal datepicker">
+          </div>
+        </div>
+
+        <div class="row" style="padding-bottom: 5px">
+          <div class="col-md-4">
+            <label>Nama Petani :</label>
+          </div>
+          <div class="col-md-8">
+            <input type="text" name="nama_petani" class="form-control">
+          </div>
+        </div>
+
+        <div class="row" style="padding-bottom: 5px">
+          <div class="col-md-4">
+            <label>Asal Daerah :</label>
+          </div>
+          <div class="col-md-8">
+           <input type="text" name="asal_daerah" class="form-control">
+          </div>
+        </div>
+
+        <div class="row" style="padding-bottom: 5px">
+          <div class="col-md-4">
+           <label>Jenis Cabai :</label>
+          </div>
+          <div class="col-md-8">
+            <?php
+                $dd_cabai_attribute = 'class="form-control"';
+                echo form_dropdown('cabai', $dd_cabai, $cabai_selected, $dd_cabai_attribute);
+                ?>
+          </div>
+        </div>
+              
+        <div class="col-md-12" style="text-align: center; padding-bottom: 5px; padding-top: 10px">      
+          <b>Berat</b>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+              <label>Kotor</label>
+              <input type="text" name="berat_kotor">kg
+            </div>
+            <div class="col-md-6">
+              <label>BS</label>
+              <input type="text" name="berat_bs">kg
+            </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <input type="submit" class="btn btn-info" value="Submit">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+
+    </form>
+    </div>
+
+  </div>
+</div>
+<!-- END Modal Input Setoran -->
+

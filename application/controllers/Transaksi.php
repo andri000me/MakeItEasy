@@ -84,7 +84,9 @@ class Transaksi extends CI_Controller {
 
 	public function transborong()
 		{
-			$this->load->view('transaksi_pemborong');
+			$this->load->view('header');
+            $this->load->view('transaksi_pemborongREV');
+            $this->load->view('footer');
 		}
 
     function next_transaksi(){
