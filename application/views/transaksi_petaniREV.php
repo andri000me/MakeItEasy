@@ -20,7 +20,7 @@
       <div class="col-md-5">
         <div class="box box-solid">
           <div class="box-header with-border">
-            <h3 class="box-title">Harga Cabai Hari Ini</h3>
+            <h3 class="box-title">Harga Cabai Hari Ini (<?php echo $today ?>)</h3>
           </div>
           <!-- /.box-header -->
           <div class="box-body ">
@@ -38,34 +38,15 @@
                     </tr>
                 </thead>
                 <tbody>
-                <tr>
-                  <td>1.</td>
-                  <td>A1</td>
-                  <td>Cabe Keriting</td>
-                  <td>10000</td>
-                  <td>2000</td>
-                </tr>
-                <tr>
-                  <td>2.</td>
-                  <td>A1</td>
-                  <td>Cabe Keriting</td>
-                  <td>10000</td>
-                  <td>2000</td>
-                </tr>
-                <tr>
-                  <td>3.</td>
-                  <td>A1</td>
-                  <td>Cabe Keriting</td>
-                  <td>10000</td>
-                  <td>2000</td>
-                </tr>
-                <tr>
-                  <td>4.</td>
-                  <td>A1</td>
-                  <td>Cabe Keriting</td>
-                  <td>10000</td>
-                  <td>2000</td>
-                </tr>
+                  <?php $no=1; foreach ($harga_today as $tb): ?>
+                    <tr>
+                      <td><?= $no ?></td>
+                      <td><?= $tb->kode ?></td>
+                      <td><?= $tb->jenis ?></td>
+                      <td><?= $tb->harga_bs ?></td>
+                      <td><?= $tb->harga_bersih ?></td>
+                    </tr>
+                  <?php $no++; endforeach ?>
                 </tbody>
               </table>
           </div>
@@ -209,84 +190,49 @@
         <div class="col-sm-12">
           <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Catatan harian</h3>
-
-              <div class="box-tools">
-                <div class="input-group input-group-sm" style="width: 150px;">
-                  <input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
-
-                  <div class="input-group-btn">
-                    <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
-                  </div>
-                </div>
-              </div>
+              <h3 class="box-title">Catatan harian tanggal : <?php echo $today; ?></h3>
             </div>
+
             <!-- /.box-header -->
             <div class="box-body table-responsive no-padding">
-              <table class="table table-hover" style="font-size: 15px">
-                <tr class="bg-gray">
-                  <th style="text-align: center; line-height: 50px" rowspan="2">ID</th>
-                  <th style="text-align: center; line-height: 50px" rowspan="2">Nama</th>
-                  <th style="text-align: center; line-height: 50px" rowspan="2">Asal Daerah</th>
-                  <th style="text-align: center;" colspan="3">Berat</th>
-                  <th style="text-align: center; line-height: 50px" rowspan="2">Harga</th>
-                  <th style="text-align: center; line-height: 50px" rowspan="2">Jumlah Uang</th>
-                  <th style="text-align: center; line-height: 50px" rowspan="2">Bon</th>
-                  <th style="text-align: center; line-height: 50px" rowspan="2">Saldo</th>
-                </tr>
-                <tr class="bg-gray">
-                  <th>Kotor </th>
-                  <th>BS/ MTL </th>
-                  <th>Bersih </th>
-                </tr>
-                <tr>
-                  <td>183</td>
-                  <td>Menik</td>
-                  <td>Gombong</td>
-                  <td>28,5</td>
-                  <td>2</td>
-                  <td>26</td>
-                  <td>54000</td>
-                  <td>1.404.000</td>
-                  <td>35.000.000</td>
-                  <td class="text-success"><strong>D 22.9222.000</strong></td>
-                </tr>
-                <tr>
-                  <td>219</td>
-                  <td>Annisa Amalia</td>
-                  <td>Talun</td>
-                  <td>28,5</td>
-                  <td>2</td>
-                  <td>26</td>
-                  <td>54000</td>
-                  <td>1.404.000</td>
-                  <td>35.000.000</td>
-                  <td class="text-success"><strong>D 22.9222.000</strong></td>
-                </tr>
-                <tr>
-                  <td>657</td>
-                  <td>Thufalifa</td>
-                  <td>Muntilan</td>
-                  <td>28,5</td>
-                  <td>2</td>
-                  <td>26</td>
-                  <td>54000</td>
-                  <td>1.404.000</td>
-                  <td>35.000.000</td>
-                  <td class="text-success"><strong>D 22.9222.000</strong></td>
-                </tr>
-                <tr>
-                  <td>175</td>
-                  <td>Paijo</td>
-                  <td>Bantul</td>
-                  <td>28,5</td>
-                  <td>2</td>
-                  <td>26</td>
-                  <td>54000</td>
-                  <td>1.404.000</td>
-                  <td>35.000.000</td>
-                  <td class="text-success"><strong>D 22.9222.000</strong></td>
-                </tr>
+              <table id="tabel_transaksi" class="table table-bordered table-striped" style="font-size: 15px">
+                <thead>
+                  <tr class="bg-gray">
+                    <th style="text-align: center; line-height: 10px" rowspan="2">#</th>
+                    <th style="text-align: center; line-height: 30px" rowspan="2">ID</th>
+                    <th style="text-align: center; line-height: 50px" rowspan="2">Nama</th>
+                    <th style="text-align: center; line-height: 50px" rowspan="2">Asal Daerah</th>
+                    <th style="text-align: center; line-height: 50px" rowspan="2">Kode Cabai</th>
+                    <th style="text-align: center;" colspan="3">Berat</th>
+                    <th style="text-align: center; line-height: 50px" rowspan="2">Harga</th>
+                    <th style="text-align: center; line-height: 50px" rowspan="2">Jumlah Uang</th>
+                    <th style="text-align: center; line-height: 50px" rowspan="2">Bon</th>
+                    <th style="text-align: center; line-height: 50px" rowspan="2">Saldo</th>
+                  </tr>
+                  <tr class="bg-gray">
+                    <th>Kotor </th>
+                    <th>BS/ MTL </th>
+                    <th>Bersih </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <?php $no=1; foreach ($tb_transaksi as $tb): ?>
+                    <tr>
+                      <td><?= $no ?></td>
+                      <td><?= $tb->id_petani ?></td>
+                      <td><?= $tb->nama ?></td>
+                      <td><?= $tb->desa ?></td>
+                      <td><?= $tb->kode_cabai ?></td>
+                      <td><?= $tb->berat_kotor ?></td>
+                      <td><?= $tb->berat_bs ?></td>
+                      <td><?= $tb->berat_kotor-$tb->berat_bs?></td>
+                      <td>Harga</td>
+                      <td>Jumlah Uang</td>
+                      <td><?= $tb->bon ?></td>
+                      <td><?= $tb->saldo ?></td>
+                    </tr>
+                  <?php $no++; endforeach ?>
+                </tbody>
               </table>
             </div>
             <!-- /.box-body -->
@@ -504,3 +450,27 @@
 
 <!-- ./wrapper -->
 
+<!-- jQuery 3 -->
+<script src="<?php echo base_url();?>assets/bower_components/jquery/dist/jquery.min.js"></script>
+<!-- Bootstrap 3.3.7 -->
+<script src="<?php echo base_url();?>assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- DataTables -->
+<script src="<?php echo base_url();?>assets/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="<?php echo base_url();?>assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<!-- Slimscroll -->
+<script src="<?php echo base_url();?>assets/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+<!-- FastClick -->
+<script src="<?php echo base_url();?>assets/bower_components/fastclick/lib/fastclick.js"></script>
+<!-- AdminLTE App -->
+<script src="<?php echo base_url();?>assets/js/adminlte.min.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="<?php echo base_url();?>assets/js/demo.js"></script>
+
+<script>
+  $(function () {
+    $('#tabel_transaksi').DataTable()
+  })
+</script>
+
+</body>
+</html>
