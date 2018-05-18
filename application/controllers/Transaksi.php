@@ -114,4 +114,11 @@ class Transaksi extends CI_Controller {
 
         $this->load->view('transaksi_add', $data);
     }
+
+    public function datapetani()
+    {
+        $this->load->view('header');
+        $this->load->view('data_petani');
+        $this->load->view('footer');
+    }
 }
