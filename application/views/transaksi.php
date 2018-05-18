@@ -41,7 +41,7 @@ h1 {
 }
 
 input {
-  padding: 10px;
+  padding: 5px;
   font-size: 17px;
   font-family: Raleway;
   border: 1px solid #aaaaaa;
@@ -147,20 +147,23 @@ button:hover {
 			    <p><input placeholder="Tanggal..." oninput="this.className = ''" name="tgl_setor"></p>
 			    <label for="nama_setor">Nama</label>
 			    <p><input placeholder="Masukkan Nama atau ID..." oninput="this.className = ''" name="nama_setor"></p>
-			    <label>Jenis Cabai</label>
+			    <label for="cabai_setor">Jenis Cabai</label>
+			    <p><input placeholder="Masukkan Nama atau ID..." oninput="this.className = ''" name="cabai_setor"></p>
+			    <label for="cabai_setor">Harga</label>
+			    <p><input oninput="this.className = ''" name="cabai_setor"></p>
+		   	    <label for="berat_kotor">Berat Kotor</label>
+			    <input oninput="this.className = ''" name="berat_kotor">
+			    <label for="berat_bs">Berat BS</label>
+			    <input oninput="this.className = ''" name="berat_bs">
+			    <label for="berat_bersih">Berat Bersih</label>
+			    <input oninput="this.className = ''" name="berat_bersih">
 			  </div>
-			  <div class="tab">Contact Info:
-			    <p><input placeholder="E-mail..." oninput="this.className = ''" name="email"></p>
-			    <p><input placeholder="Phone..." oninput="this.className = ''" name="phone"></p>
-			  </div>
-			  <div class="tab">Birthday:
-			    <p><input placeholder="dd" oninput="this.className = ''" name="dd"></p>
-			    <p><input placeholder="mm" oninput="this.className = ''" name="nn"></p>
-			    <p><input placeholder="yyyy" oninput="this.className = ''" name="yyyy"></p>
-			  </div>
-			  <div class="tab">Login Info:
-			    <p><input placeholder="Username..." oninput="this.className = ''" name="uname"></p>
-			    <p><input placeholder="Password..." oninput="this.className = ''" name="pword" type="password"></p>
+			  <div class="tab">
+			    <p class="pull-right"><b>[ID] Nama</b></p><br>
+			    <p class="pull-right">Saldo</p>
+			    <p>Total Uang Cabai ...</p>
+			    <h4>BON</h4>
+			    <p><input oninput="this.className = ''" name="uang_bon"></p>
 			  </div>
 			  <div style="overflow:auto;">
 			    <div style="float:right;">
@@ -170,7 +173,6 @@ button:hover {
 			  </div>
 			  <!-- Circles which indicates the steps of the form: -->
 			  <div style="text-align:center;margin-top:40px;">
-			    <span class="step"></span>
 			    <span class="step"></span>
 			    <span class="step"></span>
 			  </div>
