@@ -51,15 +51,15 @@
               </table>
           </div>
           <div class="box-footer clearfix">
-            <button type="button" class="btn btn-sm btn-default pull-right">
-              <i class="fa fa-edit"></i> Lihat & Edit Harga </button>
+            <button type="button" class="btn btn-sm btn-default pull-right" data-toggle="modal" data-target="#editHarga">
+              <i class="fa fa-edit"></i> Edit Harga </button>
           </div>
                 <!-- /.box-body -->
         </div>
       </div>
     <!-- END Harga Cabe -->
 
-    <!-- Harga Bon -->
+    <!-- Action Button -->
     <div class="col-md-3">
         <div class="box box-solid">
           <div class="box-header">
@@ -68,7 +68,7 @@
           <!-- /.box-header -->
           <div class="box-body" style="text-align: center;">
              <div class="btn-group-vertical">
-                <button type="button" class="btn btn-block btn-setor-ver bg-green"> <i class="fa fa-plus"></i> Inputkan Setoran</button>
+                <button type="button" class="btn btn-block btn-setor-ver bg-green" data-toggle="modal" data-target="#inputSetoran"> <i class="fa fa-plus"></i> Inputkan Setoran</button>
                 <button type="button" class="btn btn-block btn-setor-ver bg-yellow"> <i class="fa fa-user-plus"></i> Tambah petani</button>
             </div>
           </div>
@@ -83,7 +83,7 @@
                 <!-- /.box-body -->
         </div>
     </div>
-    <!-- END Harga Bon -->
+    <!-- END Action Button -->
 
     <!--tanggal dan info -->
     <div class="col-md-4">
@@ -195,6 +195,7 @@
 
             <!-- /.box-header -->
             <div class="box-body table-responsive no-padding">
+
               <table id="tabel_transaksi" class="table table-bordered table-striped" style="font-size: 15px">
                 <thead>
                   <tr class="bg-gray">
@@ -233,6 +234,7 @@
                     </tr>
                   <?php $no++; endforeach ?>
                 </tbody>
+
               </table>
             </div>
             <!-- /.box-body -->

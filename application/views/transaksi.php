@@ -187,18 +187,18 @@ button:hover {
 			<label>Tanggal</label>
 			<input type="text" name="tanggal" class="input-tanggal" style="width: 100px"></td><br>
 				
-			<label>ID Petani</label>
+			<label>Nama Petani</label>
 			<input type="text" name="id_petani" style="width: 100px"><br>
 		
 			<label>Jenis Cabai</label>
 			<input type="text" name="kode_cabai" style="width: 100px"><br>
 		
 			<b>Berat</b>
+			<label>Kotor</label>
+			<input type="text" name="berat_kotor" style="width: 50px">kg<br>
+		
 			<label>BS</label>
 			<input type="text" name="berat_bs" style="width: 50px">kg<br>
-		
-			<label>Bersih</label>
-			<input type="text" name="berat_bersih" style="width: 50px">kg<br>
 
 			<input type="submit" value="Next">
 
