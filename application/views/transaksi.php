@@ -144,9 +144,13 @@ button:hover {
 			  <div class="tab">
 			  	<h4>Setoran Cabai</h4>
 			  	<label for="tgl_setor">Tanggal</label>
-			    <p><input placeholder="Tanggal..." oninput="this.className = ''" name="tgl_setor"></p>
+			    <p><input placeholder="Tanggal..." class="input-tanggal required" oninput="this.className = ''" name="tgl_setor"></p>
+
 			    <label for="nama_setor">Nama</label>
-			    <p><input placeholder="Masukkan Nama atau ID..." oninput="this.className = ''" name="nama_setor"></p>
+			    <p><input type="text" name="nama_setor" placeholder="Masukkan Nama atau ID..." class="required" id="nama_setor" oninput="this.className = ''" ></p>
+
+			    <label for="nama_setor">Saldo</label>
+			    <p><input placeholder="" oninput="this.className = ''" name="saldo_setor"></p>
 			    <label for="cabai_setor">Jenis Cabai</label>
 			    <p><input placeholder="Masukkan Nama atau ID..." oninput="this.className = ''" name="cabai_setor"></p>
 			    <label for="cabai_setor">Harga</label>
@@ -188,7 +192,7 @@ button:hover {
 			<input type="text" name="tanggal" class="input-tanggal" style="width: 100px"></td><br>
 				
 			<label>Nama Petani</label>
-			<input type="text" name="id_petani" style="width: 100px"><br>
+			<input type="text" name="nama_petani" id="nama_petani" style="width: 100px"><br>
 		
 			<label>Jenis Cabai</label>
 			<input type="text" name="kode_cabai" style="width: 100px"><br>
@@ -201,7 +205,6 @@ button:hover {
 			<input type="text" name="berat_bs" style="width: 50px">kg<br>
 
 			<input type="submit" value="Next">
-
 		</form>
 
 		<label>Nama Petani</label><br>
@@ -289,19 +292,17 @@ button:hover {
 <!-- AdminLTE for demo purposes -->
 <script src="<?php echo base_url();?>assets/js/demo.js"></script>
     <!-- js autocomplete jquery -->
-    <!-- <script type="text/javascript">
+    <script type="text/javascript">
         $(document).ready(function(){
-            $( "#bon" ).autocomplete({
-              source: "<?php //echo site_url('Transaksi2/get_autocomplete/?');?>"
+            $( "#nama_petani" ).autocomplete({
+              source: "<?php echo site_url('Transaksi2/get_petani/?');?>",
             });
         });
-    </script> -->
+    </script>
     <!-- js jquery-ui tanggalan -->
     <script type="text/javascript">
 		$(document).ready(function(){
-			$('.input-tanggal').datepicker({
-				dateFormat : 'yy-mm-dd'
-			});		
+					
 		});
 	</script>
 
@@ -351,7 +352,7 @@ function validateForm() {
   // This function deals with validation of the form fields
   var x, y, i, valid = true;
   x = document.getElementsByClassName("tab");
-  y = x[currentTab].getElementsByTagName("input");
+  y = x[currentTab].getElementsByClassName("required");
   // A loop that checks every input field in the current tab:
   for (i = 0; i < y.length; i++) {
     // If a field is empty...
