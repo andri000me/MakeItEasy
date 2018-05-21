@@ -148,322 +148,61 @@
 
           <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Data Table With Full Features</h3>
+              <h3 class="box-title">Catatan harian tanggal : </h3>
             </div>
             <!-- /.box-header -->
-            <div class="box-body">
+            <div class="box-body table-responsive">
               <table id="example1" class="table table-bordered table-striped">
-                <thead>
-                <tr>
-                  <th>No</th>
-                  <th>Tanggal dan Waktu</th>
-                  <th>Nama</th>
-                  <th>Asal</th>
-                  <th>Kode</th>
-                </tr>
+                 <thead>
+                  <tr class="bg-gray">
+                    <th style="text-align: center; line-height: 10px" rowspan="2">#</th>
+                    <th style="text-align: center; line-height: 30px" rowspan="2">ID</th>
+                    <th style="text-align: center; line-height: 50px" rowspan="2">Nama</th>
+                    <th style="text-align: center; line-height: 50px" rowspan="2">Asal Daerah</th>
+                    <th style="text-align: center;" colspan="3">Berat</th>
+                    <th style="text-align: center; line-height: 50px" rowspan="2">Harga</th>
+                    <th style="text-align: center; line-height: 50px" rowspan="2">Jumlah Uang</th>
+                    <th style="text-align: center; line-height: 50px" rowspan="2">Transferan </th>
+                    <th style="text-align: center; line-height: 50px" rowspan="2">Saldo</th>
+                    <th style="text-align: center; line-height: 50px" rowspan="2">Modal</th>
+                    <th style="text-align: center; line-height: 50px" rowspan="2">Edit</th>
+                  </tr>
+                  <tr class="bg-gray">
+                    <th>Colly </th>
+                    <th>Kode </th>
+                    <th>Bersih </th>
+                  </tr>
                 </thead>
                 <tbody>
                 <tr>
-                  <td>Trident</td>
-                  <td>Internet
-                    Explorer 4.0
-                  </td>
-                  <td>Win 95+</td>
-                  <td> 4</td>
-                  <td>X</td>
-                </tr>
-                <tr>
-                  <td>Trident</td>
-                  <td>Internet
-                    Explorer 5.0
-                  </td>
-                  <td>Win 95+</td>
-                  <td>5</td>
-                  <td>C</td>
-                </tr>
-                <tr>
-                  <td>Trident</td>
-                  <td>Internet
-                    Explorer 5.5
-                  </td>
-                  <td>Win 95+</td>
-                  <td>5.5</td>
-                  <td>A</td>
-                </tr>
-                <tr>
-                  <td>Trident</td>
-                  <td>Internet
-                    Explorer 6
-                  </td>
-                  <td>Win 98+</td>
-                  <td>6</td>
-                  <td>A</td>
-                </tr>
-                <tr>
-                  <td>Trident</td>
-                  <td>Internet Explorer 7</td>
-                  <td>Win XP SP2+</td>
-                  <td>7</td>
-                  <td>A</td>
-                </tr>
-                <tr>
-                  <td>Trident</td>
-                  <td>AOL browser (AOL desktop)</td>
-                  <td>Win XP</td>
-                  <td>6</td>
-                  <td>A</td>
-                </tr>
-                <tr>
-                  <td>Gecko</td>
-                  <td>Firefox 1.0</td>
-                  <td>Win 98+ / OSX.2+</td>
-                  <td>1.7</td>
-                  <td>A</td>
-                </tr>
-                <tr>
-                  <td>Gecko</td>
-                  <td>Firefox 1.5</td>
-                  <td>Win 98+ / OSX.2+</td>
-                  <td>1.8</td>
-                  <td>A</td>
-                </tr>
-                <tr>
-                  <td>Gecko</td>
-                  <td>Firefox 2.0</td>
-                  <td>Win 98+ / OSX.2+</td>
-                  <td>1.8</td>
-                  <td>A</td>
-                </tr>
-                <tr>
-                  <td>Gecko</td>
-                  <td>Firefox 3.0</td>
-                  <td>Win 2k+ / OSX.3+</td>
-                  <td>1.9</td>
-                  <td>A</td>
-                </tr>
-                <tr>
-                  <td>Gecko</td>
-                  <td>Camino 1.0</td>
-                  <td>OSX.2+</td>
-                  <td>1.8</td>
-                  <td>A</td>
-                </tr>
-                <tr>
-                  <td>Gecko</td>
-                  <td>Camino 1.5</td>
-                  <td>OSX.3+</td>
-                  <td>1.8</td>
-                  <td>A</td>
-                </tr>
-                <tr>
-                  <td>Gecko</td>
-                  <td>Netscape 7.2</td>
-                  <td>Win 95+ / Mac OS 8.6-9.2</td>
-                  <td>1.7</td>
-                  <td>A</td>
-                </tr>
-                <tr>
-                  <td>Gecko</td>
-                  <td>Netscape Browser 8</td>
-                  <td>Win 98SE+</td>
-                  <td>1.7</td>
-                  <td>A</td>
-                </tr>
-                <tr>
-                  <td>Gecko</td>
-                  <td>Netscape Navigator 9</td>
-                  <td>Win 98+ / OSX.2+</td>
-                  <td>1.8</td>
-                  <td>A</td>
-                </tr>
-                <tr>
-                  <td>Gecko</td>
-                  <td>Mozilla 1.0</td>
-                  <td>Win 95+ / OSX.1+</td>
                   <td>1</td>
-                  <td>A</td>
+                  <td>10</td>
+                  <td>Ana Budi</td>
+                  <td>Muntilan</td>
+                  <td>10</td>
+                  <td>300</td>
+                  <td>1000</td>
+                  <td>Rp. 300.000</td>
+                  <td>3.000.000</td>
+                  <td>5.000.000</td>
+                  <td>10.000.000</td>
+                  <td>10.000.000</td>
+                  <td><button type="button" class="btn btn-info btn-xs data-toggle="modal" data-target="#modal-info"">edit</button></td>
                 </tr>
-                <tr>
-                  <td>Gecko</td>
-                  <td>Mozilla 1.1</td>
-                  <td>Win 95+ / OSX.1+</td>
-                  <td>1.1</td>
-                  <td>A</td>
-                </tr>
-                <tr>
-                  <td>Gecko</td>
-                  <td>Mozilla 1.2</td>
-                  <td>Win 95+ / OSX.1+</td>
-                  <td>1.2</td>
-                  <td>A</td>
-                </tr>
-                <tr>
-                  <td>Gecko</td>
-                  <td>Mozilla 1.3</td>
-                  <td>Win 95+ / OSX.1+</td>
-                  <td>1.3</td>
-                  <td>A</td>
-                </tr>
-                <tr>
-                  <td>Gecko</td>
-                  <td>Mozilla 1.4</td>
-                  <td>Win 95+ / OSX.1+</td>
-                  <td>1.4</td>
-                  <td>A</td>
-                </tr>
-                <tr>
-                  <td>Gecko</td>
-                  <td>Mozilla 1.5</td>
-                  <td>Win 95+ / OSX.1+</td>
-                  <td>1.5</td>
-                  <td>A</td>
-                </tr>
-                <tr>
-                  <td>Gecko</td>
-                  <td>Mozilla 1.6</td>
-                  <td>Win 95+ / OSX.1+</td>
-                  <td>1.6</td>
-                  <td>A</td>
-                </tr>
-                <tr>
-                  <td>Gecko</td>
-                  <td>Mozilla 1.7</td>
-                  <td>Win 98+ / OSX.1+</td>
-                  <td>1.7</td>
-                  <td>A</td>
-                </tr>
-                <tr>
-                  <td>Gecko</td>
-                  <td>Mozilla 1.8</td>
-                  <td>Win 98+ / OSX.1+</td>
-                  <td>1.8</td>
-                  <td>A</td>
-                </tr>
-                <tr>
-                  <td>Gecko</td>
-                  <td>Seamonkey 1.1</td>
-                  <td>Win 98+ / OSX.2+</td>
-                  <td>1.8</td>
-                  <td>A</td>
-                </tr>
-                <tr>
-                  <td>Gecko</td>
-                  <td>Epiphany 2.20</td>
-                  <td>Gnome</td>
-                  <td>1.8</td>
-                  <td>A</td>
-                </tr>
-                <tr>
-                  <td>Webkit</td>
-                  <td>Safari 1.2</td>
-                  <td>OSX.3</td>
-                  <td>125.5</td>
-                  <td>A</td>
-                </tr>
-                <tr>
-                  <td>Webkit</td>
-                  <td>Safari 1.3</td>
-                  <td>OSX.3</td>
-                  <td>312.8</td>
-                  <td>A</td>
-                </tr>
-                <tr>
-                  <td>Webkit</td>
-                  <td>Safari 2.0</td>
-                  <td>OSX.4+</td>
-                  <td>419.3</td>
-                  <td>A</td>
-                </tr>
-                <tr>
-                  <td>Webkit</td>
-                  <td>Safari 3.0</td>
-                  <td>OSX.4+</td>
-                  <td>522.1</td>
-                  <td>A</td>
-                </tr>
-                <tr>
-                  <td>Webkit</td>
-                  <td>OmniWeb 5.5</td>
-                  <td>OSX.4+</td>
-                  <td>420</td>
-                  <td>A</td>
-                </tr>
-                <tr>
-                  <td>Webkit</td>
-                  <td>iPod Touch / iPhone</td>
-                  <td>iPod</td>
-                  <td>420.1</td>
-                  <td>A</td>
-                </tr>
-                <tr>
-                  <td>Webkit</td>
-                  <td>S60</td>
-                  <td>S60</td>
-                  <td>413</td>
-                  <td>A</td>
-                </tr>
-                <tr>
-                  <td>Presto</td>
-                  <td>Opera 7.0</td>
-                  <td>Win 95+ / OSX.1+</td>
-                  <td>-</td>
-                  <td>A</td>
-                </tr>
-                <tr>
-                  <td>Presto</td>
-                  <td>Opera 7.5</td>
-                  <td>Win 95+ / OSX.2+</td>
-                  <td>-</td>
-                  <td>A</td>
-                </tr>
-                <tr>
-                  <td>Presto</td>
-                  <td>Opera 8.0</td>
-                  <td>Win 95+ / OSX.2+</td>
-                  <td>-</td>
-                  <td>A</td>
-                </tr>
-                <tr>
-                  <td>Presto</td>
-                  <td>Opera 8.5</td>
-                  <td>Win 95+ / OSX.2+</td>
-                  <td>-</td>
-                  <td>A</td>
-                </tr>
-                <tr>
-                  <td>Presto</td>
-                  <td>Opera 9.0</td>
-                  <td>Win 95+ / OSX.3+</td>
-                  <td>-</td>
-                  <td>A</td>
-                </tr>
-                <tr>
-                  <td>Presto</td>
-                  <td>Opera 9.2</td>
-                  <td>Win 88+ / OSX.3+</td>
-                  <td>-</td>
-                  <td>A</td>
-                </tr>
-                <tr>
-                  <td>Presto</td>
-                  <td>Opera 9.5</td>
-                  <td>Win 88+ / OSX.3+</td>
-                  <td>-</td>
-                  <td>A</td>
-                </tr>
-                <tr>
-                  <td>Presto</td>
-                  <td>Opera for Wii</td>
-                  <td>Wii</td>
-                  <td>-</td>
-                  <td>A</td>
-                </tr>
-                <tr>
-                  <td>Presto</td>
-                  <td>Nokia N800</td>
-                  <td>N800</td>
-                  <td>-</td>
-                  <td>A</td>
+                 <tr>
+                  <td>2</td>
+                  <td>10</td>
+                  <td>Tina Toon</td>
+                  <td>Muntilan</td>
+                  <td>10</td>
+                  <td>300</td>
+                  <td>1000</td>
+                  <td>Rp. 300.000</td>
+                  <td>3.000.000</td>
+                  <td>5.000.000</td>
+                  <td>10.000.000</td>
+                  <td>10.000.000</td>
+                  <td><button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#modal-info">edit</button></td>
                 </tr>
                 </tbody>
 <!--                 <tfoot>
@@ -484,7 +223,138 @@
         <!-- /.col -->
       </div>
       <!-- /.row -->
+
+<!-- modal edit -->
+       <div class="modal fade" id="modal-info">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <div class="modal-header bg-red">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Edit Transaksi</h4>
+              </div>
+              <div class="modal-body bg-danger">
+                <p>Edit Transaksi ini</p>
+            <form class="form-horizontal">
+              <!-- form -->
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="col-sm-3 control-label">ID</label>
+
+                    <div class="col-sm-3">
+                      <input type="text" class="form-control" placeholder="1" disabled>
+                    </div>
+                  </div>
+                  <!-- ./ID -->
+
+                  <div class="form-group">
+                  <label class="col-sm-3 control-label">Nama</label>
+                  <div class="col-sm-8">
+                    <select class="form-control select2" style="width: 100%;">
+                      <option selected="selected">Alabama</option>
+                      <option>Alaska</option>
+                      <option>California</option>
+                      <option>Delaware</option>
+                      <option>Tennessee</option>
+                      <option>Texas</option>
+                      <option>Washington</option>
+                    </select>
+                  </div>
+                </div>
+                <!-- ./Nama -->
+
+                <div class="form-group">
+                  <label class="col-sm-3 control-label">Asal Daerah</label>
+
+                  <div class="col-sm-8">
+                    <select class="form-control select2" style="width: 100%;">
+                      <option selected="selected">Alabama</option>
+                      <option>Alaska</option>
+                      <option>California</option>
+                      <option>Delaware</option>
+                      <option>Tennessee</option>
+                      <option>Texas</option>
+                      <option>Washington</option>
+                    </select>
+                  </div>
+                </div>
+                <!-- ./Asal Daerah -->
+                </div>
+                <!-- ./col -->
+
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="col-sm-3 control-label">Harga</label>
+
+                    <div class="col-sm-7">
+                      <input type="number" step="100" class="form-control" placeholder="300.000">
+                    </div>
+                  </div>
+                  <!-- ./Harga -->
+
+                  <div class="form-group">
+                    <label class="col-sm-3 control-label">Jumlah Uang</label>
+
+                    <div class="col-sm-7">
+                      <input type="number" step="100" class="form-control" placeholder="3.000.000">
+                    </div>
+                  </div>
+                  <!-- ./Jumlah Uang -->
+
+                  <div class="form-group">
+                    <label class="col-sm-3 control-label">Modal</label>
+
+                    <div class="col-sm-7">
+                      <input type="number" step="100" class="form-control" placeholder="300.000">
+                    </div>
+                  </div>
+                  <!-- ./Modal duit -->
+                
+                </div>  
+                <!-- ./col -->
+              </div>
+              <!-- ./row --> 
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">Berat</label>
+                    <label class="col-sm-1 control-label">Colly</label>
+                      <div class="col-sm-2">
+                        <input type="number" class="form-control" placeholder="23">
+                      </div>
+
+                    <label class="col-sm-1 control-label">Kode</label>
+                      <div class="col-sm-2">
+                        <input type="number" class="form-control" placeholder="AB">
+                      </div>
+
+                    <label class="col-sm-1 control-label">Bersih</label>
+                      <div class="col-sm-2">
+                        <input type="number" class="form-control" placeholder="12">
+                      </div>   
+                  </div>
+                </div>
+                <!-- ./col -->
+              </div>
+              <!-- ./row -->
+              </div>
+              <!-- ./modal body -->
+                <div class="modal-footer bg-danger">
+                  <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-info">Save changes</button>
+                </div>
+            </form>
+            </div>
+            <!-- /.modal-content -->
+          </div>
+          <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
     
+    <!-- ./modal edit -->
+
+
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
@@ -719,7 +589,7 @@
             <label>Nama Pembeli :</label>
           </div>
           <div class="col-md-8">
-            <input type="text" name="nama_petani" class="form-control">
+            <input type="text" name="nama_petani" class="form-control select2">
           </div>
         </div>
 
@@ -728,7 +598,7 @@
             <label>Asal  :</label>
           </div>
           <div class="col-md-8">
-           <input type="text" name="asal_daerah" class="form-control">
+           <input type="text" name="asal_daerah" class="form-control select2">
           </div>
         </div>
 
@@ -767,7 +637,6 @@
   </div>
 </div>
 <!-- END Modal Input Setoran -->
-
 
 
 
