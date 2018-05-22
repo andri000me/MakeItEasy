@@ -7,7 +7,7 @@ class Transaksi extends CI_Controller {
 		parent::__construct();
 		$this->load->model('model_transaksi_petani');
 	}
-
+    
 	public function index()
 		{
 			$this->load->view('header');
@@ -17,18 +17,19 @@ class Transaksi extends CI_Controller {
 
 	public function transpetani()
 		{
-            $data = array(
-            'dd_cabai' => $this->model_transaksi_petani->dd_cabai(),
-            'cabai_selected' => $this->input->post('tb_cabai') ? $this->input->post('tb_cabai
-            ') : 'row->jenis',
-             // untuk edit ganti '' menjadi data dari database misalnya $row->provinsi
-            'tb_transaksi' => $this->model_transaksi_petani->tb_transaksi(),
-            'tb_cabai' => $this->model_transaksi_petani->tb_cabai(),
-			);
+			$data['tb_transaksi']=$this->model_transaksi_petani->tb_transaksi();
+            $timezone = new DateTimeZone('Asia/Jakarta');
+            
+            $dt = new DateTime();
+            $dt->setTimezone($timezone);
+            $date = $dt->format('Y-m-d');
+            $data['today'] = $date;
+
+            $data['harga_today'] = $this->model_transaksi_petani->harga_today($date);
                 
 			$this->load->view('header');
 			$this->load->view('transaksi_petaniREV', $data);
-			$this->load->view('footer');
+			// $this->load->view('footer');
 		}
 
 	function tambah_transaksi(){

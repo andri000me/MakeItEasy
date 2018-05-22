@@ -23,7 +23,11 @@ class Transaksi2 extends CI_Controller {
 			$this->load->view('transaksi',$data);
 		}
 
-	function get_autocomplete(){
+    public function autocomplete(){
+        $this->load->view('autocomplete');
+    }
+
+	function get_petani(){
         if (isset($_GET['term'])) {
             $result = $this->model_transaksi_petani->search_petani($_GET['term']);
             if (count($result) > 0) {

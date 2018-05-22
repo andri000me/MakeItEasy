@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class model_transaksi_petani extends CI_Model {
 	public function tb_transaksi()
 	{
-		$query = $this->db->query("SELECT tanggal, nama_petani, asal_daerah, kode_cabai, berat_kotor, berat_bs, jumlah_uang FROM transaksi_petani");
+  		$query = $this->db->query("SELECT a.id_petani, b.nama, b.desa, a.kode_cabai, a.berat_kotor, a.berat_bs, a.bon, b.saldo FROM transaksi_petani a JOIN tb_petani b WHERE a.id_petani=b.id");
   		if($query->num_rows() > 0)
   			{
   				return $query->result();
@@ -26,8 +26,8 @@ class model_transaksi_petani extends CI_Model {
     	$this->db->insert('transaksi_petani', $data);
     }
 
-  function tb_cabai(){
-    $query = $this->db->query("SELECT kode, jenis, harga_bs, harga_bersih FROM tb_cabai");
+  function harga_today($date){
+    $query = $this->db->query("SELECT a.kode, a.jenis, b.harga_bs, b.harga_bersih FROM tb_cabai a JOIN harga_cabai_petani b WHERE a.kode=b.kode_cabai AND b.tanggal='$date' ORDER BY a.jenis ASC");
       if($query->num_rows() > 0)
         {
           return $query->result();
