@@ -4,13 +4,13 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Riwayat Transaksi Petani
+        Riwayat Transaksi Pembeli
         <small>_</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
         <li><a href="#">Riwayat Transaksi</a></li>
-        <li class="active">Petani</li>
+        <li class="active">Pembeli</li>
       </ol>
     </section>
 
@@ -41,12 +41,18 @@
                 <!-- /.input group -->
               </div>
               <!-- /.form group -->
+
+              <div class="col-md-6">
+                  <span class="fa fa-cart-plus fa-3x pull-right">  Pembeli</span> 
+              </div>
+
               <div class="row">
                 <div class="col-md-12 table-responsive">
+                  <hr>
                   <table id="example1" class="table table-bordered table-striped">
                    <thead>
                       <tr class="bg-gray">
-                        <th style="text-align: center; line-height: 10px" rowspan="2">#</th>
+                        <th style="text-align: center; line-height: 10px" rowspan="2">Tanggal</th>
                         <th style="text-align: center; line-height: 30px" rowspan="2">ID</th>
                         <th style="text-align: center; line-height: 50px" rowspan="2">Nama</th>
                         <th style="text-align: center; line-height: 50px" rowspan="2">Asal Daerah</th>

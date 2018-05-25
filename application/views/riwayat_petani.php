@@ -42,7 +42,7 @@
               </div>
 
               <div class="col-md-6">
-                  <span class="fa fa-male fa-5x pull-right">  Petani</span> 
+                  <span class="fa fa-male fa-3x pull-right">  Petani</span> 
               </div>
 
               <!-- /.form group -->
