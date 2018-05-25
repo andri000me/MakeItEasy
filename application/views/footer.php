@@ -2,7 +2,15 @@
 <script src="<?php echo base_url();?>assets/bower_components/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap 3.3.7 -->
 <script src="<?php echo base_url();?>assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- Datepicker -->
 <script src="<?php echo base_url();?>assets/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.js"></script>
+<!-- date-range-picker -->
+<script src="<?php echo base_url();?>/assets/bower_components/moment/min/moment.min.js"></script>
+<script src="<?php echo base_url();?>/assets/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+<!-- bootstrap color picker -->
+<script src="<?php echo base_url();?>/assets/bower_components/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js"></script>
+<!-- bootstrap time picker -->
+<script src="<?php echo base_url();?>/assets/plugins/timepicker/bootstrap-timepicker.min.js"></script>
 <!-- Select2 -->
 <script src="<?php echo base_url();?>assets/bower_components/select2/dist/js/select2.full.min.js"></script>
 <!-- DataTables -->
@@ -41,6 +49,15 @@
     //Initialize Select2 Elements
     $('.select2').select2()
   });
+
+  $(function () {
+    //Date range picker
+    $('#reservation').daterangepicker()
+    //Date picker
+    $('#datepicker').datepicker({
+      autoclose: true
+    })
+  })
 </script>
 
 </body>

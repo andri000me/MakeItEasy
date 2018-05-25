@@ -122,4 +122,18 @@ class Transaksi extends CI_Controller {
         $this->load->view('data_petani');
         $this->load->view('footer');
     }
+
+    public function riwayatpetani()
+    {
+        $this->load->view('header');
+        $this->load->view('riwayat_petani');
+        $this->load->view('footer');   
+    }
+
+    public function riwayatpemborong()
+    {
+        $this->load->view('header');
+        $this->load->view('riwayat_pemborong');
+        $this->load->view('footer');   
+    }
 }
