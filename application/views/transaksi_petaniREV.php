@@ -633,7 +633,7 @@ button:hover {
     $('#nama_setor').select2({
     placeholder: '--- Select Item ---',
     ajax: {
-      url: "<?php echo base_url();?>Transaksi2/get_petani",
+      url: "<?php echo base_url();?>Transaksi/get_petani",
       dataType: "json",
       delay: 250,
       data: function(params){
@@ -671,7 +671,7 @@ button:hover {
     //mengambil nilai harga cabai
     $('#cabai').on('change', function() {
         $.ajax({
-           url: '<?php echo base_url();?>Transaksi2/get_hargaCabai', //This is the current doc
+           url: '<?php echo base_url();?>Transaksi/get_hargaCabai', //This is the current doc
            type: "POST",
            dataType:'json', // add json datatype to get json
            data: {tanggal: $('#tanggal_setor').val(), kode_cabai: $('#cabai').val()  },

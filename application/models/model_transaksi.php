@@ -2,7 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class model_transaksi extends CI_Model {
-	public function tb_transaksi()
+	public function tb_transpetani()
 	{
   		$query = $this->db->query("SELECT a.id, a.id_petani, b.nama, b.desa, a.kode_cabai, a.berat_kotor, a.berat_bs, a.bon, b.saldo FROM transaksi_petani a JOIN tb_petani b WHERE a.id_petani=b.id");
   		if($query->num_rows() > 0)
@@ -46,14 +46,14 @@ class model_transaksi extends CI_Model {
         return $this->db->get()->result_array();
     }
 
-    function input_transaksi($data){
-    	$this->db->insert('transaksi_pembeli', $data);
-    }
+  function input_transaksi_pembeli($data){
+  	$this->db->insert('transaksi_pembeli', $data);
+  }
 
-    function update_saldo_pembeli($data, $id){
-      $this->db->where('id', $id);
-      $this->db->update('tb_pembeli', $data);
-    }
+  function update_saldo_pembeli($data, $id){
+    $this->db->where('id', $id);
+    $this->db->update('tb_pembeli', $data);
+  }
 
   function harga_today($date){
     $query = $this->db->query("SELECT a.kode, a.jenis, b.harga_bs, b.harga_bersih FROM tb_cabai a JOIN harga_cabai_petani b WHERE a.kode=b.kode_cabai AND b.tanggal='$date' ORDER BY a.jenis ASC");
@@ -87,46 +87,6 @@ class model_transaksi extends CI_Model {
         {
           return array();
         }
-  }
-
-  function saldo_petani($id_petani){
-    $query = $this->db->query("SELECT saldo FROM tb_petani WHERE id='$id_petani'");
-      if($query->num_rows() > 0)
-        {
-          return $query->row()->saldo;
-        }
-      else
-        {
-          return array();
-        }
-  }
-
-  function hargaBS($kode_cabai){
-    $query = $this->db->query("SELECT harga_bs FROM tb_cabai WHERE kode='$kode_cabai'");
-      if($query->num_rows() > 0)
-        {
-          return $query->row()->harga_bs;
-        }
-      else
-        {
-          return array();
-        }
-  }
-
-  function hargaBersih($kode_cabai){
-    $query = $this->db->query("SELECT harga_bersih FROM tb_cabai WHERE kode='$kode_cabai'");
-      if($query->num_rows() > 0)
-        {
-          return $query->row()->harga_bersih;
-        }
-      else
-        {
-          return array();
-        }
-  }
-
-  function update_harga($data){
-    $this->db->update_batch('tb_cabai', $data, 'kode');
   }
 
   function dd_cabai()

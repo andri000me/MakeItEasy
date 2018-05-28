@@ -24,7 +24,7 @@ class Transaksi extends CI_Controller {
             $date = $dt->format('Y-m-d');
 
             $data = array(
-            'tb_transaksi' => $this->model_transaksi->tb_transaksi(),
+            'tb_transaksi' => $this->model_transaksi->tb_transpetani(),
             'today' => $date, 
             'harga_today' => $this->model_transaksi->harga_today($date),
             'dd_cabai' => $this->model_transaksi->dd_cabai(),
@@ -33,59 +33,7 @@ class Transaksi extends CI_Controller {
                 
 			$this->load->view('header');
 			$this->load->view('transaksi_petaniREV', $data);
-			// $this->load->view('footer');
 		}
-
-	function tambah_transaksi(){
-    	$tanggal = $this->input->post('tanggal');
-    	$nama_petani = $this->input->post('nama_petani');
-    	$asal_daerah = $this->input->post('asal_daerah');
-    	$kode_cabai = $this->input->post('cabai');
-    	$berat_bs = $this->input->post('berat_bs');
-    	$berat_kotor = $this->input->post('berat_kotor');
-
-    	$harga_bs = $this->model_transaksi->hargaBs($kode_cabai);
-        $harga_bersih = $this->model_transaksi->hargaBersih($kode_cabai);
-
-    	$berat_bersih = $berat_kotor-$berat_bs;
-    	$jumlah_uang = $berat_bersih*$harga_bersih + $berat_bs*$harga_bs;
-
-    	$data = array(
-    		'tanggal' => $tanggal,
-    		'nama_petani' => $nama_petani,
-    		'asal_daerah' => $asal_daerah,
-    		'kode_cabai' => $kode_cabai,
-    		'berat_bs' => $berat_bs,
-    		'berat_kotor' => $berat_kotor,
-    		'jumlah_uang' => $jumlah_uang);
-
-    	$this->model_transaksi->input_transaksi($data);
-    	redirect('Transaksi/transpetani');
-    }
-
-    function edit_harga(){
-    	$tb_transaksi = $this->model_transaksi->tb_transaksi();
-    	// $data = array(
-    	// 		'data_cabai' => array(),
-    	// 	);
-
-		foreach ($tb_transaksi as $tb) {
-			$data_cabai = array(
-    				'kode' => $this->input->post('kode<?= $tb->kode ?>'),
-    				'harga_bs' => $this->input->post('harga_bs<?= $tb->kode ?>'),
-    				'harga_bersih' => $this->input->post('harga_bersih<?= $tb->kode ?>'),
-    			);
-		}
-
-		foreach ($tb_transaksi as $tb) {
-			# code...
-		}
-
-		
-
-		$this->model_transaksi->update_harga($data);
-		redirect('Transaksi/transpetani');
-    }
 
 	public function transborong()
 		{
@@ -104,39 +52,76 @@ class Transaksi extends CI_Controller {
 
 			$this->load->view('header');
             $this->load->view('transaksi_pemborongREV', $data);
-            $this->load->view('footer');
 		}
 
-    function next_transaksi(){
+    //model buat autocomplete
+    function get_petani(){
+        $nama = $this->input->get('nama');
+        $query = $this->model_transaksi->search_petani($nama);
+        echo json_encode($query);
+    }
+
+    function get_pembeli(){
+        $nama = $this->input->get('nama');
+        $query = $this->model_transaksi->search_pembeli($nama);
+        echo json_encode($query);
+    }
+
+    function get_hargaCabai(){
         $tanggal = $this->input->post('tanggal');
-        $id_petani = $this->input->post('id_petani');
         $kode_cabai = $this->input->post('kode_cabai');
-        $berat_bs = $this->input->post('berat_bs');
-        $berat_bersih = $this->input->post('berat_bersih');
+        echo $tanggal;
+        echo $kode_cabai;
+        $query = $this->model_transaksi->harga_cabai($kode_cabai, $tanggal);
+        echo json_encode($query);
+    }
 
-        //menampilkan nama petani, daerah, dan saldo
-        $data['petani'] = $this->model_transaksi->petani($id_petani);
-
-        //menghitung jumlah uang
-        $hargaBs_today = $this->model_transaksi->hargaBs_today($tanggal, $kode_cabai);
-        $hargaBersih_today = $this->model_transaksi->hargaBersih_today($tanggal, $kode_cabai);
-        $harga_bs = $berat_bs * $hargaBs_today;
-        $harga_bersih = $berat_bersih * $hargaBersih_today;
-        $jumlah_uang = $harga_bs + $harga_bersih;
-        $data['jumlah_uang'] = $jumlah_uang;
+    //add transaksi
+    function tambah_transborong(){
+        $tanggal = $this->input->post('tanggal');
+        $id_pembeli = $this->input->post('id_pembeli');
+        $kode_cabai = $this->input->post('cabai');
+        $colly = $this->input->post('colly');
+        $bersih = $this->input->post('bersih');
+        $transferan = $this->input->post('transferan');
+        $saldo = $this->input->post('saldo_pembeli');
+        $harga = $this->model_transaksi->harga_pembeli_today($tanggal, $kode_cabai);
+        $jumlah_uang = $harga * $bersih;
 
         //menghitung saldo sekarang
-        $saldo = $this->model_transaksi->saldo_petani($id_petani);
-        $saldo_new = $saldo + $jumlah_uang;
-        $data['saldo'] = $saldo_new;
+        if (!empty($kode_cabai) and !empty($colly) and !empty($bersih)) {
+            $new_saldo = $saldo - $jumlah_uang;
+        }
+        elseif (!empty($transferan)) {
+            $new_saldo = $saldo + $transferan;
+        }
+        elseif (!empty($kode_cabai) && !empty($colly) && !empty($bersih) && !empty($transferan)) {
+            $new_saldo = $saldo - $jumlah_uang + $transferan;
+        }
+        else {
+            echo '<script language="javascript">';
+            echo 'alert("isi form dengan benar!")';
+            echo '</script>';
 
-        $this->load->view('transaksi_add', $data);
+            redirect('Transaksi/transborong');
+        }
+
+        $data1 = array(
+            'tanggal' => $tanggal,
+            'id_pembeli' => $id_pembeli,
+            'kode' => $kode_cabai,
+            'colly' => $colly,
+            'bersih' => $bersih,
+            'transferan' => $transferan,
+            'saldo' => $new_saldo,
+        );
+
+        $data2['saldo'] = $new_saldo;
+
+        $this->model_transaksi->update_saldo_pembeli($data2, $id_pembeli);
+        $this->model_transaksi->input_transaksi_pembeli($data1);
+        
+        redirect('Transaksi/transborong');
     }
 
-    public function datapetani()
-    {
-        $this->load->view('header');
-        $this->load->view('data_petani');
-        $this->load->view('footer');
-    }
 }

@@ -4,208 +4,108 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Widgets
-        <small>Preview page</small>
+        Riwayat Transaksi Pembeli
+        <small>_</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Widgets</li>
+        <li><a href="#">Riwayat Transaksi</a></li>
+        <li class="active">Pembeli</li>
       </ol>
     </section>
 
     <!-- Main content -->
     <section class="content">
 
+
       <div class="row">
-        <div class="col-md-9 col-sm-9 col-xs-12">
-          <div class="judul-box">
-            <span class="judul-box-icon bg-teal">
-              <span class="judul-box-number" style="margin-top: 10%">23</span>
-              <span class="judul-box-text">Oktober</span>
-            </span> 
-            <div class="judul-box-content">
+
+        <div class="col-md-12">
+          <div class="box box-primary">
+            <div class="box-header">
+              <h3 class="box-title">Riwayat Transaksi berdasarkan Tanggal</h3>
+            </div>
+            <div class="box-body">
+            
+
+              <!-- Date range -->
+              <div class="form-group col-md-6">
+                <label>Tanggal :</label>
+
+                <div class="input-group">
+                  <div class="input-group-addon">
+                    <i class="fa fa-calendar"></i>
+                  </div>
+                  <input type="text" class="form-control pull-right" id="reservation">
+                </div>
+                <!-- /.input group -->
+              </div>
+              <!-- /.form group -->
+
+              <div class="col-md-6">
+                  <span class="fa fa-cart-plus fa-3x pull-right">  Pembeli</span> 
+              </div>
+
               <div class="row">
-                <div class="col-md-7 col-sm-5 col-xs-12 col-md-offset-2">
-                  
-                  <div class="inpo-box bg-green"> 
-                    <span class="inpo-box-icon"> <i class="fa fa-male"></i> </span>
-                    <div class="inpo-box-content">
-                      <span class="inpo-box-text">Jumlah penyetor hari ini</span>
-                      <span class="inpo-box-number">23</span>
-                    </div>
-                  </div>
-                </div>
-
-                  <div class="row">
-                    <div class="col-md-5 col-sm-12 ">
-
-                      <div class="inpo-box"> 
-                        <span class="inpo-box-icon bg-blue"> <i class="fa fa-download"></i> </span>
-                        <div class="inpo-box-content">
-                          <span class="inpo-box-text">Cabai setoran</span>
-                          <span class="inpo-box-number">155 kg</span>
-                        </div>
-                      </div>
-
-                      <div class="inpo-box"> 
-                        <span class="inpo-box-icon bg-aqua"> <i class="fa fa-upload"></i> </span>
-                        <div class="inpo-box-content">
-                          <span class="inpo-box-text">Cabai terjual</span>
-                          <span class="inpo-box-number">100 kg</span>
-                        </div>
-                      </div>
-                    </div>
-
-
-                    <div class="col-md-5 col-sm-12">
-                      <div class="inpo-box"> 
-                        <span class="inpo-box-icon bg-blue"> <i class="glyphicon glyphicon-upload"></i> </span>
-                        <div class="inpo-box-content">
-                          <span class="inpo-box-text">Uang keluar</span>
-                          <span class="inpo-box-number">Rp. 6,890,000</span>
-                        </div>
-                      </div>
-
-                      <div class="inpo-box"> 
-                        <span class="inpo-box-icon bg-aqua"> <i class="glyphicon glyphicon-download"></i> </span>
-                        <div class="inpo-box-content">
-                          <span class="inpo-box-text">Uang yang diterima</span>
-                          <span class="inpo-box-number">Rp. 16,900,000</span>
-                        </div>
-                      </div>
-
-                    </div>
-                  </div>
+                <div class="col-md-12 table-responsive">
+                  <hr>
+                  <table id="example1" class="table table-bordered table-striped">
+                   <thead>
+                      <tr class="bg-gray">
+                        <th style="text-align: center; line-height: 10px" rowspan="2">Tanggal</th>
+                        <th style="text-align: center; line-height: 30px" rowspan="2">ID</th>
+                        <th style="text-align: center; line-height: 50px" rowspan="2">Nama</th>
+                        <th style="text-align: center; line-height: 50px" rowspan="2">Asal Daerah</th>
+                        <th style="text-align: center;" colspan="3">Berat</th>
+                        <th style="text-align: center; line-height: 50px" rowspan="2">Harga</th>
+                        <th style="text-align: center; line-height: 50px" rowspan="2">Jumlah Uang</th>
+                        <th style="text-align: center; line-height: 50px" rowspan="2">Transferan </th>
+                        <th style="text-align: center; line-height: 50px" rowspan="2">Saldo</th>
+                        <th style="text-align: center; line-height: 50px" rowspan="2">Modal</th>
+                        <th style="text-align: center; line-height: 50px" rowspan="2">Edit</th>
+                      </tr>
+                      <tr class="bg-gray">
+                        <th>Colly </th>
+                        <th>Kode </th>
+                        <th>Bersih </th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>1</td>
+                      <td>10</td>
+                      <td>Ana Budi</td>
+                      <td>Muntilan</td>
+                      <td>10</td>
+                      <td>300</td>
+                      <td>1000</td>
+                      <td>Rp. 300.000</td>
+                      <td>3.000.000</td>
+                      <td>5.000.000</td>
+                      <td>10.000.000</td>
+                      <td>10.000.000</td>
+                      <td><button type="button" class="btn btn-info btn-xs data-toggle="modal" data-target="#modal-info"">edit</button></td>
+                    </tr>
+                  </tbody>
+                </table>
+                <!-- ./table -->
               </div>
-            </div>
-            <!-- /.info-box-content -->
-          </div>
-          <!-- /.info-box -->
-        </div>
-        <!-- /.col -->
-
-        <!-- /.col -->
-        <div class="col-md-3 col-sm-3 col-xs-6">
-          <div class="box box-info">
-            <div class="box-header">
-              <div class="box-title"> Masukkan setoran 
               </div>
-            </div>
-
-            <div class="box-body" style="height: 160px; line-height:130px; text-align: center;">
-              <div class="btn-group">
-                <button type="button" class="btn btn-setor bg-green"> <i class="fa fa-plus"></i> Inputkan Setoran</button>
-                <button type="button" class="btn btn-setor bg-yellow"> <i class="fa fa-user-plus"></i> Tambah petani</button>
-              </div>
-<!--               <a class="btn btn-setor">
-                <i class="fa fa-edit"></i> Edit
-              </a> -->
-            </div>
-          </div>
-          <!-- /.info-box -->
-        </div>
-        <!-- /.col -->
-        <div class="clearfix"> </div>
-      </div>
-      <!-- /.row -->
-
-<!-- tabel -->
- <div class="row">
-        <div class="col-xs-12">
-          <div class="box">
-            <div class="box-header">
-              <h3 class="box-title">Catatan harian</h3>
-
-              <div class="box-tools">
-                <div class="input-group input-group-sm" style="width: 150px;">
-                  <input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
-
-                  <div class="input-group-btn">
-                    <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body table-responsive no-padding">
-              <table class="table table-hover" style="font-size: 15px">
-                <tr class="bg-gray">
-                  <th style="text-align: center; line-height: 50px" rowspan="2">ID</th>
-                  <th style="text-align: center; line-height: 50px" rowspan="2">Nama</th>
-                  <th style="text-align: center; line-height: 50px" rowspan="2">Asal Daerah</th>
-                  <th style="text-align: center;" colspan="3">Berat</th>
-                  <th style="text-align: center; line-height: 50px" rowspan="2">Harga</th>
-                  <th style="text-align: center; line-height: 50px" rowspan="2">Jumlah Uang</th>
-                  <th style="text-align: center; line-height: 50px" rowspan="2">Bon</th>
-                  <th style="text-align: center; line-height: 50px" rowspan="2">Saldo</th>
-                </tr>
-                <tr class="bg-gray">
-                  <th>Kotor </th>
-                  <th>BS/ MTL </th>
-                  <th>Bersih </th>
-                </tr>
-                <tr>
-                  <td>183</td>
-                  <td>Menik</td>
-                  <td>Gombong</td>
-                  <td>28,5</td>
-                  <td>2</td>
-                  <td>26</td>
-                  <td>54000</td>
-                  <td>1.404.000</td>
-                  <td>35.000.000</td>
-                  <td class="text-success"><strong>D 22.9222.000</strong></td>
-                </tr>
-                <tr>
-                  <td>219</td>
-                  <td>Annisa Amalia</td>
-                  <td>Talun</td>
-                  <td>28,5</td>
-                  <td>2</td>
-                  <td>26</td>
-                  <td>54000</td>
-                  <td>1.404.000</td>
-                  <td>35.000.000</td>
-                  <td class="text-success"><strong>D 22.9222.000</strong></td>
-                </tr>
-                <tr>
-                  <td>657</td>
-                  <td>Thufalifa</td>
-                  <td>Muntilan</td>
-                  <td>28,5</td>
-                  <td>2</td>
-                  <td>26</td>
-                  <td>54000</td>
-                  <td>1.404.000</td>
-                  <td>35.000.000</td>
-                  <td class="text-success"><strong>D 22.9222.000</strong></td>
-                </tr>
-                <tr>
-                  <td>175</td>
-                  <td>Paijo</td>
-                  <td>Bantul</td>
-                  <td>28,5</td>
-                  <td>2</td>
-                  <td>26</td>
-                  <td>54000</td>
-                  <td>1.404.000</td>
-                  <td>35.000.000</td>
-                  <td class="text-success"><strong>D 22.9222.000</strong></td>
-                </tr>
-              </table>
+              <!-- ./ row table responsive -->
             </div>
             <!-- /.box-body -->
           </div>
           <!-- /.box -->
-        </div>
-      </div>
 
+        </div>
+        <!-- /.col (right) -->
+      </div>
+      <!-- /.row -->
 
     </section>
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-
   <footer class="main-footer">
     <div class="pull-right hidden-xs">
       <b>Version</b> 2.4.0
