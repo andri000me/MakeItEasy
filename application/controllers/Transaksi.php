@@ -5,7 +5,7 @@ class Transaksi extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model('model_transaksi_petani');
+		$this->load->model('model_transaksi');
 	}
     
 	public function index()
@@ -17,15 +17,19 @@ class Transaksi extends CI_Controller {
 
 	public function transpetani()
 		{
-			$data['tb_transaksi']=$this->model_transaksi_petani->tb_transaksi();
             $timezone = new DateTimeZone('Asia/Jakarta');
             
             $dt = new DateTime();
             $dt->setTimezone($timezone);
             $date = $dt->format('Y-m-d');
-            $data['today'] = $date;
 
-            $data['harga_today'] = $this->model_transaksi_petani->harga_today($date);
+            $data = array(
+            'tb_transaksi' => $this->model_transaksi->tb_transaksi(),
+            'today' => $date, 
+            'harga_today' => $this->model_transaksi->harga_today($date),
+            'dd_cabai' => $this->model_transaksi->dd_cabai(),
+            'cabai_selected' => $this->input->post('cabai') ? $this->input->post('cabai') : '$row->jenis', // untuk edit ganti '' menjadi data dari database misalnya $row->provinsi
+            );
                 
 			$this->load->view('header');
 			$this->load->view('transaksi_petaniREV', $data);
@@ -40,8 +44,8 @@ class Transaksi extends CI_Controller {
     	$berat_bs = $this->input->post('berat_bs');
     	$berat_kotor = $this->input->post('berat_kotor');
 
-    	$harga_bs = $this->model_transaksi_petani->hargaBs($kode_cabai);
-        $harga_bersih = $this->model_transaksi_petani->hargaBersih($kode_cabai);
+    	$harga_bs = $this->model_transaksi->hargaBs($kode_cabai);
+        $harga_bersih = $this->model_transaksi->hargaBersih($kode_cabai);
 
     	$berat_bersih = $berat_kotor-$berat_bs;
     	$jumlah_uang = $berat_bersih*$harga_bersih + $berat_bs*$harga_bs;
@@ -55,12 +59,12 @@ class Transaksi extends CI_Controller {
     		'berat_kotor' => $berat_kotor,
     		'jumlah_uang' => $jumlah_uang);
 
-    	$this->model_transaksi_petani->input_transaksi($data);
+    	$this->model_transaksi->input_transaksi($data);
     	redirect('Transaksi/transpetani');
     }
 
     function edit_harga(){
-    	$tb_transaksi = $this->model_transaksi_petani->tb_transaksi();
+    	$tb_transaksi = $this->model_transaksi->tb_transaksi();
     	// $data = array(
     	// 		'data_cabai' => array(),
     	// 	);
@@ -79,14 +83,27 @@ class Transaksi extends CI_Controller {
 
 		
 
-		$this->model_transaksi_petani->update_harga($data);
+		$this->model_transaksi->update_harga($data);
 		redirect('Transaksi/transpetani');
     }
 
 	public function transborong()
 		{
+            $timezone = new DateTimeZone('Asia/Jakarta');
+            
+            $dt = new DateTime();
+            $dt->setTimezone($timezone);
+            $date = $dt->format('Y-m-d');
+
+            $data = array(
+            'tb_transaksi' => $this->model_transaksi->tb_transborong(),
+            'today' => $date, 
+            'dd_cabai' => $this->model_transaksi->dd_cabai(),
+            'cabai_selected' => $this->input->post('cabai') ? $this->input->post('cabai') : '$row->jenis', // untuk edit ganti '' menjadi data dari database misalnya $row->provinsi
+            );
+
 			$this->load->view('header');
-            $this->load->view('transaksi_pemborongREV');
+            $this->load->view('transaksi_pemborongREV', $data);
             $this->load->view('footer');
 		}
 
@@ -98,18 +115,18 @@ class Transaksi extends CI_Controller {
         $berat_bersih = $this->input->post('berat_bersih');
 
         //menampilkan nama petani, daerah, dan saldo
-        $data['petani'] = $this->model_transaksi_petani->petani($id_petani);
+        $data['petani'] = $this->model_transaksi->petani($id_petani);
 
         //menghitung jumlah uang
-        $hargaBs_today = $this->model_transaksi_petani->hargaBs_today($tanggal, $kode_cabai);
-        $hargaBersih_today = $this->model_transaksi_petani->hargaBersih_today($tanggal, $kode_cabai);
+        $hargaBs_today = $this->model_transaksi->hargaBs_today($tanggal, $kode_cabai);
+        $hargaBersih_today = $this->model_transaksi->hargaBersih_today($tanggal, $kode_cabai);
         $harga_bs = $berat_bs * $hargaBs_today;
         $harga_bersih = $berat_bersih * $hargaBersih_today;
         $jumlah_uang = $harga_bs + $harga_bersih;
         $data['jumlah_uang'] = $jumlah_uang;
 
         //menghitung saldo sekarang
-        $saldo = $this->model_transaksi_petani->saldo_petani($id_petani);
+        $saldo = $this->model_transaksi->saldo_petani($id_petani);
         $saldo_new = $saldo + $jumlah_uang;
         $data['saldo'] = $saldo_new;
 

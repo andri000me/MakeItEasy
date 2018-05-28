@@ -192,7 +192,7 @@ button:hover {
 			<input type="text" name="tanggal" class="input-tanggal" style="width: 100px"></td><br>
 				
 			<label>Nama Petani</label>
-			<input type="text" name="nama_petani" id="nama_petani" style="width: 100px"><br>
+			<input type="text" name="id_petani" style="width: 100px"><br>
 		
 			<label>Jenis Cabai</label>
 			<input type="text" name="kode_cabai" style="width: 100px"><br>
@@ -205,6 +205,7 @@ button:hover {
 			<input type="text" name="berat_bs" style="width: 50px">kg<br>
 
 			<input type="submit" value="Next">
+
 		</form>
 
 		<label>Nama Petani</label><br>
@@ -294,15 +295,22 @@ button:hover {
     <!-- js autocomplete jquery -->
     <script type="text/javascript">
         $(document).ready(function(){
-            $( "#nama_petani" ).autocomplete({
+            $( "#nama_setor" ).autocomplete({
               source: "<?php echo site_url('Transaksi2/get_petani/?');?>",
+
+              select: function (event, ui) {
+                    $('[name="nama_setor"]').val(ui.item.nama_petani); 
+                    $('[name="saldo_setor"]').val(ui.item.saldo_petani);
+                } 
             });
         });
     </script>
     <!-- js jquery-ui tanggalan -->
     <script type="text/javascript">
 		$(document).ready(function(){
-					
+			$('.input-tanggal').datepicker({
+				dateFormat : 'yy-mm-dd'
+			});		
 		});
 	</script>
 

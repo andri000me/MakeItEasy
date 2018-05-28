@@ -164,7 +164,6 @@
                     <th style="text-align: center; line-height: 50px" rowspan="2">Jumlah Uang</th>
                     <th style="text-align: center; line-height: 50px" rowspan="2">Transferan </th>
                     <th style="text-align: center; line-height: 50px" rowspan="2">Saldo</th>
-                    <th style="text-align: center; line-height: 50px" rowspan="2">Modal</th>
                     <th style="text-align: center; line-height: 50px" rowspan="2">Edit</th>
                   </tr>
                   <tr class="bg-gray">
@@ -174,46 +173,24 @@
                   </tr>
                 </thead>
                 <tbody>
+                  <?php $no=1; foreach ($tb_transaksi as $tb): ?>
                 <tr>
-                  <td>1</td>
-                  <td>10</td>
-                  <td>Ana Budi</td>
-                  <td>Muntilan</td>
-                  <td>10</td>
-                  <td>300</td>
-                  <td>1000</td>
-                  <td>Rp. 300.000</td>
-                  <td>3.000.000</td>
-                  <td>5.000.000</td>
-                  <td>10.000.000</td>
-                  <td>10.000.000</td>
+                  <td><?= $no ?></td>
+                  <td><?= $tb->id_pembeli ?></td>
+                  <td><?= $tb->nama ?></td>
+                  <td><?= $tb->alamat ?></td>
+                  <td><?= $tb->colly ?></td>
+                  <td><?= $tb->kode ?></td>
+                  <td><?= $tb->bersih ?></td>
+                  <td><?= $tb->harga_bersih ?></td>
+                  <td><?= $tb->bersih*$tb->harga_bersih ?></td>
+                  <td><?= $tb->transferan ?></td>
+                  <td><?= $tb->saldo ?></td>
                   <td><button type="button" class="btn btn-info btn-xs data-toggle="modal" data-target="#modal-info"">edit</button></td>
                 </tr>
-                 <tr>
-                  <td>2</td>
-                  <td>10</td>
-                  <td>Tina Toon</td>
-                  <td>Muntilan</td>
-                  <td>10</td>
-                  <td>300</td>
-                  <td>1000</td>
-                  <td>Rp. 300.000</td>
-                  <td>3.000.000</td>
-                  <td>5.000.000</td>
-                  <td>10.000.000</td>
-                  <td>10.000.000</td>
-                  <td><button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#modal-info">edit</button></td>
-                </tr>
+                <?php $no++; endforeach; ?>
+
                 </tbody>
-<!--                 <tfoot>
-                <tr>
-                  <th>Rendering engine</th>
-                  <th>Browser</th>
-                  <th>Platform(s)</th>
-                  <th>Engine version</th>
-                  <th>CSS grade</th>
-                </tr>
-                </tfoot> -->
               </table>
             </div>
             <!-- /.box-body -->
@@ -572,7 +549,7 @@
         <button type="button" class="close" data-dismiss="modal">&times;</button>
         <h4 class="modal-title">Masukkan Setoran</h4>
       </div>
-      <form action="" method="post">
+      <form action="<?php echo base_url();?>Transaksi2/tambah_transborong" method="post">
       <div class="modal-body">
 
         <div class="row" style="padding-bottom: 5px">
@@ -580,7 +557,7 @@
             <label>Tanggal :</label>
           </div>
           <div class="col-md-8">
-            <input type="text" name="tanggal" class="form-control input-tanggal datepicker">
+            <input type="text" name="tanggal" class="form-control input-tanggal">
           </div>
         </div>
 
@@ -589,7 +566,10 @@
             <label>Nama Pembeli :</label>
           </div>
           <div class="col-md-8">
-            <input type="text" name="nama_petani" class="form-control select2">
+            <select type="text" name="nama_pembeli" id="nama_pembeli" class="form-control" style="
+            width: 100%"></select>
+            <input type="text" hidden="" name="id_pembeli" id="id_pembeli">
+            <input type="text" hidden="" name="saldo_pembeli" id="saldo_pembeli">
           </div>
         </div>
 
@@ -598,7 +578,7 @@
             <label>Asal  :</label>
           </div>
           <div class="col-md-8">
-           <input type="text" name="asal_daerah" class="form-control select2">
+           <input type="text" name="asal_pembeli" readonly="" id="asal_pembeli" class="form-control">
           </div>
         </div>
 
@@ -607,23 +587,36 @@
            <label>Kode :</label>
           </div>
           <div class="col-md-8">
-          
+            <?php
+                $dd_cabai_attribute = 'id="cabai" class="form-control select2" style="width:100%"';
+                echo form_dropdown('cabai', $dd_cabai, $cabai_selected, $dd_cabai_attribute);
+              ?>
           </div>
         </div>
               
-        <div class="col-md-12" style="text-align: center; padding-bottom: 5px; padding-top: 10px">      
+        <div class="col-md-12" style="text-align: center; padding-bottom: 5px; padding-top: 10px">    
           <b>Berat</b>
         </div>
         <div class="row">
             <div class="col-md-6">
               <label>Colly</label>
-              <input type="text" name="berat_kotor">colly
+              <input type="text" name="colly">colly
             </div>
             <div class="col-md-6">
               <label>Bersih </label>
-              <input type="text" name="berat_bs">kg
+              <input type="text" name="bersih">kg
             </div>
         </div>
+
+        <div class="row" style="padding-top: 10px">
+          <div class="col-md-4">
+            <label>Transferan  :</label>
+          </div>
+          <div class="col-md-8">
+           <input type="text" name="transferan" id="transferan" class="form-control">
+          </div>
+        </div>
+
       </div>
 
       <div class="modal-footer">

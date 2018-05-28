@@ -11,6 +11,9 @@
 
   <link rel="stylesheet" href="<?php echo base_url();?>/assets/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.css">
 
+  <!-- jQuery UI -->
+  <link rel="stylesheet" href="<?php echo base_url().'assets/bower_components/jquery-ui/themes/base/jquery-ui.css'?>">
+
   <!-- Font Awesome -->
   <link rel="stylesheet" href="<?php echo base_url();?>/assets/bower_components/font-awesome/css/font-awesome.min.css">
   <!-- Ionicons -->
