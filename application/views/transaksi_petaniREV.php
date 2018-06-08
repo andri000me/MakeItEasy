@@ -673,10 +673,10 @@ button:hover {
         $.ajax({
            url: '<?php echo base_url();?>Transaksi/get_hargaCabai', //This is the current doc
            type: "POST",
-           dataType:'json', // add json datatype to get json
+           dataType: "json",
            data: {tanggal: $('#tanggal_setor').val(), kode_cabai: $('#cabai').val()  },
-           success: function(){
-               alert('berhasil')
+           success: function(harga){
+               alert(harga.harga_bersih)
            },
            error: function(){
               alert('gagal cuk');

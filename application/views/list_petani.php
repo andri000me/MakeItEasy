@@ -1,129 +1,101 @@
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <h1>
+      Daftar Petani
+      <small>_</small>
+    </h1>
+    <ol class="breadcrumb">
+      <li><a href="#"><i class="fa fa-dashboard"></i> Daftar data</a></li>
+      <li >Petani</li>
+    </ol>
+  </section>
 
-  <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <h1>
-        Riwayat Transaksi Petani
-        <small>_</small>
-      </h1>
-      <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Riwayat Transaksi</a></li>
-        <li class="active">Petani</li>
-      </ol>
-    </section>
+  <!-- Main content -->
+  <section class="content">
+    <!-- Info boxes -->
+    <div class="row">
+      <div class="col-md-3 col-sm-6 col-xs-12 col-md-offset-6">
+        <div class="info-box">
+          <span class="info-box-icon bg-green"><i class="ion ion-ios-cart-outline"></i></span>
+
+          <div class="info-box-content">
+            <span class="info-box-text">Jumlah Transaksi Petani Hari Ini</span>
+            <span class="info-box-number">76</span>
+          </div>
+          <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+      </div>
+      <!-- /.col -->
+      <div class="col-md-3 col-sm-6 col-xs-12">
+        <div class="info-box">
+          <span class="info-box-icon bg-yellow"><i class="ion ion-ios-people-outline"></i></span>
+
+          <div class="info-box-content">
+            <span class="info-box-text">Jumlah Petani Mitra</span>
+            <span class="info-box-number">2,000</span>
+          </div>
+          <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+      </div>
+      <!-- /.col -->
+    </div>
+    <!-- /.row -->
 
     <!-- Main content -->
-    <section class="content">
-
-
-      <div class="row">
-
-        <div class="col-md-12">
-          <div class="box box-primary">
-            <div class="box-header">
-              <h3 class="box-title">Riwayat Transaksi berdasarkan Tanggal</h3>
-            </div>
-
-              <div class="col-md-12">
-                  <span class="fa fa-male fa-3x pull-right">  Petani</span> 
-              </div>
-            <div class="box-body">
-            
-
-              <!-- Date range -->
-              <div class="row">
-                <form action="<?php echo base_url();?>/Riwayat/RiwayatPetani" method="post">
-                  <div class="form-group col-md-5">
-                    <label>Tanggal Mulai :</label>
-
-                    <div class="input-group">
-                      <div class="input-group-addon">
-                        <i class="fa fa-calendar"></i>
-                      </div>
-                      <input type="text" class="form-control input-tanggal" name="start" id="start" value="">="<?php echo $startdate ?>">
-                    </div>
-                  </div>
-
-                  <div class="form-group col-md-5">
-                    <label>Tanggal Selesai :</label>
-                    <div class="input-group">
-                      <div class="input-group-addon">
-                        <i class="fa fa-calendar"></i>
-                      </div>
-                      <input type="text" class="form-control input-tanggal" name="end" id="end" value="">="<?php echo $enddate ?>">
-                    </div>
-                  </div>
-
-                  <div class="col-md-2">
-                      <input type="submit" class="btn btn-info" value="Cek Transaksi" style="margin-top: 25px">
-                  </div>
-                </form>
-              </div>
-
-
-              <!-- /.form group -->
-              <div class="row">
-                <div class="col-md-12 table-responsive">
-                  <hr>
-                  <table id="example2" class="table table-bordered table-striped">
-                    <thead>
-                  <tr class="bg-gray">
-                    <th style="text-align: center; line-height: 50px" rowspan="2">#</th>
-                    <th style="text-align: center; line-height: 50px" rowspan="2">Tanggal </th>
-                    <th style="text-align: center; line-height: 50px" rowspan="2">ID</th>
-                    <th style="text-align: center; line-height: 50px" rowspan="2">Nama</th>
-                    <th style="text-align: center; line-height: 50px" rowspan="2">Kode Cabai</th>
-                    <th style="text-align: center;" colspan="3">Berat</th>
-                    <th style="text-align: center; line-height: 50px" rowspan="2">Harga</th>
-                    <th style="text-align: center; line-height: 50px" rowspan="2">Jumlah Uang</th>
-                    <th style="text-align: center; line-height: 50px" rowspan="2">Saldo</th>
-                    <th style="text-align: center; line-height: 50px" rowspan="2">Edit</th>
-                  </tr>
-                  <tr class="bg-gray">
-                    <th>Kotor </th>
-                    <th>BS/ MTL </th>
-                    <th>Bersih </th>
-                  </tr>
-                </thead>
-                  <tbody>
-                    <?php
-                      if (!empty($riwayat_transpetani)) {
-                        $no=1; foreach ($riwayat_transpetani as $key) {
-                            $berat_bersih = $key->berat_kotor-$key->berat_bs;
-
-                            echo "<tr><td>".$no."</td><td>".$key->tanggal."</td><td>".$key->id_petani."</td><td>".$key->nama."</td><td>".$key->kode_cabai."</td><td>".$key->berat_kotor."</td><td>".$key->berat_bs."</td><td>".$berat_bersih."</td><td>".$key->harga_bersih."</td><td>Jumlah Uang</td>
-                                  <td>Saldo</td><td><button type='button' class='btn btn-info btn-xs data-toggle='modal' data-target='#modal-info'>edit</button></td></tr>";
-                          
-                            $no++;
-                        }
-                      }
-                      else {
-                            echo "<tr><td colspan='12' class='text-center'> Tidak ada data yang ditampilkan </td></tr>";
-                      }
-
-                    ?>
-                  </tbody>
-                </table>
-                <!-- ./table -->
-              </div>
-              </div>
-              <!-- ./ row table responsive -->
-            </div>
-            <!-- /.box-body -->
+    <div class="row">
+      <div class="col-md-12">
+        <div class="box" style="border: 2px solid #dff0d8;">
+          <div class="box-header">
+            <h3 class="box-title">Daftar petani </h3>
           </div>
-          <!-- /.box -->
-
+          <!-- /.box-header -->
+          <div class="box-body table-responsive">
+            <table id="example1" class="table table-bordered table-striped">
+              <thead>
+                <tr class="bg-success">
+                  <th style="text-align: center; line-height: 50px">#</th>
+                  <th style="text-align: center; line-height: 50px">ID</th>
+                  <th style="text-align: center; line-height: 50px">Nama Lengkap</th>
+                  <th style="text-align: center; line-height: 50px">Nama Panggil</th>
+                  <th style="text-align: center; line-height: 50px">Asal Daerah</th>
+                  <th style="text-align: center; line-height: 50px">No Telp/HP</th>
+                  <th style="text-align: center; line-height: 50px">Saldo</th>
+                  <th style="text-align: center; line-height: 50px">Jaminan </th>
+                  <th style="text-align: center; line-height: 50px">detail </th>
+                </tr>
+              </thead>
+              <tbody>
+                <?php $no=1; foreach ($tb_petani as $key): ?>
+                <tr>
+                  <td><?= $no ?></td>
+                  <td><?= $key->id ?></td>
+                  <td><?= $key->nama ?></td>
+                  <td><?= $key->nama_panggil ?></td>
+                  <td><?= $key->desa ?></td>
+                  <td><?= $key->no_telp ?></td>
+                  <td><?= $key->saldo ?></td>
+                  <td><?= $key->jaminan ?></td>
+                  <td><a href="<?php echo base_url();?>DataProfil/detailPetani/<?= $key->id ?>" type="button" class="btn btn-info btn-xs">lihat</a></td>
+                </tr>
+                <?php $no++; endforeach ?>
+              </tbody>
+            </table>
+          </div>
+          <!-- /.box-body -->
         </div>
-        <!-- /.col (right) -->
+        <!-- /.box -->
       </div>
-      <!-- /.row -->
-
-    </section>
-    <!-- /.content -->
-  </div>
-  <!-- /.content-wrapper -->
+      <!-- /.col -->
+    </div>
+    <!-- /.row -->
+  </section>
+  <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
   <footer class="main-footer">
     <div class="pull-right hidden-xs">
       <b>Version</b> 2.4.0
@@ -332,8 +304,8 @@
 <script src="<?php echo base_url();?>assets/bower_components/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap 3.3.7 -->
 <script src="<?php echo base_url();?>assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-<!-- jQuery-UI -->
-<script src="<?php echo base_url();?>assets/bower_components/jquery-ui/jquery-ui.js" type="text/javascript"></script>
+<!-- bootstrap color picker -->
+<script src="<?php echo base_url();?>/assets/bower_components/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js"></script>
 <!-- DataTables -->
 <script src="<?php echo base_url();?>assets/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="<?php echo base_url();?>assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
@@ -345,12 +317,14 @@
 <script src="<?php echo base_url();?>assets/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="<?php echo base_url();?>assets/js/demo.js"></script>
-<script type="text/javascript">
+
+<script>
   $(document).ready(function(){
-      $('.input-tanggal').datepicker({
-      dateFormat : 'yy-mm-dd'
-    });
+    $('#example1').DataTable()
   })
+
 </script>
+
 </body>
 </html>
+

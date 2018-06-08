@@ -41,6 +41,10 @@
       dateFormat : 'yy-mm-dd'
     });
 
+    $('.reservasi').daterangepicker({
+      dateFormat  : 'yy-mm-dd'
+    });
+
     //dropdown jenis cabai
     $(".select2").select2({
         placeholder: "Please Select"

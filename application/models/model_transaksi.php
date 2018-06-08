@@ -17,7 +17,7 @@ class model_transaksi extends CI_Model {
 
   public function tb_transborong()
   {
-      $query = $this->db->query("SELECT a.id, a.id_pembeli, b.nama, b.alamat, a.tanggal, a.colly, a.kode, a.bersih, c.harga_bersih, a.transferan, a.saldo FROM transaksi_pembeli a JOIN tb_pembeli b JOIN harga_cabai_pembeli c WHERE a.id_pembeli=b.id AND a.kode=c.kode_cabai AND a.tanggal=c.tanggal");
+      $query = $this->db->query("SELECT a.id, a.id_pembeli, b.nama, b.alamat, a.tanggal, a.colly, a.kode, a.bersih, c.harga_bersih, a.transferan, a.saldo FROM transaksi_pembeli a LEFT JOIN harga_cabai_pembeli c ON a.kode=c.kode_cabai AND a.tanggal=c.tanggal INNER JOIN tb_pembeli b ON a.id_pembeli=b.id");
       if($query->num_rows() > 0)
         {
           return $query->result();
@@ -26,6 +26,13 @@ class model_transaksi extends CI_Model {
         {
           return array();
         }
+  }
+
+  public function edit_transborong($id)
+  {
+    $query = $this->db->query("SELECT a.id, a.id_pembeli, b.nama, b.alamat, b.saldo, a.tanggal, a.colly, a.kode, a.bersih, c.harga_bersih, a.transferan FROM transaksi_pembeli a LEFT JOIN harga_cabai_pembeli c ON a.kode=c.kode_cabai AND a.tanggal=c.tanggal INNER JOIN tb_pembeli b ON a.id_pembeli=b.id WHERE a.id='$id'");
+
+    return $query->row();
   }
 
 	function search_petani($nama){
@@ -46,6 +53,20 @@ class model_transaksi extends CI_Model {
         return $this->db->get()->result_array();
     }
 
+  function input_transaksi_petani($data){
+    $this->db->insert('transaksi_petani', $data);
+  }
+
+  function update_saldo_petani($data, $id){
+    $this->db->where('id', $id);
+    $this->db->update('tb_petani', $data);
+  }
+
+  function update_transaksi_petani($data, $id){
+    $this->db->where('id', $id);
+    $this->db->update('transaksi_petani', $data);
+  }
+
   function input_transaksi_pembeli($data){
   	$this->db->insert('transaksi_pembeli', $data);
   }
@@ -53,6 +74,11 @@ class model_transaksi extends CI_Model {
   function update_saldo_pembeli($data, $id){
     $this->db->where('id', $id);
     $this->db->update('tb_pembeli', $data);
+  }
+
+  function update_transaksi_pembeli($data, $id){
+    $this->db->where('id', $id);
+    $this->db->update('transaksi_pembeli', $data);
   }
 
   function harga_today($date){
@@ -67,14 +93,16 @@ class model_transaksi extends CI_Model {
         }
   }
 
-  function harga_cabai($kode_cabai, $tanggal){
-    $query = $this->db->query("SELECT harga_bs, harga_bersih FROM harga_cabai_petani WHERE kode_cabai='$kode_cabai' AND tanggal='$tanggal'");
-        return $query->row();
+  function harga_petani($tanggal, $kode_cabai){
+    $query = $this->db->query("SELECT harga_bs, harga_bersih FROM harga_cabai_petani WHERE tanggal='$tanggal' AND kode_cabai='$kode_cabai'");
+        $result = $query->row();
+        return $result;
   }
 
-  function harga_pembeli_today($tanggal, $kode_cabai){
-     $query = $this->db->query("SELECT harga_bersih FROM harga_cabai_pembeli WHERE kode_cabai='$kode_cabai' AND tanggal='$tanggal'");
-        return $query->row()->harga_bersih;
+  function harga_pembeli($tanggal, $kode_cabai){
+    $query = $this->db->query("SELECT harga_bersih FROM harga_cabai_pembeli WHERE tanggal='$tanggal' AND kode_cabai='$kode_cabai'");
+    $result = $query->row();
+    return $result->harga_bersih;
   }
 
   function petani($id_petani){

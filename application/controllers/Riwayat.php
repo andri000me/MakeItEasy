@@ -5,6 +5,7 @@ class Riwayat extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
+		$this->load->model('model_riwayat');
 		
 	}
 
@@ -15,25 +16,39 @@ class Riwayat extends CI_Controller {
 			$this->load->view('footer');
 		}
 
-	public function datapetani()
+	public function DataPetani()
     {
         $this->load->view('header');
         $this->load->view('data_petani');
         $this->load->view('footer');
     }
 
-    public function riwayatpetani()
-    {
-        $this->load->view('header');
-        $this->load->view('riwayat_petani');
-        $this->load->view('footer');   
+    public function RiwayatPetani()
+    {  
+    	$startdate = $this->input->post('start');
+    	$enddate = $this->input->post('end');
+
+    	$data = array(
+    		'riwayat_transpetani' =>  $this->model_riwayat->riwayat_transpetani($startdate, $enddate),
+    		'startdate' => $startdate,
+    		'enddate' => $enddate );
+
+		$this->load->view('header');
+		$this->load->view('riwayat_petani', $data); 
     }
 
-    public function riwayatpemborong()
+    public function RiwayatPemborong()
     {
-        $this->load->view('header');
-        $this->load->view('riwayat_pemborong');
-        $this->load->view('footer');   
+        $startdate = $this->input->post('start');
+    	$enddate = $this->input->post('end');
+
+    	$data = array(
+    		'riwayat_transborong' =>  $this->model_riwayat->riwayat_transborong($startdate, $enddate),
+    		'startdate' => $startdate,
+    		'enddate' => $enddate );
+    	
+		$this->load->view('header');
+		$this->load->view('riwayat_pemborong', $data);
     }
 
 }

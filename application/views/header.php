@@ -9,7 +9,7 @@
   <!-- Bootstrap 3.3.7 -->
   <link rel="stylesheet" href="<?php echo base_url();?>/assets/bower_components/bootstrap/dist/css/bootstrap.min.css">
   <!-- jQuery UI -->
-  <link rel="stylesheet" href="<?php echo base_url().'assets/bower_components/jquery-ui/themes/base/jquery-ui.css'?>">
+  <link rel="stylesheet" href="<?php echo base_url().'assets/bower_components/jquery-ui/themes/base/jquery-ui.css'?>">  
   <!-- daterange picker -->
   <link rel="stylesheet" href="<?php echo base_url();?>/assets/bower_components/bootstrap-daterangepicker/daterangepicker.css">
   <!-- DataTables -->
@@ -139,22 +139,18 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="<?php echo base_url();?>Transaksi/transpetani"><i class="fa fa-male"></i>Harga Cabai</a></li>
-            <li><a href="<?php echo base_url();?>Transaksi/transborong"><i class="fa fa-cart-plus"></i> Jenis Cabai</a></li>
+            <li><a href="<?php echo base_url();?>Cabai/hargaJenis"><i class="fa fa-male"></i>Pengaturan Harga & Jenis</a></li>
+            <li><a href="<?php echo base_url();?>Cabai/riwayatPetani"><i class="fa fa-cart-plus"></i> Riwayat Harga Cabai Petani</a></li>
+            <li><a href="<?php echo base_url();?>Cabai/riwayatPembeli"><i class="fa fa-cart-plus"></i> Riwayat Harga Cabai Pembeli</a></li>
           </ul>
         </li>
 
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-table"></i> <span>Barang Modal</span>
+        <li>
+          <a href="<?php echo base_url();?>Barang">
+            <i class="fa fa-dashboard"></i> <span>Barang BON</span>
             <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
-          <ul class="treeview-menu">
-            <li><a href="<?php echo base_url();?>Transaksi/transpetani"><i class="fa fa-male"></i>Atur Jenis Barang</a></li>
-            <li><a href="<?php echo base_url();?>Transaksi/transborong"><i class="fa fa-cart-plus"></i> Atur Harga Barang</a></li>
-          </ul>
         </li>
      
         <li class="treeview">
@@ -165,8 +161,8 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="<?php echo base_url();?>Transaksi/transpetani"><i class="fa fa-male"></i> Petani</a></li>
-            <li><a href="<?php echo base_url();?>Transaksi/transborong"><i class="fa fa-cart-plus"></i> Pelanggan</a></li>
+            <li><a href="<?php echo base_url();?>DataProfil/petani"><i class="fa fa-male"></i> Petani</a></li>
+            <li><a href="<?php echo base_url();?>DataProfil/pemborong"><i class="fa fa-cart-plus"></i> Pelanggan</a></li>
           </ul>
         </li>
 

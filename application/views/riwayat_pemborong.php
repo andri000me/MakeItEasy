@@ -25,26 +25,44 @@
             <div class="box-header">
               <h3 class="box-title">Riwayat Transaksi berdasarkan Tanggal</h3>
             </div>
+            
+            <div class="col-md-12">
+               <span class="fa fa-cart-plus fa-3x pull-right">  Pembeli</span>
+            </div>
             <div class="box-body">
             
 
-              <!-- Date range -->
-              <div class="form-group col-md-6">
-                <label>Tanggal :</label>
+            <!-- Date range -->
+              <div class="row">
+                <form action="<?php echo base_url();?>/Riwayat/RiwayatPemborong" method="post">
+                  <div class="form-group col-md-5">
+                    <label>Tanggal Mulai :</label>
 
-                <div class="input-group">
-                  <div class="input-group-addon">
-                    <i class="fa fa-calendar"></i>
+                    <div class="input-group">
+                      <div class="input-group-addon">
+                        <i class="fa fa-calendar"></i>
+                      </div>
+                      <input type="text" class="form-control input-tanggal" name="start" id="start" value="<?php echo $startdate ?>">
+                    </div>
                   </div>
-                  <input type="text" class="form-control pull-right" id="reservation">
-                </div>
-                <!-- /.input group -->
-              </div>
-              <!-- /.form group -->
 
-              <div class="col-md-6">
-                  <span class="fa fa-cart-plus fa-3x pull-right">  Pembeli</span> 
+                  <div class="form-group col-md-5">
+                    <label>Tanggal Selesai :</label>
+                    <div class="input-group">
+                      <div class="input-group-addon">
+                        <i class="fa fa-calendar"></i>
+                      </div>
+                      <input type="text" class="form-control input-tanggal" name="end" id="end" value="<?php echo $enddate ?>">
+                    </div>
+                  </div>
+
+                  <div class="col-md-2">
+                      <input type="submit" class="btn btn-info" value="Cek Transaksi" style="margin-top: 25px">
+                  </div>
+                </form>
               </div>
+
+              <!-- /.form group -->
 
               <div class="row">
                 <div class="col-md-12 table-responsive">
@@ -52,6 +70,7 @@
                   <table id="example1" class="table table-bordered table-striped">
                    <thead>
                       <tr class="bg-gray">
+                        <th style="text-align: center; line-height: 10px" rowspan="2">#</th>
                         <th style="text-align: center; line-height: 10px" rowspan="2">Tanggal</th>
                         <th style="text-align: center; line-height: 30px" rowspan="2">ID</th>
                         <th style="text-align: center; line-height: 50px" rowspan="2">Nama</th>
@@ -61,7 +80,6 @@
                         <th style="text-align: center; line-height: 50px" rowspan="2">Jumlah Uang</th>
                         <th style="text-align: center; line-height: 50px" rowspan="2">Transferan </th>
                         <th style="text-align: center; line-height: 50px" rowspan="2">Saldo</th>
-                        <th style="text-align: center; line-height: 50px" rowspan="2">Modal</th>
                         <th style="text-align: center; line-height: 50px" rowspan="2">Edit</th>
                       </tr>
                       <tr class="bg-gray">
@@ -71,21 +89,23 @@
                       </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>1</td>
-                      <td>10</td>
-                      <td>Ana Budi</td>
-                      <td>Muntilan</td>
-                      <td>10</td>
-                      <td>300</td>
-                      <td>1000</td>
-                      <td>Rp. 300.000</td>
-                      <td>3.000.000</td>
-                      <td>5.000.000</td>
-                      <td>10.000.000</td>
-                      <td>10.000.000</td>
-                      <td><button type="button" class="btn btn-info btn-xs data-toggle="modal" data-target="#modal-info"">edit</button></td>
-                    </tr>
+                    <?php
+                      if (!empty($riwayat_transborong)) {
+                        $no=1; foreach ($riwayat_transborong as $key) {
+
+                          $jumlah_uang = $key->bersih * $key->harga_bersih;
+
+                            echo "<tr><td>".$no."</td><td>".$key->tanggal."</td><td>".$key->id_pembeli."</td><td>".$key->nama."</td><td>".$key->alamat."</td><td>".$key->colly."</td><td>".$key->kode."</td><td>".$key->bersih."</td><td>".$key->harga_bersih."</td><td>".$jumlah_uang."</td><td>".$key->transferan."</td>
+                                  <td>".$key->saldo."</td><td><button type='button' class='btn btn-info btn-xs data-toggle='modal' data-target='#modal-info'>edit</button></td></tr>";
+                          
+                            $no++;
+                        }
+                      }
+                      else {
+                            echo "<tr><td colspan='12' class='text-center'> Tidak ada data yang ditampilkan </td></tr>";
+                      }
+
+                    ?>
                   </tbody>
                 </table>
                 <!-- ./table -->
@@ -309,4 +329,31 @@
   <div class="control-sidebar-bg"></div>
 </div>
 <!-- ./wrapper -->
+
+<!-- jQuery 3 -->
+<script src="<?php echo base_url();?>assets/bower_components/jquery/dist/jquery.min.js"></script>
+<!-- Bootstrap 3.3.7 -->
+<script src="<?php echo base_url();?>assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- jQuery-UI -->
+<script src="<?php echo base_url();?>assets/bower_components/jquery-ui/jquery-ui.js" type="text/javascript"></script>
+<!-- DataTables -->
+<script src="<?php echo base_url();?>assets/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="<?php echo base_url();?>assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<!-- Slimscroll -->
+<script src="<?php echo base_url();?>assets/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+<!-- FastClick -->
+<script src="<?php echo base_url();?>assets/bower_components/fastclick/lib/fastclick.js"></script>
+<!-- AdminLTE App -->
+<script src="<?php echo base_url();?>assets/js/adminlte.min.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="<?php echo base_url();?>assets/js/demo.js"></script>
+<script type="text/javascript">
+  $(document).ready(function(){
+      $('.input-tanggal').datepicker({
+      dateFormat : 'yy-mm-dd'
+    });
+  })
+</script>
+</body>
+</html>
 

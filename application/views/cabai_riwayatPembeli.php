@@ -1,16 +1,15 @@
-
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Riwayat Transaksi Petani
+        Riwayat Harga Cabai
         <small>_</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Riwayat Transaksi</a></li>
-        <li class="active">Petani</li>
+        <li><a href="#">Cabai</a></li>
+        <li class="active">Riwayat Harga Cabai Pembeli</li>
       </ol>
     </section>
 
@@ -23,18 +22,18 @@
         <div class="col-md-12">
           <div class="box box-primary">
             <div class="box-header">
-              <h3 class="box-title">Riwayat Transaksi berdasarkan Tanggal</h3>
+              <h3 class="box-title">Riwayat Harga Cabai</h3>
             </div>
-
-              <div class="col-md-12">
-                  <span class="fa fa-male fa-3x pull-right">  Petani</span> 
-              </div>
+            
+            <div class="col-md-12">
+               <span class="fa fa-cart-plus fa-3x pull-right">  Pembeli</span>
+            </div>
             <div class="box-body">
             
 
-              <!-- Date range -->
+            <!-- Date range -->
               <div class="row">
-                <form action="<?php echo base_url();?>/Riwayat/RiwayatPetani" method="post">
+                <form action="<?php echo base_url();?>Cabai" method="post">
                   <div class="form-group col-md-5">
                     <label>Tanggal Mulai :</label>
 
@@ -42,7 +41,7 @@
                       <div class="input-group-addon">
                         <i class="fa fa-calendar"></i>
                       </div>
-                      <input type="text" class="form-control input-tanggal" name="start" id="start" value="">="<?php echo $startdate ?>">
+                      <input type="text" class="form-control input-tanggal" name="start" id="start" value="<?php echo $startdate ?>">
                     </div>
                   </div>
 
@@ -52,60 +51,53 @@
                       <div class="input-group-addon">
                         <i class="fa fa-calendar"></i>
                       </div>
-                      <input type="text" class="form-control input-tanggal" name="end" id="end" value="">="<?php echo $enddate ?>">
+                      <input type="text" class="form-control input-tanggal" name="end" id="end" value="<?php echo $enddate ?>">
                     </div>
                   </div>
 
                   <div class="col-md-2">
-                      <input type="submit" class="btn btn-info" value="Cek Transaksi" style="margin-top: 25px">
+                      <input type="submit" class="btn btn-info" value="Cek Harga" style="margin-top: 25px">
                   </div>
                 </form>
               </div>
 
-
               <!-- /.form group -->
+
               <div class="row">
                 <div class="col-md-12 table-responsive">
                   <hr>
-                  <table id="example2" class="table table-bordered table-striped">
-                    <thead>
-                  <tr class="bg-gray">
-                    <th style="text-align: center; line-height: 50px" rowspan="2">#</th>
-                    <th style="text-align: center; line-height: 50px" rowspan="2">Tanggal </th>
-                    <th style="text-align: center; line-height: 50px" rowspan="2">ID</th>
-                    <th style="text-align: center; line-height: 50px" rowspan="2">Nama</th>
-                    <th style="text-align: center; line-height: 50px" rowspan="2">Kode Cabai</th>
-                    <th style="text-align: center;" colspan="3">Berat</th>
-                    <th style="text-align: center; line-height: 50px" rowspan="2">Harga</th>
-                    <th style="text-align: center; line-height: 50px" rowspan="2">Jumlah Uang</th>
-                    <th style="text-align: center; line-height: 50px" rowspan="2">Saldo</th>
-                    <th style="text-align: center; line-height: 50px" rowspan="2">Edit</th>
-                  </tr>
-                  <tr class="bg-gray">
-                    <th>Kotor </th>
-                    <th>BS/ MTL </th>
-                    <th>Bersih </th>
-                  </tr>
-                </thead>
-                  <tbody>
-                    <?php
-                      if (!empty($riwayat_transpetani)) {
-                        $no=1; foreach ($riwayat_transpetani as $key) {
-                            $berat_bersih = $key->berat_kotor-$key->berat_bs;
+                    <table id="tabel_transaksi" class="table table-bordered table-striped" style="font-size: 15px">
+                          <thead>
+                            <tr class="bg-success">
+                              <th style="text-align: center; line-height: 50px" rowspan="2">No</th>
+                              <th style="text-align: center; line-height: 50px" rowspan="2">Tanggal </th>
+                              <th style="text-align: center; line-height: 50px" rowspan="2">Jenis Cabai</th>
+                              <th style="text-align: center; line-height: 50px" rowspan="2">Kode Cabai</th>
+                              <th style="text-align: center;" colspan="2">Harga</th>
+                              <th style="text-align: center; line-height: 50px" rowspan="2">Edit</th>
+                            </tr>
+                            <tr class="bg-success">
+                              <th>BS/ MTL </th>
+                              <th>Bersih </th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                             <?php
+                                if (!empty($riwayat_cabai)) {
+                                  $no=1; foreach ($riwayat_cabai as $key) {
 
-                            echo "<tr><td>".$no."</td><td>".$key->tanggal."</td><td>".$key->id_petani."</td><td>".$key->nama."</td><td>".$key->kode_cabai."</td><td>".$key->berat_kotor."</td><td>".$key->berat_bs."</td><td>".$berat_bersih."</td><td>".$key->harga_bersih."</td><td>Jumlah Uang</td>
-                                  <td>Saldo</td><td><button type='button' class='btn btn-info btn-xs data-toggle='modal' data-target='#modal-info'>edit</button></td></tr>";
-                          
-                            $no++;
-                        }
-                      }
-                      else {
-                            echo "<tr><td colspan='12' class='text-center'> Tidak ada data yang ditampilkan </td></tr>";
-                      }
+                                      echo "<tr><td>".$no."</td><td>".$key->tanggal."</td><td>".$key->jenis."</td><td>".$key->kode_cabai."</td><td>".$key->harga_bs."</td><td>".$key->harga_bersih."</td><td><button type='button' class='btn btn-info btn-xs data-toggle='modal' data-target='#modal-info'>edit</button></td></tr>";
+                                    
+                                      $no++;
+                                  }
+                                }
+                                else {
+                                       echo "<tr><td colspan='12' class='text-center'> Tidak ada data yang ditampilkan </td></tr>";
+                                }
 
-                    ?>
-                  </tbody>
-                </table>
+                              ?>
+                          </tbody>
+                        </table>
                 <!-- ./table -->
               </div>
               </div>
