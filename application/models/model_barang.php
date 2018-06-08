@@ -9,4 +9,9 @@ class model_barang extends CI_Model {
 		return $query->result();
 	}
 
+	function submitBarang($data)
+	{
+		$this->db->insert('tb_bon', $data);
+	}
+
 }
