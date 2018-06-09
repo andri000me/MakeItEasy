@@ -78,7 +78,7 @@ class Cabai extends CI_Controller {
 
 		$this->model_cabai->submitPetani($data);
 		
-		redirect('Cabai/riwayatPetani');
+		redirect('Cabai/hargaJenis');
 	}
 
 	function submitHargaPembeli()	{
