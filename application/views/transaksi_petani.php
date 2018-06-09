@@ -32,12 +32,6 @@
         <div class="col-md-12">
           <div class="box box-solid bg-light-blue-gradient">
             <div class="box-header">
-              <b><h3 class="pull-left" style="padding-left: 5px">
-                <i class="fa fa-clock-o"></i>
-                <?php
-                echo "" . date("h:i a");
-                ?>
-              </h3></b>
               <h3 class="pull-right" style="text-transform: uppercase;">
                 <i class="fa fa-calendar">  </i>
                 <script language="javascript">
@@ -116,8 +110,8 @@
                           </table>
                       </div>
                       <div class="box-footer clearfix" style="border: 1px solid #f0f0f0;">
-                        <button type="button" class="btn btn-sm btn-default pull-right" data-toggle="modal" data-target="#editHarga">
-                          <i class="fa fa-edit"></i> Edit Harga </button>
+                        <a href="<?php echo base_url();?>Cabai/hargaJenis" class="btn btn-sm btn-default pull-right">
+                          <i class="fa fa-edit"></i> Edit Harga </a>
                       </div>
                             <!-- /.box-body -->
                     </div>
@@ -238,8 +232,8 @@
                                 <td><?= $tb->berat_kotor ?></td>
                                 <td><?= $tb->berat_bs ?></td>
                                 <td><?= $tb->berat_kotor-$tb->berat_bs?></td>
-                                <td>Harga</td>
-                                <td>Jumlah Uang</td>
+                                <td><?= $tb->harga_bersih ?></td>
+                                <td><?= ($tb->berat_kotor-$tb->berat_bs)*$tb->harga_bersih + $tb->berat_bs*$tb->harga_bs ?></td>
                                 <td><?= $tb->bon ?></td>
                                 <td><?= $tb->saldo ?></td>
                                 <td><button id="<?= $tb->id ?>" type="button" class="btn btn-info btn-xs edit_data" data-toggle="modal" data-target="#inputSetoran">edit</button> <a href="<?php echo base_url();?>Transaksi/delete_petani/<?= $tb->id ?>" class="btn btn-danger btn-xs">Hapus</a></td>
@@ -262,44 +256,6 @@
               <div class="tab-pane" id="tab_bon">
                 <!-- row -->
                 <div class="row">
-                  <!-- Harga cabe -->
-                  <div class="col-md-5">
-                    <div class="box" style="border: 2px solid #f0f0f0;">
-                      <div class="box-header with-border" style="background-color: #f0f0f0;">
-                        <h3 class="box-title">Daftar Harga Barang Bon (<?php echo $today ?>)</h3>
-                      </div>
-                      <!-- /.box-header -->
-                      <div class="box-body ">
-                          <table class="table table-condensed no-margin">
-                            <thead>
-                              <tr>
-                                <th style="text-align: center; line-height: 50px">No</th>
-                                <th style="text-align: center; line-height: 50px">Kode</th>
-                                <th style="text-align: center; line-height: 50px">Nama Barang</th>
-                                <th style="text-align: center; line-height: 50px">Harga</th>
-                                <th style="text-align: center; line-height: 50px">Stok</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <?php $no=1; foreach ($harga_today as $tb): ?>
-                                <tr>
-                                  <td><?= $no ?></td>
-                                  <td><?= $tb->kode ?></td>
-                                  <td><?= $tb->jenis ?></td>
-                                  <td><?= $tb->harga_bs ?></td>
-                                </tr>
-                              <?php $no++; endforeach ?>
-                            </tbody>
-                          </table>
-                      </div>
-                      <div class="box-footer clearfix" style="border: 1px solid #f0f0f0;">
-                        <button type="button" class="btn btn-sm btn-default pull-right" data-toggle="modal" data-target="#editHarga">
-                          <i class="fa fa-edit"></i> Edit Harga </button>
-                      </div>
-                            <!-- /.box-body -->
-                    </div>
-                  </div>
-                  <!-- END Harga Cabe -->
 
                   <!-- Action Button -->
                   <div class="col-md-3">
@@ -328,6 +284,91 @@
                   <!-- END Action Button -->
                 </div>
                 <!-- row -->
+
+               <!-- Modal Input BON-->
+                  <div id="inputBon" class="modal fade" role="dialog">
+                    <div class="modal-dialog modal-lg">
+
+                      <!-- Modal content-->
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal">&times;</button>
+                          <h4 class="modal-title">Input Setoran</h4>
+                        </div>
+                        <form action="<?php echo base_url().''; ?>" method="post">
+                          <div class="modal-body">
+
+                            <div class="row" style="padding-bottom: 5px">
+                              <div class="col-md-4">
+                                <label>Tanggal :</label>
+                              </div>
+                              <div class="col-md-8">
+                                <input type="text" name="tanggal" class="form-control input-tanggal datepicker">
+                              </div>
+                            </div>
+
+                            <div class="row" style="padding-bottom: 5px">
+                              <div class="col-md-4">
+                                <label>Nama Petani :</label>
+                              </div>
+                              <div class="col-md-8">
+                                <select type="text" name="nama_petani" class="form-control nama_petani" style="width: 100%"></select>
+                                <input type="text" name="id_petani" class="id_petani" hidden="hidden">
+                              </div>
+                            </div>
+
+                            <div class="row" style="padding-bottom: 5px">
+                              <div class="col-md-4">
+                                <label>Saldo :</label>
+                              </div>
+                              <div class="col-md-8">
+                                <input type="text" class="form-control saldo_petani" disabled name="saldo_petani">
+                              </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                              <div class="col-md-12">
+                              <label> Masukkan barang bon </label>
+                              <input type="hidden" name="count" value="1" />
+                                <div id="fields">
+                                  <div class="controls form-inline" id="profs"> 
+                                      <div id="field" class="form-group">
+                                        <input class="input form-control" id="barang1" name="barang[]" type="select" placeholder="Nama Barang"/>
+                                        <input autocomplete="off" class="input form-control" id="qty1" name="qty1" type="number" placeholder="Jumlah" data-items="8"/>
+                                        <input autocomplete="off" class="input form-control" id="price1" name="price1" type="number" placeholder="Harga" data-items="8" disabled=/>
+                                        <button id="b1" class="btn add-more" type="button">+</button>
+                                      </div>
+                                  <br>
+                                  <small>Tekan + untuk menambahkan kolom :)</small>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <!-- /.row -->
+                            <br>
+
+                            <div class="row" style="padding : 10px 0px">
+                                <div class="col-md-4"> 
+                                  <label>Ambil uang:</label>
+                                </div>
+                                <div class="col-md-8">
+                                  <input type="number" class="form-control" step ="50">
+                                </div>
+                              <br>
+                            </div>
+
+                          <div class="modal-footer">
+                            <input type="submit" class="btn btn-info" value="Submit">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+
+                  </div>
+                </div>
+
+                  <!-- END Modal Input BON -->
 
                 <!-- tabel -->
                 <div class="row">
@@ -623,9 +664,9 @@
             <label>Nama Petani :</label>
           </div>
           <div class="col-md-8">
-            <select type="text" name="nama_petani" id="nama_petani" class="form-control" style="
+            <select type="text" name="nama_petani" id="nama_petani" class="form-control nama_petani" style="
             width: 100%"></select>
-            <input type="text" hidden="" name="id_petani" id="id_petani">
+            <input type="text" hidden="" name="id_petani" id="id_petani" class="id_petani">
           </div>
         </div>
 
@@ -634,7 +675,7 @@
             <label>Saldo Awal :</label>
           </div>
           <div class="col-md-8">
-           <input type="text" name="saldo_petani" readonly="" id="saldo_petani" class="form-control">
+           <input type="text" name="saldo_petani" readonly="" id="saldo_petani" class="form-control saldo_petani">
           </div>
         </div>
 
@@ -804,8 +845,9 @@
         placeholder: "Please Select"
     });
 
-    $('#nama_petani').select2({
-    placeholder: 't ooo ---',
+    //select nama petani
+    $('.nama_petani').select2({
+    placeholder: 'Pilih Petani',
     ajax: {
       url: "<?php echo base_url();?>Transaksi/get_petani",
       dataType: "json",
@@ -837,10 +879,10 @@
     });
 
     //memunculkan saldo dari petani
-    $('#nama_petani').on('change', function()  {
-            var data = $('#nama_petani').select2('data');
-            $('#id_petani').val(data[0].id)
-            $("#saldo_petani").val(data[0].saldo)
+    $('.nama_petani').on('change', function()  {
+            var data = $('.nama_petani').select2('data');
+            $('.id_petani').val(data[0].id)
+            $(".saldo_petani").val(data[0].saldo)
         });
 
     //mengambil nilai harga cabai
@@ -886,7 +928,81 @@
         $('#jumlah_uang').val(jumlah_uang)
       })
     })
-      
+
+    //membuat modal input bon
+
+      //klik tambah barang
+      var next = 1;
+      $(".add-more").click(function(e){
+        e.preventDefault();
+        var addto = "#price" + next;
+        var addRemove = "#price" + (next);
+        next = next + 1;
+        var newIn = '<input class="input form-control" id="barang' + next + '" name="barang[]" type="text" placeholder="Nama Barang">' +'   <input autocomplete="off" class="input form-control" id="qty' + next + '" name="qty' + next + '" type="number" placeholder="Jumlah">' + '<input autocomplete="off" class="input form-control" id="price' + next + '" name="price' + next + '" type="number" placeholder="Harga" data-items="8" disabled=/>';
+        var newInput = $(newIn);
+        // var newInq = '<input autocomplete="off" class="input form-control" id="field' + next + '" name="qty' + next + '" type="number" placeholder="Jumlah">';
+        // var newInputq = $(newInq);
+        var removeBtn = '<button id="remove' + (next - 1) + '" class="btn btn-danger remove-me">-</button></div><div id="field"> <br id="br'+next+'">';
+        var removeButton = $(removeBtn);
+        // $(newInputq).after(newInput);
+        $(addto).after(newInput);
+        $(addRemove).after(removeButton);
+        $("#barang" + next).attr('data-source',$(addto).attr('data-source'));
+        $("#count").val(next);  
+        
+            $('.remove-me').click(function(e){
+                e.preventDefault();
+                var fieldNum = this.id.charAt(this.id.length-1);
+                var fieldID = "#barang" + fieldNum;
+                var qtyID = "#qty" + fieldNum;
+                var priceID = "#price" + fieldNum;
+                var brID = "#br" + fieldNum;
+                $(this).remove();
+                $(fieldID).remove();
+                $(qtyID).remove();
+                $(priceID).remove();
+                $(brID).remove();
+            });
+      });
+      //select barang bon
+      $('.nama_barang').select2({
+      placeholder: 'Pilih Jenis Barang',
+      ajax: {
+        url: "<?php echo base_url();?>Barang/get_barang",
+        dataType: "json",
+        delay: 250,
+        data: function(params){
+          return{
+            barang : params.term
+          };
+        },
+        processResults: function (data) {
+          var results = [];
+
+          $.each(data, function(index, item){
+            results.push({
+              id: item.id,
+              text: item.barang,
+              harga_jual: item.harga_jual,
+            });
+          });
+          return{
+            results: results
+          };
+        }
+      },
+      escapeMarkup: function (markup) { return markup; }, // let our custom formatter work
+      minimumInputLength: 1,
+      });
+
+      //memunculkan harga barang
+      // var i=1;
+      // $('.barang').on('change', function()  {
+      //         var data = $('.nama_petani').select2('data');
+      //         $('.id_petani').val(data[0].id)
+      //         $(".saldo_petani").val(data[0].saldo)
+      //     }); 
+
   });
 
   function formatRepo (repo) {

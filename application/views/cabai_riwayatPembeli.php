@@ -33,7 +33,7 @@
 
             <!-- Date range -->
               <div class="row">
-                <form action="<?php echo base_url();?>Cabai" method="post">
+                <form action="<?php echo base_url();?>Cabai/riwayatPembeli" method="post">
                   <div class="form-group col-md-5">
                     <label>Tanggal Mulai :</label>
 

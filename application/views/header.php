@@ -175,7 +175,7 @@
         </li>
 
         <li>
-          <a href="../dashboard_mie.html">
+          <a href="<?php echo base_url();?>Perusahaan">
             <i class="fa fa-dashboard"></i> <span>Neraca Dagang</span>
             <span class="pull-right-container">
             </span>

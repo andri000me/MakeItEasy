@@ -686,18 +686,13 @@
 <script src="<?php echo base_url();?>assets/bower_components/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap 3.3.7 -->
 <script src="<?php echo base_url();?>assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-<!-- Datepicker -->
-<script src="<?php echo base_url();?>assets/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.js"></script>
+<!-- jQuery-UI -->
+<script src="<?php echo base_url().'assets/bower_components/jquery-ui/jquery-ui.js'?>" type="text/javascript"></script>
 <!-- DataTables -->
 <script src="<?php echo base_url();?>assets/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="<?php echo base_url();?>assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 <!-- Slimscroll -->
 <script src="<?php echo base_url();?>assets/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
-<!-- date-range-picker -->
-<script src="<?php echo base_url();?>/assets/bower_components/moment/min/moment.min.js"></script>
-<script src="<?php echo base_url();?>/assets/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
-<!-- bootstrap color picker -->
-<script src="<?php echo base_url();?>/assets/bower_components/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js"></script>
 <!-- bootstrap time picker -->
 <script src="<?php echo base_url();?>/assets/plugins/timepicker/bootstrap-timepicker.min.js"></script>
 <!-- Select2 -->
@@ -710,9 +705,12 @@
 <script src="<?php echo base_url();?>assets/js/demo.js"></script>
 
 <script>
-  $(function () {
-    $('.datatables').DataTable()
-    $('.input-tanggal').Datepicker()
+  $(document).ready(function(){
+    $('.DataTable').DataTable()
+
+    $('.input-tanggal').datepicker({
+      dateFormat : 'yy-mm-dd'
+    });
   })
 
 </script>

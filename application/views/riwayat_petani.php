@@ -42,7 +42,7 @@
                       <div class="input-group-addon">
                         <i class="fa fa-calendar"></i>
                       </div>
-                      <input type="text" class="form-control input-tanggal" name="start" id="start" value="">="<?php echo $startdate ?>">
+                      <input type="text" class="form-control input-tanggal" name="start" id="start" value="<?php echo $startdate ?>">
                     </div>
                   </div>
 
@@ -52,7 +52,7 @@
                       <div class="input-group-addon">
                         <i class="fa fa-calendar"></i>
                       </div>
-                      <input type="text" class="form-control input-tanggal" name="end" id="end" value="">="<?php echo $enddate ?>">
+                      <input type="text" class="form-control input-tanggal" name="end" id="end" value="<?php echo $enddate ?>">
                     </div>
                   </div>
 
