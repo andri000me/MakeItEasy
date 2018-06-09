@@ -285,8 +285,8 @@
                 <div class="row">
                   <!-- Input setoran -->
                   <div class="col-md-7">
-                    <div class="box" style="border: 2px solid #dd4b39 ;">
-                      <div class="box-header with-border bg-red" >
+                    <div class="box" style="border: 2px solid #d81b60 ;">
+                      <div class="box-header with-border bg-maroon" >
                         <h3 class="box-title">Masukkan Transaksi Pembeli Non Mitra</h3>
                       </div>
                       <!-- /.box-header -->
