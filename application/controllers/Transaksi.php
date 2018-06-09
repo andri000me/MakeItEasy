@@ -45,7 +45,8 @@ class Transaksi extends CI_Controller {
 
             $data = array(
             'tb_transaksi' => $this->model_transaksi->tb_transborong(),
-            'today' => $date, 
+            'today' => $date,
+            'harga_today' => $this->model_transaksi->harga_todayPembeli($date), 
             'dd_cabai' => $this->model_transaksi->dd_cabai(),
             'cabai_selected' => $this->input->post('cabai') ? $this->input->post('cabai') : '$row->jenis', // untuk edit ganti '' menjadi data dari database misalnya $row->provinsi
             );

@@ -32,12 +32,6 @@
       <div class="col-md-12">
         <div class="box box-solid bg-light-blue-gradient">
           <div class="box-header">
-            <b><h3 class="pull-left" style="padding-left: 5px">
-              <i class="fa fa-clock-o"></i>
-              <?php
-              echo "" . date("h:i a");
-              ?>
-            </h3></b>
             <h3 class="pull-right" style="text-transform: uppercase;">
               <i class="fa fa-calendar">  </i>
               <script language="javascript">
@@ -67,8 +61,60 @@
     <!-- /.row -->
 
     <div class="row">
+     <!-- Harga cabe -->
+      <div class="col-md-5">
+        <div class="box" style="border: 2px solid #f0f0f0;">
+          <div class="box-header with-border" style="background-color: #f0f0f0;">
+            <h3 class="box-title">Harga Cabai Hari Ini (<?php echo $today ?>)</h3>
+          </div>
+          <!-- /.box-header -->
+          <div class="box-body ">
+              <table class="table table-condensed no-margin">
+                <thead>
+                  <tr>
+                    <th style="text-align: center; line-height: 50px" rowspan="2">No</th>
+                    <th style="text-align: center; line-height: 50px" rowspan="2">Kode</th>
+                    <th style="text-align: center; line-height: 50px" rowspan="2">Jenis</th>
+                    <th style="text-align: center;" colspan="2">Harga</th>
+                  </tr>
+                    <tr>
+                      <th>BS/ MTL </th>
+                      <th>Bersih </th>
+                    </tr>
+                </thead>
+                <tbody>
+                  <?php if (!empty($harga_today)) {
+                    $no=1 ;foreach ($harga_today as $tb) 
+                    {
+                      echo "<tr>
+                      <td>".$no."</td>
+                      <td>".$tb->kode."</td>
+                      <td>".$tb->jenis."</td>
+                      <td>".$tb->harga_bs."</td>
+                      <td>".$tb->harga_bersih."</td>
+                    </tr>";
+
+                    $no++;
+                    }
+                  }
+                  
+                  else {
+                    echo "<tr><td colspan='12' class='text-center text-danger'> Isi dahulu harga cabai hari ini!! </td></tr>";
+                  }
+                ?>
+                </tbody>
+              </table>
+          </div>
+          <div class="box-footer clearfix" style="border: 1px solid #f0f0f0;">
+            <a href="<?php echo base_url();?>Cabai/hargaJenis" class="btn btn-sm btn-default pull-right">
+              <i class="fa fa-edit"></i> Edit Harga </a>
+          </div>
+                <!-- /.box-body -->
+        </div>
+      </div>
+      <!-- END Harga Cabe -->
       <!-- Action Button -->
-      <div class="col-md-4">
+      <div class="col-md-3">
         <div class="box box-solid" style="border: 2px solid #f0f0f0;">
           <div class="box-header">
             <h3 class="box-title">Masukkan Transaksi</h3>
@@ -96,7 +142,7 @@
       <!-- END Action Button -->
 
       <!--Keterangan -->
-      <div class="col-md-5">
+      <div class="col-md-4">
         <div class="row">
           <div class="col-sm-6 col-xs-6" style="padding-left: 0px!important; border: 2px">
             <div class="description-block border-right bg-green" style="padding:2px; border-radius: 2px">

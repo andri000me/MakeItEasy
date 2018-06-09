@@ -77,12 +77,12 @@
                               <td>#</td>
                               <td><input class="form-control" type="text" placeholder="Tanggal" name="tanggal"></td>
                               <td><input class="form-control" type="text" placeholder="Nama Barang" name="barang"></td>
-                              <td><input class="form-control" type="number" placeholder="Beli" step="50" name="harga_beli"></td>
+                              <td><input class="form-control" type="number" placeholder="Beli" step="50" name="harga_beli" id="harga_beli"></td>
                               <td><input class="form-control" type="number" placeholder="Jual" step="50" name="harga_jual"></td>
-                              <td><input class="form-control" type="number" placeholder="Stok" name="stok"></td>
-                              <td><input class="form-control" type="text" placeholder="Jumlah Bayar" readonly name="jumlah_bayar"></td>
+                              <td><input class="form-control" type="number" placeholder="Stok" name="stok" id="stok"></td>
+                              <td><input class="form-control" type="text" placeholder="Jumlah Bayar" readonly name="jumlah_bayar" id="jumlah_bayar"></td>
                               <td>
-                                <span class="btn btn-primary"><i class="fa fa-plus"></i> Tambahkan </span>
+                                <button type="submit" class="btn btn-primary"><i class="fa fa-plus"></i> Tambahkan </button>
                               </td>
                             </tr>
                           </table>
@@ -109,7 +109,6 @@
                             <?php 
                               $no=1;
                               foreach ($tb_barang as $tb) {
-                                $no=1;
                                 echo '<tr>
                                 <td>'.$no.'</td>
                                 <td>'.$tb->tanggal.'</td>
@@ -470,6 +469,14 @@
   $(function () {
     $('#tabel_transaksi').DataTable()
     $('#tabel_bon').DataTable()
+
+    $('#stok').on('change', function() {
+      var stok = $('#stok').val()
+      var harga_beli = $('#harga_beli').val()
+      var jumlah_bayar = stok * harga_beli
+
+      $('#jumlah_bayar').val(jumlah_bayar)
+    })
   })
 
   $(function () {
@@ -477,6 +484,7 @@
     $('.kode_cabai').select2()
     $('.jenis_bon').select2()
   })
+
 
 </script>
 
