@@ -115,6 +115,7 @@
           <ul class="treeview-menu">
             <li><a href="<?php echo base_url();?>Transaksi/transpetani"><i class="fa fa-male"></i> Petani</a></li>
             <li><a href="<?php echo base_url();?>Transaksi/transborong"><i class="fa fa-cart-plus"></i> Buyer</a></li>
+            <li><a href="<?php echo base_url();?>Transaksi/transnon"><i class="fa fa-suitcase"></i>Non-Mitra</a></li>
           </ul>
         </li>
 

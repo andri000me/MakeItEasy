@@ -147,7 +147,7 @@ button:hover {
           <div class="box-body" style="text-align: center;">
              <div class="btn-group-vertical">
                 <button type="button" class="btn btn-block btn-setor-ver bg-green" data-toggle="modal" data-target="#inputSetoran"> <i class="fa fa-plus"></i> Inputkan Setoran</button>
-                <button type="button" class="btn btn-block btn-setor-ver bg-yellow"> <i class="fa fa-user-plus"></i> Tambah petani</button>
+                <button type="button" class="btn btn-block btn-setor-ver bg-yellow" data-toggle="modal" data-target="#addPetani"> <i class="fa fa-user-plus"></i> Tambah petani</button>
             </div>
           </div>
           <div class="box-footer clearfix">
@@ -385,10 +385,66 @@ button:hover {
         </div>
 
       </form>
-  </div>
-</div>
+      </div>
+    </div>
     <!-- END Modal Input Setoran -->
-  
+
+    <!-- Modal add Petani -->
+    <div class="modal fade" id="#addPEtani">
+      <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+          <h1>Tambahkan Petani Mitra</h1>
+
+            <!-- One "tab" for each step in the form: -->
+            <div class="modal-body">
+              <h4>Data Petani</h4>
+
+              <label for="ID_setor">ID</label>
+              <input type="text" name="ID_setor" readonly="">
+              
+              <label for="nama_setor">Nama</label>
+              <input type="text" name="nama_setor">
+
+              <label for="asal">Asal Daerah</label>
+              <input type="text" name="asal">
+
+              <label for="no_HP">No HP</label>
+              <input type="text" name="no_HP">
+
+              <label for="photo">Foto </label>
+              <input type="file" name="photo">
+            </div>
+
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-warning"><i class="fa fa-user-plus"></i>Tambahkan Petani</button>
+            </div>
+            <!-- /.modal-footer -->
+        </div>
+      </div>
+    </div>
+    <!-- END Modal add Petani -->
+     <div class="modal fade" id="modal-default">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Default Modal</h4>
+              </div>
+              <div class="modal-body">
+                <p>asaasas body&hellip;</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+              </div>
+            </div>
+            <!-- /.modal-content -->
+          </div>
+          <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
   </div>
   <!-- /.content-wrapper -->
 

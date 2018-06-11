@@ -268,5 +268,24 @@ class Transaksi extends CI_Controller {
         redirect('Transaksi/transborong');
     }
 
+    public function transnon()
+        {
+            $timezone = new DateTimeZone('Asia/Jakarta');
+            
+            $dt = new DateTime();
+            $dt->setTimezone($timezone);
+            $date = $dt->format('Y-m-d');
+
+            $data = array(
+            'tb_transaksi' => $this->model_transaksi->tb_transpetani(),
+            'today' => $date, 
+            'harga_today' => $this->model_transaksi->harga_today($date),
+            'dd_cabai' => $this->model_transaksi->dd_cabai(),
+            'cabai_selected' => $this->input->post('cabai') ? $this->input->post('cabai') : '$row->jenis' // untuk edit ganti '' menjadi data dari database misalnya $row->provinsi
+            );
+                
+            $this->load->view('header');
+            $this->load->view('transaksi_nonmitra', $data);
+        }
 
 }
