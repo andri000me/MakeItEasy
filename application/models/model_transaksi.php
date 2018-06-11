@@ -44,6 +44,16 @@ class model_transaksi extends CI_Model {
         return $this->db->get()->result_array();
     }
 
+  function search_petaniMitra($nama){
+        $this->db->select('id, nama, desa, saldo');
+        $this->db->limit(10);
+        $this->db->from('tb_petani');
+        $this->db->like('nama', $nama);
+        $this->db->where('kemitraan', 1);
+        $this->db->order_by('nama', 'ASC');
+        return $this->db->get()->result_array();
+    }
+
   function search_pembeli($nama){
         $this->db->select('id, nama, alamat, saldo');
         $this->db->limit(10);

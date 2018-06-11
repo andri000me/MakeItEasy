@@ -204,6 +204,7 @@
                           <thead>
                             <tr class="bg-success">
                               <th style="text-align: center; line-height: 50px" rowspan="2">#</th>
+                              <th style="text-align: center; line-height: 50px" rowspan="2">Tanggal</th>
                               <th style="text-align: center; line-height: 50px" rowspan="2">ID</th>
                               <th style="text-align: center; line-height: 50px" rowspan="2">Nama</th>
                               <th style="text-align: center; line-height: 50px" rowspan="2">Asal Daerah</th>
@@ -225,6 +226,7 @@
                             <?php $no=1; foreach ($tb_transaksi as $tb): ?>
                               <tr>
                                 <td><?= $no ?></td>
+                                <td><?= $tb->tanggal ?></td>
                                 <td><?= $tb->id_petani ?></td>
                                 <td><?= $tb->nama ?></td>
                                 <td><?= $tb->desa ?></td>
@@ -312,8 +314,8 @@
                                 <label>Nama Petani :</label>
                               </div>
                               <div class="col-md-8">
-                                <select type="text" name="nama_petani" class="form-control nama_petani" style="width: 100%"></select>
-                                <input type="text" name="id_petani" class="id_petani" hidden="hidden">
+                                <select type="text" name="nama_petani" class="form-control" id="nama_petaniMitra" style="width: 100%"></select>
+                                <input type="text" name="id_petanMitra" id="id_petaniMitra" hidden="hidden">
                               </div>
                             </div>
 
@@ -322,7 +324,7 @@
                                 <label>Saldo :</label>
                               </div>
                               <div class="col-md-8">
-                                <input type="text" class="form-control saldo_petani" disabled name="saldo_petani">
+                                <input type="text" class="form-control" id="saldo_petaniMitra" disabled name="saldo_petaniMitra">
                               </div>
                             </div>
                             <br>
@@ -333,14 +335,17 @@
                                 <div id="fields">
                                   <div class="controls form-inline" id="profs"> 
                                       <div id="field" class="form-group">
-                                        <input class="input form-control" id="barang1" name="barang[]" type="select" placeholder="Nama Barang"/>
-                                        <input autocomplete="off" class="input form-control" id="qty1" name="qty1" type="number" placeholder="Jumlah" data-items="8"/>
-                                        <input autocomplete="off" class="input form-control" id="price1" name="price1" type="number" placeholder="Harga" data-items="8" disabled=/>
-                                        <button id="b1" class="btn add-more" type="button">+</button>
+                                        <div id="field1">
+                                          <select class="input form-control" id="barang1" name="barang[]" style="width: 30%"></select>
+                                          <input autocomplete="off" class="input form-control" id="price1" name="price[]" type="number" placeholder="Harga" data-items="8" disabled style="width: 20%" />
+                                          <input autocomplete="off" class="input form-control" id="qty1" name="qty[]" type="number" placeholder="Jumlah" data-items="8" style="width: 13%" />
+                                          <input autocomplete="off" class="input form-control" id="stok1" name="stok[]" type="number" placeholder="Stok" data-items="8" style="width: 13%" />
+                                        </div>
+                                        <button id="b1" class="btn btn-info add-more" type="button">+</button>
                                       </div>
+                                  </div>
                                   <br>
                                   <small>Tekan + untuk menambahkan kolom :)</small>
-                                  </div>
                                 </div>
                               </div>
                             </div>
@@ -655,7 +660,7 @@
             <label>Tanggal :</label>
           </div>
           <div class="col-md-8">
-            <input type="text" name="tanggal" class="form-control input-tanggal" id="tanggal">
+            <input type="text" name="tanggal" class="form-control input-tanggal" id="tanggal" required>
           </div>
         </div>
 
@@ -664,9 +669,9 @@
             <label>Nama Petani :</label>
           </div>
           <div class="col-md-8">
-            <select type="text" name="nama_petani" id="nama_petani" class="form-control nama_petani" style="
-            width: 100%"></select>
-            <input type="text" hidden="" name="id_petani" id="id_petani" class="id_petani">
+            <select type="text" name="nama_petani" id="nama_petani" class="form-control" style="
+            width: 100%" required></select>
+            <input type="text" hidden="" name="id_petani" id="id_petani">
           </div>
         </div>
 
@@ -685,7 +690,7 @@
           </div>
           <div class="col-md-8">
             <?php
-                $dd_cabai_attribute = 'id="cabai" class="form-control select2" style="width:100%"';
+                $dd_cabai_attribute = 'id="cabai" class="form-control select2" style="width:100%" required';
                 echo form_dropdown('cabai', $dd_cabai, $cabai_selected, $dd_cabai_attribute);
               ?>
           </div>
@@ -712,11 +717,11 @@
         <div class="row">
             <div class="col-md-4">
               <label>Kotor</label>
-              <input type="text" name="berat_kotor" id="berat_kotor" class="form-control">kg
+              <input type="text" name="berat_kotor" id="berat_kotor" class="form-control" required="">kg
             </div>
             <div class="col-md-4">
               <label>BS/MTD </label>
-              <input type="text" name="berat_bs" id="berat_bs" class="form-control">kg
+              <input type="text" name="berat_bs" id="berat_bs" class="form-control" required="">kg
             </div>
             <div class="col-md-4">
               <label>Bersih </label>
@@ -729,7 +734,7 @@
             <label>Jumlah Uang :</label>
           </div>
           <div class="col-md-8">
-           <input type="text" name="jumlah_uang" id="jumlah_uang" class="form-control">
+           <input type="text" name="jumlah_uang" id="jumlah_uang" class="form-control" readonly="">
           </div>
         </div>
 
@@ -845,45 +850,18 @@
         placeholder: "Please Select"
     });
 
-    //select nama petani
-    $('.nama_petani').select2({
-    placeholder: 'Pilih Petani',
-    ajax: {
-      url: "<?php echo base_url();?>Transaksi/get_petani",
-      dataType: "json",
-      delay: 250,
-      data: function(params){
-        return{
-          nama : params.term
-        };
-      },
-      processResults: function (data) {
-        var results = [];
+    //select2 nama petani mitra
+    getPetani('<?php echo base_url();?>Transaksi/get_petani', $('#nama_petani'));
 
-        $.each(data, function(index, item){
-          results.push({
-            id: item.id,
-            text: item.nama,
-            saldo: item.saldo,
-            alamat: item.desa
-          });
-        });
-        return{
-          results: results
-        };
-      }
-    },
-    escapeMarkup: function (markup) { return markup; }, // let our custom formatter work
-    minimumInputLength: 1,
-    templateResult: formatRepo
-    });
+    //select2 nama petani non mitra
+    getPetani('<?php echo base_url();?>Transaksi/get_petaniMitra', $('#nama_petaniMitra'));
 
     //memunculkan saldo dari petani
-    $('.nama_petani').on('change', function()  {
-            var data = $('.nama_petani').select2('data');
-            $('.id_petani').val(data[0].id)
-            $(".saldo_petani").val(data[0].saldo)
-        });
+    showSaldo($('#nama_petani'), $('#id_petani'), $('#saldo_petani'));
+    showSaldo($('#nama_petaniMitra'), $('#id_petaniMitra'), $('#saldo_petaniMitra'));
+
+    //select2 barang bon
+    getBarang($('#barang1'));
 
     //mengambil nilai harga cabai
     $('#cabai').on('change', function() {
@@ -935,65 +913,41 @@
       var next = 1;
       $(".add-more").click(function(e){
         e.preventDefault();
-        var addto = "#price" + next;
-        var addRemove = "#price" + (next);
+        var addto = "#field" + next;
+        var addRemove = "#field" + (next);
         next = next + 1;
-        var newIn = '<input class="input form-control" id="barang' + next + '" name="barang[]" type="text" placeholder="Nama Barang">' +'   <input autocomplete="off" class="input form-control" id="qty' + next + '" name="qty' + next + '" type="number" placeholder="Jumlah">' + '<input autocomplete="off" class="input form-control" id="price' + next + '" name="price' + next + '" type="number" placeholder="Harga" data-items="8" disabled=/>';
+        var newIn = '<div id="field' + next +'"><select class="input form-control" id="barang' + next + '" name="barang[]" style="width: 30%"></select><input autocomplete="off" class="input form-control" id="price' + next + '" name="price[]" type="number" placeholder="Harga" disabled style="width: 20%"><input autocomplete="off" class="input form-control" id="qty' + next + '" name="qty[]" type="number" placeholder="Jumlah" data-items="8" style="width: 13%"/><input autocomplete="off" class="input form-control" id="stok' + next + '" name="stok[]" type="number" placeholder="Stok" data-items="8" disabled style="width: 13%"/></div>';
         var newInput = $(newIn);
-        // var newInq = '<input autocomplete="off" class="input form-control" id="field' + next + '" name="qty' + next + '" type="number" placeholder="Jumlah">';
-        // var newInputq = $(newInq);
         var removeBtn = '<button id="remove' + (next - 1) + '" class="btn btn-danger remove-me">-</button></div><div id="field"> <br id="br'+next+'">';
         var removeButton = $(removeBtn);
-        // $(newInputq).after(newInput);
         $(addto).after(newInput);
         $(addRemove).after(removeButton);
         $("#barang" + next).attr('data-source',$(addto).attr('data-source'));
-        $("#count").val(next);  
-        
-            $('.remove-me').click(function(e){
-                e.preventDefault();
-                var fieldNum = this.id.charAt(this.id.length-1);
-                var fieldID = "#barang" + fieldNum;
-                var qtyID = "#qty" + fieldNum;
-                var priceID = "#price" + fieldNum;
-                var brID = "#br" + fieldNum;
-                $(this).remove();
-                $(fieldID).remove();
-                $(qtyID).remove();
-                $(priceID).remove();
-                $(brID).remove();
-            });
-      });
-      //select barang bon
-      $('.nama_barang').select2({
-      placeholder: 'Pilih Jenis Barang',
-      ajax: {
-        url: "<?php echo base_url();?>Barang/get_barang",
-        dataType: "json",
-        delay: 250,
-        data: function(params){
-          return{
-            barang : params.term
-          };
-        },
-        processResults: function (data) {
-          var results = [];
+        $("#count").val(next);
 
-          $.each(data, function(index, item){
-            results.push({
-              id: item.id,
-              text: item.barang,
-              harga_jual: item.harga_jual,
-            });
-          });
-          return{
-            results: results
-          };
-        }
-      },
-      escapeMarkup: function (markup) { return markup; }, // let our custom formatter work
-      minimumInputLength: 1,
+        getBarang($('#barang' + next));  
+        
+        $('.remove-me').click(function(e){
+            e.preventDefault();
+            var fieldNum = this.id.charAt(this.id.length-1);
+            var fieldID = "#field" + fieldNum;
+            // var qtyID = "#qty" + fieldNum;
+            // var priceID = "#price" + fieldNum;
+            // var stokID = "#stok" + fieldNum;
+            var brID = "#br" + fieldNum;
+            $(this).remove();
+            $(fieldID).remove();
+            // $(qtyID).remove();
+            // $(priceID).remove();
+            // $(stokID).remove();
+            $(brID).remove();
+        });
+
+
       });
+
+      //select barang bon
+      
 
       //memunculkan harga barang
       // var i=1;
@@ -1017,6 +971,83 @@
     "</div>";
   return markup;
   }
+
+  function getPetani(url, objectElement)  {
+    objectElement.select2({
+    placeholder: 'Pilih Petani',
+    ajax: {
+      url: url,
+      dataType: "json",
+      delay: 250,
+      data: function(params){
+        return{
+          nama : params.term
+        };
+      },
+      processResults: function (data) {
+        var results = [];
+
+        $.each(data, function(index, item){
+          results.push({
+            id: item.id,
+            text: item.nama,
+            saldo: item.saldo,
+            alamat: item.desa
+          });
+        });
+        return{
+          results: results
+        };
+      }
+    },
+    escapeMarkup: function (markup) { return markup; }, // let our custom formatter work
+    minimumInputLength: 1,
+    templateResult: formatRepo
+    });
+  }
+
+  function showSaldo(element1, element2, element3)  {
+      $(element1).on('change', function()  {
+            var data = $(element1).select2('data');
+            $(element2).val(data[0].id)
+            $(element3).val(data[0].saldo)
+        });
+  }
+
+  function getBarang(objectElement)  {
+    objectElement.select2({
+      placeholder: 'Pilih Jenis Barang',
+      ajax: {
+        url: "<?php echo base_url();?>Barang/get_barang",
+        dataType: "json",
+        delay: 250,
+        data: function(params){
+          return{
+            barang : params.term
+          };
+        },
+        processResults: function (data) {
+          var results = [];
+
+          $.each(data, function(index, item){
+            results.push({
+              id: item.id,
+              text: item.barang,
+              stok: item.stok,
+              harga_jual: item.harga_jual
+            });
+          });
+          return{
+            results: results
+          };
+        },
+      },
+      escapeMarkup: function (markup) { return markup; }, // let our custom formatter work
+      minimumInputLength: 1,
+      });
+    }
+
+
 
 </script>
 

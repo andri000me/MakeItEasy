@@ -68,6 +68,12 @@ class Transaksi extends CI_Controller {
         echo json_encode($query);
     }
 
+    function get_petaniMitra(){
+        $nama = $this->input->get('nama');
+        $query = $this->model_transaksi->search_petaniMitra($nama);
+        echo json_encode($query);
+    }
+
     function get_pembeli(){
         $nama = $this->input->get('nama');
         $query = $this->model_transaksi->search_pembeli($nama);

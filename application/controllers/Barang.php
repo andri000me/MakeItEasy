@@ -36,7 +36,7 @@ class Barang extends CI_Controller {
 
 	public function get_barang()
 		{
-	        $barang = $this->input->get('barang[]');
+	        $barang = $this->input->get('barang');
 	        $query = $this->model_barang->search_barang($barang);
 	        echo json_encode($query);
 		}
