@@ -8,8 +8,7 @@
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
   <link rel="stylesheet" href="<?php echo base_url();?>/assets/bower_components/bootstrap/dist/css/bootstrap.min.css">
-  <!-- jQuery UI -->
-  <link rel="stylesheet" href="<?php echo base_url().'assets/bower_components/jquery-ui/themes/base/jquery-ui.css'?>">  
+  <link rel="stylesheet" href="<?php echo base_url();?>assets/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.css">
   <!-- daterange picker -->
   <link rel="stylesheet" href="<?php echo base_url();?>/assets/bower_components/bootstrap-daterangepicker/daterangepicker.css">
   <!-- DataTables -->
@@ -127,8 +126,10 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="<?php echo base_url();?>Riwayat/riwayatpetani"><i class="fa fa-male"></i> Petani</a></li>
-            <li><a href="<?php echo base_url();?>Riwayat/riwayatpemborong"><i class="fa fa-cart-plus"></i> Pelanggan</a></li>
+            <li><a href="<?php echo base_url();?>Riwayat/riwayatPetani"><i class="fa fa-male"></i> Petani</a></li>
+            <li><a href="<?php echo base_url();?>Riwayat/riwayatPemborong"><i class="fa fa-cart-plus"></i> Pembeli</a></li>
+            <li><a href="<?php echo base_url();?>Riwayat/riwayatPetaniNonMitra"><i class="fa fa-male"></i> Petani Non Mitra</a></li>
+            <li><a href="<?php echo base_url();?>Riwayat/riwayatPembeliNonMitra"><i class="fa fa-cart-plus"></i> Pembeli Non Mitra</a></li>
           </ul>
         </li>
 
@@ -142,7 +143,6 @@
           <ul class="treeview-menu">
             <li><a href="<?php echo base_url();?>Cabai/hargaJenis"><i class="fa fa-male"></i>Pengaturan Harga & Jenis</a></li>
             <li><a href="<?php echo base_url();?>Cabai/riwayatPetani"><i class="fa fa-cart-plus"></i> Riwayat Harga Cabai Petani</a></li>
-            <li><a href="<?php echo base_url();?>Cabai/riwayatPembeli"><i class="fa fa-cart-plus"></i> Riwayat Harga Cabai Pembeli</a></li>
           </ul>
         </li>
 
@@ -168,7 +168,7 @@
         </li>
 
         <li>
-          <a href="../dashboard_mie.html">
+          <a href="<?php echo base_url();?>Perusahaan">
             <i class="fa fa-dashboard"></i> <span>Perusahaan Yumi Putra</span>
             <span class="pull-right-container">
             </span>
@@ -176,7 +176,7 @@
         </li>
 
         <li>
-          <a href="<?php echo base_url();?>Perusahaan">
+          <a href="<?php echo base_url();?>Perusahaan/Dashboard">
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
             <span class="pull-right-container">
             </span>

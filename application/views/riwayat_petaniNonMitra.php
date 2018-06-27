@@ -4,7 +4,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Riwayat Transaksi Petani
+        Riwayat Transaksi Petani Non Mitra
         <small>_</small>
       </h1>
       <ol class="breadcrumb">
@@ -27,14 +27,14 @@
             </div>
 
               <div class="col-md-12">
-                  <span class="fa fa-male fa-3x pull-right">  Petani</span> 
+                  <span class="fa fa-male fa-3x pull-right">  Petani Non Mitra</span> 
               </div>
             <div class="box-body">
             
 
               <!-- Date range -->
               <div class="row">
-                <form action="<?php echo base_url();?>/Riwayat/RiwayatPetani" method="post">
+                <form action="<?php echo base_url();?>/Riwayat/RiwayatPetaniNonMitra" method="post">
                   <div class="form-group col-md-5">
                     <label>Tanggal Mulai :</label>
 
@@ -69,33 +69,34 @@
                   <hr>
                   <table id="example2" class="table table-bordered table-striped datatables">
                     <thead>
-                  <tr class="bg-gray">
-                    <th style="text-align: center; line-height: 50px" rowspan="2">#</th>
-                    <th style="text-align: center; line-height: 50px" rowspan="2">Tanggal </th>
-                    <th style="text-align: center; line-height: 50px" rowspan="2">ID</th>
-                    <th style="text-align: center; line-height: 50px" rowspan="2">Nama</th>
-                    <th style="text-align: center; line-height: 50px" rowspan="2">Kode Cabai</th>
-                    <th style="text-align: center;" colspan="3">Berat</th>
-                    <th style="text-align: center; line-height: 50px" rowspan="2">Harga</th>
-                    <th style="text-align: center; line-height: 50px" rowspan="2">Jumlah Uang</th>
-                    <th style="text-align: center; line-height: 50px" rowspan="2">Saldo</th>
-                    <th style="text-align: center; line-height: 50px" rowspan="2">Edit</th>
-                  </tr>
-                  <tr class="bg-gray">
-                    <th>Kotor </th>
-                    <th>BS/ MTL </th>
-                    <th>Bersih </th>
-                  </tr>
-                </thead>
+                      <tr class="bg-success">
+                        <th style="text-align: center; line-height: 50px" rowspan="2">#</th>
+                        <th style="text-align: center; line-height: 50px" rowspan="2">Tanggal</th>
+                        <th style="text-align: center; line-height: 50px" rowspan="2">Nama</th>
+                        <th style="text-align: center; line-height: 50px" rowspan="2">Kode Cabai</th>
+                        <th style="text-align: center; line-height: 50px" colspan="2">Harga</th>
+                        <th style="text-align: center;" colspan="3">Berat</th>
+                        <th style="text-align: center; line-height: 50px" rowspan="2">Jumlah Uang</th>
+                        <th style="text-align: center; line-height: 50px" rowspan="2">Action</th>
+                      </tr>
+                      <tr class="bg-success">
+                        <th>BS/MTD</th>
+                        <th>Bersih</th>
+                        <th>Kotor</th>
+                        <th>BS/MTD</th>
+                        <th>Bersih</th>
+                      </tr>
+                    </thead>
                   <tbody>
                     <?php
                       if (!empty($riwayat_transpetani)) {
                         $no=1; foreach ($riwayat_transpetani as $key) {
                             $berat_bersih = $key->berat_kotor-$key->berat_bs;
+                            $jumlah_uang = $berat_bersih * $key->harga_bersih + $key->berat_bs * $key->harga_bs;
 
-                            echo "<tr><td>".$no."</td><td>".$key->tanggal."</td><td>".$key->id_petani."</td><td>".$key->nama."</td><td>".$key->kode_cabai."</td><td>".$key->berat_kotor."</td><td>".$key->berat_bs."</td><td>".$berat_bersih."</td><td>".$key->harga_bersih."</td><td>Jumlah Uang</td>
-                                  <td>Saldo</td><td><button type='button' class='btn btn-info btn-xs data-toggle='modal' data-target='#modal-info'>edit</button></td></tr>";
-                          
+                            echo "<tr><td>".$no."</td><td>".$key->tanggal."</td><td>".$key->nama_petani."</td><td>".$key->kode_cabai."</td><td>".$key->harga_bs."</td><td>".$key->harga_bersih."</td><td>".$key->berat_kotor."</td><td>".$key->berat_bs."</td><td>".$berat_bersih."</td><td>".$jumlah_uang."</td>
+                                  <td><button type='button' class='btn btn-info btn-xs data-toggle='modal' data-target='#modal-info'>edit</button></td></tr>";
+                        
                             $no++;
                         }
                       }

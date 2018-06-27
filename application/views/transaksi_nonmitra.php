@@ -32,12 +32,6 @@
         <div class="col-md-12">
           <div class="box box-solid bg-aqua-gradient">
             <div class="box-header">
-              <b><h3 class="pull-left" style="padding-left: 5px">
-                <i class="fa fa-clock-o"></i>
-                <?php
-                echo "" . date("h:i a");
-                ?>
-              </h3></b>
               <h3 class="pull-right" style="text-transform: uppercase;">
                 <i class="fa fa-calendar">  </i>
                 <script language="javascript">
@@ -78,7 +72,7 @@
                         <h3 class="box-title">Masukkan Setoran Petani Non Mitra</h3>
                       </div>
                       <!-- /.box-header -->
-                    <form action="<?php echo base_url();?>Transaksi/tambah_transpetani" method="post">
+                    <form action="<?php echo base_url();?>Transaksi/tambah_transpetaniNonMitra" method="post">
                       <div class="box-body">
 
                         <div class="row" style="padding-bottom: 5px">
@@ -95,7 +89,7 @@
                             <label>Nama Petani :</label>
                           </div>
                           <div class="col-md-8">
-                            <input type="text" class="form-control"  name="id_petani" id="id_petani">
+                            <input type="text" class="form-control"  name="nama_petani" id="nama_petani">
                           </div>
                         </div>
 
@@ -141,7 +135,7 @@
                             </div>
                             <div class="col-md-4">
                               <label>Bersih </label>
-                              <input type="text" id="berat_bersih" class="form-control">kg
+                              <input type="text" id="berat_bersih" class="form-control" disabled="">kg
                             </div>
                         </div>
 
@@ -150,7 +144,7 @@
                             <label>Jumlah Uang :</label>
                           </div>
                           <div class="col-md-8">
-                           <input type="text" name="jumlah_uang" id="jumlah_uang" class="form-control">
+                           <input type="text" name="jumlah_uang" id="jumlah_uang" class="form-control" disabled="">
                           </div>
                         </div>
                       </div>
@@ -167,9 +161,10 @@
 
                   <!-- Harga cabe -->
                   <div class="col-md-5">
-                    <div class="box" style="border: 2px solid #f0f0f0;">
+                                        <div class="box" style="border: 2px solid #f0f0f0;">
                       <div class="box-header with-border" style="background-color: #f0f0f0;">
-                        <h3 class="box-title">Harga Cabai Hari Ini (<?php echo $today ?>)</h3>
+                        <h3 class="box-title">Input Harga Cabai Terakhir </h3>
+                        <h5 class="text-aqua"><b>Tanggal : <?php echo $max_tanggal ?></b></h5>
                       </div>
                       <!-- /.box-header -->
                       <div class="box-body ">
@@ -187,15 +182,16 @@
                                 </tr>
                             </thead>
                             <tbody>
-                              <?php if (!empty($harga_today)) {
-                                $no=1 ;foreach ($harga_today as $tb) 
+                              <?php if (!empty($harga_tanggal)) {
+                                $no=1 ;foreach ($harga_tanggal as $tb) 
                                 {
                                   echo "<tr>
                                   <td>".$no."</td>
                                   <td>".$tb->kode."</td>
-                                  <td>".$tb->jenis."</td>
-                                  <td>".$tb->harga_bs."</td>
-                                  <td>".$tb->harga_bersih."</td>
+                                  <td>".$tb->jenis."</td><td> Rp";
+                                  echo number_format($tb->harga_bs, 0,',', '.');
+                                  echo "</td>
+                                  <td> Rp".number_format($tb->harga_bersih, 0, ',', '.')."</td>
                                 </tr>";
 
                                 $no++;
@@ -210,8 +206,8 @@
                           </table>
                       </div>
                       <div class="box-footer clearfix" style="border: 1px solid #f0f0f0;">
-                        <button type="button" class="btn btn-sm btn-default pull-right" data-toggle="modal" data-target="#editHarga">
-                          <i class="fa fa-edit"></i> Edit Harga </button>
+                        <a href="<?php echo base_url();?>Cabai/hargaJenis" class="btn btn-sm btn-default pull-right">
+                          <i class="fa fa-edit"></i> Tambah Harga </a>
                       </div>
                             <!-- /.box-body -->
                     </div>
@@ -235,35 +231,36 @@
                           <thead>
                             <tr class="bg-success">
                               <th style="text-align: center; line-height: 50px" rowspan="2">#</th>
-                              <th style="text-align: center; line-height: 50px" rowspan="2">ID</th>
+                              <th style="text-align: center; line-height: 50px" rowspan="2">Tanggal</th>
                               <th style="text-align: center; line-height: 50px" rowspan="2">Nama</th>
-                              <th style="text-align: center; line-height: 50px" rowspan="2">Asal Daerah</th>
                               <th style="text-align: center; line-height: 50px" rowspan="2">Kode Cabai</th>
+                              <th style="text-align: center; line-height: 50px" colspan="2">Harga</th>
                               <th style="text-align: center;" colspan="3">Berat</th>
-                              <th style="text-align: center; line-height: 50px" rowspan="2">Harga</th>
                               <th style="text-align: center; line-height: 50px" rowspan="2">Jumlah Uang</th>
                               <th style="text-align: center; line-height: 50px" rowspan="2">Action</th>
                             </tr>
                             <tr class="bg-success">
-                              <th>Kotor </th>
-                              <th>BS/ MTL </th>
-                              <th>Bersih </th>
+                              <th>BS/MTD</th>
+                              <th>Bersih</th>
+                              <th>Kotor</th>
+                              <th>BS/MTD</th>
+                              <th>Bersih</th>
                             </tr>
                           </thead>
                           <tbody>
-                            <?php $no=1; foreach ($tb_transaksi as $tb): ?>
+                            <?php $no=1; foreach ($transpetani as $tb): ?>
                               <tr>
                                 <td><?= $no ?></td>
-                                <td><?= $tb->id_petani ?></td>
-                                <td><?= $tb->nama ?></td>
-                                <td><?= $tb->desa ?></td>
+                                <td><?= $tb->tanggal ?></td>
+                                <td><?= $tb->nama_petani ?></td>
                                 <td><?= $tb->kode_cabai ?></td>
+                                <td><?= $tb->harga_bs ?></td>
+                                <td><?= $tb->harga_bersih ?></td>
                                 <td><?= $tb->berat_kotor ?></td>
                                 <td><?= $tb->berat_bs ?></td>
-                                <td><?= $tb->berat_kotor-$tb->berat_bs?></td>
-                                <td>Harga</td>
-                                <td>Jumlah Uang</td>
-                                <td><button id="<?= $tb->id ?>" type="button" class="btn btn-info btn-xs edit_data" data-toggle="modal" data-target="#inputSetoran">edit</button> <a href="<?php echo base_url();?>Transaksi/delete_petani/<?= $tb->id ?>" class="btn btn-danger btn-xs">Hapus</a></td>
+                                <td><?= $tb->berat_kotor - $tb->berat_bs ?>
+                                <td><?= $tb->harga_bersih * ($tb->berat_kotor - $tb->berat_bs) + $tb->harga_bs * $tb->berat_bs ?></td>
+                                <td><button id="<?= $tb->id ?>" type="button" class="btn btn-info btn-xs edit_data" data-toggle="modal" data-target="#inputSetoran">edit</button> <a href="<?php echo base_url();?>Transaksi/delete_petaniNonMitra/<?= $tb->id ?>" class="btn btn-danger btn-xs">Hapus</a></td>
                               </tr>
                             <?php $no++; endforeach ?>
                           </tbody>
@@ -290,7 +287,7 @@
                         <h3 class="box-title">Masukkan Transaksi Pembeli Non Mitra</h3>
                       </div>
                       <!-- /.box-header -->
-                    <form action="<?php echo base_url();?>Transaksi/tambah_transpetani" method="post">
+                    <form action="<?php echo base_url();?>Transaksi/tambah_transpembeliNonMitra" method="post">
                       <div class="box-body">
 
                         <div class="row" style="padding-bottom: 5px">
@@ -307,7 +304,7 @@
                             <label>Nama Pembeli :</label>
                           </div>
                           <div class="col-md-8">
-                            <input type="text" class="form-control"  name="id_petani" id="id_petani">
+                            <input type="text" class="form-control"  name="nama_pembeli" id="nama_pembeli">
                           </div>
                         </div>
 
@@ -316,7 +313,7 @@
                             <label>Asal Daerah :</label>
                           </div>
                           <div class="col-md-8">
-                            <input type="text" class="form-control"  name="id_petani" id="id_petani">
+                            <input type="text" class="form-control"  name="asal_daerah" id="asal_daerah">
                           </div>
                         </div>
 
@@ -334,16 +331,25 @@
 
                         <div class="row" style="padding-bottom: 5px">
                           <div class="col-md-4">
-                            <label>Berat :</label>
-                          </div>
-                          <div class="col-md-3">
-                           <input type="text" name="harga_petani" id="harga_petani" class="form-control">
-                          </div>
-                          <div class="col-md-2">
                             <label>Harga :</label>
                           </div>
+                          <div class="col-md-8">
+                            <input type="text" class="form-control"  name="harga" id="harga">
+                          </div>
+                        </div>
+
+                        <div class="row" style="padding-bottom: 5px">
+                          <div class="col-md-4">
+                            <label>Colly :</label>
+                          </div>
                           <div class="col-md-3">
-                           <input type="text" name="harga_bs" id="harga_bs" class="form-control">
+                           <input type="text" name="colly" id="colly" class="form-control">
+                          </div>
+                          <div class="col-md-2">
+                            <label>Bersih :</label>
+                          </div>
+                          <div class="col-md-3">
+                           <input type="text" name="bersih" id="bersih" class="form-control">
                           </div>
                         </div>
 
@@ -352,7 +358,7 @@
                             <label>Jumlah Uang :</label>
                           </div>
                           <div class="col-md-8">
-                           <input type="text" name="jumlah_uang" id="jumlah_uang" class="form-control">
+                           <input type="text" name="jumlah_uang" id="jumlah" class="form-control" disabled="">
                           </div>
                         </div>
                       </div>
@@ -368,9 +374,10 @@
                   <!-- END Input Setoran -->
                   <!-- Harga cabe -->
                   <div class="col-md-5">
-                    <div class="box" style="border: 2px solid #f0f0f0;">
+                                        <div class="box" style="border: 2px solid #f0f0f0;">
                       <div class="box-header with-border" style="background-color: #f0f0f0;">
-                        <h3 class="box-title">Harga Cabai Hari Ini (<?php echo $today ?>)</h3>
+                        <h3 class="box-title">Input Harga Cabai Terakhir </h3>
+                        <h5 class="text-aqua"><b>Tanggal : <?php echo $max_tanggal ?></b></h5>
                       </div>
                       <!-- /.box-header -->
                       <div class="box-body ">
@@ -388,15 +395,16 @@
                                 </tr>
                             </thead>
                             <tbody>
-                              <?php if (!empty($harga_today)) {
-                                $no=1 ;foreach ($harga_today as $tb) 
+                              <?php if (!empty($harga_tanggal)) {
+                                $no=1 ;foreach ($harga_tanggal as $tb) 
                                 {
                                   echo "<tr>
                                   <td>".$no."</td>
                                   <td>".$tb->kode."</td>
-                                  <td>".$tb->jenis."</td>
-                                  <td>".$tb->harga_bs."</td>
-                                  <td>".$tb->harga_bersih."</td>
+                                  <td>".$tb->jenis."</td><td> Rp";
+                                  echo number_format($tb->harga_bs, 0,',', '.');
+                                  echo "</td>
+                                  <td> Rp".number_format($tb->harga_bersih, 0, ',', '.')."</td>
                                 </tr>";
 
                                 $no++;
@@ -411,8 +419,8 @@
                           </table>
                       </div>
                       <div class="box-footer clearfix" style="border: 1px solid #f0f0f0;">
-                        <button type="button" class="btn btn-sm btn-default pull-right" data-toggle="modal" data-target="#editHarga">
-                          <i class="fa fa-edit"></i> Edit Harga </button>
+                        <a href="<?php echo base_url();?>Cabai/hargaJenis" class="btn btn-sm btn-default pull-right">
+                          <i class="fa fa-edit"></i> Tambah Harga </a>
                       </div>
                             <!-- /.box-body -->
                     </div>
@@ -430,40 +438,40 @@
                       </div>
                       <!-- /.box-header -->
                       <div class="box-body table-responsive">
-                        <table id="example1" class="table table-bordered table-striped">
+                        <table id="tabel_transaksi" class="table table-bordered table-striped DataTable" style="font-size: 15px">
                           <thead>
-                            <tr class="bg-danger">
+                            <tr class="bg-success">
                               <th style="text-align: center; line-height: 50px" rowspan="2">#</th>
                               <th style="text-align: center; line-height: 50px" rowspan="2">Tanggal</th>
-                              <th style="text-align: center; line-height: 50px" rowspan="2">ID</th>
                               <th style="text-align: center; line-height: 50px" rowspan="2">Nama</th>
                               <th style="text-align: center; line-height: 50px" rowspan="2">Asal Daerah</th>
-                              <th style="text-align: center; line-height: 50px" rowspan="2">Berat</th>
+                              <th style="text-align: center; line-height: 50px" rowspan="2">Kode Cabai</th>
                               <th style="text-align: center; line-height: 50px" rowspan="2">Harga</th>
+                              <th style="text-align: center;" colspan="2">Berat</th>
                               <th style="text-align: center; line-height: 50px" rowspan="2">Jumlah Uang</th>
+                              <th style="text-align: center; line-height: 50px" rowspan="2">Action</th>
+                            </tr>
+                            <tr class="bg-success">
+                              <th>Colly </th>
+                              <th>Bersih </th>
                             </tr>
                           </thead>
                           <tbody>
-                              <!-- <?php $no
-                              // =1; foreach ($tb_transaksi as $tb): ?> -->
-                            <tr>
-                              <!-- <td><?= $no ?></td> -->
-                              <!-- <td><?= $tb->tanggal ?></td> -->
-                              <!-- <td><?= $tb->id_pembeli ?></td> -->
-                              <!-- <td><?= $tb->nama ?></td> -->
-                              <!-- <td><?= $tb->alamat ?></td> -->
-                              <!-- <td><?= $tb->colly ?></td> -->
-                              <!-- <td><?= $tb->kode ?></td> -->
-                              <!-- <td><?= $tb->bersih ?></td> -->
-                              <!-- <td><?= $tb->harga_bersih ?></td> -->
-                              <!-- <td><?= $tb->bersih*$tb->harga_bersih ?></td> -->
-                              <!-- <td><?= $tb->transferan ?></td> -->
-                              <!-- <td><?= $tb->saldo ?></td> -->
-                            </tr>
-                            <!-- <?php $no
-                            // ++; endforeach; ?> -->
-
-                            </tbody>
+                            <?php $no=1; foreach ($transpembeli as $tb): ?>
+                              <tr>
+                                <td><?= $no ?></td>
+                                <td><?= $tb->tanggal ?></td>
+                                <td><?= $tb->nama_pembeli ?></td>
+                                <td><?= $tb->asal_daerah ?></td>
+                                <td><?= $tb->kode_cabai ?></td>
+                                <td><?= $tb->harga ?></td>
+                                <td><?= $tb->colly ?></td>
+                                <td><?= $tb->bersih ?></td>
+                                <td><?= $tb->bersih * $tb->harga ?></td>
+                                <td><button id="<?= $tb->id ?>" type="button" class="btn btn-info btn-xs edit_data" data-toggle="modal" data-target="#inputSetoran">edit</button> <a href="<?php echo base_url();?>Transaksi/delete_pembeliNonMitra/<?= $tb->id ?>" class="btn btn-danger btn-xs">Hapus</a></td>
+                              </tr>
+                            <?php $no++; endforeach ?>
+                          </tbody>
                         </table>
                       </div>
                       <!-- /.box-body -->
@@ -750,8 +758,8 @@
 <script src="<?php echo base_url();?>assets/bower_components/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap 3.3.7 -->
 <script src="<?php echo base_url();?>assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-<!-- jQuery-UI -->
-<script src="<?php echo base_url().'assets/bower_components/jquery-ui/jquery-ui.js'?>" type="text/javascript"></script>
+<!-- bootstrap datepicker -->
+<script src="<?php echo base_url();?>assets/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.js""></script>
 <!-- bootstrap color picker -->
 <script src="<?php echo base_url();?>/assets/bower_components/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js"></script>
 <!-- bootstrap time picker -->
@@ -772,17 +780,11 @@
 
 <script>
   $(document).ready(function(){
-    $('.DataTable').DataTable({
-      'paging'      : true,
-      'lengthChange': false,
-      'searching'   : false,
-      'ordering'    : true,
-      'info'        : true,
-      'autoWidth'   : false
-    });
+    $('.DataTable').DataTable();
 
     $('.input-tanggal').datepicker({
-      dateFormat : 'yy-mm-dd'
+      format : 'yyyy-mm-dd',
+      todayHighlight : 'true'
     });
 
     //dropdown jenis cabai
@@ -790,64 +792,31 @@
         placeholder: "Please Select"
     });
 
-    $('#nama_petani').select2({
-    placeholder: 't ooo ---',
-    ajax: {
-      url: "<?php echo base_url();?>Transaksi/get_petani",
-      dataType: "json",
-      delay: 250,
-      data: function(params){
-        return{
-          nama : params.term
-        };
-      },
-      processResults: function (data) {
-        var results = [];
-
-        $.each(data, function(index, item){
-          results.push({
-            id: item.id,
-            text: item.nama,
-            saldo: item.saldo,
-            alamat: item.desa
-          });
-        });
-        return{
-          results: results
-        };
-      }
-    },
-    escapeMarkup: function (markup) { return markup; }, // let our custom formatter work
-    minimumInputLength: 1,
-    templateResult: formatRepo
-    });
-
-    //memunculkan saldo dari petani
-    $('#nama_petani').on('change', function()  {
-            var data = $('#nama_petani').select2('data');
-            $('#id_petani').val(data[0].id)
-            $("#saldo_petani").val(data[0].saldo)
-        });
-
-    //mengambil nilai harga cabai
-    $('#cabai').on('change', function() {
-        $.ajax({
-           url: '<?php echo base_url();?>Transaksi/get_hargaPetani', //This is the current doc
-           type: "POST",
-           dataType: "json",
-           data: {tanggal: $('#tanggal').val(), kode_cabai: $('#cabai').val()  },
-           success: function(harga){
-               $('#harga_petani').val(harga.harga_bersih)
-               $('#harga_bs').val(harga.harga_bs)
-           },
-           error: function(){
-              alert('Harga Cabai Belum diinputkan');
-           }
-        })
-    });
-
-    //Menghitung Berat Bersih dan Jumlah Uang
+   //Menghitung Berat Bersih dan Jumlah Uang
     $('#berat_bs').on('change', function()  {
+      showJumlahUang(); 
+
+      $('#berat_kotor').on('change', function() {
+        showJumlahUang();
+        });
+        $('#harga_petani').on('change', function()   {
+          resetJumlahUang()
+        });
+        $('#harga_bs').on('change', function()   {
+          resetJumlahUang()
+        });
+    });
+
+    $('#bersih').on('change', function()  {
+      showJumlah();
+      $('#harga').on('change', function()  {
+      showJumlah();
+      });
+    });
+
+});
+
+  function showJumlahUang() {
       var harga_bersih = $('#harga_petani').val()
       var harga_bs = $('#harga_bs').val()
       var kotor = $('#berat_kotor').val()
@@ -858,35 +827,27 @@
 
       $('#berat_bersih').val(bersih)
       $('#jumlah_uang').val(jumlah_uang)
-      
-      $('#berat_kotor').on('change', function() {
-        var harga_bersih = $('#harga_petani').val()
-        var harga_bs = $('#harga_bs').val()
-        var kotor = $('#berat_kotor').val()
-        var bs = $('#berat_bs').val()
-        var bersih = kotor - bs
-
-        var jumlah_uang = (bersih * harga_bersih) + (bs * harga_bs)
-
-        $('#berat_bersih').val(bersih)
-        $('#jumlah_uang').val(jumlah_uang)
-      })
-    })
-      
-  });
-
-  function formatRepo (repo) {
-  if (repo.loading) {
-    return repo.text;
   }
 
-  var markup = "<div class='select2-result-repository clearfix'>" +
-    "[" + repo.id + "]" +
-    "<b> " + repo.text + " </b>" +
-    "(" + repo.alamat + ")"+
-    "</div>";
-  return markup;
+  function showJumlah() {
+    var harga = $('#harga').val()
+    var bersih = $('#bersih').val()
+
+    var jumlah = harga * bersih
+
+    $('#jumlah').val(jumlah)
   }
+
+function resetJumlahUang() {
+    $('#berat_kotor').val("")
+    $('#berat_bs').val("")
+    $('#berat_bersih').val("")
+    $('#jumlah_uang').val("")
+  }
+
+function reset(ElementID) {
+  ElementID.val("")
+}
 
 </script>
 

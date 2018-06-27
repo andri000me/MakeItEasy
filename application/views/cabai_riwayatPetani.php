@@ -66,7 +66,7 @@
               <div class="row">
                 <div class="col-md-12 table-responsive">
                   <hr>
-                    <table id="tabel_transaksi" class="table table-bordered table-striped" style="font-size: 15px">
+                    <table id="tabel_transaksi" class="table table-bordered table-striped datatables" style="font-size: 15px">
                           <thead>
                             <tr class="bg-success">
                               <th style="text-align: center; line-height: 50px" rowspan="2">No</th>
@@ -324,8 +324,8 @@
 <script src="<?php echo base_url();?>assets/bower_components/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap 3.3.7 -->
 <script src="<?php echo base_url();?>assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-<!-- jQuery-UI -->
-<script src="<?php echo base_url();?>assets/bower_components/jquery-ui/jquery-ui.js" type="text/javascript"></script>
+<!-- bootstrap datepicker -->
+<script src="<?php echo base_url();?>assets/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.js""></script>
 <!-- DataTables -->
 <script src="<?php echo base_url();?>assets/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="<?php echo base_url();?>assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
@@ -340,8 +340,11 @@
 <script type="text/javascript">
   $(document).ready(function(){
       $('.input-tanggal').datepicker({
-      dateFormat : 'yy-mm-dd'
+      format : 'yyyy-mm-dd',
+      todayHighlight : 'true'
     });
+
+    $('.datatables').DataTable()
   })
 </script>
 </body>

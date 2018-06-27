@@ -21,12 +21,8 @@ class Barang extends CI_Controller {
 	public function submitBarang()
 		{
 			$data = array(
-				'tanggal' => $this->input->post('tanggal'),
 				'barang' => $this->input->post('barang'),
-				'harga_beli' => $this->input->post('harga_beli'),
-				'harga_jual' => $this->input->post('harga_jual'),
-				'stok' => $this->input->post('stok'),
-				'jumlah_bayar' => $this->input->post('jumlah_bayar')
+				'harga' => $this->input->post('harga'),
 			);
 
 			$this->model_barang->submitBarang($data);

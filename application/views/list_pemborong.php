@@ -48,6 +48,9 @@
     <!-- Main content -->
     <div class="row">
       <div class="col-md-12">
+        <button class="btn btn-success pull-right" data-toggle="modal" data-target="#addPembeli"><i class="fa fa-user-plus"></i>Tambah Pembeli</button>
+      </div>
+      <div class="col-md-12">
         <div class="box" style="border: 2px solid #f2dede;">
           <div class="box-header">
             <h3 class="box-title">Daftar Pembeli </h3>
@@ -292,6 +295,87 @@
   <!-- /.control-sidebar -->
   <!-- Add the sidebar's background. This div must be placed
        immediately after the control sidebar -->
+
+<!-- Modal add Pembeli -->
+<div class="modal fade" id="addPembeli">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Tambahkan Pembeli Mitra</h4>
+      </div>
+
+        <!-- One "tab" for each step in the form: -->
+      <form action="<?php echo base_url();?>Transaksi/addPembeli" method="post">
+        <div class="modal-body">
+
+          <div class="row" style="padding-bottom: 5px">
+            <div class="col-md-4">
+              <label>Nama Pembeli :</label>
+            </div>
+            <div class="col-md-8">
+              <input type="text" name="nama_pembeli" class="form-control nama_petani" required="">
+            </div>
+          </div>
+
+          <div class="row" style="padding-bottom: 5px">
+            <div class="col-md-4">
+              <label>Alamat :</label>
+            </div>
+            <div class="col-md-8">
+              <input type="text" name="alamat" class="form-control" required="">
+            </div>
+          </div>
+
+          <div class="row" style="padding-bottom: 5px">
+            <div class="col-md-4">
+              <label>Nomer HP :</label>
+            </div>
+            <div class="col-md-8">
+              <input type="number" name="no_telp" class="form-control" required="">
+            </div>
+          </div>
+
+          <div class="row" style="padding-bottom: 5px">
+            <div class="col-md-4">
+              <label>Nomer Rekening :</label>
+            </div>
+            <div class="col-md-8">
+              <input type="number" name="no_rek" class="form-control" required="">
+            </div>
+          </div>
+
+          <div class="row" style="padding-bottom: 5px">
+            <div class="col-md-4">
+              <label>Saldo Awal :</label>
+            </div>
+            <div class="col-md-8">
+              <input type="number" name="saldo" class="form-control" required="">
+            </div>
+          </div>
+
+<!--           <div class="row" style="padding-bottom: 5px">
+            <div class="col-md-4">
+              <label>Foto :</label>
+            </div>
+            <div class="col-md-8">
+              <input type="file" name="foto_petani" id="foto_petani" class="form-control">
+            </div>
+          </div> -->
+        </div>
+
+        <div class="modal-footer">
+          <button type="submit" class="btn bg-purple"><i class="fa fa-user-plus"></i>Tambahkan Pembeli</button>
+        </div>
+
+      </form>
+        <!-- /.modal-footer -->
+    </div>
+  </div>
+</div>
+<!-- END Modal add Pembeli -->
+       
   <div class="control-sidebar-bg"></div>
 </div>
 <!-- ./wrapper -->

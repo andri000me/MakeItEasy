@@ -51,5 +51,33 @@ class Riwayat extends CI_Controller {
 		$this->load->view('riwayat_pemborong', $data);
     }
 
+    public function RiwayatPetaniNonMitra()
+    {  
+        $startdate = $this->input->post('start');
+        $enddate = $this->input->post('end');
+
+        $data = array(
+            'riwayat_transpetani' =>  $this->model_riwayat->riwayat_transpetaniNonMitra($startdate, $enddate),
+            'startdate' => $startdate,
+            'enddate' => $enddate );
+
+        $this->load->view('header');
+        $this->load->view('riwayat_petaniNonMitra', $data); 
+    }
+
+    public function RiwayatPembeliNonMitra()
+    {
+        $startdate = $this->input->post('start');
+        $enddate = $this->input->post('end');
+
+        $data = array(
+            'riwayat_transpembeli' =>  $this->model_riwayat->riwayat_transpembeliNonMitra($startdate, $enddate),
+            'startdate' => $startdate,
+            'enddate' => $enddate );
+        
+        $this->load->view('header');
+        $this->load->view('riwayat_pembeliNonMitra', $data);
+    }
+
 }
 ?>

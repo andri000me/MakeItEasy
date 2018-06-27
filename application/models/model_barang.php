@@ -5,7 +5,7 @@ class model_barang extends CI_Model {
 
 	public function tb_barang()
 	{
-		$query = $this->db->query("SELECT * FROM tb_bon");
+		$query = $this->db->query("SELECT * FROM tb_bon ORDER BY id DESC");
 		return $query->result();
 	}
 
@@ -15,13 +15,17 @@ class model_barang extends CI_Model {
 	}
 
 	function search_barang($barang){
-        $this->db->select('id, barang, harga_jual, stok');
+        $this->db->select('id, barang, harga');
         $this->db->limit(10);
         $this->db->from('tb_bon');
         $this->db->like('barang', $barang);
-        $this->db->where('stok != 0');
         $this->db->order_by('barang', 'ASC');
         return $this->db->get()->result_array();
     }
 
+    public function price_barang($id)
+	{
+		$query = $this->db->query("SELECT barang, harga FROM tb_bon WHERE id='$id'");
+		return $query->row();
+	}
 }

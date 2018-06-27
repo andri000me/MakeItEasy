@@ -18,7 +18,7 @@ class model_riwayat extends CI_Model {
 
   	public function riwayat_transborong($startdate, $enddate)
   	{
-      $query = $this->db->query("SELECT a.id, a.id_pembeli, b.nama, b.alamat, a.tanggal, a.kode, a.colly, a.kode, a.bersih, a.saldo, a.transferan, c.harga_bersih FROM transaksi_pembeli a JOIN tb_pembeli b JOIN harga_cabai_pembeli c WHERE (a.tanggal BETWEEN '$startdate' AND '$enddate') AND a.id_pembeli=b.id AND a.kode=c.kode_cabai AND a.tanggal=c.tanggal");
+      $query = $this->db->query("SELECT a.id, a.id_pembeli, b.nama, b.alamat, a.tanggal, a.kode, a.colly, a.kode, a.bersih, a.saldo, a.transferan, a.harga as harga_bersih FROM transaksi_pembeli a JOIN tb_pembeli b ON a.id_pembeli=b.id WHERE a.tanggal BETWEEN '$startdate' AND '$enddate'");
       if($query->num_rows() > 0)
         {
           return $query->result();
@@ -28,6 +28,32 @@ class model_riwayat extends CI_Model {
           return array();
         }
   	}
+
+    public function riwayat_transpetaniNonMitra($startdate, $enddate)
+    {
+      $query = $this->db->query("SELECT * FROM transaksi_petaninonmitra WHERE tanggal BETWEEN '$startdate' AND '$enddate'");
+      if($query->num_rows() > 0)
+        {
+          return $query->result();
+        }
+      else
+        {
+          return array();
+        }
+    }
+
+    public function riwayat_transpembeliNonMitra($startdate, $enddate)
+    {
+      $query = $this->db->query("SELECT * FROM transaksi_pembelinonmitra WHERE tanggal BETWEEN '$startdate' AND '$enddate'");
+      if($query->num_rows() > 0)
+        {
+          return $query->result();
+        }
+      else
+        {
+          return array();
+        }
+    }
 
 }
 ?>

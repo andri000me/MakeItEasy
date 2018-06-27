@@ -61,6 +61,58 @@
     <!-- /.row -->
 
     <div class="row">
+     <!-- Harga cabe -->
+      <div class="col-md-5">
+        <div class="box" style="border: 2px solid #f0f0f0;">
+          <div class="box-header with-border" style="background-color: #f0f0f0;">
+            <h3 class="box-title">Harga Cabai Hari Ini (<?php echo $today ?>)</h3>
+          </div>
+          <!-- /.box-header -->
+          <div class="box-body ">
+              <table class="table table-condensed no-margin">
+                <thead>
+                  <tr>
+                    <th style="text-align: center; line-height: 50px" rowspan="2">No</th>
+                    <th style="text-align: center; line-height: 50px" rowspan="2">Kode</th>
+                    <th style="text-align: center; line-height: 50px" rowspan="2">Jenis</th>
+                    <th style="text-align: center;" colspan="2">Harga</th>
+                  </tr>
+                    <tr>
+                      <th>BS/ MTL </th>
+                      <th>Bersih </th>
+                    </tr>
+                </thead>
+                <tbody>
+                  <?php if (!empty($harga_today)) {
+                    $no=1 ;foreach ($harga_today as $tb) 
+                    {
+                      echo "<tr>
+                      <td>".$no."</td>
+                      <td>".$tb->kode."</td>
+                      <td>".$tb->jenis."</td>
+                      <td>".$tb->harga_bs."</td>
+                      <td>".$tb->harga_bersih."</td>
+                    </tr>";
+
+                    $no++;
+                    }
+                  }
+                  
+                  else {
+                    echo "<tr><td colspan='12' class='text-center text-danger'> Isi dahulu harga cabai hari ini!! </td></tr>";
+                  }
+                ?>
+                </tbody>
+              </table>
+          </div>
+          <div class="box-footer clearfix" style="border: 1px solid #f0f0f0;">
+            <a href="<?php echo base_url();?>Cabai/hargaJenis" class="btn btn-sm btn-default pull-right">
+              <i class="fa fa-edit"></i> Edit Harga </a>
+          </div>
+                <!-- /.box-body -->
+        </div>
+      </div>
+      <!-- END Harga Cabe -->
       <!-- Action Button -->
       <div class="col-md-3">
         <div class="box box-solid" style="border: 2px solid #f0f0f0;">
@@ -71,7 +123,7 @@
           <div class="box-body" style="text-align: center;">
             <div class="btn-group-vertical btn-block">
               <button name="add" id="add" type="button" class="btn btn-setor-ver bg-maroon-gradient" data-toggle="modal" data-target="#inputSetoran"> <i class="fa fa-plus"></i> Masukkan Transaksi</button>
-              <button type="button" class="btn btn-setor-ver bg-purple-gradient" data-toggle="modal" data-target="#addPembeli"> <i class="fa fa-user-plus"></i> Tambah pembeli</button>
+              <button type="button" class="btn btn-setor-ver bg-purple-gradient" data-toggle="modal" data-target="#addPembeli"> <i class="fa fa-user-plus"></i> Tambah pemborong</button>
             </div>
           </div>
           <!-- /.box-body -->
@@ -175,10 +227,10 @@
                   <td><?= $tb->colly ?></td>
                   <td><?= $tb->kode ?></td>
                   <td><?= $tb->bersih ?></td>
-                  <td>Rp<?= number_format($tb->harga,'0',',','.')  ?></td>
-                  <td>Rp<?= number_format($tb->bersih*$tb->harga,'0',',','.')  ?></td>
-                  <td>Rp<?= number_format($tb->transferan,'0',',','.') ?></td>
-                  <td>Rp<?= number_format($tb->saldo,'0',',','.') ?></td>
+                  <td><?= $tb->harga_bersih ?></td>
+                  <td><?= $tb->bersih*$tb->harga_bersih ?></td>
+                  <td><?= $tb->transferan ?></td>
+                  <td><?= $tb->saldo ?></td>
                   <td><button id="<?= $tb->id ?>" type="button" class="btn btn-info btn-xs edit_data" data-toggle="modal" data-target="#inputSetoran">edit</button> <a href="<?php echo base_url();?>Transaksi/delete_pembeli/<?= $tb->id ?>" class="btn btn-danger btn-xs">Hapus</a></td>
                 </tr>
                 <?php $no++; endforeach; ?>
@@ -195,6 +247,119 @@
     <!-- /.row -->
 
  <!-- modal edit -->
+<!--        <div class="modal fade" id="modal-edit">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <div class="modal-header bg-red">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Edit Transaksi</h4>
+              </div>
+              <div class="modal-body bg-danger">
+                <p>Edit Transaksi ini</p>
+            <form class="form-horizontal">
+            form -->
+              <!-- <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="col-sm-3 control-label">ID</label>
+
+                    <div class="col-sm-3">
+                      <input type="text" class="form-control" id="t_id_pembeli">
+                    </div>
+                  </div> -->
+                  <!-- ./ID -->
+
+ <!--                  <div class="form-group">
+                  <label class="col-sm-3 control-label">Nama</label>
+                  <div class="col-sm-8">
+                    <select class="form-control select2" style="width: 100%;"></select>
+                  </div>
+                </div> -->
+                <!-- ./Nama -->
+
+                <!-- <div class="form-group">
+                  <label class="col-sm-3 control-label">Asal Daerah</label>
+
+                  <div class="col-sm-8">
+                    <select class="form-control select2" style="width: 100%;"></select>
+                  </div>
+                </div>
+         ./Asal Daerah -->
+                <!-- </div> -->
+                <!-- ./col -->
+
+                <!-- <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="col-sm-3 control-label">Harga</label>
+
+                    <div class="col-sm-7">
+                      <input type="number" step="100" class="form-control" placeholder="300.000">
+                    </div>
+                  </div> -->
+                  <!-- ./Harga -->
+
+                  <!-- <div class="form-group">
+                    <label class="col-sm-3 control-label">Jumlah Uang</label>
+
+                    <div class="col-sm-7">
+                      <input type="number" step="100" class="form-control" placeholder="3.000.000">
+                    </div>
+                  </div> -->
+                  <!-- ./Jumlah Uang -->
+
+                 <!--  <div class="form-group">
+                    <label class="col-sm-3 control-label">Modal</label>
+
+                    <div class="col-sm-7">
+                      <input type="number" step="100" class="form-control" placeholder="300.000">
+                    </div>
+                  </div> -->
+                  <!-- ./Modal duit -->
+                
+                <!-- </div>   -->
+                <!-- ./col -->
+              <!-- </div> -->
+              <!-- ./row --> 
+              <!-- <div class="row">
+                <div class="col-sm-12">
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">Berat</label>
+                    <label class="col-sm-1 control-label">Colly</label>
+                      <div class="col-sm-2">
+                        <input type="number" class="form-control" placeholder="23">
+                      </div>
+
+                    <label class="col-sm-1 control-label">Kode</label>
+                      <div class="col-sm-2">
+                        <input type="number" class="form-control" placeholder="AB">
+                      </div>
+
+                    <label class="col-sm-1 control-label">Bersih</label>
+                      <div class="col-sm-2">
+                        <input type="number" class="form-control" placeholder="12">
+                      </div>   
+                  </div>
+                </div> -->
+                <!-- ./col -->
+              <!-- </div> -->
+              <!-- ./row -->
+              <!-- </div> -->
+              <!-- ./modal body -->
+                <!-- <div class="modal-footer bg-danger">
+                  <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-info">Save changes</button>
+                </div>
+            </form>
+            </div> -->
+            <!-- /.modal-content -->
+          <!-- </div> -->
+          <!-- /.modal-dialog -->
+        <!-- </div> -->
+        <!-- /.modal -->
+    
+    <!-- ./modal edit -->
+
 
     <!-- /.content -->
   </div>
@@ -432,9 +597,7 @@
           </div>
           <div class="col-md-8">
             <select type="text" name="nama_pembeli" id="nama_pembeli" class="form-control" style="
-            width: 100%">
-              <option id="nama_pembeli_selected" value="" selected></option>
-            </select>
+            width: 100%"></select>
             <input type="text" hidden="" name="id_pembeli" id="id_pembeli">
           </div>
         </div>
@@ -465,7 +628,7 @@
             <label>Harga  :</label>
           </div>
           <div class="col-md-8">
-           <input type="text" name="harga_pembeli" id="harga_pembeli" class="form-control">
+           <input type="text" name="harga_pembeli" readonly="" id="harga_pembeli" class="form-control">
           </div>
         </div>
               
@@ -526,15 +689,23 @@
       </div>
 
         <!-- One "tab" for each step in the form: -->
-      <form action="<?php echo base_url();?>Transaksi/addPembeli" method="post">
+      <form>
         <div class="modal-body">
+          <div class="row" style="padding-bottom: 5px">
+            <div class="col-md-4">
+              <label>ID :</label>
+            </div>
+            <div class="col-md-8">
+              <input type="text" name="id_petani" id="id_petani" class="form-control id_petani">
+            </div>
+          </div>
 
           <div class="row" style="padding-bottom: 5px">
             <div class="col-md-4">
               <label>Nama Pembeli :</label>
             </div>
             <div class="col-md-8">
-              <input type="text" name="nama_pembeli" class="form-control nama_petani" required="">
+              <input type="text" name="nama_petani" id="nama_petani" class="form-control nama_petani">
             </div>
           </div>
 
@@ -543,7 +714,7 @@
               <label>Alamat :</label>
             </div>
             <div class="col-md-8">
-              <input type="text" name="alamat" class="form-control" required="">
+              <input type="text" name="daerah" id="daerah" class="form-control ">
             </div>
           </div>
 
@@ -552,7 +723,7 @@
               <label>Nomer HP :</label>
             </div>
             <div class="col-md-8">
-              <input type="number" name="no_telp" class="form-control" required="">
+              <input type="number" name="noHP" id="noHP" class="form-control">
             </div>
           </div>
 
@@ -561,46 +732,37 @@
               <label>Nomer Rekening :</label>
             </div>
             <div class="col-md-8">
-              <input type="number" name="no_rek" class="form-control" required="">
+              <input type="number" name="noRek" id="noHP" class="form-control">
             </div>
           </div>
 
           <div class="row" style="padding-bottom: 5px">
-            <div class="col-md-4">
-              <label>Saldo Awal :</label>
-            </div>
-            <div class="col-md-8">
-              <input type="number" name="saldo" class="form-control" required="">
-            </div>
-          </div>
-
-<!--           <div class="row" style="padding-bottom: 5px">
             <div class="col-md-4">
               <label>Foto :</label>
             </div>
             <div class="col-md-8">
               <input type="file" name="foto_petani" id="foto_petani" class="form-control">
             </div>
-          </div> -->
+          </div>
         </div>
+      </form>
 
         <div class="modal-footer">
           <button type="submit" class="btn bg-purple"><i class="fa fa-user-plus"></i>Tambahkan Pembeli</button>
         </div>
-
-      </form>
         <!-- /.modal-footer -->
     </div>
   </div>
 </div>
 <!-- END Modal add Pembeli -->
 
+
 <!-- jQuery 3 -->
 <script src="<?php echo base_url();?>assets/bower_components/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap 3.3.7 -->
 <script src="<?php echo base_url();?>assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-<!-- bootstrap datepicker -->
-<script src="<?php echo base_url();?>assets/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.js""></script>
+<!-- jQuery-UI -->
+<script src="<?php echo base_url().'assets/bower_components/jquery-ui/jquery-ui.js'?>" type="text/javascript"></script>
 <!-- bootstrap color picker -->
 <script src="<?php echo base_url();?>/assets/bower_components/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js"></script>
 <!-- bootstrap time picker -->
@@ -624,8 +786,7 @@
     $('#example1').DataTable()
 
     $('.input-tanggal').datepicker({
-      format : 'yyyy-mm-dd',
-      todayHighlight : 'true'
+      dateFormat : 'yy-mm-dd'
     });
 
     //menambah setoran
@@ -646,14 +807,14 @@
                 data:{id_transaksi:id_transaksi},  
                 dataType:"json",  
                 success:function(data){
-                  var jumlah_uang = data.bersih * data.harga;
+                  var jumlah_uang = data.bersih * data.harga_bersih;
                      $('#insert_form')[0].reset();
                      $('#id_transaksi').val(data.id);
                      $('#tanggal').val(data.tanggal);  
-                     $('#nama_pembeli_selected').attr('value', data.nama);  
+                     $('#nama_pembeli').val(data.nama);  
                      $('#saldo_pembeli').val(data.saldo);  
                      $('#cabai').val(data.kode);  
-                     $('#harga_pembeli').val(data.harga);  
+                     $('#harga_pembeli').val(data.harga_bersih);  
                      $('#colly').val(data.colly);
                      $('#bersih').val(data.bersih);
                      $('#jumlah_uang').val(jumlah_uang);
@@ -708,6 +869,21 @@
             $('#id_pembeli').val(data[0].id)
             $("#saldo_pembeli").val(data[0].saldo)
         });
+
+    //mengambil nilai harga cabai
+    $('#cabai').on('change', function() {
+        $.ajax({
+           url: '<?php echo base_url();?>Transaksi/get_hargaPembeli', //This is the current doc
+           type: "POST",
+           data: {tanggal: $('#tanggal').val(), kode_cabai: $('#cabai').val()  },
+           success: function(harga){
+               $('#harga_pembeli').val(harga)
+           },
+           error: function(){
+              alert('Harga Cabai Belum diinputkan');
+           }
+        })
+    })
 
     //Menghitung jumlah uang
     $('#bersih').on('change', function()  {

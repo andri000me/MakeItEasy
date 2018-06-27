@@ -1,106 +1,19 @@
-<!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
-  <!-- Content Header (Page header) -->
-  <section class="content-header">
-    <h1>
-      Daftar Petani
-      <small>_</small>
-    </h1>
-    <ol class="breadcrumb">
-      <li><a href="#"><i class="fa fa-dashboard"></i> Daftar data</a></li>
-      <li >Petani</li>
-    </ol>
-  </section>
-
-  <!-- Main content -->
-  <section class="content">
-    <!-- Info boxes -->
-    <div class="row">
-      <div class="col-md-3 col-sm-6 col-xs-12 col-md-offset-6">
-        <div class="info-box">
-          <span class="info-box-icon bg-green"><i class="ion ion-ios-cart-outline"></i></span>
-
-          <div class="info-box-content">
-            <span class="info-box-text">Jumlah Transaksi Petani Hari Ini</span>
-            <span class="info-box-number">76</span>
-          </div>
-          <!-- /.info-box-content -->
-        </div>
-        <!-- /.info-box -->
-      </div>
-      <!-- /.col -->
-      <div class="col-md-3 col-sm-6 col-xs-12">
-        <div class="info-box">
-          <span class="info-box-icon bg-yellow"><i class="ion ion-ios-people-outline"></i></span>
-
-          <div class="info-box-content">
-            <span class="info-box-text">Jumlah Petani Mitra</span>
-            <span class="info-box-number">2,000</span>
-          </div>
-          <!-- /.info-box-content -->
-        </div>
-        <!-- /.info-box -->
-      </div>
-      <!-- /.col -->
-    </div>
-    <!-- /.row -->
-
-    <!-- Main content -->
-    <div class="row">
       <div class="col-md-12">
-        <button class="btn btn-success pull-right" data-toggle="modal" data-target="#addPetani"><i class="fa fa-user-plus"></i>Tambah Petani</button>
-      </div>
-      <div class="col-md-12">
-        <div class="box" style="border: 2px solid #dff0d8;">
+        <div class="box" style="border: 2px solid #f2dede;">
           <div class="box-header">
-            <h3 class="box-title">Daftar petani </h3>
+            <h3 class="box-title">Terjadi Kesalahan!!</h3>
           </div>
           <!-- /.box-header -->
-          <div class="box-body table-responsive">
-            <table id="example1" class="table table-bordered table-striped">
-              <thead>
-                <tr class="bg-success">
-                  <th style="text-align: center; line-height: 50px">#</th>
-                  <th style="text-align: center; line-height: 50px">ID</th>
-                  <th style="text-align: center; line-height: 50px">Nama Lengkap</th>
-                  <th style="text-align: center; line-height: 50px">Nama Panggil</th>
-                  <th style="text-align: center; line-height: 50px">Status</th>
-                  <th style="text-align: center; line-height: 50px">Asal Daerah</th>
-                  <th style="text-align: center; line-height: 50px">No Telp/HP</th>
-                  <th style="text-align: center; line-height: 50px">Saldo</th>
-                  <th style="text-align: center; line-height: 50px">Hutang </th>
-                  <th style="text-align: center; line-height: 50px">Jaminan </th>
-                  <th style="text-align: center; line-height: 50px">detail </th>
-                </tr>
-              </thead>
-              <tbody>
-                <?php $no=1; foreach ($tb_petani as $key): ?>
-                <tr>
-                  <td><?= $no ?></td>
-                  <td><?= $key->id ?></td>
-                  <td><?= $key->nama ?></td>
-                  <td><?= $key->nama_panggil ?></td>
-                  <td><?= $key->kemitraan == 1 ? "Mitra" : "Non-Mitra"; ?></td>
-                  <td><?= $key->desa ?></td>
-                  <td><?= $key->no_telp ?></td>
-                  <td><?= $key->saldo ?></td>
-                  <td><?= $key->saldo >= 0 ? '<span class="label label-success">Tidak Berhutang</span>' : ($key->tenggat >= $today ? '<span class="label label-warning">Berhutang</span>' : '<span class="label label-danger">Lewat Tenggat</span>') ?></td>
-                   <td><?= $key->jaminan ?></td>
-                  <td><a href="<?php echo base_url();?>DataProfil/detailPetani/<?= $key->id ?>" type="button" class="btn btn-info btn-xs">lihat</a></td>
-                </tr>
-                <?php $no++; endforeach ?>
-              </tbody>
-            </table>
+          <div class="box-body">
+          	<p>silakan kembali ke page yang anda inginkan</p><br>
+          	<p>dan pastikan data sudah terisi dengan benar</p>
           </div>
           <!-- /.box-body -->
         </div>
         <!-- /.box -->
       </div>
       <!-- /.col -->
-    </div>
-    <!-- /.row -->
-  </section>
-  <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
   <footer class="main-footer">
@@ -304,118 +217,6 @@
   <!-- Add the sidebar's background. This div must be placed
        immediately after the control sidebar -->
   <div class="control-sidebar-bg"></div>
-
-
-<!-- Modal add Petani -->
-<div class="modal fade" id="addPetani">
-  <div class="modal-dialog">
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Tambahkan Petani Mitra</h4>
-      </div>
-
-        <!-- One "tab" for each step in the form: -->
-      <form action="<?php echo base_url();?>Transaksi/addPetani" method="post">
-        <div class="modal-body">
-
-          <div class="row" style="padding-bottom: 5px">
-            <div class="col-md-4">
-              <label>Status Mitra :</label>
-            </div>
-            <div class="col-md-8">
-              <select name="kemitraan" class="form-control">
-                <option value="1">Mitra</option>
-                <option value="0">Non-Mitra</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="row" style="padding-bottom: 5px">
-            <div class="col-md-4">
-              <label>Nama Petani :</label>
-            </div>
-            <div class="col-md-8">
-              <input type="text" name="nama_petani" id="nama_petani" class="form-control nama_petani" required="">
-            </div>
-          </div>
-
-          <div class="row" style="padding-bottom: 5px">
-            <div class="col-md-4">
-              <label>Nama Panggilan Petani :</label>
-            </div>
-            <div class="col-md-8">
-              <input type="text" name="nama_panggil" id="nama_panggil" class="form-control nama_petani" required="">
-            </div>
-          </div>
-
-          <div class="row" style="padding-bottom: 5px">
-            <div class="col-md-4">
-              <label>Asal Daerah :</label>
-            </div>
-            <div class="col-md-8">
-              <input type="text" name="desa" id="desa" class="form-control" required="">
-            </div>
-          </div>
-
-          <div class="row" style="padding-bottom: 5px">
-            <div class="col-md-4">
-              <label>Alamat :</label>
-            </div>
-            <div class="col-md-8">
-              <input type="text" name="alamat" id="alamat" class="form-control" required="">
-            </div>
-          </div>
-
-          <div class="row" style="padding-bottom: 5px">
-            <div class="col-md-4">
-              <label>Nomer HP :</label>
-            </div>
-            <div class="col-md-8">
-              <input type="number" name="no_telp" id="no_telp" class="form-control" required="">
-            </div>
-          </div>
-
-          <div class="row" style="padding-bottom: 5px">
-            <div class="col-md-4">
-              <label>Saldo Awal :</label>
-            </div>
-            <div class="col-md-8">
-              <input type="number" name="saldo" id="saldo_awal" class="form-control" required="">
-            </div>
-          </div>
-
-          <div class="row" style="padding-bottom: 5px">
-            <div class="col-md-4">
-              <label>Jaminan :</label>
-            </div>
-            <div class="col-md-8">
-              <input type="text" name="jaminan" id="jaminan" class="form-control">
-            </div>
-          </div>
-
-<!--           <div class="row" style="padding-bottom: 5px">
-            <div class="col-md-4">
-              <label>Foto :</label>
-            </div>
-            <div class="col-md-8">
-              <input type="file" name="foto_petani" id="foto_petani" class="form-control">
-            </div>
-          </div> -->
-        </div>
-      
-
-        <div class="modal-footer">
-          <button type="submit" class="btn btn-warning"><i class="fa fa-user-plus"></i>Tambahkan Petani</button>
-        </div>
-      </form>
-        <!-- /.modal-footer -->
-    </div>
-  </div>
-</div>
-<!-- END Modal add Petani -->
-
 </div>
 <!-- ./wrapper -->
 
@@ -423,8 +224,14 @@
 <script src="<?php echo base_url();?>assets/bower_components/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap 3.3.7 -->
 <script src="<?php echo base_url();?>assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- bootstrap datepicker -->
+<script src="<?php echo base_url();?>assets/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.js""></script>
 <!-- bootstrap color picker -->
 <script src="<?php echo base_url();?>/assets/bower_components/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js"></script>
+<!-- bootstrap time picker -->
+<script src="<?php echo base_url();?>/assets/plugins/timepicker/bootstrap-timepicker.min.js"></script>
+<!-- Select2 -->
+<script src="<?php echo base_url();?>assets/bower_components/select2/dist/js/select2.full.min.js"></script>
 <!-- DataTables -->
 <script src="<?php echo base_url();?>assets/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="<?php echo base_url();?>assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
@@ -437,13 +244,5 @@
 <!-- AdminLTE for demo purposes -->
 <script src="<?php echo base_url();?>assets/js/demo.js"></script>
 
-<script>
-  $(document).ready(function(){
-    $('#example1').DataTable()
-  })
-
-</script>
-
 </body>
 </html>
-

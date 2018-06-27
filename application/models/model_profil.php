@@ -4,12 +4,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class model_profil extends CI_Model {
 
 	public function tb_petani() {
-		$query = $this->db->query("SELECT id, nama, nama_panggil, desa, no_telp, saldo, jaminan FROM tb_petani");
+		$query = $this->db->query("SELECT id, nama, nama_panggil, desa, no_telp, saldo, jaminan, kemitraan, tenggat FROM tb_petani ORDER BY id DESC");
 		return $query->result();
 	}
 
 	public function tb_pembeli() {
-		$query = $this->db->query("SELECT id, nama, alamat, no_telp, saldo FROM tb_pembeli");
+		$query = $this->db->query("SELECT id, nama, alamat, no_telp, saldo FROM tb_pembeli ORDER BY id DESC");
 		return $query->result();
 	}
 

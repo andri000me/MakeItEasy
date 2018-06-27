@@ -18,7 +18,14 @@ class DataProfil extends CI_Controller {
 
 	public function petani()
 		{
+			$timezone = new DateTimeZone('Asia/Jakarta');
+            
+            $dt = new DateTime();
+            $dt->setTimezone($timezone);
+            $date = $dt->format('Y-m-d');
+
 			$data['tb_petani'] = $this->model_profil->tb_petani();
+			$data['today'] = $date;
 
 			$this->load->view('header');
 			$this->load->view('list_petani', $data);
@@ -42,7 +49,7 @@ class DataProfil extends CI_Controller {
 			);
 
 			$this->load->view('header');
-			$this->load->view('detail_petani', $data);
+			$this->load->view('detail_petaniREV', $data);
 		}
 
 	public function detailPembeli()
@@ -55,7 +62,7 @@ class DataProfil extends CI_Controller {
 			);
 
 			$this->load->view('header');
-			$this->load->view('detail_pemborong', $data);
+			$this->load->view('detail_pemborongREV', $data);
 		}
 }
 ?>

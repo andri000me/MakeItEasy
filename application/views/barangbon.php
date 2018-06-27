@@ -67,7 +67,7 @@
                   <div class="col-md-12 col-sm-12">
                     <div class="box bg-solid" style="border: 2px solid #d9edf7;">
                       <div class="box-header">
-                        <h3 class="box-title">Daftar Barang Modal : <!-- <?php echo $today; ?> --></h3>
+                        <h3 class="box-title">Daftar Barang Modal :</h3>
                       </div>
                       <!-- /.box-header -->
                       <div class="box-body table-responsive">
@@ -75,12 +75,8 @@
                           <table class="table" style="margin-bottom: 10px">
                             <tr class="bg-info">
                               <td>#</td>
-                              <td><input class="form-control" type="text" placeholder="Tanggal" name="tanggal"></td>
                               <td><input class="form-control" type="text" placeholder="Nama Barang" name="barang"></td>
-                              <td><input class="form-control" type="number" placeholder="Beli" step="50" name="harga_beli" id="harga_beli"></td>
-                              <td><input class="form-control" type="number" placeholder="Jual" step="50" name="harga_jual"></td>
-                              <td><input class="form-control" type="number" placeholder="Stok" name="stok" id="stok"></td>
-                              <td><input class="form-control" type="text" placeholder="Jumlah Bayar" readonly name="jumlah_bayar" id="jumlah_bayar"></td>
+                              <td><input class="form-control" type="number" placeholder="Harga" step="50" name="harga" id="harga"></td>
                               <td>
                                 <button type="submit" class="btn btn-primary"><i class="fa fa-plus"></i> Tambahkan </button>
                               </td>
@@ -91,18 +87,10 @@
                         <table id="tabel_bon" class="table table-bordered table-striped" style="font-size: 15px">
                           <thead>
                             <tr class="bg-info">
-                              <th rowspan="2" style="text-align: center; line-height: 50px">No</th>
-                              <th rowspan="2" style="text-align: center; line-height: 50px">Tanggal</th>
-                              <th rowspan="2" style="text-align: center; line-height: 50px">Barang</th>
-                              <th colspan="2" style="text-align: center; line-height: 50px">Harga </th>
-                              <th rowspan="2" style="text-align: center; line-height: 50px">Stok</th>
-                              <th rowspan="2" style="text-align: center; line-height: 50px">Jumlah Bayar</th>
-                              <th rowspan="2" style="text-align: center; line-height: 50px">Bayar</th>
-                              <th rowspan="2" style="text-align: center; line-height: 50px">Edit</th>
-                            </tr>
-                            <tr class="bg-info">
-                              <th style="text-align: center; line-height: 50px">Beli</th>
-                              <th style="text-align: center; line-height: 50px">Jual</th>
+                              <th style="text-align: center; line-height: 50px; width: 25px">No</th>
+                              <th style="text-align: center; line-height: 50px">Barang</th>
+                              <th style="text-align: center; line-height: 50px">Harga </th>
+                              <th style="text-align: center; line-height: 50px; width: 150px">Edit</th>
                             </tr>
                           </thead>
                           <tbody>
@@ -111,27 +99,11 @@
                               foreach ($tb_barang as $tb) {
                                 echo '<tr>
                                 <td>'.$no.'</td>
-                                <td>'.$tb->tanggal.'</td>
                                 <td>'.$tb->barang.'</td>
-                                <td>'.$tb->harga_beli.'</td>
-                                <td>'.$tb->harga_jual.'</td>';
-
-                                  if ($tb->bayar == 1) {
-                                    $checked = 'checked="checked"';
-                                  }
-                                  else {
-                                    $checked = '';
-                                  }
-
-                                echo '<td>'.$tb->stok.'</td>
-                                      <td>'.$tb->jumlah_bayar.'</td>
-                                      <td><input class="form-check-input" type="checkbox" value="" id="aktif"'.$checked.'>
-                                      <label class="form-check-label" for="aktif">
-                                        Aktif/tidak
-                                      </label>
-                                </td>
+                                <td>'.$tb->harga.'</td>
                                 <td>
                                   <span class="btn btn-sm btn-info" data-toggle="modal" data-target="#editHarga" ><i class="fa fa-edit"></i> Edit </span>
+                                  <span class="btn btn-sm btn-danger"><i class="fa fa-trash-o"></i> Hapus </span>
                                 </td>
                                 </tr>';
 

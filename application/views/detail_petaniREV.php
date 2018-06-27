@@ -45,13 +45,13 @@
               <li class="list-group-item">
                 <b>Jaminan </b> <br>
                 <p class="text-right"><?= $profil->jaminan ?></p>
-                <a href="#" class="btn btn-default btn-block"><i class="fa fa-edit"></i>  <b>  Edit Jaminan</b></a> 
+                <a href="#" class="btn btn-default btn-block" data-toggle="modal" data-target="#editPetani"><i class="fa fa-edit"></i>  <b>  Edit Profil</b></a> 
               </li>
             </ul>
 
             <div class="btn-group btn-block">
               <button type="button" class="btn bg-green-gradient" data-toggle="modal" data-target="#inputSetoran" style="width: 50%"><i class="fa fa-leaf"></i> Input Setoran</button>
-              <button type="button" class="btn bg-aqua-gradient" style="width: 50%"> <i class="fa fa-cubes"></i> Input Bon</button>
+              <button type="button" class="btn bg-aqua-gradient" data-toggle="modal" data-target="#inputBon" style="width: 50%"> <i class="fa fa-cubes"></i> Input Bon</button>
             </div>
           </div>
           <!-- /.box-body -->
@@ -433,57 +433,231 @@
 </div>
 <!-- END Modal Input Setoran -->
 
-<!-- Modal edit harga-->
-<div id="editHarga" class="modal fade" role="dialog">
-<div class="modal-dialog">
+<!-- Modal Input BON-->
+<div id="inputBon" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-lg">
 
-  <!-- Modal content-->
-  <div class="modal-content">
-    <div class="modal-header">
-      <button type="button" class="close" data-dismiss="modal">&times;</button>
-      <h4 class="modal-title">Edit Harga</h4>
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Input Setoran</h4>
+      </div>
+      <form action="<?php echo base_url().''; ?>" method="post">
+        <div class="modal-body">
+
+          <div class="row" style="padding-bottom: 5px">
+            <div class="col-md-4">
+              <label>Tanggal :</label>
+            </div>
+            <div class="col-md-8">
+              <input type="text" name="tanggal" class="form-control input-tanggal datepicker">
+            </div>
+          </div>
+
+          <div class="row" style="padding-bottom: 5px">
+            <div class="col-md-4">
+              <label>Nama Petani :</label>
+            </div>
+            <div class="col-md-8">
+              <select type="text" name="nama_petani" class="form-control" id="nama_petaniMitra" style="width: 100%"></select>
+              <input type="text" name="id_petanMitra" id="id_petaniMitra" hidden="hidden">
+            </div>
+          </div>
+
+          <div class="row" style="padding-bottom: 5px">
+            <div class="col-md-4">
+              <label>Saldo :</label>
+            </div>
+            <div class="col-md-8">
+              <input type="text" class="form-control" id="saldo_petaniMitra" disabled name="saldo_petaniMitra">
+            </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col-md-12">
+            <label> Masukkan barang bon </label>
+            <input type="hidden" name="count" value="1" />
+              <div id="fields">
+                <div class="controls form-inline" id="profs"> 
+                    <div id="field" class="form-group">
+                      <div id="field1">
+                        <select class="input form-control" id="barang1" name="barang[]" style="width: 30%"></select>
+                        <input autocomplete="off" class="input form-control" id="price1" name="price[]" type="number" placeholder="Harga" data-items="8" disabled style="width: 20%" />
+                        <input autocomplete="off" class="input form-control" id="qty1" name="qty[]" type="number" placeholder="Jumlah" data-items="8" style="width: 13%" />
+                        <input autocomplete="off" class="input form-control" id="stok1" name="stok[]" type="number" placeholder="Stok" data-items="8" style="width: 13%" />
+                      </div>
+                      <button id="b1" class="btn btn-info add-more" type="button">+</button>
+                    </div>
+                </div>
+                <br>
+                <small>Tekan + untuk menambahkan kolom :)</small>
+              </div>
+            </div>
+          </div>
+          <!-- /.row -->
+          <br>
+
+          <div class="row" style="padding : 10px 0px">
+              <div class="col-md-4"> 
+                <label>Ambil uang:</label>
+              </div>
+              <div class="col-md-8">
+                <input type="number" class="form-control" step ="50">
+              </div>
+            <br>
+          </div>
+
+        </div>
+        
+        <div class="modal-footer">
+          <input type="submit" class="btn btn-info" value="Submit">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </form>
     </div>
+  </div>
+</div>
+<!-- END Modal Input BON -->
 
-    <form action="<?php echo base_url().'Transaksi/edit_harga'; ?>" method="post">
-      <div class="modal-body">
-        <table class="table table-condensed no-margin">
-          <thead>
-            <tr>
-              <th style="text-align: center; line-height: 50px" rowspan="2">No</th>
-              <th style="text-align: center; line-height: 50px" rowspan="2">Kode</th>
-              <th style="text-align: center; line-height: 50px" rowspan="2">Jenis</th>
-              <th style="text-align: center;" colspan="2">Harga</th>
-            </tr>
-              <tr>
-                <th>BS/ MTL </th>
-                <th>Bersih </th>
-              </tr>
-          </thead>
-          <tbody>
-            
-          <!-- <?php $no
-          // =1; foreach ($tb_cabai as $tb): ?> -->
-            <tr>
-              <!-- <td><?= $no ?></td> -->
-              <!-- <td><?= $tb->kode ?></td> -->
-              <!-- <td><?= $tb->jenis ?></td> -->
-              <!-- <input type="hidden" name="kode<?= $tb->kode ?>" value="<?= $tb->kode ?>">
-              <td><input type="text" name="harga_bs<?= $tb->kode ?>" value="<?= $tb->harga_bs ?>"></td>
-              <td><input type="text" name="harga_bersih<?= $tb->kode ?>" value="<?= $tb->harga_bersih ?>"></td> -->
-            </tr>
-            <<!-- ?php $no++; endforeach; ? -->>
-          </tbody>
-        </table>
+<!-- Modal edit Petani -->
+<div class="modal fade modal-default" id="editPetani">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header bg-success">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Ubah Profil Petani Mitra</h4>
       </div>
 
-    <div class="modal-footer">
-      <input type="submit" class="btn btn-info" value="Submit">
-      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-    </div>
-    </form>
-  </div>
+        <!-- One "tab" for each step in the form: -->
+      <form>
+        <div class="modal-body">
+          <div class="row" style="padding-bottom: 5px">
+            <div class="col-md-4">
+              <label>ID :</label>
+            </div>
+            <div class="col-md-8">
+              <input type="text" name="id_petani" id="id_petani" class="form-control id_petani">
+            </div>
+          </div>
 
+          <div class="row" style="padding-bottom: 5px">
+            <div class="col-md-4">
+              <label>Nama Petani :</label>
+            </div>
+            <div class="col-md-8">
+              <input type="text" name="nama_petani" id="nama_petani" class="form-control nama_petani">
+            </div>
+          </div>
+
+          <div class="row" style="padding-bottom: 5px">
+            <div class="col-md-4">
+              <label>Saldo :</label>
+            </div>
+            <div class="col-md-8">
+              <input type="number" name="noHP" id="noHP" class="form-control">
+            </div>
+          </div>
+
+          <div class="row" style="padding-bottom: 5px">
+            <div class="col-md-4">
+              <label>Asal Daerah :</label>
+            </div>
+            <div class="col-md-8">
+              <input type="text" name="daerah" id="daerah" class="form-control ">
+            </div>
+          </div>
+
+          <div class="row" style="padding-bottom: 5px">
+            <div class="col-md-4">
+              <label>Nomer HP :</label>
+            </div>
+            <div class="col-md-8">
+              <input type="number" name="noHP" id="noHP" class="form-control">
+            </div>
+          </div>
+
+          <div class="row" style="padding-bottom: 5px">
+            <div class="col-md-4">
+              <label>Jaminan :</label>
+            </div>
+            <div class="col-md-8">
+              <input type="text" name="noHP" id="noHP" class="form-control">
+            </div>
+          </div>
+          
+          <div class="row" style="padding-bottom: 5px">
+            <div class="col-md-4">
+              <label>Foto :</label>
+            </div>
+            <div class="col-md-8">
+              <input type="file" name="foto_petani" id="foto_petani" class="form-control">
+            </div>
+          </div>
+        </div>
+      </form>
+
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-default">Simpan Perubahan</button>
+        </div>
+        <!-- /.modal-footer -->
+    </div>
+  </div>
 </div>
+<!-- END Modal edit Petani -->
+
+<!-- Modal edit harga-->
+<div id="editHarga" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Edit Harga</h4>
+      </div>
+
+      <form action="<?php echo base_url().'Transaksi/edit_harga'; ?>" method="post">
+        <div class="modal-body">
+          <table class="table table-condensed no-margin">
+            <thead>
+              <tr>
+                <th style="text-align: center; line-height: 50px" rowspan="2">No</th>
+                <th style="text-align: center; line-height: 50px" rowspan="2">Kode</th>
+                <th style="text-align: center; line-height: 50px" rowspan="2">Jenis</th>
+                <th style="text-align: center;" colspan="2">Harga</th>
+              </tr>
+                <tr>
+                  <th>BS/ MTL </th>
+                  <th>Bersih </th>
+                </tr>
+            </thead>
+            <tbody>
+              
+            <!-- <?php $no
+            // =1; foreach ($tb_cabai as $tb): ?> -->
+              <tr>
+                <!-- <td><?= $no ?></td> -->
+                <!-- <td><?= $tb->kode ?></td> -->
+                <!-- <td><?= $tb->jenis ?></td> -->
+                <!-- <input type="hidden" name="kode<?= $tb->kode ?>" value="<?= $tb->kode ?>">
+                <td><input type="text" name="harga_bs<?= $tb->kode ?>" value="<?= $tb->harga_bs ?>"></td>
+                <td><input type="text" name="harga_bersih<?= $tb->kode ?>" value="<?= $tb->harga_bersih ?>"></td> -->
+              </tr>
+              <<!-- ?php $no++; endforeach; ? -->>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="modal-footer">
+          <input type="submit" class="btn btn-info" value="Submit">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </form>
+    </div>
+
+  </div>
 </div>
 <!-- END Modal Edit Harga -->
 

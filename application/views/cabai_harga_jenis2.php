@@ -58,8 +58,8 @@
           <!-- Custom Tabs -->
           <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">
-              <li class="active"><a href="#tab_cabai" data-toggle="tab"><i class="fa fa-leaf text-green"></i> Atur Harga Cabai</a></li>
-              <li><a href="#tab_bon" data-toggle="tab"><i class="fa fa-cubes text-aqua"></i> Atur Jenis Cabai</a></li>
+              <li class="active"><a href="#tab_cabai" data-toggle="tab"><i class="fa fa-leaf text-red"></i> Atur Harga Cabai</a></li>
+              <li><a href="#tab_bon" data-toggle="tab"><i class="fa fa-check-square text-green"></i> Atur Jenis Cabai</a></li>
             </ul>
             <div class="tab-content">
               <div class="tab-pane active" id="tab_cabai">
@@ -67,7 +67,6 @@
                 <div class="row">
 
                   <div class="col-md-10 col-sm-12">
-
                    <!-- Add Harga cabe -->                                   
                    <div class="box box-solid" style="border: 2px solid #39cccc">
                       <div class="box-header bg-teal" >
@@ -87,7 +86,7 @@
                                 <div class="input-group-addon">
                                   <i class="fa fa-calendar"></i>
                                 </div>
-                                <input type="text" class="form-control pull-right input-tanggal" placeholder="klik untuk memilih tanggal" name="tanggal" required="">
+                                <input type="text" class="form-control pull-right input-tanggal" placeholder="klik untuk memilih tanggal" name="tanggal">
                               </div>
                               <!-- /.input group -->
                             </div>
@@ -98,9 +97,10 @@
                           <table class="table table-striped" style="font-size: 15px">
                             <thead>
                               <tr class="bg-success">
+  
                                 <th style="text-align: center; line-height: 50px" rowspan="2">Jenis Cabai</th>
                                 <th style="text-align: center;" colspan="2">Harga</th>
-                                <th style="text-align: center;" rowspan="2">Action</th>
+                                <th style="text-align: center;line-height: 50px" rowspan="2">#</th>
                               </tr>
                               <tr class="bg-success">
                                 <th class="text-center">BS/ MTL </th>
@@ -135,17 +135,15 @@
                       <!-- /.box-footer -->
                     </div>
                     <!-- END Add Harga Cabe -->
-
                   </div>
-                  <!-- /.col 4 -->
+                  <!-- /.col 6 -->
 
-                  <!-- tabel -->
                 </div>
                 <!-- /.row -->
 
                 <!-- row -->
                 <div class="row">
-                                    <div class="col-md-6 col-sm-12 border-right">
+                  <div class="col-md-6 col-sm-12 border-right">
 
                     <div class="box box-success bg-solid" style="border: 2px solid #f39c12;">
                       <div class="box-header bg-yellow">
@@ -195,61 +193,175 @@
 
                   <!-- tabel -->
                   <div class="col-md-6 col-sm-12">
-                    <div class="box" style="border: 2px solid #f0f0f0;">
-                      <div class="box-header with-border" style="background-color: #f0f0f0;">
-                        <h3 class="box-title">Input Harga Cabai Terakhir </h3>
-                        <h5 class="text-aqua"><b>Tanggal : <?php echo $max_tanggal ?></b></h5>
+                    <div class="box box-success bg-solid" style="border: 2px solid #d9edf7;">
+                      <div class="box-header bg-info">
+                        <h3 class="box-title">Rekap Harga Cabai Pembeli</h3>
                       </div>
                       <!-- /.box-header -->
-                      <div class="box-body ">
-                          <table class="table table-condensed no-margin">
-                            <thead>
-                              <tr>
-                                <th style="text-align: center; line-height: 50px" rowspan="2">No</th>
-                                <th style="text-align: center; line-height: 50px" rowspan="2">Kode</th>
-                                <th style="text-align: center; line-height: 50px" rowspan="2">Jenis</th>
-                                <th style="text-align: center;" colspan="2">Harga</th>
-                              </tr>
-                                <tr>
-                                  <th>BS/ MTL </th>
-                                  <th>Bersih </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                              <?php if (!empty($harga_tanggal)) {
-                                $no=1 ;foreach ($harga_tanggal as $tb) 
-                                {
-                                  echo "<tr>
-                                  <td>".$no."</td>
-                                  <td>".$tb->kode."</td>
-                                  <td>".$tb->jenis."</td><td> Rp";
-                                  echo number_format($tb->harga_bs, 0,',', '.');
-                                  echo "</td>
-                                  <td> Rp".number_format($tb->harga_bersih, 0, ',', '.')."</td>
-                                </tr>";
 
-                                $no++;
+                      <div class="box-body table-responsive">
+                        <!-- pilih tanggal  -->
+                        <div class="col-md-5">
+                          <div class="input-group date">
+                            <div class="input-group-addon">
+                              <i class="fa fa-calendar"></i>
+                            </div>
+                            <input type="text" class="form-control pull-right input-tanggal" placeholder="dari tanggal" name="tanggal">
+                          </div>
+                          <!-- /.input group -->
+                        </div>
+                        <!-- pilih tanggal  -->
+                        <div class="col-md-5">
+                          <div class="input-group date">
+                            <div class="input-group-addon">
+                              <i class="fa fa-calendar"></i>
+                            </div>
+                            <input type="text" class="form-control pull-right input-tanggal" placeholder="sampai tanggal" name="tanggal">
+                          </div>
+                          <!-- /.input group -->
+                        </div>
+                        <div class="col-md-2">
+                          <button type="button" class="btn btn-info"> Cek Harga </button>
+                        </div>
+                        <hr>
+                        <table id="tb_hargaPembeli" class="table table-bordered table-striped datatables" style="font-size: 15px">
+                          <thead>
+                            <tr class="bg-info">
+                              <th style="text-align: center; line-height: 50px" rowspan="2">No</th>
+                              <th style="text-align: center; line-height: 50px" rowspan="2">Tanggal </th>
+                              <th style="text-align: center; line-height: 50px" rowspan="2">Jenis Cabai</th>
+                              <th style="text-align: center; line-height: 50px" rowspan="2">Status</th>
+                              <th style="text-align: center;" colspan="2">Harga</th>
+                              <th style="text-align: center; line-height: 50px" rowspan="2">Edit</th>
+                            </tr>
+                            <tr class="bg-info">
+                              <th>BS/ MTL </th>
+                              <th>Bersih </th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                             <?php
+                                if (!empty($harga_cabai_pembeli)) {
+                                  $no=1; foreach ($harga_cabai_pembeli as $key) {
+
+                                      echo "<tr><td>".$no."</td><td>".$key->tanggal."</td><td>".$key->jenis."(".$key->kode_cabai.")</td><td>".$key->harga_bs."</td><td><span class='badge bg-light-blue'>fix</span></td><td>".$key->harga_bersih."</td><td><button type='button' class='btn btn-info btn-xs data-toggle='modal' data-target='#modal-info'>edit</button></td></tr>";
+                                    
+                                      $no++;
+                                  }
                                 }
-                              }
-                              
-                              else {
-                                echo "<tr><td colspan='12' class='text-center text-danger'> Isi dahulu harga cabai hari ini!! </td></tr>";
-                              }
-                            ?>
-                            </tbody>
-                          </table>
+                                else {
+                                       echo "<tr><td colspan='12' class='text-center text-danger'> Isikan dulu harga cabai hari ini !! </td></tr>";
+                                }
+
+                              ?>
+                          </tbody>
+                        </table>
                       </div>
-                      <div class="box-footer clearfix" style="border: 1px solid #f0f0f0;">
-                        <a href="<?php echo base_url();?>Cabai/hargaJenis" class="btn btn-sm btn-default pull-right">
-                          <i class="fa fa-edit"></i> Tambah Harga </a>
-                      </div>
-                            <!-- /.box-body -->
+                      <!-- /.box-body -->
                     </div>
                     <!-- /.box -->
                   </div>
                   <!-- /.col -->
                 </div>
                 <!-- /.row -->
+
+                <!-- modal edit -->
+                <div class="modal fade" id="editHarga">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">Edit Harga Cabai</h4>
+                      </div>
+                      <div class="modal-body">
+                        <div class="row" style="padding-bottom: 5px">
+                          <div class="col-md-4">
+                            <label>Tanggal :</label>
+                          </div>
+                          <div class="col-md-8">
+                           <input type="text" name="jenis_cabai" class="form-control" value="Anu">
+                          </div>
+                        </div>
+
+                        <div class="row" style="padding-bottom: 5px">
+                          <div class="col-md-4">
+                            <label>Jenis Cabai :</label>
+                          </div>
+                          <div class="col-md-8">
+                           <input type="text" name="jenis_cabai" class="form-control" value="Anu">
+                           <!-- <?php
+                                // $dd_cabai_attribute = 'class="form-control"';
+                                // echo form_dropdown('cabai', $dd_cabai, $cabai_selected, $dd_cabai_attribute);
+                                ?> -->
+                          </div>
+                        </div>
+
+                        <div class="row" style="padding-bottom: 5px">
+                          <div class="col-md-4">
+                           <label>Kode Cabai :</label>
+                          </div>
+                          <div class="col-md-8">
+                            <input type="text" name="kode_cabai" class="form-control" disabled value="A">
+                            
+                          </div>
+                        </div>
+                        <label>Harga </label>
+                        <br>
+
+                        <div class="row" style="padding-bottom: 5px">
+                          <div class="col-md-2">
+                           <label>BS :</label>
+                          </div>
+                          <div class="col-md-4">
+                            <input type="number" name="harga" class="form-control" value="500" step="50">
+                          </div>
+                          <div class="col-md-2">
+                           <label>Bersih :</label>
+                          </div>
+                          <div class="col-md-4">
+                            <input type="number" name="harga" class="form-control" value="500" step="50">
+                          </div>
+                        </div>
+
+                        <div class="row" style="padding-bottom: 5px">
+                          <div class="col-md-4">
+                            <label>Status :</label>
+                          </div>
+                          <div class="col-md-8">
+                            <!-- radio -->
+                            <div class="form-group">
+                              <div class="radio">
+                                <div class="col-md-4">
+                                <label>
+                                  <input type="radio" name="optionsRadios<?= $no ?>" id="optionsRadios1" value="option1" checked="">
+                                  <span class='badge bg-yellow'>sementara</span>
+                                </label>
+                                </div>
+                                <div class="col-md-4">
+                                <label>
+                                  <input type="radio" name="optionsRadios<?= $no ?>" id="optionsRadios2" value="option2">
+                                  <span class='badge bg-light-blue'>fix</span>
+                                </label>
+                                </div>
+                              </div>
+                            </div>
+                            <!-- /.radio -->
+                           
+                          </div>
+                        </div>
+
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn pull-left btn-danger" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-info">Simpan</button>
+                      </div>
+                    </div>
+                    <!-- /.modal-content -->
+                  </div>
+                  <!-- /.modal-dialog -->
+                </div>
+                <!-- /.modal -->
 
 
               </div>
@@ -285,6 +397,7 @@
                               <th style="text-align: center; line-height: 50px">No</th>
                               <th style="text-align: center; line-height: 50px">Kode Cabai</th>
                               <th style="text-align: center; line-height: 50px">Jenis Cabai</th>
+                              <th style="text-align: center; line-height: 50px">Aktif</th>
                               <th style="text-align: center; line-height: 50px">Edit</th>
                             </tr>
                           </thead>
@@ -296,8 +409,23 @@
                                     <td>'.$no.'</td>
                                     <td>'.$tb->kode.'</td>
                                     <td>'.$tb->jenis.'</td>
+                                    <td style="text-align: center">';
+
+                                  if ($tb->aktif == 1) {
+                                    $checked = 'checked="checked"';
+                                  }
+                                  else {
+                                    $checked = '';
+                                  }
+
+                                  echo '<input class="form-check-input" type="checkbox" value="" id="aktif"'.$checked.'>
+                                      <label class="form-check-label" for="aktif">
+                                        Aktif/tidak
+                                      </label>';
+
+                                  echo '</td>
                                     <td>
-                                      <span class="btn btn-sm btn-info" data-toggle="modal" data-target="#editHarga" ><i class="fa fa-edit"></i> Edit </span>
+                                      <span class="btn btn-sm btn-info" data-toggle="modal" data-target="#editJenis" ><i class="fa fa-edit"></i> Edit </span>
                                     </td>
                                   </tr>';
 
@@ -308,14 +436,14 @@
                         </table>
 
 
-                      <!-- modal edit -->
-                        <div class="modal fade" id="editHarga">
+                        <!-- modal edit -->
+                        <div class="modal fade" id="editJenis">
                           <div class="modal-dialog">
                             <div class="modal-content">
                               <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                   <span aria-hidden="true">&times;</span></button>
-                                <h4 class="modal-title">Edit Barang Modal</h4>
+                                <h4 class="modal-title">Edit Jenis Cabai</h4>
                               </div>
                               <div class="modal-body">
                                 <div class="row" style="padding-bottom: 5px">
@@ -382,6 +510,7 @@
                 <!-- /.row -->
               </div>
               <!-- /.tab-pane bon -->
+
               <!-- /.tab-pane -->
             </div>
             <!-- /.tab-content -->
@@ -635,8 +764,8 @@
     });
 
   });
-
-  var next = 1;
+  
+    var next = 1;
   function addField(e)    {
         <?php
           $dd_cabai_attribute = 'id="cabai" class="form-control select2" style="width:100%" required';
@@ -656,14 +785,12 @@
         $(addto).after(newInput);
         $('#add'+ (next-1) +'').attr('style', "display: none");
         $('#remove'+ (next-1) +'').attr('style', "display: inline");
-
-         $('.select2').select2()
         
         $('.remove-me').click(function(e){
             e.preventDefault();
             var fieldNum = this.id.charAt(this.id.length-1);
             var fieldID = "#field" + fieldNum;
-            //$(this).remove();
+            $(this).remove();
             $(fieldID).remove();
         });
   };

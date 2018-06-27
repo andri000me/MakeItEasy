@@ -1,3 +1,17 @@
+  <!-- array hari dan bulan -->
+  <SCRIPT LANGUAGE="Javascript">
+
+    // Array of day names
+    var dayNames = new Array("Minggu","Senin","Selasa","Rabu",
+            "Kamis","Jumat","Sabtu");
+
+    // Array of month Names
+    var monthNames = new Array(
+    "Januari","Februari","Maret","April","Mei","Juni","Juli",
+    "Agustus","September","Oktober","November","Desember");
+  </SCRIPT>
+<!-- END array hari dan bulan -->
+
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -18,7 +32,7 @@
       <div class="row">
         <div class="col-md-3 col-sm-6 col-xs-12">
           <div class="info-box">
-            <span class="info-box-icon bg-aqua"><i class="ion ion-ios-gear-outline"></i></span>
+            <span class="info-box-icon bg-aqua"><i class="fa fa-leaf"></i><i class="fa fa-long-arrow-down"></i></span>
 
             <div class="info-box-content">
               <span class="info-box-text">Cabai Masuk</span>
@@ -31,7 +45,23 @@
         <!-- /.col -->
         <div class="col-md-3 col-sm-6 col-xs-12">
           <div class="info-box">
-            <span class="info-box-icon bg-red"><i class="fa fa-google-plus"></i></span>
+            <span class="info-box-icon bg-green"><i class="fa fa-leaf"></i><i class="fa fa-long-arrow-up"></i></span>
+
+            <div class="info-box-content">
+              <span class="info-box-text">Cabai Keluar</span>
+              <span class="info-box-number">450<small>kg</small></span>
+            </div>
+            <!-- /.info-box-content -->
+          </div>
+          <!-- /.info-box -->
+        </div>
+        <!-- /.col -->
+        <!-- fix for small devices only -->
+        <div class="clearfix visible-sm-block"></div>
+
+        <div class="col-md-3 col-sm-6 col-xs-12">
+          <div class="info-box">
+            <span class="info-box-icon bg-yellow"><i class="fa fa-group"></i></span>
 
             <div class="info-box-content">
               <span class="info-box-text">Jumlah Petani</span>
@@ -43,29 +73,13 @@
         </div>
         <!-- /.col -->
 
-        <!-- fix for small devices only -->
-        <div class="clearfix visible-sm-block"></div>
-
         <div class="col-md-3 col-sm-6 col-xs-12">
           <div class="info-box">
-            <span class="info-box-icon bg-green"><i class="ion ion-ios-cart-outline"></i></span>
+            <span class="info-box-icon bg-red"><i class="fa fa-shopping-cart"></i></span>
 
             <div class="info-box-content">
-              <span class="info-box-text">Pemasukan</span>
-              <span class="info-box-number">Rp. 47.092.123</span>
-            </div>
-            <!-- /.info-box-content -->
-          </div>
-          <!-- /.info-box -->
-        </div>
-        <!-- /.col -->
-        <div class="col-md-3 col-sm-6 col-xs-12">
-          <div class="info-box">
-            <span class="info-box-icon bg-yellow"><i class="ion ion-ios-people-outline"></i></span>
-
-            <div class="info-box-content">
-              <span class="info-box-text">Pengeluaran</span>
-              <span class="info-box-number">Rp. 2.109.200</span>
+              <span class="info-box-text">Jumlah Pembeli</span>
+              <span class="info-box-number">122</span>
             </div>
             <!-- /.info-box-content -->
           </div>
@@ -79,7 +93,14 @@
         <div class="col-md-12">
           <div class="box">
             <div class="box-header with-border">
-              <h3 class="box-title">Rekap Transaksi Bulanan</h3>
+              <h3 class="box-title">Rekap Transaksi Bulan Ini : 
+                <b>
+                  <script language="javascript">
+                    var now = new Date();
+                    document.write(monthNames[now.getMonth()]);
+                  </script>
+                </b>
+              </h3> 
 
               <div class="box-tools pull-right">
                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -114,75 +135,22 @@
                 </div>
                 <!-- /.col -->
                 <div class="col-md-4">
-
-                  <div class="pad box-pane-right" >
-                    <div class="description-block margin-bottom" style="margin-bottom: 0px!important">
-                      <h2 style="text-align: right;"> <strong> SABTU </strong></h2>
-                      <h4 class="description-text" style="text-align: right"> 19 Mei 2018</h4>
-                    </div>
-                    <!-- /.description-block -->
-                    <!-- <div class="description-block margin-bottom bg-aqua" style="margin-bottom: 0px!important"> -->
-                      <!-- <h5 class="description-header">30%</h5> -->
-                      <!-- <span class="description-text">19 Mei 2018</span> -->
-                    <!-- </div> -->
-                    <!-- /.description-block -->
+                  <div class="box-footer no-padding">
+                    <ul class="nav nav-stacked">
+                      <li style="padding: 10px 15px; background: #f0f0f0">Keadaan Perusahaan <span class="pull-right text-green">LABA</span></li>
+                      <li style="padding: 10px 15px;">Total Pendapatan <span class="pull-right "> Rp. 531.121</span></li>
+                      <li style="padding: 10px 15px;">Total Pengeluaran <span class="pull-right "> Rp. 559.809</span></li>
+                      <li style="padding: 10px 15px;">Total Profit <span class="pull-right "> Rp. 512.100</span></li>
+                      <li style="padding: 10px 15px;">Pinjaman uang <span class="pull-right "> Rp. 584.212</span></li>
+                    </ul>
                   </div>
-                   <div class="info-box bg-blue">
-                      <span class="info-box-icon"><i class="ion ion-ios-briefcase-outline"></i></span>
-
-                      <div class="info-box-content">
-                        <h4 class="info-box-text">Keadaan Perusahaan</h4>
-                        <span class="info-box-number text-center">LABA</span>
-                      </div>
-                      <!-- /.info-box-content -->
-                    </div>
                 </div>
                 <!-- /.col -->
               </div>
               <!-- /.row -->
             </div>
             <!-- ./box-body -->
-            <div class="box-footer">
-              <div class="row">
-                <div class="col-sm-3 col-xs-6">
-                  <div class="description-block border-right">
-                    <span class="description-percentage text-green"><i class="fa fa-caret-up"></i> 17%</span>
-                    <h5 class="description-header">$35,210.43</h5>
-                    <span class="description-text">TOTAL PENDAPATAN</span>
-                  </div>
-                  <!-- /.description-block -->
-                </div>
-                <!-- /.col -->
-                <div class="col-sm-3 col-xs-6">
-                  <div class="description-block border-right">
-                    <span class="description-percentage text-yellow"><i class="fa fa-caret-left"></i> 0%</span>
-                    <h5 class="description-header">$10,390.90</h5>
-                    <span class="description-text">TOTAL PENGELUARAN</span>
-                  </div>
-                  <!-- /.description-block -->
-                </div>
-                <!-- /.col -->
-                <div class="col-sm-3 col-xs-6">
-                  <div class="description-block border-right">
-                    <span class="description-percentage text-green"><i class="fa fa-caret-up"></i> 20%</span>
-                    <h5 class="description-header">$24,813.53</h5>
-                    <span class="description-text">TOTAL PROFIT</span>
-                  </div>
-                  <!-- /.description-block -->
-                </div>
-                <!-- /.col -->
-                <div class="col-sm-3 col-xs-6">
-                  <div class="description-block">
-                    <span class="description-percentage text-red"><i class="fa fa-caret-down"></i> 18%</span>
-                    <h5 class="description-header">1200</h5>
-                    <span class="description-text">PINJAMAN</span>
-                  </div>
-                  <!-- /.description-block -->
-                </div>
-              </div>
-              <!-- /.row -->
-            </div>
-            <!-- /.box-footer -->
+            
           </div>
           <!-- /.box -->
         </div>
@@ -190,7 +158,7 @@
       </div>
       <!-- /.row -->
 
-      <!-- /.tabel harian -->
+      <!-- tabel harian -->
       <div class="row">
         <div class="col-md-12">
           <div class="box box-primary">
@@ -246,6 +214,9 @@
         <!-- /.col -->
       </div>
       <!-- /.row -->
+
+
+
 
       <!-- row dibawah grafik -->
       <div class="row">
@@ -334,7 +305,7 @@
 
         <div class="col-md-4 col-sm-12">
         <!-- Harga Bon -->
-          <div class="box box-warning">
+          <div class="box box-info">
             <div class="box-header with-border">
               <h3 class="box-title">Daftar Harga Barang Bon</h3>
             </div>
@@ -834,6 +805,11 @@
     $('#rekap_hari').DataTable()
     $('#rekap_bulan').DataTable()
     $('#rekap_tahun').DataTable()
+
+  //Date picker
+    $('#datepicker').datepicker({
+      autoclose: true 
+      })
 </script>
 </body>
 </html>
