@@ -133,21 +133,13 @@
                           <button type="button" class="btn btn-setor-ver bg-yellow-gradient" data-toggle="modal" data-target="#addPetani"> <i class="fa fa-user-plus"></i> Tambah petani</button>
                         </div>
                       </div>
-                      <div class="box-footer clearfix">
-                        <h5 class="pull-left">
-                          Jumlah transaksi hari ini
-                        </h5>
-                        <h4 class="pull-right" style="font-weight: bold">
-                          64
-                        </h4>
-                      </div>
                       <!-- /.box-body -->
                     </div>
                   </div>
                   <!-- END Action Button -->
 
                   <!--tanggal dan info -->
-                  <div class="col-md-4">             
+<!--                   <div class="col-md-4">             
                     <div class="row">
                       <div class="col-sm-6 col-xs-6" style="padding-left: 0px!important; border: 2px">
                         <div class="description-block border-right bg-green" style="padding:2px; border-radius: 2px">
@@ -156,38 +148,38 @@
                           <p class="description-text">CABAI MASUK</p>
                         </div>
                         <!-- /.description-block -->
-                      </div>
+                      <!-- </div> -->
                       <!-- /.col -->
-                      <div class="col-sm-6 col-xs-6" style="padding-left: 0px!important; border: 2px">
+                      <!-- <div class="col-sm-6 col-xs-6" style="padding-left: 0px!important; border: 2px">
                         <div class="description-block border-right bg-red" style="padding:2px; border-radius: 2px">
                           <h4 style="background: rgba(0,0,0,0.2); line-height: 2; margin-top: 0px;"><i class="fa fa-upload"></i></h4>
                           <h3 class="description-header">$10,390.90</h3>
                           <p class="description-text">CABAI TERJUAL</p>
-                        </div>
+                        </div> -->
                         <!-- /.description-block -->
-                      </div>
+                      <!-- </div> -->
                       <!-- /.col -->
-                      <div class="col-sm-6 col-xs-6" style="padding-left: 0px!important; border: 2px">
+                      <!-- <div class="col-sm-6 col-xs-6" style="padding-left: 0px!important; border: 2px">
                         <div class="description-block border-right bg-yellow" style="padding:2px; border-radius: 2px">
                           <h4 style="background: rgba(0,0,0,0.2); line-height: 2; margin-top: 0px;"><i class="fa fa-caret-down"></i> <i class="fa fa-money"></i></h4>
                           <h3 class="description-header">$24,813.53</h3>
                           <p class="description-text">UANG MASUK</p>
-                        </div>
+                        </div> -->
                         <!-- /.description-block -->
-                      </div>
+                      <!-- </div> -->
                       <!-- /.col -->
-                      <div class="col-sm-6 col-xs-6" style="padding-left: 0px!important; border: 2px">
+                      <!-- <div class="col-sm-6 col-xs-6" style="padding-left: 0px!important; border: 2px">
                         <div class="description-block border-right bg-aqua" style="padding:2px; border-radius: 2px">
                           <h4 style="background: rgba(0,0,0,0.2); line-height: 2; margin-top: 0px;"><i class="fa fa-caret-up"></i> <i class="fa fa-money"></i></h4>
                           <h3 class="description-header">$24,813.53</h3>
                           <p class="description-text">UANG KELUAR</p>
-                        </div>
+                        </div> -->
                         <!-- /.description-block -->
-                      </div>
+                      <!-- </div> -->
                       <!-- /.col -->
-                    </div>
+                    <!-- </div> -->
                     <!-- /.row -->
-                  </div>
+                  <!-- </div> -->
                   <!-- END tanggal dan info -->
                 </div>
                 <!-- row -->
@@ -197,7 +189,7 @@
                   <div class="col-sm-12">
                     <div class="box bg-solid" style="border: 2px solid #dff0d8;">
                       <div class="box-header">
-                        <h3 class="box-title">Catatan harian tanggal : <?php echo $today; ?></h3>
+                        <h3 class="box-title text-aqua">50 Catatan Terakhir</h3>
                       </div>
                       <!-- /.box-header -->
 
@@ -211,16 +203,17 @@
                               <th style="text-align: center; line-height: 50px" rowspan="2">Nama</th>
                               <th style="text-align: center; line-height: 50px" rowspan="2">Asal Daerah</th>
                               <th style="text-align: center; line-height: 50px" rowspan="2">Kode Cabai</th>
-                              <th style="text-align: center;" colspan="3">Berat</th>
+                              <th style="text-align: center;" colspan="4">Berat</th>
                               <th style="text-align: center; line-height: 50px" rowspan="2">Harga</th>
                               <th style="text-align: center; line-height: 50px" rowspan="2">Jumlah Uang</th>
                               <th style="text-align: center; line-height: 50px" rowspan="2">Bon</th>
                               <th style="text-align: center; line-height: 50px" rowspan="2">Saldo</th>
-                              <th style="text-align: center; line-height: 50px" rowspan="2">Action</th>
+                              <!-- <th style="text-align: center; line-height: 50px" rowspan="2">Action</th> -->
                             </tr>
                             <tr class="bg-success">
                               <th>Kotor </th>
                               <th>BS/ MTL </th>
+                              <th>Susut</th>
                               <th>Bersih </th>
                             </tr>
                           </thead>
@@ -233,14 +226,15 @@
                                 <td><?= $tb->nama ?></td>
                                 <td><?= $tb->desa ?></td>
                                 <td><?= $tb->kode_cabai ?></td>
-                                <td><?= number_format($tb->berat_kotor,1,',','.') ?></td>
-                                <td><?= number_format($tb->berat_bs,1,',','.') ?></td>
-                                <td><?= $tb->berat_kotor-$tb->berat_bs?></td>
+                                <td><?= number_format($tb->berat_kotor,1) ?></td>
+                                <td><?= number_format($tb->berat_bs,1) ?></td>
+                                <td><?= number_format($tb->berat_susut,1) ?></td>
+                                <td><?= $tb->berat_kotor-$tb->berat_bs-$tb->berat_susut ?></td>
                                 <td>Rp<?= number_format($tb->harga_bersih,0,',','.') ?></td>
                                 <td>Rp<?= number_format(($tb->berat_kotor-$tb->berat_bs)*$tb->harga_bersih + $tb->berat_bs*$tb->harga_bs,0,',','.') ?></td>
                                 <td>Rp<?= number_format($tb->bon,0,',','.') ?></td>
                                 <td>Rp<?= number_format($tb->saldo,0,',','.') ?></td>
-                                <td><button id="<?= $tb->id ?>" type="button" class="btn btn-info btn-xs edit_data" data-toggle="modal" data-target="#editSetoran">edit</button> <a href="<?php echo base_url();?>Transaksi/delete_petani/<?= $tb->id ?>" class="btn btn-danger btn-xs">Hapus</a></td>
+                                <!-- <td><button id="<?= $tb->id ?>" type="button" class="btn btn-info btn-xs edit_data" data-toggle="modal" data-target="#editSetoran">edit</button> <a href="<?php //echo base_url();?>Transaksi/delete_petani/<?= $tb->id ?>" class="btn btn-danger btn-xs">Hapus</a></td> -->
                               </tr>
                             <?php $no++; endforeach ?>
                           </tbody>
@@ -273,16 +267,7 @@
                           <button type="button" class="btn btn-setor-ver bg-aqua-gradient" data-toggle="modal" data-target="#inputBon"> <i class="fa fa-plus"></i> Inputkan Bon</button>
                           <button type="button" class="btn btn-setor-ver bg-yellow-gradient" data-toggle="modal" data-target="#addPetani"> <i class="fa fa-user-plus"></i> Tambah petani</button>
                         </div>
-                      </div>
-                      <div class="box-footer clearfix">
-                        <h5 class="pull-left">
-                          Jumlah transaksi hari ini
-                        </h5>
-                        <h4 class="pull-right" style="font-weight: bold">
-                          64
-                        </h4>
-                      </div>
-                      <!-- /.box-body -->
+                      </div> <!-- /.box-body -->
                     </div>
                   </div>
                   <!-- END Action Button -->
@@ -294,7 +279,7 @@
                   <div class="col-sm-12">
                     <div class="box bg-solid" style="border: 2px solid #d9edf7;">
                       <div class="box-header">
-                        <h3 class="box-title">Catatan harian tanggal : <?php echo $today; ?></h3>
+                        <h3 class="box-title text-aqua">100 catatan bon terakhir</h3>
                       </div>
                       <!-- /.box-header -->
 
@@ -303,6 +288,7 @@
                           <thead>
                             <tr class="bg-info">
                               <th style="text-align: center; line-height: 50px">#</th>
+                              <th style="text-align: center; line-height: 50px">Tanggal</th>
                               <th style="text-align: center; line-height: 50px">ID</th>
                               <th style="text-align: center; line-height: 50px">Nama</th>
                               <th style="text-align: center; line-height: 50px">Asal Daerah</th>
@@ -317,6 +303,7 @@
                             <?php $no=1; foreach ($trans_bon as $tb): ?>
                               <tr>
                                 <td><?= $no ?></td>
+                                <td><?= $tb->tanggal ?></td>
                                 <td><?= $tb->id_petani ?></td>
                                 <td><?= $tb->nama ?></td>
                                 <td><?= $tb->desa ?></td>
@@ -629,17 +616,21 @@
           <b>Berat</b>
         </div>
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-3">
               <label>Kotor</label>
-              <input type="text" name="berat_kotor" id="berat_kotor" class="form-control" required="">kg
+              <input type="number" step="0.01" name="berat_kotor" id="berat_kotor" class="form-control" required="">kg
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
               <label>BS/MTD </label>
-              <input type="text" name="berat_bs" id="berat_bs" class="form-control" required="">kg
+              <input type="number" step="0.01" name="berat_bs" id="berat_bs" class="form-control" required="">kg
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
+              <label>Susut </label>
+              <input type="number" step="0.01" name="berat_susut" id="berat_susut" class="form-control" required="">kg
+            </div>
+            <div class="col-md-3">
               <label>Bersih </label>
-              <input type="text" readonly name="berat_bersih" id="berat_bersih" class="form-control">kg
+              <input type="number" step="0.01" readonly name="berat_bersih" id="berat_bersih" class="form-control">kg
             </div>
         </div>
 
@@ -1015,18 +1006,22 @@
     });
 
     //Menghitung Berat Bersih dan Jumlah Uang
-    $('#berat_bs').on('change', function()  {
+    $('#berat_susut').on('change', function()  {
       showJumlahUang(); 
 
-      $('#berat_kotor').on('change', function() {
-        showJumlahUang();
-        });
-        $('#tanggal').on('change', function()   {
-          resetJumlahUang()
-        });
-        $('#cabai').on('change', function()   {
-          resetJumlahUang()
-        });
+      $('#berat_bs').on('change', function()  {
+      showJumlahUang(); 
+
+          $('#berat_kotor').on('change', function() {
+            showJumlahUang();
+            });
+            $('#tanggal').on('change', function()   {
+              resetJumlahUang()
+            });
+            $('#cabai').on('change', function()   {
+              resetJumlahUang()
+            });
+      });
     });
 
       //edit Setoran
@@ -1124,7 +1119,8 @@
       var harga_bs = $('#harga_bs').val()
       var kotor = $('#berat_kotor').val()
       var bs = $('#berat_bs').val()
-      var bersih = kotor - bs
+      var susut = $('#berat_susut').val()
+      var bersih = kotor - bs - susut
 
       var jumlah_uang = (bersih * harga_bersih) + (bs * harga_bs)
 

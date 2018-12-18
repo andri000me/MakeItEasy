@@ -52,5 +52,30 @@ class model_cabai extends CI_Model {
 		$this->db->update_batch('tb_petani', $data, 'id');
 	}
 
+	function cek_harga_cabai($kode, $tanggal)	{
+		$query = $this->db->query("SELECT kode_cabai FROM harga_cabai_petani WHERE kode_cabai='$kode' AND tanggal='$tanggal'");
+		return $query->num_rows();
+	}
+
+	function get_jenis($id)	{
+		$query = $this->db->query("SELECT * FROM tb_cabai WHERE kode='$id'");
+		return $query->row();
+	}
+
+	function get_harga($id)	{
+		$query = $this->db->query("SELECT a.*, b.jenis FROM harga_cabai_petani a JOIN tb_cabai b ON a.kode_cabai=b.kode WHERE a.id='$id'");
+		return $query->row();
+	}
+
+	function update_jenis($kode, $data)	{
+		$this->db->where('kode', $kode);
+      	$this->db->update('tb_cabai', $data);
+	}
+
+	function update_harga($id, $data)	{
+		$this->db->where('id', $id);
+      	$this->db->update('harga_cabai_petani', $data);
+	}
+
 }
 ?>

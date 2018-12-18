@@ -18,7 +18,7 @@
   <section class="content-header">
     <h1>
       Transaksi Pembeli
-      <small>_</small>
+      <small></small>
     </h1>
     <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i> Transaksi Harian</a></li>
@@ -93,38 +93,38 @@
       <div class="col-md-4">
         <div class="row">
           <div class="col-sm-6 col-xs-6" style="padding-left: 0px!important; border: 2px">
-            <div class="description-block border-right bg-green" style="padding:2px; border-radius: 2px">
+<!--             <div class="description-block border-right bg-green" style="padding:2px; border-radius: 2px">
               <h4 style="background: rgba(0,0,0,0.2); line-height: 2; margin-top: 0px;"><i class="fa fa-download"></i></h4>
               <h3 class="description-header">$35,210.43</h3>
               <p class="description-text">CABAI MASUK</p>
-            </div>
+            </div> -->
             <!-- /.description-block -->
           </div>
           <!-- /.col -->
           <div class="col-sm-6 col-xs-6" style="padding-left: 0px!important; border: 2px">
-            <div class="description-block border-right bg-red" style="padding:2px; border-radius: 2px">
+<!--             <div class="description-block border-right bg-red" style="padding:2px; border-radius: 2px">
               <h4 style="background: rgba(0,0,0,0.2); line-height: 2; margin-top: 0px;"><i class="fa fa-upload"></i></h4>
               <h3 class="description-header">$10,390.90</h3>
               <p class="description-text">CABAI TERJUAL</p>
-            </div>
+            </div> -->
             <!-- /.description-block -->
           </div>
           <!-- /.col -->
           <div class="col-sm-6 col-xs-6" style="padding-left: 0px!important; border: 2px">
-            <div class="description-block border-right bg-yellow" style="padding:2px; border-radius: 2px">
+<!--             <div class="description-block border-right bg-yellow" style="padding:2px; border-radius: 2px">
               <h4 style="background: rgba(0,0,0,0.2); line-height: 2; margin-top: 0px;"><i class="fa fa-caret-down"></i> <i class="fa fa-money"></i></h4>
               <h3 class="description-header">$24,813.53</h3>
               <p class="description-text">UANG MASUK</p>
-            </div>
+            </div> -->
             <!-- /.description-block -->
           </div>
           <!-- /.col -->
           <div class="col-sm-6 col-xs-6" style="padding-left: 0px!important; border: 2px">
-            <div class="description-block border-right bg-aqua" style="padding:2px; border-radius: 2px">
+<!--             <div class="description-block border-right bg-aqua" style="padding:2px; border-radius: 2px">
               <h4 style="background: rgba(0,0,0,0.2); line-height: 2; margin-top: 0px;"><i class="fa fa-caret-up"></i> <i class="fa fa-money"></i></h4>
               <h3 class="description-header">$24,813.53</h3>
               <p class="description-text">UANG KELUAR</p>
-            </div>
+            </div> -->
             <!-- /.description-block -->
           </div>
           <!-- /.col -->
@@ -139,7 +139,7 @@
       <div class="col-md-12">
         <div class="box" style="border: 2px solid #f2dede;">
           <div class="box-header">
-            <h3 class="box-title">Catatan harian tanggal : </h3>
+            <h3 class="box-title text-aqua">50 transaksi terakhir </h3>
           </div>
           <!-- /.box-header -->
           <div class="box-body table-responsive">
@@ -156,7 +156,7 @@
                   <th style="text-align: center; line-height: 50px" rowspan="2">Jumlah Uang</th>
                   <th style="text-align: center; line-height: 50px" rowspan="2">Transferan </th>
                   <th style="text-align: center; line-height: 50px" rowspan="2">Saldo</th>
-                  <th style="text-align: center; line-height: 50px" rowspan="2">Action</th>
+<!--                   <th style="text-align: center; line-height: 50px" rowspan="2">Action</th> -->
                 </tr>
                 <tr class="bg-danger">
                   <th>Colly </th>
@@ -179,7 +179,7 @@
                   <td>Rp<?= number_format($tb->bersih*$tb->harga,'0',',','.')  ?></td>
                   <td>Rp<?= number_format($tb->transferan,'0',',','.') ?></td>
                   <td>Rp<?= number_format($tb->saldo,'0',',','.') ?></td>
-                  <td><button id="<?= $tb->id ?>" type="button" class="btn btn-info btn-xs edit_data" data-toggle="modal" data-target="#inputSetoran">edit</button> <a href="<?php echo base_url();?>Transaksi/delete_pembeli/<?= $tb->id ?>" class="btn btn-danger btn-xs">Hapus</a></td>
+                  <!-- <td><button id="<?= $tb->id ?>" type="button" class="btn btn-info btn-xs edit_data" data-toggle="modal" data-target="#inputSetoran">edit</button> <a href="<?php //echo base_url();?>Transaksi/delete_pembeli/<?= $tb->id ?>" class="btn btn-danger btn-xs">Hapus</a></td> -->
                 </tr>
                 <?php $no++; endforeach; ?>
 
@@ -561,7 +561,7 @@
               <label>Nomer Rekening :</label>
             </div>
             <div class="col-md-8">
-              <input type="number" name="no_rek" class="form-control" required="">
+              <input type="text" name="no_rek" class="form-control" required="">
             </div>
           </div>
 

@@ -66,45 +66,83 @@ class Cabai extends CI_Controller {
 	}
 
 	function submitHargaPetani()	{
-		$tanggal = $this->input->post('tanggal');
-		$kode = $this->input->post('cabai[]');
-		$harga_bs = $this->input->post('harga_bs[]');
-		$harga_bersih = $this->input->post('harga_bersih[]');
+		$tanggal = $this->input->post("tanggal");
+		$counter = $this->input->post("counter");
 
-		$i=0;
-		foreach ($kode as $key => $val) {
-			$data1[$i]['kode_cabai'] = $val;
-			$data1[$i]['harga_bs'] = $harga_bs[$key];
-			$data1[$i]['harga_bersih'] = $harga_bersih[$key];
-			$data1[$i]['tanggal'] = $tanggal;
-			$i++;
+		//mendefinisikan array kode_cabai, bs, dan bersih
+		$kode_cabai = array();
+		$bs = array();
+		$bersih = array();
+
+		//mengambil nilai kode, harga_bs, dan harga_bersih dari Serialize ajax dan memasukkannya ke array
+		for ($x=1; $x <= $counter; $x++) { 
+			${"kode".$x} = $this->input->post("cabai".$x);
+			${"harga_bs".$x} = $this->input->post("harga_bs".$x);
+			${"harga_bersih".$x} = $this->input->post("harga_bersih".$x);
+
+			if (!empty(${"kode".$x})) {
+				array_push($kode_cabai, ${"kode".$x});
+				array_push($bs, ${"harga_bs".$x});
+				array_push($bersih, ${"harga_bersih".$x});
+			}
 		}
-		$this->model_cabai->submitPetani($data1);
 
-		$transpetani = $this->model_cabai->tb_transpetani($tanggal);
-		if (!empty($transpetani)) {
-			$j=0;
-			foreach ($transpetani as $key) {
-				$id_transaksi = $key->id;
-				$id_petani = $key->id_petani;
-				$jumlah_uang = $key->harga_bs * $key->berat_bs + $key->harga_bersih * ($key->berat_kotor - $key->berat_bs);
-				$saldo_petani = $key->saldo_petani;
-				$new_saldo = $saldo_petani + $jumlah_uang;
+		//jika kode tidak benilai unik, maka false
+		if (count($kode_cabai) == count(array_unique($kode_cabai))) {
+			$state = 1;
+			foreach ($kode_cabai as $key => $val) {
+				$number_row = $this->model_cabai->cek_harga_cabai($val, $tanggal);
 
-				$data2[$j]['id'] = $id_transaksi;
-				$data2[$j]['saldo'] = $new_saldo;
-
-				$data3[$j]['id'] = $id_petani;
-				$data3[$j]['saldo'] = $new_saldo;
-
-				$j++;
+				if ($number_row > 0)	{
+					$state = 0;
+					break;
+				}
 			}
 
-			$this->model_cabai->update_saldoTrans($data2);
-			$this->model_cabai->update_saldoPetani($data3);
+			if ($state == 1) {
+				$i=0;
+				foreach ($kode_cabai as $key => $val) {
+
+					$data1[$i]['kode_cabai'] = $val;
+					$data1[$i]['harga_bs'] = $bs[$key];
+					$data1[$i]['harga_bersih'] = $bersih[$key];
+					$data1[$i]['tanggal'] = $tanggal;
+					$i++;
+				}
+
+				$this->model_cabai->submitPetani($data1);
+
+				//untuk update nilai saldo petani, jika pada saat input setoran, harga cabai belum diinputkan
+				$transpetani = $this->model_cabai->tb_transpetani($tanggal);
+				if (!empty($transpetani)) {
+					$j=0;
+					foreach ($transpetani as $key) {
+						$id_transaksi = $key->id;
+						$id_petani = $key->id_petani;
+						$jumlah_uang = $key->harga_bs * $key->berat_bs + $key->harga_bersih * ($key->berat_kotor - $key->berat_bs - $key->berat_susut);
+						$saldo_petani = $key->saldo_petani;
+						$new_saldo = $saldo_petani + $jumlah_uang;
+
+						$data2[$j]['id'] = $id_transaksi;
+						$data2[$j]['saldo'] = $new_saldo;
+
+						$data3[$j]['id'] = $id_petani;
+						$data3[$j]['saldo'] = $new_saldo;
+
+						$j++;
+					}
+
+					$this->model_cabai->update_saldoTrans($data2);
+					$this->model_cabai->update_saldoPetani($data3);
+				}
+				echo 'input harga cabai berhasil';
+			}
+			else echo 'Mohon ulangi pengisian, harga cabai telah diinputkan sebelumnya';
+		}
+		else {
+			echo 'Mohon ulangi pengisian, harga cabai telah diinputkan sebelumnya';
 		}
 		
-		redirect('Cabai/hargaJenis');
 	}
 
 	function submitHargaPembeli()	{
@@ -137,7 +175,74 @@ class Cabai extends CI_Controller {
 
 		$this->model_cabai->tambahCabai($data);
 
-		redirect('Cabai/hargaJenis');
+		echo 1;
+	}
+
+	function get_jenis()	{
+		$id_cabai = $this->input->post('id');
+		$query = $this->model_cabai->get_jenis($id_cabai);
+
+		echo json_encode($query);
+	}
+
+	function get_harga()	{
+		$id_cabai = $this->input->post('id');
+		$query = $this->model_cabai->get_harga($id_cabai);
+
+		echo json_encode($query);
+	}
+
+	function update_jenis()	{
+		$kode = $this->input->post('kode');
+		$jenis = $this->input->post('jenis');
+
+		$data = array('jenis' => $jenis);
+
+		$this->model_cabai->update_jenis($kode, $data);
+
+		echo 1;
+	}
+
+	function update_harga()	{
+		$tanggal = $this->input->post('tanggal');
+		$id = $this->input->post('id');
+		$harga_bersih = $this->input->post('harga_bersih');
+		$harga_bs = $this->input->post('harga_bs');
+
+		$data = array(
+			'harga_bersih' => $harga_bersih,
+			'harga_bs' => $harga_bs);
+
+		$this->model_cabai->update_harga($id, $data);
+
+		//untuk update nilai saldo_petani dan saldo_trans
+		$transpetani = $this->model_cabai->tb_transpetani($tanggal);
+		if (!empty($transpetani)) {
+			$j=0;
+			foreach ($transpetani as $key) {
+				$id_transaksi = $key->id;
+				$id_petani = $key->id_petani;
+				$jumlah_uang = $key->harga_bs * $key->berat_bs + $key->harga_bersih * ($key->berat_kotor - $key->berat_bs - $key->berat_susut );
+				$new_jumlah_uang = $harga_bs * $key->harga_bs + $harga_bersih * ($key->berat_kotor - $key->berat_bs - $key->berat_susut );
+				$saldo_petani = $key->saldo_petani;
+				$saldo_trans = $key->saldo_trans;
+				$new_saldo_petani = $saldo_petani - $jumlah_uang + $new_jumlah_uang;
+				$new_saldo_trans = $saldo_trans - $jumlah_uang + $new_jumlah_uang;
+
+				$data2[$j]['id'] = $id_transaksi;
+				$data2[$j]['saldo'] = $new_saldo_trans;
+
+				$data3[$j]['id'] = $id_petani;
+				$data3[$j]['saldo'] = $new_saldo_petani;
+
+				$j++;
+			}
+
+			$this->model_cabai->update_saldoTrans($data2);
+			$this->model_cabai->update_saldoPetani($data3);
+		}
+
+		echo 1;
 	}
 
 }

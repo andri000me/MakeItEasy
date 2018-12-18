@@ -88,50 +88,102 @@ $(function () {
   // - END MONTHLY SALES CHART -
   // ---------------------------
 
+
+  //PIE CHART ISNA START HERE ---------------------------------
+
+  $.ajax({
+    url : "http://localhost/MakeItEasy/Perusahaan/rekap_cabai",
+    type : "GET",
+    dataType: "JSON",
+    success : function(data){
+      console.log(data);
+
+      var ctx = $("#ringkasan_cabai").get(0).getContext('2d');;
+
+      var data = {
+        labels : data.jenis,
+        datasets : [
+          {
+            label : "Cabai Terjual",
+            data : data.bersih,
+            backgroundColor : [
+                        "#DEB887",
+                        "#A9A9A9"
+                    ],
+                    borderColor : [
+                        "#CDA776",
+                        "#989898"
+                    ],
+                    borderWidth : [1, 1]
+          }
+        ]
+      };
+
+      var options = {
+        title : {
+          display : true,
+          position : "top",
+          text : "Doughnut Chart",
+          fontSize : 18,
+          fontColor : "#111"
+        },
+        legend : {
+          display : true,
+          position : "bottom"
+        }
+      };
+
+
+      var chart = new Chart( ctx, {
+        type : "doughnut",
+        data : data,
+        options : options
+      });
+
+    }
+  })
+
+
+
+
   // -------------
   // - PIE CHART -
   // -------------
   // Get context with jQuery - using jQuery's .get() method.
-  var pieChartCanvas = $('#pieChart').get(0).getContext('2d');
-  var pieChart       = new Chart(pieChartCanvas);
-  var PieData        = [
-    {
-      value    : 700,
-      color    : '#f56954',
-      highlight: '#f56954',
-      label    : 'Chrome'
-    },
-    {
-      value    : 500,
-      color    : '#00a65a',
-      highlight: '#00a65a',
-      label    : 'IE'
-    },
-    {
-      value    : 400,
-      color    : '#f39c12',
-      highlight: '#f39c12',
-      label    : 'FireFox'
-    },
-    {
-      value    : 600,
-      color    : '#00c0ef',
-      highlight: '#00c0ef',
-      label    : 'Safari'
-    },
-    {
-      value    : 300,
-      color    : '#3c8dbc',
-      highlight: '#3c8dbc',
-      label    : 'Opera'
-    },
-    {
-      value    : 100,
-      color    : '#d2d6de',
-      highlight: '#d2d6de',
-      label    : 'Navigator'
-    }
-  ];
+  // var pieChartCanvas = $('#pieChart').get(0).getContext('2d');
+  // var pieChart       = new Chart(pieChartCanvas);
+  // var PieData        = [
+  //   {
+  //     value    : 500,
+  //     color    : '#00a65a',
+  //     highlight: '#00a65a',
+  //     label    : 'IE'
+  //   },
+  //   {
+  //     value    : 400,
+  //     color    : '#f39c12',
+  //     highlight: '#f39c12',
+  //     label    : 'FireFox'
+  //   },
+  //   {
+  //     value    : 600,
+  //     color    : '#00c0ef',
+  //     highlight: '#00c0ef',
+  //     label    : 'Safari'
+  //   },
+  //   {
+  //     value    : 300,
+  //     color    : '#3c8dbc',
+  //     highlight: '#3c8dbc',
+  //     label    : 'Opera'
+  //   },
+  //   {
+  //     value    : 100,
+  //     color    : '#d2d6de',
+  //     highlight: '#d2d6de',
+  //     label    : 'Navigator'
+  //   }
+  // ];
   var pieOptions     = {
     // Boolean - Whether we should show a stroke on each segment
     segmentShowStroke    : true,
@@ -160,7 +212,7 @@ $(function () {
   };
   // Create pie or douhnut chart
   // You can switch between pie and douhnut using the method below.
-  pieChart.Doughnut(PieData, pieOptions);
+  // pieChart.Doughnut(PieData, pieOptions);
   // -----------------
   // - END PIE CHART -
   // -----------------

@@ -16,26 +16,14 @@
   <section class="content">
     <!-- Info boxes -->
     <div class="row">
-      <div class="col-md-3 col-sm-6 col-xs-12 col-md-offset-6">
-        <div class="info-box">
-          <span class="info-box-icon bg-purple"><i class="ion ion-ios-cart-outline"></i></span>
-
-          <div class="info-box-content">
-            <span class="info-box-text">Jumlah Transaksi Pembeli Hari Ini</span>
-            <span class="info-box-number">16</span>
-          </div>
-          <!-- /.info-box-content -->
-        </div>
-        <!-- /.info-box -->
-      </div>
       <!-- /.col -->
-      <div class="col-md-3 col-sm-6 col-xs-12">
+      <div class="col-md-4 col-sm-6 col-xs-12">
         <div class="info-box">
           <span class="info-box-icon bg-maroon"><i class="ion ion-ios-people-outline"></i></span>
 
           <div class="info-box-content">
-            <span class="info-box-text">Jumlah Pelanggan</span>
-            <span class="info-box-number">340</span>
+            <span class="info-box-text">Jumlah Pembeli</span>
+            <span class="info-box-number"><?= $jumlah_pembeli ?></span>
           </div>
           <!-- /.info-box-content -->
         </div>
@@ -342,7 +330,7 @@
               <label>Nomer Rekening :</label>
             </div>
             <div class="col-md-8">
-              <input type="number" name="no_rek" class="form-control" required="">
+              <input type="text" name="no_rek" class="form-control" required="">
             </div>
           </div>
 

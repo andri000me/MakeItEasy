@@ -111,13 +111,13 @@
                             <label>Harga :</label>
                           </div>
                           <div class="col-md-3">
-                           <input type="text" name="harga_petani" id="harga_petani" class="form-control">
+                           <input type="number" name="harga_petani" id="harga_petani" class="form-control">
                           </div>
                           <div class="col-md-2">
                             <label>BS/MTD :</label>
                           </div>
                           <div class="col-md-3">
-                           <input type="text" name="harga_bs" id="harga_bs" class="form-control">
+                           <input type="number" name="harga_bs" id="harga_bs" class="form-control">
                           </div>
                         </div>
                               
@@ -125,17 +125,21 @@
                           <b>Berat</b>
                         </div>
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                               <label>Kotor</label>
-                              <input type="text" name="berat_kotor" id="berat_kotor" class="form-control">kg
+                              <input type="number" step="0.01" name="berat_kotor" id="berat_kotor" class="form-control">kg
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                               <label>BS/MTD </label>
-                              <input type="text" name="berat_bs" id="berat_bs" class="form-control">kg
+                              <input type="number" step="0.01" name="berat_bs" id="berat_bs" class="form-control">kg
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-3">
+                              <label>Susut </label>
+                              <input type="number" step="0.01" id="berat_susut" class="form-control">kg
+                            </div>
+                            <div class="col-md-3">
                               <label>Bersih </label>
-                              <input type="text" id="berat_bersih" class="form-control" disabled="">kg
+                              <input type="number" step="0.01" id="berat_bersih" class="form-control" disabled="">kg
                             </div>
                         </div>
 
@@ -144,7 +148,7 @@
                             <label>Jumlah Uang :</label>
                           </div>
                           <div class="col-md-8">
-                           <input type="text" name="jumlah_uang" id="jumlah_uang" class="form-control" disabled="">
+                           <input type="number" name="jumlah_uang" id="jumlah_uang" class="form-control" disabled="">
                           </div>
                         </div>
                       </div>
@@ -222,7 +226,7 @@
                   <div class="col-sm-12">
                     <div class="box bg-solid" style="border: 2px solid #dff0d8;">
                       <div class="box-header">
-                        <h3 class="box-title">Catatan harian tanggal : <?php echo $today; ?></h3>
+                        <h3 class="box-title text-aqua">50 Catatan Terakhir ?></h3>
                       </div>
                       <!-- /.box-header -->
 
@@ -235,15 +239,16 @@
                               <th style="text-align: center; line-height: 50px" rowspan="2">Nama</th>
                               <th style="text-align: center; line-height: 50px" rowspan="2">Kode Cabai</th>
                               <th style="text-align: center; line-height: 50px" colspan="2">Harga</th>
-                              <th style="text-align: center;" colspan="3">Berat</th>
+                              <th style="text-align: center;" colspan="4">Berat</th>
                               <th style="text-align: center; line-height: 50px" rowspan="2">Jumlah Uang</th>
-                              <th style="text-align: center; line-height: 50px" rowspan="2">Action</th>
+                              <!-- <th style="text-align: center; line-height: 50px" rowspan="2">Action</th> -->
                             </tr>
                             <tr class="bg-success">
                               <th>BS/MTD</th>
                               <th>Bersih</th>
                               <th>Kotor</th>
                               <th>BS/MTD</th>
+                              <th>Susut</th>
                               <th>Bersih</th>
                             </tr>
                           </thead>
@@ -254,13 +259,14 @@
                                 <td><?= $tb->tanggal ?></td>
                                 <td><?= $tb->nama_petani ?></td>
                                 <td><?= $tb->kode_cabai ?></td>
-                                <td><?= $tb->harga_bs ?></td>
-                                <td><?= $tb->harga_bersih ?></td>
-                                <td><?= $tb->berat_kotor ?></td>
-                                <td><?= $tb->berat_bs ?></td>
-                                <td><?= $tb->berat_kotor - $tb->berat_bs ?>
-                                <td><?= $tb->harga_bersih * ($tb->berat_kotor - $tb->berat_bs) + $tb->harga_bs * $tb->berat_bs ?></td>
-                                <td><button id="<?= $tb->id ?>" type="button" class="btn btn-info btn-xs edit_data" data-toggle="modal" data-target="#inputSetoran">edit</button> <a href="<?php echo base_url();?>Transaksi/delete_petaniNonMitra/<?= $tb->id ?>" class="btn btn-danger btn-xs">Hapus</a></td>
+                                <td>Rp<?= number_format($tb->harga_bs,0,',','.') ?></td>
+                                <td>Rp<?= number_format($tb->harga_bersih,0,',','.') ?></td>
+                                <td><?= number_format($tb->berat_kotor,1) ?></td>
+                                <td><?= number_format($tb->berat_bs,1) ?></td>
+                                <td><?= number_format($tb->berat_susut,1) ?></td>
+                                <td><?= $tb->berat_kotor - $tb->berat_bs - $tb->berat_susut ?>
+                                <td>Rp<?= number_format($tb->harga_bersih * ($tb->berat_kotor - $tb->berat_bs - $tb->berat_susut) + $tb->harga_bs * $tb->berat_bs,0,',','.') ?></td>
+                               <!--  <td><button id="<?= $tb->id ?>" type="button" class="btn btn-info btn-xs edit_data" data-toggle="modal" data-target="#inputSetoran">edit</button> <a href="<?php //echo base_url();?>Transaksi/delete_petaniNonMitra/<?= $tb->id ?>" class="btn btn-danger btn-xs">Hapus</a></td> -->
                               </tr>
                             <?php $no++; endforeach ?>
                           </tbody>
@@ -334,7 +340,7 @@
                             <label>Harga :</label>
                           </div>
                           <div class="col-md-8">
-                            <input type="text" class="form-control"  name="harga" id="harga">
+                            <input type="number" class="form-control"  name="harga" id="harga">
                           </div>
                         </div>
 
@@ -343,13 +349,13 @@
                             <label>Colly :</label>
                           </div>
                           <div class="col-md-3">
-                           <input type="text" name="colly" id="colly" class="form-control">
+                           <input type="number" name="colly" id="colly" class="form-control">
                           </div>
                           <div class="col-md-2">
                             <label>Bersih :</label>
                           </div>
                           <div class="col-md-3">
-                           <input type="text" name="bersih" id="bersih" class="form-control">
+                           <input type="number" step="0.01" name="bersih" id="bersih" class="form-control">
                           </div>
                         </div>
 
@@ -358,7 +364,7 @@
                             <label>Jumlah Uang :</label>
                           </div>
                           <div class="col-md-8">
-                           <input type="text" name="jumlah_uang" id="jumlah" class="form-control" disabled="">
+                           <input type="number" name="jumlah_uang" id="jumlah" class="form-control" disabled="">
                           </div>
                         </div>
                       </div>
@@ -434,7 +440,7 @@
                   <div class="col-md-12">
                     <div class="box" style="border: 2px solid #f2dede;">
                       <div class="box-header">
-                        <h3 class="box-title">Catatan harian tanggal : </h3>
+                        <h3 class="box-title text-aqua">50 Catatan Terakhir </h3>
                       </div>
                       <!-- /.box-header -->
                       <div class="box-body table-responsive">
@@ -449,7 +455,7 @@
                               <th style="text-align: center; line-height: 50px" rowspan="2">Harga</th>
                               <th style="text-align: center;" colspan="2">Berat</th>
                               <th style="text-align: center; line-height: 50px" rowspan="2">Jumlah Uang</th>
-                              <th style="text-align: center; line-height: 50px" rowspan="2">Action</th>
+                              <!-- <th style="text-align: center; line-height: 50px" rowspan="2">Action</th> -->
                             </tr>
                             <tr class="bg-success">
                               <th>Colly </th>
@@ -464,11 +470,11 @@
                                 <td><?= $tb->nama_pembeli ?></td>
                                 <td><?= $tb->asal_daerah ?></td>
                                 <td><?= $tb->kode_cabai ?></td>
-                                <td><?= $tb->harga ?></td>
+                                <td>Rp<?= number_format($tb->harga,0,',','.') ?></td>
                                 <td><?= $tb->colly ?></td>
-                                <td><?= $tb->bersih ?></td>
-                                <td><?= $tb->bersih * $tb->harga ?></td>
-                                <td><button id="<?= $tb->id ?>" type="button" class="btn btn-info btn-xs edit_data" data-toggle="modal" data-target="#inputSetoran">edit</button> <a href="<?php echo base_url();?>Transaksi/delete_pembeliNonMitra/<?= $tb->id ?>" class="btn btn-danger btn-xs">Hapus</a></td>
+                                <td><?= number_format($tb->bersih,1) ?></td>
+                                <td>Rp<?= number_format($tb->bersih * $tb->harga,0,',','.') ?></td>
+                                <!-- <td><button id="<?= $tb->id ?>" type="button" class="btn btn-info btn-xs edit_data" data-toggle="modal" data-target="#inputSetoran">edit</button> <a href="<?php //echo base_url();?>Transaksi/delete_pembeliNonMitra/<?= $tb->id ?>" class="btn btn-danger btn-xs">Hapus</a></td> -->
                               </tr>
                             <?php $no++; endforeach ?>
                           </tbody>

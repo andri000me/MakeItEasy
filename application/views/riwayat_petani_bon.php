@@ -4,13 +4,13 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Riwayat Transaksi Pembeli
-        <small>_</small>
+        Riwayat Transaksi Petani
+        <small>_</small>BON
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
         <li><a href="#">Riwayat Transaksi</a></li>
-        <li class="active">Pembeli</li>
+        <li class="active">Petani</li>
       </ol>
     </section>
 
@@ -25,16 +25,16 @@
             <div class="box-header">
               <h3 class="box-title">Riwayat Transaksi berdasarkan Tanggal</h3>
             </div>
-            
-            <div class="col-md-12">
-               <span class="fa fa-cart-plus fa-3x pull-right">  Pembeli</span>
-            </div>
+
+              <div class="col-md-12">
+                  <span class="fa fa-male fa-3x pull-right">  Petani</span> 
+              </div>
             <div class="box-body">
             
 
-            <!-- Date range -->
+              <!-- Date range -->
               <div class="row">
-                <form action="<?php echo base_url();?>/Riwayat/RiwayatPemborong" method="post">
+                <form action="<?php echo base_url();?>Riwayat/RiwayatPetaniBon" method="post">
                   <div class="form-group col-md-5">
                     <label>Tanggal Mulai :</label>
 
@@ -62,41 +62,33 @@
                 </form>
               </div>
 
-              <!-- /.form group -->
+              <div id="successful_edit">
+              
+              </div>
 
+
+              <!-- /.form group -->
               <div class="row">
                 <div class="col-md-12 table-responsive">
                   <hr>
-                  <table id="example1" class="table table-bordered table-striped datatables">
-                   <thead>
-                      <tr class="bg-gray">
-                        <th style="text-align: center; line-height: 10px" rowspan="2">#</th>
-                        <th style="text-align: center; line-height: 10px" rowspan="2">Tanggal</th>
-                        <th style="text-align: center; line-height: 30px" rowspan="2">ID</th>
-                        <th style="text-align: center; line-height: 50px" rowspan="2">Nama</th>
-                        <th style="text-align: center; line-height: 50px" rowspan="2">Asal Daerah</th>
-                        <th style="text-align: center;" colspan="3">Berat</th>
-                        <th style="text-align: center; line-height: 50px" rowspan="2">Harga</th>
-                        <th style="text-align: center; line-height: 50px" rowspan="2">Jumlah Uang</th>
-                        <th style="text-align: center; line-height: 50px" rowspan="2">Transferan </th>
-                        <th style="text-align: center; line-height: 50px" rowspan="2">Saldo</th>
-                        <th style="text-align: center; line-height: 50px" rowspan="2">Edit</th>
-                      </tr>
-                      <tr class="bg-gray">
-                        <th>Colly </th>
-                        <th>Kode </th>
-                        <th>Bersih </th>
-                      </tr>
-                  </thead>
+                  <table id="example2" class="table table-bordered table-striped datatables">
+                    <thead>
+                  <tr class="bg-gray">
+                    <th style="text-align: center; line-height: 50px">#</th>
+                    <th style="text-align: center; line-height: 50px" >Tanggal </th>
+                    <th style="text-align: center; line-height: 50px" >ID</th>
+                    <th style="text-align: center; line-height: 50px" >Nama</th>
+                    <th style="text-align: center; line-height: 50px" >Asal Daerah</th>
+                    <th style="text-align: center; line-height: 50px" >BON</th>
+                    <th style="text-align: center; line-height: 50px" >Saldo</th>
+                    <th style="text-align: center; line-height: 50px" >Aksi</th>
+                  </tr>
+                </thead>
                   <tbody>
                     <?php
-                      if (!empty($riwayat_transborong)) {
-                        $no=1; foreach ($riwayat_transborong as $key) {
-
-                          $jumlah_uang = $key->bersih * $key->harga_bersih;
-
-                            echo "<tr><td>".$no."</td><td>".$key->tanggal."</td><td>".$key->id_pembeli."</td><td>".$key->nama."</td><td>".$key->alamat."</td><td>".$key->colly."</td><td>".$key->kode."</td><td>".number_format($key->bersih,1)."</td><td>Rp".number_format($key->harga_bersih,0,',','.')."</td><td>Rp".number_format($jumlah_uang,0,',','.')."</td><td>Rp".number_format($key->transferan,0,',','.')."</td>
-                                  <td>".number_format($key->saldo,0,',','.')."</td><td><button id='".$key->id."' class='btn btn-info btn-xs edit_data' data-toggle='modal' data-target='#editPembelian'>edit</button> <button id='del_".$key->id."' class='delete btn btn-danger btn-xs'>Hapus</button></td></tr>";
+                      if (!empty($riwayat_transpetani)) {
+                        $no=1; foreach ($riwayat_transpetani as $key) {
+                            echo "<tr><td>".$no."</td><td>".$key->tanggal."</td><td>".$key->id_petani."</td><td>".$key->nama."</td><td>".$key->desa."</td><td id='bon_".$key->id."'>Rp".number_format($key->bon,0,',','.')."</td><td id='saldo_".$key->id."'>Rp".number_format($key->saldo,0,',','.')."</td><td><button id='".$key->id."' class='detail btn btn-info btn-xs edit_data' data-toggle='modal' data-target='#detailBon'>detail</button> <button id='del_".$key->id."' class='delete btn btn-danger btn-xs'>Hapus</a></td></tr>";
                           
                             $no++;
                         }
@@ -126,104 +118,55 @@
     <!-- /.content -->
   </div>
 
-  <!-- Modal Input Setoran-->
-    <div id="editPembelian" class="modal fade" role="dialog">
+
+  <!-- Modal Detail BON-->
+    <div id="detailBon" class="modal fade" role="dialog">
       <div class="modal-dialog">
 
         <!-- Modal content-->
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title">Masukkan Setoran</h4>
+            <h4 class="modal-title">Detail Bon</h4>
           </div>
-          <div class="modal-body">
+      <div class="modal-body">
 
-            <div class="row" style="padding-bottom: 5px">
-              <div class="col-md-4">
-                <label>Tanggal :</label>
-              </div>
-              <div class="col-md-8">
-                <input type="text" hidden name="id_transaksi" id="id_transaksi">
-                <input type="text" name="tanggal" class="form-control input-tanggal" id="tanggal">
-              </div>
-            </div>
-
-            <div class="row" style="padding-bottom: 5px">
-              <div class="col-md-4">
-                <label>Nama Pembeli :</label>
-              </div>
-              <div class="col-md-8">
-                <input type="text" name="nama_pembeli" id="nama_pembeli" class="form-control" style="width: : 100%" readonly required>
-                <input type="text" hidden="" name="id_pembeli" id="id_pembeli">
-              </div>
-            </div>
-
-            <div class="row" style="padding-bottom: 5px">
-              <div class="col-md-4">
-                <label>Saldo Awal :</label>
-              </div>
-              <div class="col-md-8">
-               <input type="text" name="saldo_pembeli" hidden="" readonly="" id="saldo_pembeli">
-               <input type="text" name="saldo_trans" id="saldo_trans" class="form-control">
-              </div>
-            </div>
-
-            <div class="row" style="padding-bottom: 5px">
-              <div class="col-md-4">
-               <label>Kode :</label>
-              </div>
-              <div class="col-md-8">
-                <input type="text" name="cabai" id="cabai" class="form-control" style="width: 100%" readonly required>
-              </div>
-            </div>
-
-            <div class="row" style="padding-bottom: 5px">
-              <div class="col-md-4">
-                <label>Harga  :</label>
-              </div>
-              <div class="col-md-8">
-               <input type="text" name="harga_pembeli" id="harga_pembeli" class="form-control">
-              </div>
-            </div>
-                  
-            <div class="col-md-12" style="text-align: center; padding-bottom: 5px; padding-top: 10px">    
-              <b>Berat</b>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                  <label>Colly</label>
-                  <input type="text" name="colly" id="colly"> colly
-                </div>
-                <div class="col-md-6">
-                  <label>Bersih </label>
-                  <input type="text" name="bersih" id="bersih"> kg
-                </div>
-            </div>
-
-            <div class="row" style="margin-top: 20px">
-              <div class="col-md-4">
-                <label>Jumlah Uang :</label>
-              </div>
-              <div class="col-md-8">
-               <input type="text" name="jumlah_uang" id="jumlah_uang" readonly class="form-control">
-               <input type="text" hidden="" name="jumlah_uang_awal" id="jumlah_uang_awal">
-              </div>
-            </div>
-
-            <div class="row" style="padding-top: 5px">
-              <div class="col-md-4">
-                <label>Transferan  :</label>
-              </div>
-              <div class="col-md-8">
-               <input type="text" name="transferan" id="transferan" class="form-control">
-               <input type="text" name="transferan_awal" id="transferan_awal" hidden="">
-              </div>
-            </div>
-
+        <div class="row" style="padding-bottom: 5px">
+          <div class="col-md-4">
+            <label>Tanggal :</label>
           </div>
+          <div class="col-md-8">
+            <p id="tanggal">2018-09-10</p>
+          </div>
+        </div>
+
+        <div class="row" style="padding-bottom: 5px">
+          <div class="col-md-4">
+            <label>Nama Petani :</label>
+          </div>
+          <div class="col-md-8">
+            <p id="nama_petani">Siapa</p>
+          </div>
+        </div>
+
+        <table id="tb_detail" class="table table-bordered table-striped">
+          <thead>
+            <tr id="tb_detail_judul">
+              <th>No</th>
+              <th>Jenis BON</th>
+              <th>Harga</th>
+              <th>Kuantitas</th>
+              <th>Jumlah</th>
+            </tr>
+          </thead>
+          <tbody id="tb_body_detail">
+            
+          </tbody>
+        </table>
+
+      </div>
 
           <div class="modal-footer">
-            <button class="btn btn-info" id="btn_update">Update</button>
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
           </div>
 
@@ -445,6 +388,8 @@
 <script src="<?php echo base_url();?>assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- bootstrap datepicker -->
 <script src="<?php echo base_url();?>assets/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.js""></script>
+<!-- Select2 -->
+<script src="<?php echo base_url();?>assets/bower_components/select2/dist/js/select2.full.min.js"></script>
 <!-- DataTables -->
 <script src="<?php echo base_url();?>assets/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="<?php echo base_url();?>assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
@@ -458,136 +403,95 @@
 <script src="<?php echo base_url();?>assets/js/demo.js"></script>
 <script type="text/javascript">
   $(document).ready(function(){
-      $('.input-tanggal').datepicker({
+     $('.input-tanggal').datepicker({
       format : 'yyyy-mm-dd',
       todayHighlight : 'true'
     });
 
-      $('.datatables').DataTable()
+     $('.datatables').DataTable();
 
-      $('.delete').click(function(){
-        var el = this;
-        var id = this.id;
-        console.log(id);
-        var splitid = id.split("_");
-
-        // Delete id
-        var deleteid = splitid[1];
-   
-          if(confirm('Apakah Anda yakin menghapus transaksi?'))
-          {
-            // AJAX Request
-            $.ajax({
-              url: '<?php echo base_url();?>Riwayat/delete_transpemborong',
-              type: 'POST',
-              data: { id:deleteid },
-              success: function(response){
-
-                // Removing row from HTML Table
-                $(el).closest('tr').css('background','tomato');
-                $(el).closest('tr').fadeOut(600, function(){ 
-                 $(this).remove();
-                });
-              },
-              error: function(){
-                alert('Gagal menghapus');
-              }
-            });
-          }
+     //dropdown jenis cabai
+      $(".select2").select2({
+          placeholder: "Please Select"
       });
 
-      $('.edit_data').click(function(){
-           var id_transaksi = this.id;
-           editPembelian(id_transaksi);
-      });
 
-      //Menghitung jumlah uang
-      $('#bersih').on('change', function()  {
-        showJumlahUang();
-      })
-      $('#harga_pembeli').on('change', function()  {
-        showJumlahUang();
-      })
+     $('.delete').click(function(){
+      var el = this;
+      var id = this.id;
+      console.log(id);
+      var splitid = id.split("_");
 
+      // Delete id
+      var deleteid = splitid[1];
+ 
+        if(confirm('Apakah Anda yakin menghapus transaksi?'))
+        {
+          // AJAX Request
+          $.ajax({
+            url: '<?php echo base_url();?>Riwayat/delete_transpetanibon',
+            type: 'POST',
+            data: { id:deleteid },
+            success: function(response){
 
-      $('#btn_update').click(function(){
-        updatePembelian();
-      });
-
-  })
-
-  function editPembelian(id_trans)  {
-           $.ajax({  
-                url:"<?php echo base_url();?>Transaksi/edit_transborong",  
-                method:"POST",  
-                data:{id_transaksi:id_trans},  
-                dataType:"json",  
-                success:function(data){
-                    var jumlah_uang = data.bersih * data.harga;
-                    //var opt= document.getElementById('cabai').options[0];
-
-                     $('#id_transaksi').val(data.id);
-                     $('#tanggal').val(data.tanggal);  
-                     $('#nama_pembeli').val('[' + data.id_pembeli + '] ' + data.nama);
-                     $('#id_pembeli').val(data.id_pembeli)
-                     $('#saldo_pembeli').val(data.saldo_pembeli);
-                     $('#saldo_trans').val(data.saldo_trans);
-                     $('#cabai').val(data.kode + ' (' + data.jenis + ')');
-                     $('#harga_pembeli').val(data.harga);   
-                     $('#colly').val(data.colly);
-                     $('#bersih').val(data.bersih);
-                     $('#jumlah_uang').val(jumlah_uang);
-                     $('#jumlah_uang_awal').val(jumlah_uang);
-                     $('#transferan').val(data.transferan);
-                     $('#transferan_awal').val(data.transferan);
-                }  
-           });
-  }
-
-  function showJumlahUang() {
-        var harga = $('#harga_pembeli').val()
-        var jumlah = $('#bersih').val()
-        var jumlah_uang = harga * jumlah
-
-        $('#jumlah_uang').val(jumlah_uang)
-  }
-
-  function updatePembelian() {
-      var id_pembeli = $('#id_pembeli').val()
-      var id_transaksi = $('#id_transaksi').val()
-      var tanggal = $('#tanggal').val()
-      var colly = $('#colly').val()
-      var bersih = $('#bersih').val()
-      var harga = $('#harga_pembeli').val()
-      var saldo_pembeli = $('#saldo_pembeli').val()
-      var saldo_trans = $('#saldo_trans').val()
-      var jumlah_uang = $('#jumlah_uang').val()
-      var jumlah_uang_awal = $('#jumlah_uang_awal').val()
-      var transferan = $('#transferan').val()
-      var transferan_awal = $('#transferan_awal').val()
-
-      $.ajax({
-        url:"<?php echo base_url();?>Riwayat/updatePembelian",  
-        type:"POST",  
-        data:{
-          id_pembeli: id_pembeli,
-          id_transaksi: id_transaksi,
-          tanggal: tanggal,
-          colly: colly,
-          bersih: bersih,
-          harga: harga,
-          saldo_pembeli: saldo_pembeli,
-          saldo_trans: saldo_trans,
-          jumlah_uang_awal: jumlah_uang_awal,
-          transferan: transferan,
-          transferan_awal: transferan_awal},    
-        success:function(data){
-          location.reload(true);
-          $('#successful_edit').html('<div class="alert alert-success alert-dismissible"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>Berhasil!</strong>  Setoran Petani berhasil diperbarui</div>');
+              // Removing row from HTML Table
+              $(el).closest('tr').css('background','tomato');
+              $(el).closest('tr').fadeOut(600, function(){ 
+               $(this).remove();
+              });
+            },
+            error: function(){
+              alert('Gagal menghapus');
+            }
+          });
         }
-      })
+      });
+
+    $('.detail').click(function(){
+      var id_transaksi = this.id;
+
+      getDetailBon(id_transaksi);
+    });
+
+  });
+
+  function getDetailBon(id_transaksi) {
+    var no=1;
+
+    $.ajax({
+      url: '<?php echo base_url();?>Riwayat/getDetailBon',
+      type: 'POST',
+      data: {id_transaksi:id_transaksi},
+      dataType: 'json',
+      success: function(response){
+        var row = '';
+        var total = 0;
+
+        for(var i=0; i<response.length; i++)
+        {
+          var jumlah = response[i].harga * response[i].kuantitas;
+          var no = i + 1;
+          row += '<tr>';
+          row += '<td>'+ no +'</td>';
+          row += '<td>'+ response[i].barang +'</td>';
+          row += '<td>Rp'+ response[i].harga +'</td>';
+          row += '<td>'+ response[i].kuantitas +'</td>';
+          row += '<td>Rp'+ jumlah +'</td></tr>';
+
+          total += jumlah;
+        }
+
+        row += '<tr><td align="center" colspan="4"><b> Total <b></td>';
+        row += '<td><b>Rp'+ total +'</b></td></tr>';
+        $('#tanggal').html(response[0].tanggal);
+        $('#nama_petani').html(response[0].nama);
+        $('#tb_body_detail').html(row);
+      }
+  
+    })
   }
+
+  
 </script>
 </body>
 </html>
-

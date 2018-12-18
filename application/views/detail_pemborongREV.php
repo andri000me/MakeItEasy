@@ -22,9 +22,8 @@
             <img class="profile-user-img img-responsive img-circle" src="<?php echo base_url();?>assets/img/avatar2.png" alt="User profile picture">
 
             <h4 class="text-center text-primary">ID <?= $profil->id ?></h4>
+            <input type="text" name="pembeliID" id="pembeliID" value="<?= $profil->id ?>" hidden>
             <h3 class="profile-username text-center"><?= $profil->nama ?></h3>
-            <p class="text-muted text-center">Yogyakarta</p>
-
             <ul class="list-group list-group-unbordered">
               <li class="list-group-item">
                 <b>Saldo <span class="pull-right text-success"><?= $profil->saldo ?></span> </b>
@@ -33,45 +32,18 @@
                 <b>No Telp/HP</b> <p class="pull-right"><?= $profil->no_telp ?></p>
               </li>
               <li class="list-group-item">
+                <b>No Rekening</b> <p class="pull-right"><?= $profil->no_rek ?></p>
+              </li>
+              <li class="list-group-item">
                 <b>Alamat</b>
                 <p class="text-right"><?= $profil->alamat ?></p>
               </li>
               <li class="list-group-item">
-                <a href="#" class="btn btn-default btn-block" data-toggle="modal" data-target="#editPembeli"><i class="fa fa-edit"></i>  <b>  Edit Profil</b></a> 
+                <button id="editButton" href="#" class="btn btn-default btn-block" data-toggle="modal" data-target="#editPembeli"><i class="fa fa-edit"></i><b>Edit Profil</b></button> 
               </li>
             </ul>
 
-            <a href="#" class="btn btn-danger btn-block"><i class="fa fa-cart-plus"></i>  <b> Masukkan Transaksi</b></a> 
-          </div>
-          <!-- /.box-body -->
-        </div>
-        <!-- /.box -->
-
-        <!-- Catatan -->
-        <div class="box box-danger">
-          <div class="box-header with-border">
-            <h3 class="box-title"><i class="fa fa-file-text-o margin-r-5"></i> Catatan</h3>
-          </div>
-          <!-- /.box-header -->
-          <div class="box-body">
-            <div class="timeline-item" style="background: #f0f0f0; padding: 10px; margin-top: 10px">
-              <h5 style="border-bottom: 1px solid #ddd; padding-bottom: 15px"><p class="time pull-right"><i class="fa fa-clock-o"></i> 23-05-'18</p>
-              <b class="timeline-header" >Meminjam uang dan nitip jaminan</b></h5>
-              <div class="timeline-body">
-                Petaninya masih nyimpen duit sejumlah bla bla dan request nganu
-              </div>
-              <div class="timeline-footer" style="margin-top: 5px">
-                <a class="btn btn-danger btn-xs">Hapus</a>
-              </div>
-            </div> 
-
-            <div class="box no-border" style="background: #f0f0f0; margin-top: 10px">
-              <div class="box-body">
-                <input class="form-control input-sm" type="text" placeholder="Judul catatan" >
-                <textarea class="form-control" rows="3" placeholder="Tulis catatan..."></textarea>
-                <a class="btn btn-info btn-xs pull-right">Tambah Catatan</a>
-              </div>
-            </div> 
+            <a href="<?php echo base_url();?>Transaksi/transborong" class="btn btn-danger btn-block"><i class="fa fa-cart-plus"></i>  <b> Input Transaksi</b></a> 
           </div>
           <!-- /.box-body -->
         </div>
@@ -97,7 +69,6 @@
                   <th style="text-align: center; line-height: 50px" rowspan="2">Jumlah Uang</th>
                   <th style="text-align: center; line-height: 50px" rowspan="2">Transferan </th>
                   <th style="text-align: center; line-height: 50px" rowspan="2">Saldo</th>
-                  <th style="text-align: center; line-height: 50px" rowspan="2">Edit</th>
                 </tr>
                 <tr class="bg-danger">
                   <th>Colly </th>
@@ -114,11 +85,16 @@
                   <td><?= $key->colly ?></td>
                   <td><?= $key->kode ?></td>
                   <td><?= $key->bersih ?></td>
-                  <td><?= $key->harga_bersih ?></td>
-                  <td>jumlah uang</td>
-                  <td><?= $key->transferan ?></td>
-                  <td><?= $key->saldo ?></td>
-                  <td><button type="button" class="btn btn-info btn-xs data-toggle="modal" data-target="#modal-info"">edit</button></td>
+                  <td><?php if (!is_null($key->harga)) { echo "Rp".
+                    number_format($key->harga,0,',','.');
+                    }?></td>
+                  <td><?php if (!is_null($key->harga)) { echo "Rp".
+                    number_format($key->harga * $key->bersih,0,',','.');
+                    }?></td>
+                  <td><?php if (!is_null($key->transferan)) { echo "Rp".
+                    number_format($key->transferan,0,',','.');
+                    }?></td>
+                  <td><?php echo "Rp".number_format($key->saldo,0,',','.') ?></td>
                 </tr>
                 <?php $no++; endforeach ?>
 
@@ -341,85 +317,6 @@
 
 <!-- ./wrapper -->
 
-<!-- Modal Input Setoran-->
-<div id="inputSetoran" class="modal fade" role="dialog">
-<div class="modal-dialog">
-
-  <!-- Modal content-->
-  <div class="modal-content">
-    <div class="modal-header">
-      <button type="button" class="close" data-dismiss="modal">&times;</button>
-      <h4 class="modal-title">Input Setoran</h4>
-    </div>
-    <form action="<?php echo base_url().'Transaksi/tambah_transaksi'; ?>" method="post">
-    <div class="modal-body">
-
-      <div class="row" style="padding-bottom: 5px">
-        <div class="col-md-4">
-          <label>Tanggal :</label>
-        </div>
-        <div class="col-md-8">
-          <input type="text" name="tanggal" class="form-control input-tanggal datepicker">
-        </div>
-      </div>
-
-      <div class="row" style="padding-bottom: 5px">
-        <div class="col-md-4">
-          <label>Nama Petani :</label>
-        </div>
-        <div class="col-md-8">
-          <input type="text" name="nama_petani" class="form-control">
-        </div>
-      </div>
-
-      <div class="row" style="padding-bottom: 5px">
-        <div class="col-md-4">
-          <label>Asal Daerah :</label>
-        </div>
-        <div class="col-md-8">
-         <input type="text" name="asal_daerah" class="form-control">
-        </div>
-      </div>
-
-      <div class="row" style="padding-bottom: 5px">
-        <div class="col-md-4">
-         <label>Jenis Cabai :</label>
-        </div>
-        <div class="col-md-8">
-          <!-- <?php
-              // $dd_cabai_attribute = 'class="form-control"';
-              // echo form_dropdown('cabai', $dd_cabai, $cabai_selected, $dd_cabai_attribute);
-              ?> -->
-        </div>
-      </div>
-            
-      <div class="col-md-12" style="text-align: center; padding-bottom: 5px; padding-top: 10px">      
-        <b>Berat</b>
-      </div>
-      <div class="row">
-          <div class="col-md-6">
-            <label>Kotor</label>
-            <input type="text" name="berat_kotor">kg
-          </div>
-          <div class="col-md-6">
-            <label>BS</label>
-            <input type="text" name="berat_bs">kg
-          </div>
-      </div>
-    </div>
-
-    <div class="modal-footer">
-      <input type="submit" class="btn btn-info" value="Submit">
-      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-    </div>
-
-  </form>
-  </div>
-
-</div>
-</div>
-<!-- END Modal Input Setoran -->
-
 <!-- Modal edit Pembeli -->
 <div class="modal fade modal-default" id="editPembeli">
   <div class="modal-dialog">
@@ -430,15 +327,13 @@
         <h4 class="modal-title">Ubah Profil Pembeli Mitra</h4>
       </div>
 
-        <!-- One "tab" for each step in the form: -->
-      <form>
         <div class="modal-body">
           <div class="row" style="padding-bottom: 5px">
             <div class="col-md-4">
               <label>ID :</label>
             </div>
             <div class="col-md-8">
-              <input type="text" name="id_petani" id="id_petani" class="form-control id_petani">
+              <input type="text" name="id_pembeli" id="id_pembeli" class="form-control" readonly required>
             </div>
           </div>
 
@@ -447,16 +342,7 @@
               <label>Nama Pembeli :</label>
             </div>
             <div class="col-md-8">
-              <input type="text" name="nama_petani" id="nama_petani" class="form-control nama_petani">
-            </div>
-          </div>
-
-          <div class="row" style="padding-bottom: 5px">
-            <div class="col-md-4">
-              <label>Saldo :</label>
-            </div>
-            <div class="col-md-8">
-              <input type="number" name="noHP" id="noHP" class="form-control">
+              <input type="text" name="nama_pembeli" id="nama_pembeli" class="form-control">
             </div>
           </div>
 
@@ -465,32 +351,31 @@
               <label>Alamat:</label>
             </div>
             <div class="col-md-8">
-              <input type="text" name="daerah" id="daerah" class="form-control ">
+              <input type="text" name="alamat" id="alamat" class="form-control ">
             </div>
           </div>
 
           <div class="row" style="padding-bottom: 5px">
             <div class="col-md-4">
-              <label>Nomer HP :</label>
+              <label>No HP :</label>
             </div>
             <div class="col-md-8">
-              <input type="number" name="noHP" id="noHP" class="form-control">
+              <input type="number" name="no_telp" id="no_telp" class="form-control">
             </div>
           </div>
           
           <div class="row" style="padding-bottom: 5px">
             <div class="col-md-4">
-              <label>Foto :</label>
+              <label>Rekening :</label>
             </div>
             <div class="col-md-8">
-              <input type="file" name="foto_petani" id="foto_petani" class="form-control">
+              <input type="text" name="no_rek" id="no_rek" class="form-control">
             </div>
           </div>
         </div>
-      </form>
 
         <div class="modal-footer">
-          <button type="submit" class="btn btn-default">Simpan Perubahan</button>
+          <button type="submit" class="btn btn-default" id="simpanButton">Simpan Perubahan</button>
         </div>
         <!-- /.modal-footer -->
     </div>
@@ -498,60 +383,6 @@
 </div>
 <!-- END Modal edit Petani -->
 
-
-<!-- Modal edit harga-->
-<div id="editHarga" class="modal fade" role="dialog">
-<div class="modal-dialog">
-
-  <!-- Modal content-->
-  <div class="modal-content">
-    <div class="modal-header">
-      <button type="button" class="close" data-dismiss="modal">&times;</button>
-      <h4 class="modal-title">Edit Harga</h4>
-    </div>
-
-    <form action="<?php echo base_url().'Transaksi/edit_harga'; ?>" method="post">
-      <div class="modal-body">
-        <table class="table table-condensed no-margin">
-          <thead>
-            <tr>
-              <th style="text-align: center; line-height: 50px" rowspan="2">No</th>
-              <th style="text-align: center; line-height: 50px" rowspan="2">Kode</th>
-              <th style="text-align: center; line-height: 50px" rowspan="2">Jenis</th>
-              <th style="text-align: center;" colspan="2">Harga</th>
-            </tr>
-              <tr>
-                <th>BS/ MTL </th>
-                <th>Bersih </th>
-              </tr>
-          </thead>
-          <tbody>
-            
-          <!-- <?php $no
-          // =1; foreach ($tb_cabai as $tb): ?> -->
-            <tr>
-              <!-- <td><?= $no ?></td> -->
-              <!-- <td><?= $tb->kode ?></td> -->
-              <!-- <td><?= $tb->jenis ?></td> -->
-              <!-- <input type="hidden" name="kode<?= $tb->kode ?>" value="<?= $tb->kode ?>">
-              <td><input type="text" name="harga_bs<?= $tb->kode ?>" value="<?= $tb->harga_bs ?>"></td>
-              <td><input type="text" name="harga_bersih<?= $tb->kode ?>" value="<?= $tb->harga_bersih ?>"></td> -->
-            </tr>
-            <<!-- ?php $no++; endforeach; ? -->>
-          </tbody>
-        </table>
-      </div>
-
-    <div class="modal-footer">
-      <input type="submit" class="btn btn-info" value="Submit">
-      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-    </div>
-    </form>
-  </div>
-
-</div>
-</div>
-<!-- END Modal Edit Harga -->
 
 <!-- jQuery 3 -->
 <script src="<?php echo base_url();?>assets/bower_components/jquery/dist/jquery.min.js"></script>
@@ -574,6 +405,56 @@
 <script>
   $(document).ready(function(){
     $('#example1').DataTable()
+
+    $('#editButton').click(function(){
+      var id = $('#pembeliID').val();
+
+      $.ajax({
+        url:"<?php echo base_url();?>DataProfil/edit_profil_pembeli",
+        method:"POST",
+        data:
+          {id: id},
+        dataType: "json",
+        success: function(data){
+          $('#id_pembeli').val(data.id);
+          $('#nama_pembeli').val(data.nama);
+          $('#alamat').val(data.alamat);
+          $('#no_telp').val(data.no_telp);
+          $('#no_rek').val(data.no_rek);
+        },
+        error: function(data){
+          alert('Terjadi Kesalahan');
+        }
+      })
+    });
+
+    $('#simpanButton').click(function(){
+      var id_pembeli = $('#id_pembeli').val()
+      var nama_pembeli = $('#nama_pembeli').val()
+      var alamat = $('#alamat').val()
+      var no_telp = $('#no_telp').val()
+      var no_rek = $('#no_rek').val()
+
+      $.ajax({
+        url:"<?php echo base_url();?>DataProfil/update_profil_pembeli",
+        method:"POST",
+        data: {
+          id: id_pembeli,
+          nama: nama_pembeli,
+          alamat: alamat,
+          no_telp: no_telp,
+          no_rek: no_rek
+        },
+        success: function() {
+          if (!alert('Data berhasil diubah')) {location.reload(true)}
+        },
+        error: function() {
+          alert('Gagal merubah data')
+        }
+      })
+
+    })
+
   })
 
 </script>

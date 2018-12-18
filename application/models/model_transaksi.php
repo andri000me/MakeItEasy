@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class model_transaksi extends CI_Model {
 	public function tb_transpetani()
 	{
-  		$query = $this->db->query("SELECT a.id, a.id_petani, b.nama, b.desa, a.tanggal, a.berat_bs, a.berat_kotor, a.kode_cabai, c.harga_bersih, c.harga_bs, a.bon, a.saldo, b.kemitraan FROM transaksi_petani a LEFT JOIN harga_cabai_petani c ON a.kode_cabai=c.kode_cabai AND a.tanggal=c.tanggal INNER JOIN tb_petani b ON a.id_petani=b.id ORDER BY a.id DESC");
+  		$query = $this->db->query("SELECT a.id, a.id_petani, b.nama, b.desa, a.tanggal, a.berat_bs, a.berat_kotor, a.berat_susut, a.kode_cabai, c.harga_bersih, c.harga_bs, a.bon, a.saldo, b.kemitraan FROM transaksi_petani a LEFT JOIN harga_cabai_petani c ON a.kode_cabai=c.kode_cabai AND a.tanggal=c.tanggal INNER JOIN tb_petani b ON a.id_petani=b.id ORDER BY a.id DESC LIMIT 50");
   		if($query->num_rows() > 0)
   			{
   				return $query->result();
@@ -17,7 +17,7 @@ class model_transaksi extends CI_Model {
 
   public function tb_transborong()
   {
-      $query = $this->db->query("SELECT a.id, a.id_pembeli, b.nama, b.alamat, a.tanggal, a.colly, a.kode, a.bersih, a.harga, a.transferan, a.saldo FROM transaksi_pembeli a LEFT JOIN tb_pembeli b ON a.id_pembeli=b.id ORDER BY a.id DESC");
+      $query = $this->db->query("SELECT a.id, a.id_pembeli, b.nama, b.alamat, a.tanggal, a.colly, a.kode, a.bersih, a.harga, a.transferan, a.saldo FROM transaksi_pembeli a LEFT JOIN tb_pembeli b ON a.id_pembeli=b.id ORDER BY a.id DESC LIMIT 50");
       if($query->num_rows() > 0)
         {
           return $query->result();
@@ -28,16 +28,16 @@ class model_transaksi extends CI_Model {
         }
   }
 
-  public function edit_transpetani($id)
-  {
-    $query = $this->db->query("SELECT a.id, a.id_petani, b.nama, b.desa, a.saldo as saldo_trans, b.saldo as saldo_petani, a.tanggal, a.kode_cabai, a.berat_kotor, a.berat_bs, c.harga_bersih, c.harga_bs FROM transaksi_petani a LEFT JOIN harga_cabai_petani c ON a.kode_cabai=c.kode_cabai AND a.tanggal=c.tanggal INNER JOIN tb_petani b ON a.id_petani=b.id WHERE a.id='$id'");
+  // public function edit_transpetani($id)
+  // {
+  //   $query = $this->db->query("SELECT a.id, a.id_petani, b.nama, b.desa, a.saldo as saldo_trans, b.saldo as saldo_petani, a.tanggal, a.kode_cabai, a.berat_kotor, a.berat_bs, c.harga_bersih, c.harga_bs FROM transaksi_petani a LEFT JOIN harga_cabai_petani c ON a.kode_cabai=c.kode_cabai AND a.tanggal=c.tanggal INNER JOIN tb_petani b ON a.id_petani=b.id WHERE a.id='$id'");
 
-    return $query->row();
-  } 
+  //   return $query->row();
+  // } 
 
   public function edit_transborong($id)
   {
-    $query = $this->db->query("SELECT a.id, a.id_pembeli, b.nama, b.alamat, b.saldo as saldo_pembeli, a.tanggal, a.colly, a.kode, a.bersih, a.harga, a.transferan, a.saldo as saldo_trans FROM transaksi_pembeli a LEFT JOIN tb_pembeli b ON a.id_pembeli=b.id WHERE a.id='$id'");
+    $query = $this->db->query("SELECT a.id, a.id_pembeli, b.nama, b.alamat, b.saldo as saldo_pembeli, a.tanggal, a.colly, a.kode, a.bersih, a.harga, c.jenis, a.transferan, a.saldo as saldo_trans FROM transaksi_pembeli a LEFT JOIN tb_pembeli b ON a.id_pembeli=b.id INNER JOIN tb_cabai c ON a.kode=c.kode WHERE a.id='$id'");
 
     return $query->row();
   }
@@ -72,6 +72,9 @@ class model_transaksi extends CI_Model {
 
   function input_transaksi_petani($data){
     $this->db->insert('transaksi_petani', $data);
+    $insert_id = $this->db->insert_id();
+
+    return $insert_id;
   }
 
   function update_saldo_petani($data, $id){
@@ -149,7 +152,7 @@ class model_transaksi extends CI_Model {
         if ($result->num_rows() > 0) {
             foreach ($result->result() as $row) {
             // tentukan value (sebelah kiri) dan labelnya (sebelah kanan)
-                $dd[$row->kode] = $row->jenis;
+                $dd[$row->kode] = $row->jenis." (".$row->kode.")";
             }
         }
         return $dd;
@@ -160,10 +163,10 @@ class model_transaksi extends CI_Model {
     return $query->row()->max_tanggal;
   }
 
-  function delete_transpetani($id)  {
-      $this->db->where('id',$id);
-      $this->db->delete('transaksi_petani');
-  }
+  // function delete_transpetani($id)  {
+  //     $this->db->where('id',$id);
+  //     $this->db->delete('transaksi_petani');
+  // }
 
   function delete_transborong($id) {
       $this->db->where('id',$id);
@@ -194,7 +197,7 @@ class model_transaksi extends CI_Model {
   }
 
   function trans_bon()  {
-    $query = $this->db->query("SELECT a.id, a.tanggal, a.id_petani, a.barang, a.harga, a.kuantitas, a.ambil_uang, b.nama, b.desa FROM transaksi_bon a JOIN tb_petani b ON a.id_petani=b.id");
+    $query = $this->db->query("SELECT a.id, a.tanggal, a.id_petani, a.barang, a.harga, a.kuantitas, a.ambil_uang, b.nama, b.desa FROM transaksi_bon a JOIN tb_petani b ON a.id_petani=b.id LIMIT 100");
     return $query->result();
   }
 

@@ -16,26 +16,14 @@
   <section class="content">
     <!-- Info boxes -->
     <div class="row">
-      <div class="col-md-3 col-sm-6 col-xs-12 col-md-offset-6">
-        <div class="info-box">
-          <span class="info-box-icon bg-green"><i class="ion ion-ios-cart-outline"></i></span>
-
-          <div class="info-box-content">
-            <span class="info-box-text">Jumlah Transaksi Petani Hari Ini</span>
-            <span class="info-box-number">76</span>
-          </div>
-          <!-- /.info-box-content -->
-        </div>
-        <!-- /.info-box -->
-      </div>
       <!-- /.col -->
-      <div class="col-md-3 col-sm-6 col-xs-12">
+      <div class="col-md-4 col-sm-6 col-xs-12">
         <div class="info-box">
           <span class="info-box-icon bg-yellow"><i class="ion ion-ios-people-outline"></i></span>
 
           <div class="info-box-content">
-            <span class="info-box-text">Jumlah Petani Mitra</span>
-            <span class="info-box-number">2,000</span>
+            <span class="info-box-text">Jumlah Petani</span>
+            <span class="info-box-number"><?php echo $jumlah_petani; ?></span>
           </div>
           <!-- /.info-box-content -->
         </div>
@@ -394,15 +382,6 @@
               <input type="text" name="jaminan" id="jaminan" class="form-control">
             </div>
           </div>
-
-<!--           <div class="row" style="padding-bottom: 5px">
-            <div class="col-md-4">
-              <label>Foto :</label>
-            </div>
-            <div class="col-md-8">
-              <input type="file" name="foto_petani" id="foto_petani" class="form-control">
-            </div>
-          </div> -->
         </div>
       
 

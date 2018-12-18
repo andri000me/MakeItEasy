@@ -133,7 +133,7 @@
                 </div>
 
                 <div class="col-md-8 table-responsive">
-                  <table id="rekap_hari" class="table table-bordered table-striped" style="font-size: 15px">
+                  <table class="table table-bordered table-striped datatables" style="font-size: 15px">
                     <thead>
                       <tr class="bg-yellow">
                         <th style="text-align: center; line-height: 50px">No</th>
@@ -142,6 +142,7 @@
                         <th style="text-align: center; line-height: 50px">Harga Satuan</th>
                         <th style="text-align: center; line-height: 50px">Jumlah</th>
                         <th style="text-align: center; line-height: 50px">Total</th>
+                        <th style="text-align: center; line-height: 50px">Action</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -153,6 +154,10 @@
                         <td><?= $key->harga_satuan ?></td>
                         <td><?= $key->jumlah ?></td>
                         <td><?= $key->harga_satuan * $key->jumlah?></td>
+                        <td>
+                          <button class="edit_data btn btn-sm btn-info" id="<?php echo 'pengeluaran_edit_'.$key->id ?>" data-toggle="modal" data-target="#editCatatan" ><i class="fa fa-edit" ></i> Edit </button>
+                          <button class="delete btn btn-sm btn-danger" id="<?php echo 'pengeluaran_del_'.$key->id ?>"><i class="fa fa-trash-o"></i> Hapus </button>
+                        </td>
                       </tr>
                       <?php $no++; endforeach ?>
                     </tbody>
@@ -246,7 +251,7 @@
                 </div>
 
                 <div class="col-md-8 table-responsive">
-                  <table id="rekap_hari" class="table table-bordered table-striped" style="font-size: 15px">
+                  <table class="table table-bordered table-striped datatables" style="font-size: 15px">
                     <thead>
                       <tr class="bg-green">
                         <th style="text-align: center; line-height: 50px">No</th>
@@ -255,6 +260,7 @@
                         <th style="text-align: center; line-height: 50px">Harga Satuan</th>
                         <th style="text-align: center; line-height: 50px">Jumlah</th>
                         <th style="text-align: center; line-height: 50px">Total</th>
+                        <th style="text-align: center; line-height: 50px">Action</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -266,6 +272,10 @@
                         <td><?= $key->harga_satuan ?></td>
                         <td><?= $key->jumlah ?></td>
                         <td><?= $key->harga_satuan * $key->jumlah?></td>
+                        <td>  
+                          <button class="edit_data btn btn-sm btn-info" id="<?php echo 'pemasukan_edit_'.$key->id ?>" data-toggle="modal" data-target="#editCatatan" ><i class="fa fa-edit" ></i> Edit </button>
+                          <button class="delete btn btn-sm btn-danger" id="<?php echo 'pemasukan_del_'.$key->id ?>"><i class="fa fa-trash-o"></i> Hapus </button>
+                        </td>
                       </tr>
                       <?php $no++; endforeach ?>
                     </tbody>
@@ -286,6 +296,65 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
+
+  <!-- modal edit Catatan -->
+  <div class="modal fade" id="editCatatan">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title"><b>Edit <span id="judul"></span></b></h4>
+        </div>
+        <div class="modal-body">
+          <div class="row" style="padding-bottom: 5px">
+            <div class="col-md-4">
+              <label>Tanggal :</label>
+            </div>
+            <div class="col-md-8">
+              <input type="text" name="id_catatan" id="id_catatan" hidden>
+              <input type="text" name="tanggal_catatan" class="form-control input-tanggal" id="tanggal_catatan" required>
+            </div>
+          </div>
+
+          <div class="row" style="padding-bottom: 5px">
+            <div class="col-md-4">
+             <label>Jenis :</label>
+            </div>
+            <div class="col-md-5">
+              <input type="text" name="jenis_catatan" class="form-control" id="jenis_catatan" required>
+            </div>
+          </div>
+
+          <div class="row" style="padding-bottom: 5px">
+            <div class="col-md-4">
+             <label>Harga :</label>
+            </div>
+            <div class="col-md-5">
+              <input type="number" name="harga_catatan" class="form-control" id="harga_catatan" required>
+            </div>
+          </div>
+
+          <div class="row" style="padding-bottom: 5px">
+            <div class="col-md-4">
+             <label>Jumlah :</label>
+            </div>
+            <div class="col-md-5">
+              <input type="number" name="jumlah_catatan" class="form-control" id="jumlah_catatan" required>
+            </div>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn pull-left btn-danger" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-info" id="update_button">Update</button>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+  <!-- /.modal -->
 
   <footer class="main-footer">
     <div class="pull-right hidden-xs">
@@ -513,6 +582,7 @@
 <script src="<?php echo base_url();?>assets/js/demo.js"></script>
 <script type="text/javascript">
   $(document).ready(function(){
+    $('.datatables').DataTable()
     $('.input-tanggal').datepicker({
       format : 'yyyy-mm-dd',
       todayHighlight : 'true'
@@ -531,6 +601,53 @@
       Harga('#hargaPemasukan','#jumlahPemasukan', '#totalPemasukan')
       })
     })
+
+        //menghapus
+    $('.delete').click(function(){
+        var el = this;
+        var id = this.id;
+        console.log(id);
+        var splitid = id.split("_");
+
+        // Delete id
+        var deleteid = splitid[2];
+        var table = splitid[0]
+   
+          if(confirm('Apakah Anda yakin menghapus transaksi?'))
+          {
+            // AJAX Request
+            $.ajax({
+              url: '<?php echo base_url();?>Perusahaan/delete_catatan',
+              type: 'POST',
+              data: { id:deleteid,
+              table: table },
+              success: function(response){
+
+                // Removing row from HTML Table
+                $(el).closest('tr').css('background','tomato');
+                $(el).closest('tr').fadeOut(600, function(){ 
+                 $(this).remove();
+                });
+              },
+              error: function(){
+                alert('Gagal menghapus');
+              }
+            });
+          }
+      });
+
+      $('.edit_data').click(function(){
+          var id = this.id;
+          var splitid = id.split("_");
+          var id_barang = splitid[2];
+          var table = splitid[0];
+          editCatatan(id_barang, table);
+      });
+
+      $('#update_button').click(function(){
+          updateCatatan();
+      })
+
   })
 
   function Harga(elementHarga, elementJumlah, elementTotal)  {
@@ -540,5 +657,51 @@
       var total = harga*jumlah
 
       $(elementTotal).val(total)    
+  }
+
+  function editCatatan(id, table) {
+           $.ajax({  
+                url:"<?php echo base_url();?>Perusahaan/edit_catatan",  
+                method:"POST",  
+                data:{
+                  id: id,
+                  table: table },
+                dataType: "json",
+                success:function(data){
+                    $('#judul').html(table);
+                    $('#id_catatan').val(data.id);
+                    $('#tanggal_catatan').val(data.tanggal);
+                    $('#jenis_catatan').val(data.jenis);
+                    $('#harga_catatan').val(data.harga_satuan);
+                    $('#jumlah_catatan').val(data.jumlah);
+                }  
+           });
+  }
+
+function updateCatatan() {
+      var table = $('#judul').html()
+      var id = $('#id_catatan').val()
+      var tanggal = $('#tanggal_catatan').val()
+      var jenis = $('#jenis_catatan').val()
+      var harga_satuan = $('#harga_catatan').val()
+      var jumlah = $('#jumlah_catatan').val()
+
+      $.ajax({
+        url:"<?php echo base_url();?>Perusahaan/update_catatan",  
+        type:"POST",  
+        data:{
+          table: table,
+          id: id,
+          tanggal: tanggal,
+          jenis: jenis,
+          harga_satuan: harga_satuan,
+          jumlah: jumlah },    
+        success:function(data){
+          if (!alert('Berhasil Merubah Data')) {location.reload(true)}
+        },
+        error: function() {
+          alert('gagal mengedit, coba lagi!')
+        }
+      })
   }
 </script>

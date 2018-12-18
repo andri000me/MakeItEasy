@@ -235,6 +235,7 @@ class Transaksi extends CI_Controller {
         $kode_cabai = $this->input->post('cabai');
         $berat_kotor = $this->input->post('berat_kotor');
         $berat_bs = $this->input->post('berat_bs');
+        $berat_susut = $this->input->post('berat_susut');
         $saldo = $this->model_transaksi->saldoPetani($id_petani)->saldo;
         $harga_bersih = $this->model_transaksi->harga_petani($tanggal, $kode_cabai)->harga_bersih;
         $harga_bs = $this->model_transaksi->harga_petani($tanggal, $kode_cabai)->harga_bs;
@@ -249,6 +250,7 @@ class Transaksi extends CI_Controller {
             'kode_cabai' => $kode_cabai,
             'berat_kotor' => $berat_kotor,
             'berat_bs' => $berat_bs,
+            'berat_susut' => $berat_susut,
             'saldo' => $new_saldo,
         );
 
@@ -260,22 +262,22 @@ class Transaksi extends CI_Controller {
         redirect('Transaksi/transpetani');
     }
 
-    public function delete_petani() {
-        $id = $this->uri->segment(3);
+    // public function delete_petani() {
+    //     $id = $this->uri->segment(3);
 
-        $key = $this->model_transaksi->edit_transpetani($id);
+    //     $key = $this->model_transaksi->edit_transpetani($id);
 
-        $id_petani = $key->id_petani;
-        $jumlah_uang = $key->harga_bs * $key->berat_bs + $key->harga_bersih * ($key->berat_kotor - $key->berat_bs);
-        $saldo_trans = $key->saldo_trans;
-        $new_saldo = $saldo_trans - $jumlah_uang;
-        $data = array('saldo' => $new_saldo);
+    //     $id_petani = $key->id_petani;
+    //     $jumlah_uang = $key->harga_bs * $key->berat_bs + $key->harga_bersih * ($key->berat_kotor - $key->berat_bs);
+    //     $saldo_trans = $key->saldo_trans;
+    //     $new_saldo = $saldo_trans - $jumlah_uang;
+    //     $data = array('saldo' => $new_saldo);
 
-        $this->model_transaksi->delete_transpetani($id);
-        $this->model_transaksi->update_saldo_petani($data, $id_petani);
+    //     $this->model_transaksi->delete_transpetani($id);
+    //     $this->model_transaksi->update_saldo_petani($data, $id_petani);
 
-        redirect('Transaksi/transpetani');
-    }
+    //     redirect('Transaksi/transpetani');
+    // }
 
     public function delete_pembeli() {
         $id = $this->uri->segment(3);
@@ -335,6 +337,7 @@ class Transaksi extends CI_Controller {
             $kode_cabai = $this->input->post('cabai');
             $berat_kotor = $this->input->post('berat_kotor');
             $berat_bs = $this->input->post('berat_bs');
+            $berat_susut = $this->input->post('berat_susut');
             $harga_bersih = $this->input->post('harga_petani');
             $harga_bs = $this->input->post('harga_bs');
 
@@ -345,7 +348,8 @@ class Transaksi extends CI_Controller {
                 'harga_bersih' => $harga_bersih,
                 'harga_bs' => $harga_bs,
                 'berat_kotor' => $berat_kotor,
-                'berat_bs' => $berat_bs
+                'berat_bs' => $berat_bs,
+                'berat_susut' => $berat_susut
             );
 
             $this->model_transaksi->input_transaksi_petaniNonMitra($data);
@@ -403,6 +407,13 @@ class Transaksi extends CI_Controller {
             $ambil_uang = $this->input->post('ambil_uang');
             $tenggat = $this->input->post('tenggat');
             $saldo = $this->model_transaksi->saldoPetani($id_petani)->saldo;
+
+            $initial = array(
+                'id_petani' => $id_petani,
+                'tanggal' => $tanggal
+            );
+
+            $id_transaksi = $this->model_transaksi->input_transaksi_petani($initial);
             
             $jumlah_uang = 0; $i=0;
             if (!empty($barang) && !empty($qty) && empty($ambil_uang)) {
@@ -414,6 +425,7 @@ class Transaksi extends CI_Controller {
                     $jumlah_uang = $jumlah_uang + $jumlah;
 
                     $data1[$i]['tanggal'] = $tanggal;
+                    $data1[$i]['id_transaksi'] = $id_transaksi;
                     $data1[$i]['id_petani'] = $id_petani;
                     $data1[$i]['barang'] = $nama_barang[$key];
                     $data1[$i]['harga'] = $price[$key];
@@ -432,6 +444,7 @@ class Transaksi extends CI_Controller {
                     $jumlah_uang = $jumlah_uang + $jumlah;
 
                     $data1[$i]['tanggal'] = $tanggal;
+                    $data1[$i]['id_transaksi'] = $id_transaksi;
                     $data1[$i]['id_petani'] = $id_petani;
                     $data1[$i]['barang'] = $nama_barang[$key];
                     $data1[$i]['harga'] = $price[$key];
@@ -441,8 +454,12 @@ class Transaksi extends CI_Controller {
                 }
 
                 $data2['tanggal'] = $tanggal;
+                $data2['id_transaksi'] = $id_transaksi;
                 $data2['id_petani'] = $id_petani;
                 $data2['ambil_uang'] = $ambil_uang;
+                $data2['barang'] = 'Uang';
+                $data2['harga'] = $ambil_uang;
+                $data2['kuantitas'] = 1;
 
                 $jumlah_uang = $jumlah_uang + $ambil_uang;
 
@@ -451,8 +468,12 @@ class Transaksi extends CI_Controller {
             }
             elseif (empty($barang) && !empty($ambil_uang)) {
                 $data2['tanggal'] = $tanggal;
+                $data2['id_transaksi'] = $id_transaksi;
                 $data2['id_petani'] = $id_petani;
                 $data2['ambil_uang'] = $ambil_uang;
+                $data2['barang'] = 'Uang';
+                $data2['harga'] = $ambil_uang;
+                $data2['kuantitas'] = 1;
 
                 $jumlah_uang = $jumlah_uang + $ambil_uang;
 
@@ -460,13 +481,11 @@ class Transaksi extends CI_Controller {
 
              } else {
                 redirect('Error');
-            }
+            };
 
             $new_saldo = $saldo - $jumlah_uang;
 
             $data3 = array(
-                'id_petani' => $id_petani,
-                'tanggal' => $tanggal,
                 'bon' => $jumlah_uang,
                 'saldo' => $new_saldo
             );
@@ -478,8 +497,10 @@ class Transaksi extends CI_Controller {
                 'tenggat' => $tenggat, 
             );
 
-            $this->model_transaksi->input_transaksi_petani($data3);
+            $this->model_transaksi->update_transaksi_petani($data3, $id_transaksi);
             $this->model_transaksi->update_saldo_petani($data4, $id_petani);
+
+
 
             redirect('Transaksi/transpetani');
         }

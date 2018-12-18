@@ -40,6 +40,7 @@
         <button type="button" class="btn bg-green-gradient" data-toggle="modal" data-target="#confirm" style="width: 50%"><i class="fa fa-leaf"></i> Yakin? </button>
       </div>
 
+      <!-- Modal konfirmasi -->
         <div class="modal modal-default fade " id="confirm">
           <div class="modal-dialog">
             <div class="modal-content">
@@ -64,6 +65,7 @@
           <!-- /.modal-dialog -->
         </div>
         <!-- /.modal -->
+      </div>
 
     </section>
     <!-- /.content -->

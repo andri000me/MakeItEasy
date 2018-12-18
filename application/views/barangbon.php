@@ -102,8 +102,8 @@
                                 <td>'.$tb->barang.'</td>
                                 <td>'.$tb->harga.'</td>
                                 <td>
-                                  <span class="btn btn-sm btn-info" data-toggle="modal" data-target="#editHarga" ><i class="fa fa-edit"></i> Edit </span>
-                                  <span class="btn btn-sm btn-danger"><i class="fa fa-trash-o"></i> Hapus </span>
+                                  <button class="edit_data btn btn-sm btn-info" id="edit_'.$tb->id.'" data-toggle="modal" data-target="#editHarga" ><i class="fa fa-edit" ></i> Edit </button>
+                                  <button class="delete btn btn-sm btn-danger" id="del_'.$tb->id.'""><i class="fa fa-trash-o"></i> Hapus </button>
                                 </td>
                                 </tr>';
 
@@ -115,7 +115,7 @@
                           </tbody>
                         </table>
 
-
+                        <!-- modal edit Harga -->
                         <div class="modal fade" id="editHarga">
                           <div class="modal-dialog">
                             <div class="modal-content">
@@ -127,24 +127,11 @@
                               <div class="modal-body">
                                 <div class="row" style="padding-bottom: 5px">
                                   <div class="col-md-4">
-                                    <label>Jenis Cabai :</label>
+                                    <label>Nama Barang :</label>
                                   </div>
                                   <div class="col-md-8">
-                                   <input type="text" name="jenis_cabai" class="form-control" value="Anu">
-                                   <!-- <?php
-                                        // $dd_cabai_attribute = 'class="form-control"';
-                                        // echo form_dropdown('cabai', $dd_cabai, $cabai_selected, $dd_cabai_attribute);
-                                        ?> -->
-                                  </div>
-                                </div>
-
-                                <div class="row" style="padding-bottom: 5px">
-                                  <div class="col-md-4">
-                                   <label>Kode Cabai :</label>
-                                  </div>
-                                  <div class="col-md-8">
-                                    <input type="text" name="kode_cabai" class="form-control" disabled value="A">
-                                    
+                                    <input type="text" name="id_barang" id="id_barang" hidden>
+                                   <input type="text" name="barang" class="form-control" id="barang" required>
                                   </div>
                                 </div>
 
@@ -153,24 +140,14 @@
                                    <label>Harga :</label>
                                   </div>
                                   <div class="col-md-5">
-                                    <input type="number" name="harga" class="form-control" value="500" step="50">
-                                    
-                                  </div>
-                                </div>
-
-                                <div class="row" style="padding-bottom: 5px">
-                                  <div class="col-md-4">
-                                   <label>Stok :</label>
-                                  </div>
-                                  <div class="col-md-5">
-                                    <input type="number" name="stok" class="form-control" value="500">
+                                    <input type="number" name="harga" class="form-control" id="edit_harga" required>
                                   </div>
                                 </div>
 
                               </div>
                               <div class="modal-footer">
                                 <button type="button" class="btn pull-left btn-danger" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-info">Simpan</button>
+                                <button type="button" class="btn btn-info" id="update_button">Update</button>
                               </div>
                             </div>
                             <!-- /.modal-content -->
@@ -438,7 +415,7 @@
 <script src="<?php echo base_url();?>assets/js/demo.js"></script>
 
 <script>
-  $(function () {
+  $(document).ready(function(){
     $('#tabel_transaksi').DataTable()
     $('#tabel_bon').DataTable()
 
@@ -448,14 +425,92 @@
       var jumlah_bayar = stok * harga_beli
 
       $('#jumlah_bayar').val(jumlah_bayar)
-    })
-  })
+    });
 
-  $(function () {
     $('.jenis_cabai').select2()
     $('.kode_cabai').select2()
     $('.jenis_bon').select2()
+
+    //menghapus
+    $('.delete').click(function(){
+        var el = this;
+        var id = this.id;
+        console.log(id);
+        var splitid = id.split("_");
+
+        // Delete id
+        var deleteid = splitid[1];
+   
+          if(confirm('Apakah Anda yakin menghapus transaksi?'))
+          {
+            // AJAX Request
+            $.ajax({
+              url: '<?php echo base_url();?>Barang/delete_barangBon',
+              type: 'POST',
+              data: { id:deleteid },
+              success: function(response){
+
+                // Removing row from HTML Table
+                $(el).closest('tr').css('background','tomato');
+                $(el).closest('tr').fadeOut(600, function(){ 
+                 $(this).remove();
+                });
+              },
+              error: function(){
+                alert('Gagal menghapus');
+              }
+            });
+          }
+      });
+
+      $('.edit_data').click(function(){
+          var id = this.id;
+          var splitid = id.split("_");
+           var id_barang = splitid[1];
+           editBarang(id_barang);
+      });
+
+      $('#update_button').click(function(){
+          updateBarang();
+      })
   })
+
+  
+function editBarang(id_barang)  {
+           $.ajax({  
+                url:"<?php echo base_url();?>Barang/edit_barang",  
+                method:"POST",  
+                data:{id:id_barang},
+                dataType: "json",
+                success:function(data){
+                     $('#id_barang').val(data.id);
+                     $('#barang').val(data.barang);
+                     $('#edit_harga').val(data.harga);
+                }  
+           });
+  }
+
+function updateBarang() {
+      var id_barang = $('#id_barang').val()
+      var barang = $('#barang').val()
+      var harga = $('#edit_harga').val()
+
+      $.ajax({
+        url:"<?php echo base_url();?>Barang/updateBarang",  
+        type:"POST",  
+        data:{
+          id_barang: id_barang,
+          barang: barang,
+          harga: harga },    
+        success:function(data){
+          location.reload(true);
+          $('#successful_edit').html('<div class="alert alert-success alert-dismissible"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>Berhasil!</strong>  Setoran Petani berhasil diperbarui</div>');
+        },
+        error: function() {
+          alert('gagal mengedit, coba lagi!')
+        }
+      })
+  }
 
 
 </script>

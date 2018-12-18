@@ -74,7 +74,7 @@
                         <h3 class="box-title">Tambahkan Harga Cabai</h3><span class="fa fa-male fa-3x pull-right">  Petani</span>
                       </div>
 
-                      <form action="<?php echo base_url();?>Cabai/submitHargaPetani" method="post" >
+                      <form id="formHargaCabai">
                       <!-- /.box-header -->
                         <div class="box-body">
                           <!-- Tanggal -->
@@ -88,6 +88,7 @@
                                   <i class="fa fa-calendar"></i>
                                 </div>
                                 <input type="text" class="form-control pull-right input-tanggal" placeholder="klik untuk memilih tanggal" name="tanggal" required="">
+                                <input hidden="" type="text" id="counter" name="counter" value=1>
                               </div>
                               <!-- /.input group -->
                             </div>
@@ -111,10 +112,10 @@
                               <tr id="field1">
                                 <td><?php
                                     $dd_cabai_attribute = 'id="cabai" class="form-control select2" style="width:100%" required';
-                                    echo form_dropdown('cabai[]', $dd_cabai, $cabai_selected, $dd_cabai_attribute);
+                                    echo form_dropdown('cabai1', $dd_cabai, $cabai_selected, $dd_cabai_attribute);
                                   ?></td>
-                                <td><input type="text" name="harga_bs[]" class="form-control"></td>
-                                <td id="bersih1"><input type="text" name="harga_bersih[]" class="form-control"></td>
+                                <td><input type="text" name="harga_bs1" class="form-control"></td>
+                                <td id="bersih1"><input type="text" name="harga_bersih1" class="form-control"></td>
                                 <td>
                                   <button id="add1" onclick="addField()" class="btn btn-info add-more" type="button" style="">+</button>
                                   <button id="remove1" class="btn btn-danger remove-me" type="button" style="display: none;">-</button>
@@ -128,7 +129,7 @@
                         </div>
                         <!-- /.box-body -->
                         <div class="box-footer clearfix" style="border: 1px solid #f0f0f0;">
-                          <button type="submit" class="btn btn-flat btn-block bg-teal-gradient">
+                          <button type="submit" class="btn btn-flat btn-block bg-teal-gradient" id="submitHargaCabai">
                             <i class="fa fa-plus"></i> Tambahkan Harga </button>
                         </div>
                       </form>
@@ -145,53 +146,6 @@
 
                 <!-- row -->
                 <div class="row">
-                                    <div class="col-md-6 col-sm-12 border-right">
-
-                    <div class="box box-success bg-solid" style="border: 2px solid #f39c12;">
-                      <div class="box-header bg-yellow">
-                        <h3 class="box-title">Harga cabai yang belum diperbarui</h3>
-                      </div>
-                      <!-- /.box-header -->
-
-                      <div class="box-body table-responsive">
-                        <table id="tb_hargaPetani" class="table table-bordered table-striped datatables" style="font-size: 15px">
-                          <thead>
-                            <tr class="bg-warning">
-                              <th style="text-align: center; line-height: 50px" rowspan="2">No</th>
-                              <th style="text-align: center; line-height: 50px" rowspan="2">Tanggal </th>
-                              <th style="text-align: center; line-height: 50px" rowspan="2">Jenis Cabai</th>
-                              <th style="text-align: center; line-height: 50px" rowspan="2">Status</th>
-                              <th style="text-align: center;" colspan="2">Harga</th>
-                              <th style="text-align: center; line-height: 50px" rowspan="2">Edit</th>
-                            </tr>
-                            <tr class="bg-warning">
-                              <th>BS/ MTL </th>
-                              <th>Bersih </th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                             <?php
-                                if (!empty($harga_cabai_petani)) {
-                                  $no=1; foreach ($harga_cabai_petani as $key) {
-
-                                      echo "<tr><td>".$no."</td><td>".$key->tanggal."</td><td>".$key->jenis."(".$key->kode_cabai.")</td><td>".$key->harga_bs."</td><td><span class='badge bg-yellow'>sementara</span></td><td>".$key->harga_bersih."</td><td><button type='button' class='btn btn-info btn-xs data-toggle='modal' data-target='#modal-info'>edit</button></td></tr>";
-                                    
-                                      $no++;
-                                  }
-                                }
-                                else {
-                                       echo "<tr><td colspan='12' class='text-center text-danger'> Isikan dulu harga cabai hari ini !! </td></tr>";
-                                }
-
-                              ?>
-                          </tbody>
-                        </table>
-                      </div>
-                      <!-- /.box-body -->
-                    </div>
-                    <!-- /.box -->
-                  </div>
-                  <!-- /.col 4 -->
 
                   <!-- tabel -->
                   <div class="col-md-6 col-sm-12">
@@ -240,8 +194,7 @@
                           </table>
                       </div>
                       <div class="box-footer clearfix" style="border: 1px solid #f0f0f0;">
-                        <a href="<?php echo base_url();?>Cabai/hargaJenis" class="btn btn-sm btn-default pull-right">
-                          <i class="fa fa-edit"></i> Tambah Harga </a>
+                      
                       </div>
                             <!-- /.box-body -->
                     </div>
@@ -267,13 +220,12 @@
                       <!-- /.box-header -->
                       <div class="box-body table-responsive">
                         <table class="table" style="margin-bottom: 10px">
-                          <form action="<?php echo base_url();?>Cabai/tambahCabai" method="post">
-                            <tr class="bg-info">
+                          <form id="formJenisCabai">
                               <td>#</td>
-                              <td><input class="form-control" type="text" placeholder="Kode Cabai" name="kode_cabai"></td>
-                              <td><input class="form-control" type="text" placeholder="Jenis Cabai" name="jenis_cabai"> </td>
+                              <td><input class="form-control" type="text" placeholder="Kode Cabai" name="kode_cabai" required=""></td>
+                              <td><input class="form-control" type="text" placeholder="Jenis Cabai" name="jenis_cabai" required=""> </td>
                               <td>
-                                <button type="submit" class="btn btn-primary"><i class="fa fa-plus"></i> Tambahkan </button>
+                                <button type="submit" class="btn btn-primary" id="tambahCabai"><i class="fa fa-plus"></i> Tambahkan </button>
                               </td>
                             </tr>
                           </form>
@@ -297,7 +249,7 @@
                                     <td>'.$tb->kode.'</td>
                                     <td>'.$tb->jenis.'</td>
                                     <td>
-                                      <span class="btn btn-sm btn-info" data-toggle="modal" data-target="#editHarga" ><i class="fa fa-edit"></i> Edit </span>
+                                      <button class="btn btn-sm btn-info edit_jenis" data-toggle="modal" data-target="#editJenis" id="'.$tb->kode.'"><i class="fa fa-edit"></i> Edit </button>
                                     </td>
                                   </tr>';
 
@@ -309,68 +261,46 @@
 
 
                       <!-- modal edit -->
-                        <div class="modal fade" id="editHarga">
+                        <div class="modal fade" id="editJenis">
                           <div class="modal-dialog">
                             <div class="modal-content">
                               <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                   <span aria-hidden="true">&times;</span></button>
-                                <h4 class="modal-title">Edit Barang Modal</h4>
+                                <h4 class="modal-title">Edit Jenis Cabai</h4>
                               </div>
                               <div class="modal-body">
-                                <div class="row" style="padding-bottom: 5px">
-                                  <div class="col-md-4">
-                                    <label>Jenis Cabai :</label>
-                                  </div>
-                                  <div class="col-md-8">
-                                   <input type="text" name="jenis_cabai" class="form-control" value="Anu">
-                                   <!-- <?php
-                                        // $dd_cabai_attribute = 'class="form-control"';
-                                        // echo form_dropdown('cabai', $dd_cabai, $cabai_selected, $dd_cabai_attribute);
-                                        ?> -->
-                                  </div>
-                                </div>
 
                                 <div class="row" style="padding-bottom: 5px">
                                   <div class="col-md-4">
                                    <label>Kode Cabai :</label>
                                   </div>
-                                  <div class="col-md-8">
-                                    <input type="text" name="kode_cabai" class="form-control" disabled value="A">
+                                  <div class="col-md-6">
+                                    <input type="text" name="kode_cabai" class="form-control" id="kode_cabai" disabled>
                                     
                                   </div>
                                 </div>
 
                                 <div class="row" style="padding-bottom: 5px">
                                   <div class="col-md-4">
-                                   <label>Harga :</label>
+                                   <label>Jenis :</label>
                                   </div>
-                                  <div class="col-md-5">
-                                    <input type="number" name="harga" class="form-control" value="500" step="50">
-                                    
-                                  </div>
-                                </div>
-
-                                <div class="row" style="padding-bottom: 5px">
-                                  <div class="col-md-4">
-                                   <label>Stok :</label>
-                                  </div>
-                                  <div class="col-md-5">
-                                    <input type="number" name="stok" class="form-control" value="500">
+                                  <div class="col-md-6">
+                                    <input type="text" name="jenis" class="form-control" id="jenis">
                                   </div>
                                 </div>
 
                               </div>
                               <div class="modal-footer">
                                 <button type="button" class="btn pull-left btn-danger" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-info">Simpan</button>
+                                <button type="button" class="btn btn-info" id="TombolSimpanCabai">Simpan</button>
                               </div>
                             </div>
                             <!-- /.modal-content -->
                           </div>
                           <!-- /.modal-dialog -->
                         </div>
-                        <!-- /.modal -->
+                      <!-- /.modal -->
 
                       </div>
                       <!-- /.box-body -->
@@ -634,14 +564,59 @@
       todayHighlight : 'true'
     });
 
+    $('#formHargaCabai').on('submit', function(e) {
+
+      console.log($('#formHargaCabai').serialize());
+      $.ajax({
+            type: 'POST',
+            url: '<?php echo base_url();?>Cabai/submitHargaPetani',
+            data: $('#formHargaCabai').serialize(),
+            success: function (response) {
+              if (alert(response)) {location.reload(true)}
+            },
+            error: function() {
+              alert('Mohon Maaf, ada sedikit erro, mohon ulangi');
+            }
+          });
+      e.preventDefault();
+    });
+
+    $('#formJenisCabai').on('submit', function(e) {
+      $.ajax({
+            type: 'POST',
+            url: '<?php echo base_url();?>Cabai/tambahCabai',
+            data: $('#formJenisCabai').serialize(),
+            success: function (response) {
+              if (!alert('berhasil ditambahkan')) {location.reload(true)}
+            },
+            error: function() {
+              alert('Mohon Maaf, kode cabai sudah terpakai');
+            }
+          });
+      e.preventDefault();
+    })
+
+    $('.edit_jenis').click(function(){
+           var id_cabai = this.id;
+           editJenis(id_cabai);
+      });
+
+    $('#TombolSimpanCabai').click(function(){
+        updateCabai();
+    })
+
+
+
   });
 
+  <?php $counter = 1; ?>
   var next = 1;
   function addField(e)    {
         <?php
+          $counter = $counter + 1;
           $dd_cabai_attribute = 'id="cabai" class="form-control select2" style="width:100%" required';
 
-          $dropdown = form_dropdown('cabai[]', $dd_cabai, $cabai_selected, $dd_cabai_attribute);
+          $dropdown = form_dropdown('cabai'.$counter, $dd_cabai, $cabai_selected, $dd_cabai_attribute);
         ?>
 
         var dropdown = <?php echo json_encode($dropdown); ?>;
@@ -649,10 +624,11 @@
         var addto = "#field" + next;
         var addRemove = "#field" + (next);
         next = next + 1;
-        var newIn = '<tr id="field' + next +'"><td>' + dropdown +'</td><td><input type="text" name="harga_bs[]" class="form-control"></td><td class="bersih'+ next +'"><input type="text" name="harga_bersih[]" class="form-control"></td><td><button id="add'+ next +'" onclick="addField()" class="btn btn-info add-more" type="button" style="">+</button><button id="remove' + next + '" class="btn btn-danger remove-me" style="display: none;">-</button></td></tr></tr>';
+        var newIn = '<tr id="field' + next +'"><td>' + dropdown +'</td><td><input type="text" name="harga_bs' + next +'" class="form-control"></td><td class="bersih'+ next +'"><input type="text" name="harga_bersih'+ next +'" class="form-control"></td><td><button id="add'+ next +'" onclick="addField()" class="btn btn-info add-more" type="button" style="">+</button><button id="remove' + next + '" class="btn btn-danger remove-me" style="display: none;">-</button></td></tr></tr>';
         var newInput = $(newIn);
         var removeBtn = '<td><button id="remove' + (next-1) + '" class="btn btn-danger remove-me">-</button></td></tr>';
         var removeButton = $(removeBtn);
+        $('#counter').val(next);
         $(addto).after(newInput);
         $('#add'+ (next-1) +'').attr('style', "display: none");
         $('#remove'+ (next-1) +'').attr('style', "display: inline");
@@ -661,12 +637,47 @@
         
         $('.remove-me').click(function(e){
             e.preventDefault();
+            
             var fieldNum = this.id.charAt(this.id.length-1);
             var fieldID = "#field" + fieldNum;
             //$(this).remove();
             $(fieldID).remove();
         });
   };
+
+  function editJenis(id)  {
+    $.ajax({  
+      url:"<?php echo base_url();?>Cabai/get_jenis",  
+      method:"POST",  
+      data:{id:id},  
+      dataType:"json",  
+      success:function(data){
+        $('#kode_cabai').val(data.kode);
+        $('#jenis').val(data.jenis);
+      },
+      error: function(){
+        alert('error');
+      }
+    });
+  }
+
+  function updateCabai()  {
+    var kode_cabai = $('#kode_cabai').val();
+    var jenis = $('#jenis').val();
+
+    $.ajax({
+      url:"<?php echo base_url();?>Cabai/update_jenis",
+      method:"POST",
+      data:{
+        kode: kode_cabai,
+        jenis: jenis
+      },
+      dataType: "json",
+      success: function(){
+        if (!alert('data berhasil diubah')){location.reload(true)}
+      }
+    })
+  }
 
 </script>
 

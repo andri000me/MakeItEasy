@@ -37,6 +37,34 @@ class Barang extends CI_Controller {
 	        echo json_encode($query);
 		}
 
+	function edit_barang()	{
+		$id = $this->input->post('id');
+		$query = $this->model_barang->edit_barang($id);
+
+		echo json_encode($query);
+	}
+
+	function delete_barangBon()	{
+		$id = $this->input->post('id');
+
+		$this->model_barang->delete_barangBon($id);
+		echo 1;
+	}
+
+	function updateBarang()	{
+		$id_barang = $this->input->post('id_barang');
+		$barang = $this->input->post('barang');
+		$harga = $this->input->post('harga');
+
+		$data = array(
+			'barang' => $barang,
+			'harga' => $harga );
+
+		$this->model_barang->updateBarang($id_barang, $data);
+
+		echo 'berhasil';
+	}
+
 
 }
 ?>

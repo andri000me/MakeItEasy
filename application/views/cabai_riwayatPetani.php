@@ -41,7 +41,7 @@
                       <div class="input-group-addon">
                         <i class="fa fa-calendar"></i>
                       </div>
-                      <input type="text" class="form-control input-tanggal" name="start" id="start" value="<?php echo $startdate ?>">
+                      <input type="text" class="form-control input-tanggal" name="start" id="start" required value="<?php echo $startdate ?>">
                     </div>
                   </div>
 
@@ -51,7 +51,7 @@
                       <div class="input-group-addon">
                         <i class="fa fa-calendar"></i>
                       </div>
-                      <input type="text" class="form-control input-tanggal" name="end" id="end" value="<?php echo $enddate ?>">
+                      <input type="text" class="form-control input-tanggal" name="end" id="end" required value="<?php echo $enddate ?>">
                     </div>
                   </div>
 
@@ -86,7 +86,7 @@
                                 if (!empty($riwayat_cabai)) {
                                   $no=1; foreach ($riwayat_cabai as $key) {
 
-                                      echo "<tr><td>".$no."</td><td>".$key->tanggal."</td><td>".$key->jenis."</td><td>".$key->kode_cabai."</td><td>".$key->harga_bs."</td><td>".$key->harga_bersih."</td><td><button type='button' class='btn btn-info btn-xs data-toggle='modal' data-target='#modal-info'>edit</button></td></tr>";
+                                      echo "<tr><td>".$no."</td><td>".$key->tanggal."</td><td>".$key->jenis."</td><td>".$key->kode_cabai."</td><td>".$key->harga_bs."</td><td>".$key->harga_bersih."</td><td><button class='btn btn-sm btn-info edit_harga' data-toggle='modal' data-target='#editHarga' id='".$key->id."'><i class='fa fa-edit'></i> Edit </button></td></tr>";
                                     
                                       $no++;
                                   }
@@ -115,6 +115,65 @@
     </section>
     <!-- /.content -->
   </div>
+
+<!-- modal edit -->
+  <div class="modal fade" id="editHarga">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">Edit Harga Cabai</h4>
+        </div>
+        <div class="modal-body">
+
+          <div class="row" style="padding-bottom: 5px">
+            <div class="col-md-4">
+             <label>Tanggal :</label>
+            </div>
+            <div class="col-md-6">
+              <input type="text" name="id_harga" id="id_harga" hidden>
+              <input type="text" name="tanggal" class="form-control" id="tanggal" disabled>
+            </div>
+          </div>
+
+          <div class="row" style="padding-bottom: 5px">
+            <div class="col-md-4">
+             <label>Jenis Cabai :</label>
+            </div>
+            <div class="col-md-6">
+              <input type="text" name="jenis_cabai" class="form-control" id="jenis_cabai" disabled>
+              
+            </div>
+          </div>
+
+          <div class="row" style="padding-bottom: 5px">
+            <div class="col-md-3">
+             <label>Harga :</label>
+            </div> 
+              <div class="col-md-4">
+                <label>Bersih</label>
+                <input type="text" name="harga_bersih" class="form-control" id="harga_bersih">
+              </div>
+              <div class="col-md-4">
+                <label>BS</label>
+                <input type="text" name="harga_bs" class="form-control" id="harga_bs">
+              </div>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn pull-left btn-danger" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-info" id="TombolSimpan">Simpan</button>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+<!-- /.modal -->
+
+
   <!-- /.content-wrapper -->
   <footer class="main-footer">
     <div class="pull-right hidden-xs">
@@ -345,7 +404,60 @@
     });
 
     $('.datatables').DataTable()
+
+    $('.edit_harga').click(function(){
+           var id_cabai = this.id;
+           editHarga(id_cabai);
+    });
+
+    $('#TombolSimpan').click(function(){
+        updateHarga();
+    })
   })
+
+  function editHarga(id)  {
+    $.ajax({  
+      url:"<?php echo base_url();?>Cabai/get_harga",  
+      method:"POST",  
+      data:{id:id},  
+      dataType:"json",  
+      success:function(data){
+        $('#id_harga').val(data.id);
+        $('#tanggal').val(data.tanggal);
+        $('#jenis_cabai').val(data.jenis + " (" + data.kode_cabai + ")");
+        $('#harga_bersih').val(data.harga_bersih);
+        $('#harga_bs').val(data.harga_bs);
+      },
+      error: function(){
+        alert('error');
+      }
+    });
+  }
+
+  function updateHarga()  {
+    var tanggal = $('#tanggal').val();
+    var id_harga = $('#id_harga').val();
+    var harga_bs = $('#harga_bs').val();
+    var harga_bersih = $('#harga_bersih').val();
+
+    $.ajax({
+      url:"<?php echo base_url();?>Cabai/update_harga",
+      method:"POST",
+      data:{
+        id: id_harga,
+        tanggal: tanggal,
+        harga_bersih: harga_bersih,
+        harga_bs: harga_bs
+      },
+      success: function(){
+        if (!alert('data berhasil diubah')){location.reload(true)}
+      },
+      error: function(){
+        alert('gagal merubah harga')
+      }
+    })
+  }
+
 </script>
 </body>
 </html>

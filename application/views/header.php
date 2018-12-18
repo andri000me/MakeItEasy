@@ -126,7 +126,8 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="<?php echo base_url();?>Riwayat/riwayatPetani"><i class="fa fa-male"></i> Petani</a></li>
+            <li><a href="<?php echo base_url();?>Riwayat/riwayatPetani"><i class="fa fa-male"></i> Petani (Setoran)</a></li>
+            <li><a href="<?php echo base_url();?>Riwayat/RiwayatPetaniBon"><i class="fa fa-male"></i> Petani (BON)</a></li>
             <li><a href="<?php echo base_url();?>Riwayat/riwayatPemborong"><i class="fa fa-cart-plus"></i> Pembeli</a></li>
             <li><a href="<?php echo base_url();?>Riwayat/riwayatPetaniNonMitra"><i class="fa fa-male"></i> Petani Non Mitra</a></li>
             <li><a href="<?php echo base_url();?>Riwayat/riwayatPembeliNonMitra"><i class="fa fa-cart-plus"></i> Pembeli Non Mitra</a></li>

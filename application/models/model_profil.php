@@ -24,13 +24,23 @@ class model_profil extends CI_Model {
 	}
 
 	public function transaksi_petani($id)	{
-		$query = $this->db->query("SELECT a.id, a.tanggal, a.kode_cabai, a.berat_kotor, a.berat_bs, c.harga_bersih, c.harga_bs, a.bon, a.saldo FROM transaksi_petani a LEFT JOIN harga_cabai_petani c ON a.kode_cabai=c.kode_cabai AND a.tanggal=c.tanggal WHERE a.id_petani='$id'");
+		$query = $this->db->query("SELECT a.id, a.tanggal, a.kode_cabai, a.berat_kotor, a.berat_bs, a.berat_susut, c.harga_bersih, c.harga_bs, a.bon, a.saldo FROM transaksi_petani a LEFT JOIN harga_cabai_petani c ON a.kode_cabai=c.kode_cabai AND a.tanggal=c.tanggal WHERE a.id_petani='$id'");
 		return $query->result();
 	}
 
 	public function transaksi_pembeli($id)	{
-		$query = $this->db->query("SELECT a.id, a.tanggal, a.kode, a.colly, a.bersih, c.harga_bersih, a.transferan, a.saldo FROM transaksi_pembeli a LEFT JOIN harga_cabai_pembeli c ON a.kode=c.kode_cabai AND a.tanggal=c.tanggal WHERE a.id_pembeli='$id'");
+		$query = $this->db->query("SELECT * FROM transaksi_pembeli WHERE id_pembeli='$id'");
 		return $query->result();
+	}
+
+	public function count_petani()	{
+		$query = $this->db->query("SELECT COUNT(id) as jumlah FROM tb_petani");
+		return $query->row()->jumlah;
+	}
+
+	public function count_pembeli()	{
+		$query = $this->db->query("SELECT COUNT(id) as jumlah FROM tb_pembeli");
+		return $query->row()->jumlah;
 	}
 }
 ?>

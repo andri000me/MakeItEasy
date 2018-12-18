@@ -30,7 +30,7 @@
     <section class="content">
       <!-- Small boxes (Stat box) -->
       <div class="row">
-        <div class="col-md-3 col-sm-6 col-xs-12">
+        <!-- <div class="col-md-3 col-sm-6 col-xs-12">
           <div class="info-box">
             <span class="info-box-icon bg-aqua"><i class="fa fa-leaf"></i><i class="fa fa-long-arrow-down"></i></span>
 
@@ -38,34 +38,34 @@
               <span class="info-box-text">Cabai Masuk</span>
               <span class="info-box-number">543<small>kg</small></span>
             </div>
-            <!-- /.info-box-content -->
+            /.info-box-content
           </div>
-          <!-- /.info-box -->
-        </div>
+          /.info-box 
+        </div> -->
         <!-- /.col -->
-        <div class="col-md-3 col-sm-6 col-xs-12">
-          <div class="info-box">
+        <!-- <div class="col-md-3 col-sm-6 col-xs-12"> -->
+          <!-- <div class="info-box">
             <span class="info-box-icon bg-green"><i class="fa fa-leaf"></i><i class="fa fa-long-arrow-up"></i></span>
 
             <div class="info-box-content">
               <span class="info-box-text">Cabai Keluar</span>
               <span class="info-box-number">450<small>kg</small></span>
             </div>
-            <!-- /.info-box-content -->
-          </div>
+            
+          </div> -->
           <!-- /.info-box -->
-        </div>
+        <!-- </div> -->
         <!-- /.col -->
         <!-- fix for small devices only -->
         <div class="clearfix visible-sm-block"></div>
 
-        <div class="col-md-3 col-sm-6 col-xs-12">
+        <div class="col-md-4 col-sm-6 col-xs-12">
           <div class="info-box">
             <span class="info-box-icon bg-yellow"><i class="fa fa-group"></i></span>
 
             <div class="info-box-content">
               <span class="info-box-text">Jumlah Petani</span>
-              <span class="info-box-number">1518</span>
+              <span class="info-box-number"><?= $jumlah_petani ?></span>
             </div>
             <!-- /.info-box-content -->
           </div>
@@ -73,13 +73,13 @@
         </div>
         <!-- /.col -->
 
-        <div class="col-md-3 col-sm-6 col-xs-12">
+        <div class="col-md-4 col-sm-6 col-xs-12">
           <div class="info-box">
             <span class="info-box-icon bg-red"><i class="fa fa-shopping-cart"></i></span>
 
             <div class="info-box-content">
               <span class="info-box-text">Jumlah Pembeli</span>
-              <span class="info-box-number">122</span>
+              <span class="info-box-number"><?= $jumlah_pembeli ?></span>
             </div>
             <!-- /.info-box-content -->
           </div>
@@ -95,10 +95,7 @@
             <div class="box-header with-border">
               <h3 class="box-title">Rekap Transaksi Bulan Ini : 
                 <b>
-                  <script language="javascript">
-                    var now = new Date();
-                    document.write(monthNames[now.getMonth()]);
-                  </script>
+                  <?php echo date('F Y', strtotime($today_month)) ?>
                 </b>
               </h3> 
 
@@ -158,6 +155,41 @@
       </div>
       <!-- /.row -->
 
+      <div class="panel bg-blue">
+        <div class="row">
+          <div class="col-md-3">
+            <h3 class="text-white" style="margin-bottom: 20px; margin-left: 15px">Lihat Rekap Bulan</h3>
+          </div>
+          <div class="col-md-2">
+            <h3><i>
+<!--               <script language="javascript">
+                var now = new Date();
+                document.write(monthNames[now.getMonth()]);
+              </script>
+              <script language="javascript">
+                var now = new Date();
+                document.write(now.getFullYear());
+              </script> -->
+              <?php echo date('F Y', strtotime($today_month)) ?>
+            </i></h3>
+          </div>
+            <div class="col-md-4" style="margin-top: 20px; margin-left: 15px">
+              <div class="form-group">
+                <div class="input-group">
+                  <div class="input-group-addon">
+                    <i class="fa fa-calendar"></i>
+                  </div>
+                  <input type="text" class="form-control pull-right" value="<?php echo $today_month; ?>" id="monthly_date">
+                </div>
+              </div>
+          </div>
+          <div class="col-md-2" style="margin-top: 20px">
+            <button class="btn btn-default">Lihat</button>
+          </div>
+        </div>
+
+      </div>
+
       <!-- tabel harian -->
       <div class="row">
         <div class="col-md-12">
@@ -165,20 +197,9 @@
             <div class="box-header">
               <div class="box-title">
                 <div class="row">
-                  <div class="col-md-2">
-                   Rekap harian tanggal : 
-                  </div>
-                  <div class="col-md-5">
-                    <div class="form-group">
-                      <div class="input-group">
-                        <div class="input-group-addon">
-                          <i class="fa fa-calendar"></i>
-                        </div>
-                        <input type="text" class="form-control pull-right" id="reservation">
-                      </div>
-                      <!-- /.input group -->
-                    </div>
-                  </div>
+                  <div class="col-lg-6 col-xs-6 col-md-6" style="width: 100%">
+                   Rekap harian Bulan: 
+                  <?php echo date('F Y', strtotime($today_month)) ?>
                 </div>
               </div>
               <!-- /.box-title -->
@@ -186,26 +207,58 @@
             <!-- /.box-header -->
 
             <div class="box-body table-responsive">
-              <table id="rekap_hari" class="table table-bordered table-striped" style="font-size: 15px">
-                <thead>
-                  <tr class="bg-primary">
-                    <th style="text-align: center; line-height: 50px">No</th>
-                    <th style="text-align: center; line-height: 50px">Hari, Tanggal</th>
-                    <th style="text-align: center; line-height: 50px">Cabai Masuk</th>
-                    <th style="text-align: center; line-height: 50px">Pendapatan</th>
-                    <th style="text-align: center; line-height: 50px">Pengeluaran</th>
-                    <th style="text-align: center; line-height: 50px">Saldo Perusahaan</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <td> 1 </td>
-                  <td> Senin, 18 Juli 2018 </td>
-                  <td> 109 kg </td>
-                  <td> Rp 1.000.000 </td>
-                  <td> Rp 2.500.000 </td>
-                  <td> Rp 90.000.000 </td>
-                </tbody>
-              </table>
+              <div class="row">
+                <div class="col-md-6 col-lg-6 col-xs-12">
+                  <h3 class="text-blue"><i class="fa fa-group"></i><b>  PETANI</b></h3>
+                  <table class="table table-bordered table-striped rekap_hari" style="font-size: 15px">
+                    <thead>
+                      <tr class="bg-primary">
+                        <th style="text-align: center; line-height: 50px">No</th>
+                        <th style="text-align: center; line-height: 50px">Hari, Tanggal</th>
+                        <th style="text-align: center; line-height: 50px">Cabai Masuk</th>
+                        <th style="text-align: center; line-height: 50px">Uang Petani</th>
+                        <th style="text-align: center; line-height: 50px">Total Bon</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <?php $no=1; foreach ($rekap_petani_harian as $tb): ?>
+                        <tr>
+                          <td><?= $no ?></td>
+                          <td><?= $tb->tanggal ?></td>
+                          <td><?= $tb->berat_kotor ?></td>
+                          <td><?= $tb->jumlah_uang ?></td>
+                          <td><?= $tb->bon ?></td>
+                        </tr>
+                      <?php $no++; endforeach ?>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="col-md-6 col-lg-6 col-xs-12">
+                  <h3 class="text-blue"><i class="fa fa-shopping-cart"></i><b>  PEMBELI</b></h3>
+                  <table class="table table-bordered table-striped rekap_hari" style="font-size: 15px">
+                    <thead>
+                      <tr class="bg-primary">
+                        <th style="text-align: center; line-height: 50px">No</th>
+                        <th style="text-align: center; line-height: 50px">Hari, Tanggal</th>
+                        <th style="text-align: center; line-height: 50px">Cabai Terjual</th>
+                        <th style="text-align: center; line-height: 50px">Uang Pembeli</th>
+                        <th style="text-align: center; line-height: 50px">Total Transferan</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <?php $no=1; foreach ($rekap_pembeli_harian as $tb): ?>
+                        <tr>
+                          <td><?= $no ?></td>
+                          <td><?= $tb->tanggal ?></td>
+                          <td><?= $tb->bersih ?></td>
+                          <td><?= $tb->jumlah_uang ?></td>
+                          <td><?= $tb->transferan ?></td>
+                        </tr>
+                      <?php $no++; endforeach ?>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
             </div>
             <!-- /.box-body -->
           </div>
@@ -213,6 +266,7 @@
         </div>
         <!-- /.col -->
       </div>
+    </div>
       <!-- /.row -->
 
 
@@ -220,44 +274,42 @@
 
       <!-- row dibawah grafik -->
       <div class="row">
-        <div class="col-md-4 col-sm-12">
-          <!-- Harga Cabai -->
-          <div class="box box-danger" >
+        <!-- Table pendapatan dan pengeluaran -->
+        <div class="col-md-6 col-sm-12">
+          <div class="box box-primary">
             <div class="box-header with-border">
-              <h3 class="box-title">Harga Cabai Hari Ini</h3>
+              <h3 class="box-title">Rekap Pemasukan & Pengeluaran Lain</h3>
             </div>
-            <!-- /.box-header -->
-            <div class="box-body ">
-                <table class="table table-condensed no-margin">
-                  <thead>
-                    <tr>
-                      <th style="text-align: center; line-height: 50px" rowspan="2">No</th>
-                      <th style="text-align: center; line-height: 50px" rowspan="2">Kode</th>
-                      <th style="text-align: center; line-height: 50px" rowspan="2">Jenis</th>
-                      <th style="text-align: center;" colspan="2">Harga</th>
-                    </tr>
-                      <tr>
-                        <th>BS/ MTL </th>
-                        <th>Bersih </th>
+
+            <div class="box-body table-responsive" style="margin-right: 10px">
+              <table class="table table-bordered table-striped rekap_hari" style="font-size: 15px">
+                    <thead>
+                      <tr class="bg-primary">
+                        <th style="text-align: center; line-height: 50px">No</th>
+                        <th style="text-align: center; line-height: 50px">Hari, Tanggal</th>
+                        <th style="text-align: center; line-height: 50px">Pendapatan</th>
+                        <th style="text-align: center; line-height: 50px">Pengeluaran</th>
                       </tr>
-                  </thead>
-                  <tbody>
-                  </tbody>
-                </table>
+                    </thead>
+                    <tbody>
+                      <?php $no=1; foreach ($rekap_pemasukan_pengeluaran as $tb): ?>
+                        <tr>
+                          <td><?= $no ?></td>
+                          <td><?= $tb->tanggal ?></td>
+                          <td><?= $tb->pemasukan ?></td>
+                          <td><?= $tb->pengeluaran ?></td>
+                        </tr>
+                      <?php $no++; endforeach ?>
+                    </tbody>
+              </table>
             </div>
-            <div class="box-footer clearfix" style="border: 1px solid #f0f0f0;">
-              <button type="button" class="btn btn-sm btn-default pull-right" data-toggle="modal" data-target="#editHarga">
-                <i class="fa fa-edit"></i> Edit Harga </button>
-            </div>
-                  <!-- /.box-body -->
           </div>
-          <!-- /.box -->
         </div>
         <!-- ./col -->
-        <div class="col-md-4 col-sm-12">
+        <div class="col-md-6 col-sm-12">
           <div class="box box-default">
             <div class="box-header with-border">
-              <h3 class="box-title">Stok Cabai</h3>
+              <h3 class="box-title">Cabai Terjual (kg)</h3>
 
               <div class="box-tools pull-right">
                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -267,70 +319,18 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-              <div class="row">
-                <div class="col-md-8">
-                  <div class="chart-responsive">
-                    <canvas id="pieChart" height="150"></canvas>
-                  </div>
-                  <!-- ./chart-responsive -->
-                </div>
-                <!-- /.col -->
-                <div class="col-md-4">
-                  <ul class="chart-legend clearfix">
-                    <li><i class="fa fa-circle-o text-red"></i> Rawit</li>
-                    <li><i class="fa fa-circle-o text-green"></i> Kriting</li>
-                    <li><i class="fa fa-circle-o text-yellow"></i> Merah</li>
-                    <li><i class="fa fa-circle-o text-aqua"></i> Gading</li>
-                    <li><i class="fa fa-circle-o text-light-blue"></i> Hijau</li>
-                    <li><i class="fa fa-circle-o text-gray"></i> BS</li>
-                  </ul>
-                </div>
-                <!-- /.col -->
+              <div class="chart-responsive">
+                <canvas id="ringkasan_cabai" height="150"></canvas>
               </div>
-              <!-- /.row -->
+                  <!-- ./chart-responsive -->
             </div>
             <!-- /.box-body -->
             <div class="box-footer no-padding">
-              <ul class="nav nav-pills nav-stacked">
-                <li><a href="#">United States of America
-                  <span class="pull-right text-red"><i class="fa fa-angle-down"></i> 12%</span></a></li>
-              </ul>
             </div>
             <!-- /.footer -->
           </div>
           <!-- /.box -->
           <div class="clearfix"></div>
-        </div>
-        <!-- ./col -->
-
-        <div class="col-md-4 col-sm-12">
-        <!-- Harga Bon -->
-          <div class="box box-info">
-            <div class="box-header with-border">
-              <h3 class="box-title">Daftar Harga Barang Bon</h3>
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body ">
-                <table class="table table-condensed no-margin">
-                  <thead>
-                    <tr>
-                      <th style="text-align: center; line-height: 50px">No</th>
-                      <th style="text-align: center; line-height: 50px">Kode</th>
-                      <th style="text-align: center; line-height: 50px">Nama Barang</th>
-                      <th style="text-align: center; line-height: 50px">Harga</th>
-                      <th style="text-align: center; line-height: 50px">Stok</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                  </tbody>
-                </table>
-            </div>
-            <div class="box-footer clearfix" style="border: 1px solid #f0f0f0;">
-              <button type="button" class="btn btn-sm btn-default pull-right" data-toggle="modal" data-target="#editHarga">
-                <i class="fa fa-edit"></i> Edit Harga </button>
-            </div>
-                  <!-- /.box-body -->
-          </div>
         </div>
         <!-- ./col -->
       </div>
@@ -775,15 +775,12 @@
 <script src="<?php echo base_url();?>assets/bower_components/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap 3.3.7 -->
 <script src="<?php echo base_url();?>assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- datepicker -->
+<script src="<?php echo base_url();?>assets/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
 <!-- FastClick -->
 <script src="<?php echo base_url();?>assets/bower_components/fastclick/lib/fastclick.js"></script>
 <!-- AdminLTE App -->
 <script src="<?php echo base_url();?>assets/js/adminlte.min.js"></script>
-<!-- datepicker -->
-<script src="<?php echo base_url();?>assets/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
-<!-- date-range-picker -->
-<script src="<?php echo base_url();?>assets/bower_components/moment/min/moment.min.js"></script>
-<script src="<?php echo base_url();?>assets/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
 <!-- jvectormap -->
 <script src="<?php echo base_url();?>assets/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
 <script src="<?php echo base_url();?>assets/plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
@@ -791,18 +788,82 @@
 <script src="<?php echo base_url();?>assets/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="<?php echo base_url();?>assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 <!-- ChartJS -->
-<script src="<?php echo base_url();?>assets/bower_components/Chart.js/Chart.js"></script>
+<script src="<?php echo base_url();?>assets/bower_components/chart.js/Chart.js"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="<?php echo base_url();?>assets/js/pages/dashboard2.js"></script>
+<!-- <script src="<?php echo base_url();?>assets/js/pages/dashboard2.js"></script> -->
 <!-- AdminLTE for demo purposes -->
 <script src="<?php echo base_url();?>assets/js/demo.js"></script>
 
 <script>
   //Date range picker
-    $('#reservation').daterangepicker()
-    $('#pickbulan').daterangepicker()
-    $('#picktahun').daterangepicker()
-    $('#rekap_hari').DataTable()
+  $(document).ready(function() {
+      $.ajax({
+        url : "http://localhost/MakeItEasy/Perusahaan/rekap_cabai",
+        type : "GET",
+        dataType: "JSON",
+        success : function(data){
+          console.log(data);
+
+          var jenis = [];
+          var berat = [];
+
+          for (var i in data) {
+            jenis.push(data[i].jenis);
+            berat.push(data[i].bersih);
+          }
+
+          var config = {
+            type: 'doughnut',
+            data: {
+              datasets: [{
+                data: berat,
+                backgroundColor: [
+                  'rgba(255, 51, 51, 1)',
+                  'rgba(255, 153, 51, 1)',
+                  'rgba(255, 255, 51, 1)',
+                  'rgba(153, 255, 51, 1)',
+                  'rgba(0, 204, 0, 1)',
+                  'rgba(51, 255, 153, 1)',
+                  'rgba(0, 204, 204, 1)',
+                  'rgba(51, 153, 255, 1)',
+                  'rgba(153, 153, 255, 1)',
+                  'rgba(178, 102, 255, 1)',
+                  'rgba(255, 102, 255, 1)',
+                  'rgba(160, 160, 160, 1)',
+                ],
+                label: 'Dataset 1'
+              }],
+              labels: jenis,
+            },
+            options: {
+              responsive: true,
+              legend: {
+                position: 'right',
+              },
+              title: {
+                display: false
+              },
+              animation: {
+                animateScale: true,
+                animateRotate: true
+              }
+            }
+          };
+
+          var ctx = document.getElementById('ringkasan_cabai').getContext('2d');
+          window.myDoughnut = new Chart(ctx, config);
+        }
+      });
+
+    $('#monthly_date').datepicker({
+      format : "yyyy-mm",
+      todayHighlight : 'true',
+      startView : "months",
+      minViewMode : "months"
+    });
+    //$('#pickbulan').daterangepicker()
+    //$('#picktahun').daterangepicker()
+    $('.rekap_hari').DataTable()
     $('#rekap_bulan').DataTable()
     $('#rekap_tahun').DataTable()
 
@@ -810,6 +871,8 @@
     $('#datepicker').datepicker({
       autoclose: true 
       })
+
+  });
 </script>
 </body>
 </html>

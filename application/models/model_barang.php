@@ -28,4 +28,19 @@ class model_barang extends CI_Model {
 		$query = $this->db->query("SELECT barang, harga FROM tb_bon WHERE id='$id'");
 		return $query->row();
 	}
+
+	public function delete_barangBon($id)	{
+		$this->db->where('id', $id);
+		$this->db->delete('tb_bon');
+	}
+
+	public function edit_barang($id)	{
+		$query = $this->db->query("SELECT * FROM tb_bon WHERE id='$id'");
+		return $query->row();
+	}
+
+	public function updateBarang($id, $data)	{
+		$this->db->where('id', $id);
+		$this->db->update('tb_bon', $data);
+	}
 }

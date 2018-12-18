@@ -26,6 +26,7 @@ class DataProfil extends CI_Controller {
 
 			$data['tb_petani'] = $this->model_profil->tb_petani();
 			$data['today'] = $date;
+			$data['jumlah_petani'] = $this->model_profil->count_petani();
 
 			$this->load->view('header');
 			$this->load->view('list_petani', $data);
@@ -34,6 +35,7 @@ class DataProfil extends CI_Controller {
 	public function pemborong()
 		{
 			$data['tb_pembeli'] = $this->model_profil->tb_pembeli();
+			$data['jumlah_pembeli'] = $this->model_profil->count_pembeli();
 
 			$this->load->view('header');
 			$this->load->view('list_pemborong', $data);
@@ -64,5 +66,63 @@ class DataProfil extends CI_Controller {
 			$this->load->view('header');
 			$this->load->view('detail_pemborongREV', $data);
 		}
+
+	function edit_profil_petani()	{
+		$id = $this->input->post('id');
+		$query = $this->db->query("SELECT * FROM tb_petani WHERE id='$id'");
+
+		echo json_encode($query->row());
+	}
+
+	function edit_profil_pembeli()	{
+		$id = $this->input->post('id');
+		$query = $this->db->query("SELECT * FROM tb_pembeli WHERE id='$id'");
+
+		echo json_encode($query->row());
+	}
+
+	function update_profil_petani()	{
+		$id = $this->input->post('id');
+		$kemitraan = $this->input->post('kemitraan');
+		$nama = $this->input->post('nama');
+		$nama_panggil = $this->input->post('nama_panggil');
+		$desa = $this->input->post('desa');
+		$alamat = $this->input->post('alamat');
+		$no_telp = $this->input->post('no_telp');
+		$jaminan = $this->input->post('jaminan');
+
+		$data = array(
+			'kemitraan' => $kemitraan,
+			'nama' => $nama,
+			'nama_panggil' => $nama_panggil,
+			'desa' => $desa,
+			'alamat' => $alamat,
+			'no_telp' => $no_telp,
+			'jaminan' => $jaminan );
+
+		$this->db->where('id', $id);
+		$this->db->update('tb_petani', $data);
+
+		echo "success";
+	}
+
+	function update_profil_pembeli()	{
+		$id = $this->input->post('id');
+		$nama = $this->input->post('nama');
+		$alamat = $this->input->post('alamat');
+		$no_telp = $this->input->post('no_telp');
+		$no_rek = $this->input->post('no_rek');
+
+		$data = array(
+			'nama' => $nama,
+			'alamat' => $alamat,
+			'no_telp' => $no_telp,
+			'no_rek' => $no_rek );
+
+		$this->db->where('id', $id);
+		$this->db->update('tb_pembeli', $data);
+
+		echo "success";
+	}
 }
 ?>

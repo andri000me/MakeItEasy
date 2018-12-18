@@ -42,7 +42,7 @@
                       <div class="input-group-addon">
                         <i class="fa fa-calendar"></i>
                       </div>
-                      <input type="text" class="form-control input-tanggal" name="start" id="start" value="<?php echo $startdate ?>">
+                      <input type="text" class="form-control input-tanggal" name="start" id="start" required value="<?php echo $startdate ?>">
                     </div>
                   </div>
 
@@ -52,7 +52,7 @@
                       <div class="input-group-addon">
                         <i class="fa fa-calendar"></i>
                       </div>
-                      <input type="text" class="form-control input-tanggal" name="end" id="end" value="<?php echo $enddate ?>">
+                      <input type="text" class="form-control input-tanggal" name="end" id="end" required value="<?php echo $enddate ?>">
                     </div>
                   </div>
 
@@ -75,7 +75,7 @@
                         <th style="text-align: center; line-height: 50px" rowspan="2">Nama</th>
                         <th style="text-align: center; line-height: 50px" rowspan="2">Kode Cabai</th>
                         <th style="text-align: center; line-height: 50px" colspan="2">Harga</th>
-                        <th style="text-align: center;" colspan="3">Berat</th>
+                        <th style="text-align: center;" colspan="4">Berat</th>
                         <th style="text-align: center; line-height: 50px" rowspan="2">Jumlah Uang</th>
                         <th style="text-align: center; line-height: 50px" rowspan="2">Action</th>
                       </tr>
@@ -84,6 +84,7 @@
                         <th>Bersih</th>
                         <th>Kotor</th>
                         <th>BS/MTD</th>
+                        <th>Susut</th>
                         <th>Bersih</th>
                       </tr>
                     </thead>
@@ -91,11 +92,11 @@
                     <?php
                       if (!empty($riwayat_transpetani)) {
                         $no=1; foreach ($riwayat_transpetani as $key) {
-                            $berat_bersih = $key->berat_kotor-$key->berat_bs;
+                            $berat_bersih = $key->berat_kotor-$key->berat_bs-$key->berat_susut;
                             $jumlah_uang = $berat_bersih * $key->harga_bersih + $key->berat_bs * $key->harga_bs;
 
-                            echo "<tr><td>".$no."</td><td>".$key->tanggal."</td><td>".$key->nama_petani."</td><td>".$key->kode_cabai."</td><td>".$key->harga_bs."</td><td>".$key->harga_bersih."</td><td>".$key->berat_kotor."</td><td>".$key->berat_bs."</td><td>".$berat_bersih."</td><td>".$jumlah_uang."</td>
-                                  <td><button type='button' class='btn btn-info btn-xs data-toggle='modal' data-target='#modal-info'>edit</button></td></tr>";
+                            echo "<tr><td>".$no."</td><td>".$key->tanggal."</td><td>".$key->nama_petani."</td><td>".$key->kode_cabai."</td><td>Rp".number_format($key->harga_bs,0,',','.')."</td><td>Rp".number_format($key->harga_bersih,0,',','.')."</td><td>".number_format($key->berat_kotor,1)."</td><td>".number_format($key->berat_bs,1)."</td><td>".number_format($key->berat_susut,1)."</td><td>".number_format($berat_bersih,1)."</td><td>Rp".number_format($jumlah_uang,0,',','.')."</td>
+                                  <td><button id='".$key->id."' class='btn btn-info btn-xs edit_data' data-toggle='modal' data-target='#editSetoran'>edit</button> <button id='del_".$key->id."' class='delete btn btn-danger btn-xs'>Hapus</button></td></tr>";
                         
                             $no++;
                         }
@@ -125,6 +126,103 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
+
+<!-- Modal Edit Setoran-->
+    <div id="editSetoran" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Masukkan Setoran</h4>
+          </div>
+      <div class="modal-body">
+
+          <div class="row" style="padding-bottom: 5px">
+            <div class="col-md-4">
+              <label>Tanggal :</label>
+            </div>
+            <div class="col-md-8">
+              <input type="text" name="tanggal" class="form-control input-tanggal" id="tanggal">
+              <input type="text" name="id_transaksi" id="id_transaksi" hidden="">
+            </div>
+          </div>
+
+          <div class="row" style="padding-bottom: 5px">
+            <div class="col-md-4">
+              <label>Nama Petani :</label>
+            </div>
+            <div class="col-md-8">
+              <input type="text" class="form-control"  name="nama_petani" id="nama_petani">
+            </div>
+          </div>
+
+
+          <div class="row" style="padding-bottom: 5px">
+            <div class="col-md-4">
+             <label>Kode :</label>
+            </div>
+            <div class="col-md-8">
+              <input type="text" name="cabai" id="cabai" class="form-control" style="width: 100%" readonly required>
+            </div>
+          </div>
+
+          <div class="row" style="padding-bottom: 5px">
+            <div class="col-md-4">
+              <label>Harga :</label>
+            </div>
+            <div class="col-md-3">
+             <input type="number" name="harga_petani" id="harga_petani" class="form-control">
+            </div>
+            <div class="col-md-2">
+              <label>BS/MTD :</label>
+            </div>
+            <div class="col-md-3">
+             <input type="number" name="harga_bs" id="harga_bs" class="form-control">
+            </div>
+          </div>
+                
+          <div class="col-md-12" style="text-align: center; padding-bottom: 5px; padding-top: 10px">    
+            <b>Berat</b>
+          </div>
+          <div class="row">
+              <div class="col-md-4">
+                <label>Kotor</label>
+                <input type="number" step="0.01" name="berat_kotor" id="berat_kotor" class="form-control">kg
+              </div>
+              <div class="col-md-4">
+                <label>BS/MTD </label>
+                <input type="number" step="0.01" name="berat_bs" id="berat_bs" class="form-control">kg
+              </div>
+              <div class="col-md-4">
+                <label>Bersih </label>
+                <input type="number" step="0.01" id="berat_bersih" class="form-control" disabled="">kg
+              </div>
+          </div>
+
+          <div class="row" style="margin-top: 20px">
+            <div class="col-md-4">
+              <label>Jumlah Uang :</label>
+            </div>
+            <div class="col-md-8">
+             <input type="number" name="jumlah_uang" id="jumlah_uang" class="form-control" disabled="">
+            </div>
+          </div>
+
+      </div>
+
+          <div class="modal-footer">
+            <button class="btn btn-info" id="btn_update">Update</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+    <!-- END Modal Input Setoran -->
+
   <footer class="main-footer">
     <div class="pull-right hidden-xs">
       <b>Version</b> 2.4.0
@@ -354,7 +452,138 @@
     });
 
      $('.datatables').DataTable()
+
+          $('.delete').click(function(){
+      var el = this;
+      var id = this.id;
+      console.log(id);
+      var splitid = id.split("_");
+
+      // Delete id
+      var deleteid = splitid[1];
+ 
+        if(confirm('Apakah Anda yakin menghapus transaksi?'))
+        {
+          // AJAX Request
+          $.ajax({
+            url: '<?php echo base_url();?>Riwayat/delete_transNonMitra',
+            type: 'POST',
+            data: { id: deleteid, table: 'transaksi_petaninonmitra' },
+            success: function(response){
+
+              // Removing row from HTML Table
+              $(el).closest('tr').css('background','tomato');
+              $(el).closest('tr').fadeOut(600, function(){ 
+               $(this).remove();
+              });
+            },
+            error: function(){
+              alert('Gagal menghapus');
+            }
+          });
+        }
+      });
+
+      $('.edit_data').click(function(){
+           var id_transaksi = this.id;
+           editSetoran(id_transaksi);
+      });
+
+      //Menghitung Berat Bersih dan Jumlah Uang
+      $('#berat_kotor').on('change', function()  {
+        showJumlahUang();
+      }); 
+      $('#berat_susut').on('change', function()  {
+          showJumlahUang();
+      }); 
+      $('#berat_bs').on('change', function()  {
+        showJumlahUang();
+      });
+      $('#harga_bs').on('change', function()  {
+        showJumlahUang();
+      });
+      $('#harga_petani').on('change', function()  {
+        showJumlahUang();
+      });
+
+
+      $('#btn_update').click(function(){
+        updateSetoran();
+      });
   })
+
+  function editSetoran(id_trans)  {
+           $.ajax({  
+                url:"<?php echo base_url();?>Riwayat/edit_transNonMitra",  
+                method:"POST",  
+                data:{id_transaksi:id_trans, table: 'transaksi_petaninonmitra'},  
+                dataType:"json",  
+                success:function(data){
+                    var berat_bersih = data.berat_kotor - data.berat_bs - data.berat_susut;
+                    var jumlah_uang = berat_bersih * data.harga_bersih + data.berat_bs * data.harga_bs;
+                    //var opt= document.getElementById('cabai').options[0];
+
+                     $('#id_transaksi').val(data.id);
+                     $('#tanggal').val(data.tanggal);  
+                     $('#nama_petani').val(data.nama_petani);
+                     $('#cabai').val(data.kode_cabai + ' (' + data.jenis + ')');
+                     $('#harga_petani').val(data.harga_bersih);
+                     $('#harga_bs').val(data.harga_bs);   
+                     $('#berat_kotor').val(data.berat_kotor);
+                     $('#berat_bs').val(data.berat_bs);
+                     $('#berat_bersih').val(berat_bersih);
+                     $('#berat_susut').val(data.berat_susut);
+                     $('#jumlah_uang').val(jumlah_uang);
+                }  
+           });
+  }
+
+  function showJumlahUang() {
+      var harga_bersih = $('#harga_petani').val()
+      var harga_bs = $('#harga_bs').val()
+      var kotor = $('#berat_kotor').val()
+      var bs = $('#berat_bs').val()
+      var susut = $('#berat_susut').val()
+      var bersih = kotor - bs - susut
+
+      var jumlah_uang = (bersih * harga_bersih) + (bs * harga_bs)
+
+      $('#berat_bersih').val(bersih)
+      $('#jumlah_uang').val(jumlah_uang)
+  }
+
+  function updateSetoran() {
+      var id_transaksi = $('#id_transaksi').val()
+      var tanggal = $('#tanggal').val()
+      var nama_petani = $('#nama_petani').val()
+      var harga_bersih = $('#harga_petani').val()
+      var harga_bs = $('#harga_bs').val()
+      var berat_kotor = $('#berat_kotor').val()
+      var berat_bs = $('#berat_bs').val()
+      var berat_susut = $('#berat_susut').val()
+      var jumlah_uang = $('#jumlah_uang').val()
+
+      $.ajax({
+        url:"<?php echo base_url();?>Riwayat/updateSetoranNonMitra",  
+        type:"POST",  
+        data:{
+          id_transaksi: id_transaksi,
+          tanggal: tanggal,
+          nama_petani: nama_petani,
+          harga_bersih: harga_bersih,
+          harga_bs: harga_bs,
+          berat_kotor: berat_kotor,
+          berat_bs: berat_bs,
+          berat_susut: berat_susut,
+          jumlah_uang: jumlah_uang,
+          table: 'transaksi_petaninonmitra' },
+        success:function(data){
+          location.reload(true);
+          $('#successful_edit').html('<div class="alert alert-success alert-dismissible"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>Berhasil!</strong>  Setoran Petani berhasil diperbarui</div>');
+        }
+      })
+  }
+
 </script>
 </body>
 </html>
