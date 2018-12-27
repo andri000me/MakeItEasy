@@ -74,6 +74,23 @@ class Perusahaan extends CI_Controller {
 		$this->load->view('PerusahaanREV', $data);
 	}
 
+	function DashboardDate()
+	{
+		$date = $this->input->post('lihatTanggal');
+
+		$data = array(
+			'jumlah_petani' => $this->model_profil->count_petani(),
+			'jumlah_pembeli' => $this->model_profil->count_pembeli(),
+			'today_month' => $date,
+			'rekap_petani_harian' => $this->model_perusahaan->rekap_petani_harian($date),
+			'rekap_pembeli_harian' => $this->model_perusahaan->rekap_pembeli_harian($date),
+			'rekap_pemasukan_pengeluaran' => $this->model_perusahaan->rekap_pemasukan_pengeluaran($date) 
+		);
+
+		$this->load->view('header');
+		$this->load->view('PerusahaanREV', $data);
+	}
+
 	function delete_catatan()
 	{
 		$id = $this->input->post('id');

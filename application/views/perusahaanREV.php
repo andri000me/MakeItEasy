@@ -93,9 +93,9 @@
         <div class="col-md-12">
           <div class="box">
             <div class="box-header with-border">
-              <h3 class="box-title">Rekap Transaksi Bulan Ini : 
+              <h3 class="box-title">Rekap Transaksi Tahun : 
                 <b>
-                  <?php echo date('F Y', strtotime($today_month)) ?>
+                  <?php echo date('Y', strtotime($today_month)) ?>
                 </b>
               </h3> 
 
@@ -157,19 +157,12 @@
 
       <div class="panel bg-blue">
         <div class="row">
+          <form method="post" action="<?php echo base_url();?>Perusahaan/DashboardDate">
           <div class="col-md-3">
             <h3 class="text-white" style="margin-bottom: 20px; margin-left: 15px">Lihat Rekap Bulan</h3>
           </div>
           <div class="col-md-2">
             <h3><i>
-<!--               <script language="javascript">
-                var now = new Date();
-                document.write(monthNames[now.getMonth()]);
-              </script>
-              <script language="javascript">
-                var now = new Date();
-                document.write(now.getFullYear());
-              </script> -->
               <?php echo date('F Y', strtotime($today_month)) ?>
             </i></h3>
           </div>
@@ -179,13 +172,14 @@
                   <div class="input-group-addon">
                     <i class="fa fa-calendar"></i>
                   </div>
-                  <input type="text" class="form-control pull-right" value="<?php echo $today_month; ?>" id="monthly_date">
+                  <input required type="text" class="form-control pull-right" value="<?php echo $today_month; ?>" id="monthly_date" name="lihatTanggal">
                 </div>
               </div>
           </div>
           <div class="col-md-2" style="margin-top: 20px">
             <button class="btn btn-default">Lihat</button>
           </div>
+          </form>
         </div>
 
       </div>
@@ -335,234 +329,6 @@
         <!-- ./col -->
       </div>
       <!-- END row dibawah grafik -->
-
-      <!-- row grafik periodik -->
-      <div class="row">
-        <div class="col-md-6 col-sm-12">
-          <!-- solid sales graph -->
-          <div class="box box-solid bg-teal-gradient">
-            <div class="box-header">
-              <i class="fa fa-th"></i>
-
-              <h3 class="box-title">Grafik Bulan Kemarin : 
-                <script language="javascript">
-                  var monthNames = new Array(
-                    "Januari","Februari","Maret","April","Mei","Juni","Juli",
-                    "Agustus","September","Oktober","November","Desember");
-                  var now = new Date();
-                  document.write(monthNames[now.getMonth()-1]);
-                </script>
-              </h3>
-
-              <div class="box-tools pull-right">
-                <button type="button" class="btn bg-teal btn-sm" data-widget="collapse"><i class="fa fa-minus"></i>
-                </button>
-              </div>
-            </div>
-            <div class="box-body border-radius-none">
-              <div class="chart" id="line-chart" style="height: 250px;"></div>
-            </div>
-            <!-- /.box-body -->
-            <div class="box-footer text-black">
-              <div class="row">
-                <div class="col-sm-4">
-                  <div class="description-block border-right">
-                    <span class="description-percentage text-green"><i class="fa fa-caret-up"></i> 17%</span>
-                    <h5 class="description-header">$35,210.43</h5>
-                    <span class="description-text">TOTAL PENDAPATAN</span>
-                  </div>
-                  <!-- /.description-block -->
-                </div>
-                <!-- /.col -->
-                <div class="col-sm-4">
-                  <div class="description-block border-right">
-                    <span class="description-percentage text-yellow"><i class="fa fa-caret-left"></i> 0%</span>
-                    <h5 class="description-header">$10,390.90</h5>
-                    <span class="description-text">TOTAL PENGELUARAN</span>
-                  </div>
-                  <!-- /.description-block -->
-                </div>
-                <!-- /.col -->
-                <div class="col-sm-4">
-                  <div class="description-block border-right">
-                    <span class="description-percentage text-green"><i class="fa fa-caret-up"></i> 20%</span>
-                    <h5 class="description-header">$24,813.53</h5>
-                    <span class="description-text">TOTAL PROFIT</span>
-                  </div>
-                  <!-- /.description-block -->
-                </div>
-                <!-- /.col -->
-              </div>
-              <!-- /.row -->
-            </div>
-            <!-- /.box-footer -->
-          </div>
-          <!-- /.box -->
-
-          <!-- tabel bulan -->
-          <div class="box" style="border-top: 3px solid #39cccc;">
-            <div class="box-header">
-              <div class="box-title">
-                <div class="row">
-                  <div class="col-md-3">
-                   Rekap bulan :  
-                  </div>
-                  <div class="col-md-5">
-                    <div class="form-group">
-                      <div class="input-group">
-                        <div class="input-group-addon">
-                          <i class="fa fa-calendar"></i>
-                        </div>
-                        <input type="text" class="form-control pull-right" id="pickbulan">
-                      </div>
-                      <!-- /.input group -->
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- /.box-title -->
-            </div>
-            <!-- /.box-header -->
-
-            <div class="box-body table-responsive">
-              <table id="rekap_bulan" class="table table-bordered table-striped">
-                <thead>
-                  <tr class="bg-teal">
-                    <th style="text-align: center;">No</th>
-                    <th style="text-align: center;">Bulan-Tahun</th>
-                    <th style="text-align: center;">Cabai Masuk</th>
-                    <th style="text-align: center;">Pendapatan</th>
-                    <th style="text-align: center;">Pengeluaran</th>
-                    <th style="text-align: center;">Saldo Perusahaan</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <td> 1 </td>
-                  <td> Juli 2018 </td>
-                  <td> 109 kg </td>
-                  <td> Rp 1.000.000 </td>
-                  <td> Rp 2.500.000 </td>
-                  <td> Rp 90.000.000 </td>
-                </tbody>
-              </table>
-            </div>
-            <!-- /.box-body -->
-          </div>
-          <!-- /.box -->
-        </div>
-        <!-- ./col -->
-        <div class="col-md-6 col-sm-12">
-          <!-- solid sales graph -->
-          <div class="box box-solid bg-aqua-gradient">
-            <div class="box-header">
-              <i class="fa fa-th"></i>
-
-              <h3 class="box-title">Grafik Tahun Ini : 
-                <script language="javascript">
-                  var now = new Date();
-                  document.write(now.getFullYear());
-                </script>
-              </h3>
-
-              <div class="box-tools pull-right">
-                <button type="button" class="btn bg-teal btn-sm" data-widget="collapse"><i class="fa fa-minus"></i>
-                </button>
-              </div>
-            </div>
-            <div class="box-body border-radius-none">
-              <div class="chart" id="line-chart" style="height: 250px;"></div>
-            </div>
-            <!-- /.box-body -->
-            <div class="box-footer text-black">
-              <div class="row">
-                <div class="col-sm-4">
-                  <div class="description-block border-right">
-                    <span class="description-percentage text-green"><i class="fa fa-caret-up"></i> 17%</span>
-                    <h5 class="description-header">$35,210.43</h5>
-                    <span class="description-text">TOTAL PENDAPATAN</span>
-                  </div>
-                  <!-- /.description-block -->
-                </div>
-                <!-- /.col -->
-                <div class="col-sm-4">
-                  <div class="description-block border-right">
-                    <span class="description-percentage text-yellow"><i class="fa fa-caret-left"></i> 0%</span>
-                    <h5 class="description-header">$10,390.90</h5>
-                    <span class="description-text">TOTAL PENGELUARAN</span>
-                  </div>
-                  <!-- /.description-block -->
-                </div>
-                <!-- /.col -->
-                <div class="col-sm-4">
-                  <div class="description-block border-right">
-                    <span class="description-percentage text-green"><i class="fa fa-caret-up"></i> 20%</span>
-                    <h5 class="description-header">$24,813.53</h5>
-                    <span class="description-text">TOTAL PROFIT</span>
-                  </div>
-                  <!-- /.description-block -->
-                </div>
-                <!-- /.col -->
-              </div>
-              <!-- /.row -->
-            </div>
-            <!-- /.box-footer -->
-          </div>
-          <!-- /.box -->
-
-          <!-- tabel bulan -->
-          <div class="box box-info">
-            <div class="box-header">
-              <div class="box-title">
-                <div class="row">
-                  <div class="col-md-3">
-                   Rekap tahun :  
-                  </div>
-                  <div class="col-md-5">
-                    <div class="form-group">
-                      <div class="input-group">
-                        <div class="input-group-addon">
-                          <i class="fa fa-calendar"></i>
-                        </div>
-                        <input type="text" class="form-control pull-right" id="picktahun">
-                      </div>
-                      <!-- /.input group -->
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- /.box-title -->
-            </div>
-            <!-- /.box-header -->
-
-            <div class="box-body table-responsive">
-              <table id="rekap_tahun" class="table table-bordered table-striped">
-                <thead>
-                  <tr class="bg-aqua">
-                    <th style="text-align: center;">No</th>
-                    <th style="text-align: center;">Tahun</th>
-                    <th style="text-align: center;">Cabai Masuk</th>
-                    <th style="text-align: center;">Pendapatan</th>
-                    <th style="text-align: center;">Pengeluaran</th>
-                    <th style="text-align: center;">Saldo Perusahaan</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <td> 1 </td>
-                  <td> Juli 2018 </td>
-                  <td> 109 kg </td>
-                  <td> Rp 1.000.000 </td>
-                  <td> Rp 2.500.000 </td>
-                  <td> Rp 90.000.000 </td>
-                </tbody>
-              </table>
-            </div>
-            <!-- /.box-body -->
-          </div>
-          <!-- /.box -->
-        </div>
-        <!-- ./col -->
-      </div>
-      <!-- END row grafik -->
     </section>
     <!-- /.content -->
   </div>
