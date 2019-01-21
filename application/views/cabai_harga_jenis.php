@@ -58,8 +58,8 @@
           <!-- Custom Tabs -->
           <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">
-              <li class="active"><a href="#tab_cabai" data-toggle="tab"><i class="fa fa-leaf text-green"></i> Atur Harga Cabai</a></li>
-              <li><a href="#tab_bon" data-toggle="tab"><i class="fa fa-cubes text-aqua"></i> Atur Jenis Cabai</a></li>
+              <li class="active"><a href="#tab_cabai" data-toggle="tab"><i class="fa fa-dollar text-red"></i> Atur Harga Cabai</a></li>
+              <li><a href="#tab_bon" data-toggle="tab"><i class="fa fa-gears text-yellow"></i> Atur Jenis Cabai</a></li>
             </ul>
             <div class="tab-content">
               <div class="tab-pane active" id="tab_cabai">

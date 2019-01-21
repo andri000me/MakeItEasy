@@ -24,12 +24,38 @@
           <div class="info-box-content">
             <span class="info-box-text">Jumlah Petani</span>
             <span class="info-box-number"><?php echo $jumlah_petani; ?></span>
-          </div>
+          </div>          
           <!-- /.info-box-content -->
         </div>
         <!-- /.info-box -->
       </div>
       <!-- /.col -->
+
+      <!-- Action Button -->
+          <div class="col-md-3">
+              <div class="box box-solid">
+                <div class="box-header">
+                  <h3 class="box-title">Masukkan Transaksi</h3>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body" style="text-align: center;">
+                   <div class="btn-group-vertical">
+                      <button type="button" class="btn btn-block btn-setor-ver bg-green" data-toggle="modal" data-target="#inputSetoran"> <i class="fa fa-plus"></i> Inputkan Setoran</button>
+                      <button type="button" class="btn btn-block btn-setor-ver bg-yellow"> <i class="fa fa-user-plus"></i> Tambah petani</button>
+                  </div>
+                </div>
+                <div class="box-footer clearfix">
+                  <h5 class="pull-left">
+                    Jumlah transaksi hari ini
+                  </h5>
+                  <h4 class="pull-right" style="font-weight: bold">
+                    64
+                  </h4>
+                </div>
+                      <!-- /.box-body -->
+              </div>
+          </div>
+          <!-- END Action Button -->
     </div>
     <!-- /.row -->
 
