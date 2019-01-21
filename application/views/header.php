@@ -4,6 +4,8 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Make It Easy</title>
+  <!-- Favicon (ini diganti gambar yang sesuai-->
+  <link rel="icon" href="../../dist/img/logomie.png">
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -15,8 +17,6 @@
   <link rel="stylesheet" href="<?php echo base_url();?>assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css"> 
   <!-- Select2 -->
   <link rel="stylesheet" href="<?php echo base_url();?>assets/bower_components/select2/dist/css/select2.min.css">
-
-  <!-- NOTED Kerjaan Ipeh -> bisa dipilih yang bener2 dipake yang mana, biar gak berat, terus buat datepicker pake jquery-ui saja --> 
   <!-- Theme style -->
   <link rel="stylesheet" href="<?php echo base_url();?>/assets/css/AdminLTE.min.css">
    <link rel="stylesheet" href="<?php echo base_url();?>/assets/css/inpo-box.css">
@@ -37,8 +37,8 @@
 
   <header class="main-header">
     <!-- Logo -->
-    <a href="../index2.html" class="logo">
-      <span class="logo-lg"><b>MakeIt</b> Easy</span>
+    <a href="<?php echo base_url();?>Transaksi/transpetani" class="logo">
+      <span class="logo-lg"><b>Make It</b> Easy</span>
     </a>
 
     <!-- Header Navbar: style can be found in header.less -->
@@ -71,16 +71,14 @@
               </li>
               <!-- Menu Footer-->
               <li class="user-footer">
+                <div class="pull-left">
+                  <a href="#" class="btn btn-default btn-flat">Ubah Password</a>
+                </div>
                 <div class="pull-right">
-                  <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                  <a href="#" class="btn btn-danger btn-flat">Sign out</a>
                 </div>
               </li>
             </ul>
-          </li>
-
-          <!-- Control Sidebar Toggle Button -->
-          <li>
-            <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
           </li>
         </ul>
       </div>
