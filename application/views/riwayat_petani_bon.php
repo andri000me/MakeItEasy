@@ -26,16 +26,25 @@
               <h3 class="box-title">Riwayat Transaksi berdasarkan Tanggal</h3>
             </div>
 
-              <div class="col-md-12">
-                  <span class="fa fa-male fa-3x pull-right">  Petani</span> 
-              </div>
             <div class="box-body">
-            
-
-              <!-- Date range -->
+            <!-- Date range -->
               <div class="row">
+                <div class="col-md-4">
+                  <div class="callout callout-info">
+                    <div class="row">
+                      <div class="col-md-2">
+                        <i class="icon fa fa-cubes fa-3x"></i>
+                      </div>
+                      <div class="col-md-10">
+                        <h4> Petani_Bon</h4>
+                        <p>Lihat riwayat transaksi bon dari petani mitra</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
                 <form action="<?php echo base_url();?>Riwayat/RiwayatPetaniBon" method="post">
-                  <div class="form-group col-md-5">
+                  <div class="form-group col-md-3">
                     <label>Tanggal Mulai :</label>
 
                     <div class="input-group">
@@ -46,7 +55,7 @@
                     </div>
                   </div>
 
-                  <div class="form-group col-md-5">
+                  <div class="form-group col-md-3">
                     <label>Tanggal Selesai :</label>
                     <div class="input-group">
                       <div class="input-group-addon">

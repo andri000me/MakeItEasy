@@ -26,16 +26,25 @@
               <h3 class="box-title">Riwayat Transaksi berdasarkan Tanggal</h3>
             </div>
             
-            <div class="col-md-12">
-               <span class="fa fa-cart-plus fa-3x pull-right">  Pembeli</span>
-            </div>
             <div class="box-body">
-            
-
-            <!-- Date range -->
+                        <!-- Date range -->
               <div class="row">
+                <div class="col-md-4">
+                  <div class="callout callout-danger">
+                    <div class="row">
+                      <div class="col-md-2">
+                        <i class="icon fa fa-cart-plus fa-3x"></i>
+                      </div>
+                      <div class="col-md-10">
+                         <h4> Pembeli Mitra</h4>
+                      <p>Lihat riwayat transaksi dengan pembeli mitra</p>
+                      </div>
+                    </div>
+                   
+                  </div>
+                </div>
                 <form action="<?php echo base_url();?>/Riwayat/RiwayatPemborong" method="post">
-                  <div class="form-group col-md-5">
+                  <div class="form-group col-md-3">
                     <label>Tanggal Mulai :</label>
 
                     <div class="input-group">
@@ -46,7 +55,7 @@
                     </div>
                   </div>
 
-                  <div class="form-group col-md-5">
+                  <div class="form-group col-md-3">
                     <label>Tanggal Selesai :</label>
                     <div class="input-group">
                       <div class="input-group-addon">

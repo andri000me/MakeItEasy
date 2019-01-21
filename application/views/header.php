@@ -94,14 +94,14 @@
           <img src="<?php echo base_url();?>/assets/img/user2-160x160.jpg" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-          <p>Admin</p>
+          <h4>ADMIN</h4>
 
         </div>
       </div>
 
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
-
+        <li class="header">MENU UTAMA</li>
         <li class="treeview">
           <a href="#">
             <i class="fa fa-edit"></i> <span>Input Transaksi</span>
@@ -179,6 +179,19 @@
             <i class="fa fa-line-chart"></i> <span>Dashboard</span>
             <span class="pull-right-container">
             </span>
+          </a>
+        </li>
+        <li class="header">AKUN ADMIN</li>
+        <li>
+          <a href="#">
+            <i class="fa fa-lock text-warning"></i> <span>Ubah Password</span>
+
+          </a>
+        </li>
+
+        <li>
+          <a href="#">
+            <i class="fa fa-sign-out text-danger"></i> <span>Keluar</span>
           </a>
         </li>
 
