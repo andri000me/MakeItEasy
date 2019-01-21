@@ -188,7 +188,7 @@
             <div class="box-body">
               <div class="row">
                 <div class="col-md-4">
-                  <div class="box" style="border: 2px solid #f39c12;">
+                  <div class="box" style="border: 2px solid #00a65a;">
                     <div class="box-body">
                       <form action="<?php echo base_url();?>Perusahaan/Pemasukan" method="post">
 

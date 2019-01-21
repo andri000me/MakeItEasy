@@ -26,7 +26,7 @@
             </div>
             
             <div class="col-md-12">
-               <span class="fa fa-male fa-3x pull-right">  Petani</span>
+               <span class="fa fa-leaf fa-3x pull-right"> Cabai (Petani)</span>
             </div>
             <div class="box-body">
             

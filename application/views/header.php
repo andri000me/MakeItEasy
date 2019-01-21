@@ -113,7 +113,7 @@
           </a>
           <ul class="treeview-menu">
             <li><a href="<?php echo base_url();?>Transaksi/transpetani"><i class="fa fa-male"></i> Petani</a></li>
-            <li><a href="<?php echo base_url();?>Transaksi/transborong"><i class="fa fa-cart-plus"></i> Buyer</a></li>
+            <li><a href="<?php echo base_url();?>Transaksi/transborong"><i class="fa fa-cart-plus"></i> Pembeli</a></li>
             <li><a href="<?php echo base_url();?>Transaksi/transnon"><i class="fa fa-suitcase"></i>Non-Mitra</a></li>
           </ul>
         </li>
@@ -136,14 +136,14 @@
 
         <li class="treeview">
           <a href="#">
-            <i class="fa fa-table"></i> <span>Cabai</span>
+            <i class="fa fa-leaf"></i> <span>Cabai</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="<?php echo base_url();?>Cabai/hargaJenis"><i class="fa fa-male"></i>Pengaturan Harga & Jenis</a></li>
-            <li><a href="<?php echo base_url();?>Cabai/riwayatPetani"><i class="fa fa-cart-plus"></i> Riwayat Harga Cabai Petani</a></li>
+            <li><a href="<?php echo base_url();?>Cabai/hargaJenis"><i class="fa fa-gears"></i>Pengaturan Harga & Jenis</a></li>
+            <li><a href="<?php echo base_url();?>Cabai/riwayatPetani"><i class="fa fa-history"></i> Riwayat Harga Cabai Petani</a></li>
           </ul>
         </li>
 
@@ -157,14 +157,14 @@
      
         <li class="treeview">
           <a href="#">
-            <i class="fa fa-table"></i> <span>Data Profil</span>
+            <i class="fa fa-users"></i> <span>Data Profil</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu">
             <li><a href="<?php echo base_url();?>DataProfil/petani"><i class="fa fa-male"></i> Petani</a></li>
-            <li><a href="<?php echo base_url();?>DataProfil/pemborong"><i class="fa fa-cart-plus"></i> Pelanggan</a></li>
+            <li><a href="<?php echo base_url();?>DataProfil/pemborong"><i class="fa fa-cart-plus"></i> Pembeli</a></li>
           </ul>
         </li>
 
@@ -178,7 +178,7 @@
 
         <li>
           <a href="<?php echo base_url();?>Perusahaan/Dashboard">
-            <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+            <i class="fa fa-line-chart"></i> <span>Dashboard</span>
             <span class="pull-right-container">
             </span>
           </a>
