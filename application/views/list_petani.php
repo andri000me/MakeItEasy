@@ -18,51 +18,31 @@
     <div class="row">
       <!-- /.col -->
       <div class="col-md-4 col-sm-6 col-xs-12">
-        <div class="info-box">
-          <span class="info-box-icon bg-yellow"><i class="ion ion-ios-people-outline"></i></span>
+        <div class="info-box bg-green">
+          <span class="info-box-icon" style="height: 100px!important"><i class="fa fa-male"></i></span>
 
           <div class="info-box-content">
             <span class="info-box-text">Jumlah Petani</span>
-            <span class="info-box-number"><?php echo $jumlah_petani; ?></span>
+            <span class="info-box-number"><?php echo $jumlah_petani; ?> </span>
+            <div class="progress">
+              <div class="progress-bar" style="width: 100%"></div>
+            </div>
+            <span class="progress-description">
+              <button class="btn btn-block btn-warning pull-right" data-toggle="modal" data-target="#addPetani"><i class="fa fa-user-plus"></i>Tambah Petani</button>
+            </span>
+            
           </div>          
           <!-- /.info-box-content -->
         </div>
         <!-- /.info-box -->
       </div>
       <!-- /.col -->
-
-      <!-- Action Button -->
-          <div class="col-md-3">
-              <div class="box box-solid">
-                <div class="box-header">
-                  <h3 class="box-title">Masukkan Transaksi</h3>
-                </div>
-                <!-- /.box-header -->
-                <div class="box-body" style="text-align: center;">
-                   <div class="btn-group-vertical">
-                      <button type="button" class="btn btn-block btn-setor-ver bg-green" data-toggle="modal" data-target="#inputSetoran"> <i class="fa fa-plus"></i> Inputkan Setoran</button>
-                      <button type="button" class="btn btn-block btn-setor-ver bg-yellow"> <i class="fa fa-user-plus"></i> Tambah petani</button>
-                  </div>
-                </div>
-                <div class="box-footer clearfix">
-                  <h5 class="pull-left">
-                    Jumlah transaksi hari ini
-                  </h5>
-                  <h4 class="pull-right" style="font-weight: bold">
-                    64
-                  </h4>
-                </div>
-                      <!-- /.box-body -->
-              </div>
-          </div>
-          <!-- END Action Button -->
     </div>
     <!-- /.row -->
 
     <!-- Main content -->
     <div class="row">
       <div class="col-md-12">
-        <button class="btn btn-success pull-right" data-toggle="modal" data-target="#addPetani"><i class="fa fa-user-plus"></i>Tambah Petani</button>
       </div>
       <div class="col-md-12">
         <div class="box" style="border: 2px solid #dff0d8;">

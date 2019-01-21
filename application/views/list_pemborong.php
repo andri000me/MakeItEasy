@@ -18,12 +18,18 @@
     <div class="row">
       <!-- /.col -->
       <div class="col-md-4 col-sm-6 col-xs-12">
-        <div class="info-box">
-          <span class="info-box-icon bg-maroon"><i class="ion ion-ios-people-outline"></i></span>
+        <div class="info-box bg-maroon">
+          <span class="info-box-icon" style="height: 100px!important"><i class="fa fa-cart-plus"></i></span>
 
           <div class="info-box-content">
             <span class="info-box-text">Jumlah Pembeli</span>
             <span class="info-box-number"><?= $jumlah_pembeli ?></span>
+            <div class="progress">
+              <div class="progress-bar" style="width: 100%"></div>
+            </div>
+            <span class="progress-description">
+              <button class="btn btn-block bg-purple pull-right" data-toggle="modal" data-target="#addPembeli"><i class="fa fa-user-plus"></i>Tambah Pembeli</button>
+            </span>
           </div>
           <!-- /.info-box-content -->
         </div>
@@ -36,7 +42,6 @@
     <!-- Main content -->
     <div class="row">
       <div class="col-md-12">
-        <button class="btn btn-success pull-right" data-toggle="modal" data-target="#addPembeli"><i class="fa fa-user-plus"></i>Tambah Pembeli</button>
       </div>
       <div class="col-md-12">
         <div class="box" style="border: 2px solid #f2dede;">
