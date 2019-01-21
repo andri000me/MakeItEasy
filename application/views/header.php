@@ -15,8 +15,6 @@
   <link rel="stylesheet" href="<?php echo base_url();?>assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css"> 
   <!-- Select2 -->
   <link rel="stylesheet" href="<?php echo base_url();?>assets/bower_components/select2/dist/css/select2.min.css">
-
-  <!-- NOTED Kerjaan Ipeh -> bisa dipilih yang bener2 dipake yang mana, biar gak berat, terus buat datepicker pake jquery-ui saja --> 
   <!-- Theme style -->
   <link rel="stylesheet" href="<?php echo base_url();?>/assets/css/AdminLTE.min.css">
    <link rel="stylesheet" href="<?php echo base_url();?>/assets/css/inpo-box.css">
