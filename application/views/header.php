@@ -5,7 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Make It Easy</title>
   <!-- Favicon (ini diganti gambar yang sesuai-->
-  <link rel="icon" href="../../dist/img/logomie.png">
+  <link rel="icon" href="<?php echo base_url();?>assets/img/logomie.png">
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
