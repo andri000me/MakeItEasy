@@ -13,8 +13,8 @@ class Riwayat extends CI_Controller {
 	public function index()
 		{
 			$this->load->view('header');
-			$this->load->view('transaksi_petani');
-			$this->load->view('footer');
+            $this->load->view('data_petani');
+            $this->load->view('footer');
 		}
 
 	public function DataPetani()

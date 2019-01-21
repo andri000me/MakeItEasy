@@ -11,8 +11,25 @@ class Transaksi extends CI_Controller {
     
 	public function index()
 		{
-			$this->load->view('header');
-			$this->load->view('perusahaanYP');
+			$timezone = new DateTimeZone('Asia/Jakarta');
+            
+            $dt = new DateTime();
+            $dt->setTimezone($timezone);
+            $date = $dt->format('Y-m-d');
+            $max_tanggal = $this->model_transaksi->max_tanggal();
+
+            $data = array(
+            'tb_transaksi' => $this->model_transaksi->tb_transpetani(),
+            'trans_bon' => $this->model_transaksi->trans_bon(),
+            'today' => $date,
+            'max_tanggal' => $max_tanggal,
+            'harga_tanggal' => $this->model_transaksi->harga_today($max_tanggal),
+            'dd_cabai' => $this->model_transaksi->dd_cabai(),
+            'cabai_selected' => $this->input->post('cabai') ? $this->input->post('cabai') : '$row->jenis' // untuk edit ganti '' menjadi data dari database misalnya $row->provinsi
+            );
+                
+            $this->load->view('header');
+            $this->load->view('transaksi_petani', $data);
 		}
 
 	public function transpetani()
