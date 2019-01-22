@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 18, 2018 at 08:53 AM
+-- Generation Time: Jan 22, 2019 at 05:52 AM
 -- Server version: 10.1.19-MariaDB
 -- PHP Version: 5.5.38
 
@@ -135,6 +135,25 @@ INSERT INTO `pengeluaran` (`id`, `tanggal`, `jenis`, `harga_satuan`, `jumlah`) V
 (1, '2018-06-18', 'Ongkir', 16000, 2),
 (2, '2018-06-27', 'Plastik', 2000, 100),
 (3, '2018-11-12', 'Keriting Super', 30000, 2);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tb_admin`
+--
+
+CREATE TABLE `tb_admin` (
+  `id_admin` int(3) NOT NULL,
+  `name` varchar(20) NOT NULL,
+  `password` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tb_admin`
+--
+
+INSERT INTO `tb_admin` (`id_admin`, `name`, `password`) VALUES
+(1, 'Make It Easy', 'ADMINMIE');
 
 -- --------------------------------------------------------
 
@@ -405,6 +424,12 @@ ALTER TABLE `pengeluaran`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `tb_admin`
+--
+ALTER TABLE `tb_admin`
+  ADD PRIMARY KEY (`id_admin`);
+
+--
 -- Indexes for table `tb_bon`
 --
 ALTER TABLE `tb_bon`
@@ -481,6 +506,11 @@ ALTER TABLE `pemasukan`
 --
 ALTER TABLE `pengeluaran`
   MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT for table `tb_admin`
+--
+ALTER TABLE `tb_admin`
+  MODIFY `id_admin` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `tb_bon`
 --
