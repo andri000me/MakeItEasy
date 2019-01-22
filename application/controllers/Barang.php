@@ -6,6 +6,10 @@ class Barang extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->model('model_barang');
+
+		if($this->session->userdata('masuk') != TRUE){
+			redirect(base_url('Login'));
+		}
 		
 	}
 

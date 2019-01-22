@@ -5,7 +5,11 @@ class Perusahaan extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->model('model_perusahaan');
-		$this->load->model('model_profil');	
+		$this->load->model('model_profil');
+
+		if($this->session->userdata('masuk') != TRUE){
+			redirect(base_url('Login'));
+		}	
 	}
 
 	public function index()
