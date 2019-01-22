@@ -4,6 +4,8 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Make It Easy</title>
+  <!-- Favicon -->
+  <link rel="icon" href="<?php echo base_url();?>assets/img/logomie.png">
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -45,7 +47,7 @@
         </div>
       </div>
     </div>
-      <p style="padding: 5px 30px"><?php echo $this->session->flashdata('msg') ?></p>
+      <b class="text-red" style="padding-left: 30px"><?php echo $this->session->flashdata('msg') ?></b>
     </form>
     <!-- /.lockscreen credentials -->
     </div> 
@@ -59,7 +61,7 @@
   <div class="text-center">
     <!-- <a href="login.html">Or sign in as a different user</a> -->
   </div>
-  <div class="lockscreen-footer text-center">
+  <div class="lockscreen-footer text-center" style="margin-top: 80px" >
     Copyright &copy; 2018 <b><a href="https://adminlte.io" class="text-black">Make It Easy Team</a></b><br>
     Yogyakarta
   </div>

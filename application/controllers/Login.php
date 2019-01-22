@@ -31,7 +31,7 @@ class Login extends CI_Controller {
  
         }else{ 
                 $url=base_url('/Login');
-                echo $this->session->set_flashdata('msg','Password Salah!');
+                echo $this->session->set_flashdata('msg','<i class="text-yellow fa fa-warning" style="padding-top:8px"></i>  Password Salah!');
                 redirect($url);
              }
     }
