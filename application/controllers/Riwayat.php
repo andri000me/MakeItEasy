@@ -7,6 +7,10 @@ class Riwayat extends CI_Controller {
 		parent::__construct();
 		$this->load->model('model_riwayat');
         $this->load->model('model_transaksi');
+
+        if($this->session->userdata('masuk') != TRUE){
+            redirect(base_url('Login'));
+        }
 		
 	}
 
