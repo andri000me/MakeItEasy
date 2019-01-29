@@ -80,7 +80,7 @@
                             <label>Tanggal :</label>
                           </div>
                           <div class="col-md-8">
-                            <input type="text" name="tanggal" class="form-control input-tanggal" id="tanggal">
+                            <input type="text" name="tanggal" class="form-control input-tanggal" id="tanggal" required>
                           </div>
                         </div>
 
@@ -89,7 +89,7 @@
                             <label>Nama Petani :</label>
                           </div>
                           <div class="col-md-8">
-                            <input type="text" class="form-control"  name="nama_petani" id="nama_petani">
+                            <input type="text" class="form-control"  name="nama_petani" id="nama_petani" required>
                           </div>
                         </div>
 
@@ -100,7 +100,7 @@
                           </div>
                           <div class="col-md-8">
                             <?php
-                                $dd_cabai_attribute = 'id="cabai" class="form-control select2" style="width:100%"';
+                                $dd_cabai_attribute = 'id="cabai" class="form-control select2" style="width:100%" required';
                                 echo form_dropdown('cabai', $dd_cabai, $cabai_selected, $dd_cabai_attribute);
                               ?>
                           </div>
@@ -111,7 +111,7 @@
                             <label>Harga :</label>
                           </div>
                           <div class="col-md-3">
-                           <input type="number" name="harga_petani" id="harga_petani" class="form-control">
+                           <input type="number" name="harga_petani" id="harga_petani" class="form-control" required>
                           </div>
                           <div class="col-md-2">
                             <label>BS/MTD :</label>
@@ -127,7 +127,7 @@
                         <div class="row">
                             <div class="col-md-3">
                               <label>Kotor</label>
-                              <input type="number" step="0.01" name="berat_kotor" id="berat_kotor" class="form-control">kg
+                              <input type="number" step="0.01" name="berat_kotor" id="berat_kotor" class="form-control" required>kg
                             </div>
                             <div class="col-md-3">
                               <label>BS/MTD </label>
@@ -301,7 +301,7 @@
                             <label>Tanggal :</label>
                           </div>
                           <div class="col-md-8">
-                            <input type="text" name="tanggal" class="form-control input-tanggal" id="tanggal">
+                            <input type="text" name="tanggal" class="form-control input-tanggal" id="tanggal" required>
                           </div>
                         </div>
 
@@ -310,7 +310,7 @@
                             <label>Nama Pembeli :</label>
                           </div>
                           <div class="col-md-8">
-                            <input type="text" class="form-control"  name="nama_pembeli" id="nama_pembeli">
+                            <input type="text" class="form-control"  name="nama_pembeli" id="nama_pembeli" required>
                           </div>
                         </div>
 
@@ -329,7 +329,7 @@
                           </div>
                           <div class="col-md-8">
                             <?php
-                                $dd_cabai_attribute = 'id="cabai" class="form-control select2" style="width:100%"';
+                                $dd_cabai_attribute = 'id="cabai" class="form-control select2" style="width:100%" required';
                                 echo form_dropdown('cabai', $dd_cabai, $cabai_selected, $dd_cabai_attribute);
                               ?>
                           </div>
@@ -340,8 +340,8 @@
                             <label>Harga :</label>
                           </div>
                           <div class="col-md-8">
-                            <input type="number" class="form-control"  name="harga" id="harga">
-                          </div>
+                            <input type="number" class="form-control"  name="harga" id="harga" required>
+                          </div> 
                         </div>
 
                         <div class="row" style="padding-bottom: 5px">
@@ -355,7 +355,7 @@
                             <label>Bersih :</label>
                           </div>
                           <div class="col-md-3">
-                           <input type="number" step="0.01" name="bersih" id="bersih" class="form-control">
+                           <input type="number" step="0.01" name="bersih" id="bersih" class="form-control" required>
                           </div>
                         </div>
 

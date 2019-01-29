@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 22, 2019 at 05:52 AM
+-- Generation Time: Jan 29, 2019 at 09:27 AM
 -- Server version: 10.1.19-MariaDB
 -- PHP Version: 5.5.38
 
@@ -89,7 +89,11 @@ INSERT INTO `harga_cabai_petani` (`id`, `kode_cabai`, `tanggal`, `harga_bs`, `ha
 (141, 'KR2', '2018-09-27', 1000, 13000),
 (142, 'H', '2018-09-27', 100, 13000),
 (143, 'KR2', '2018-10-01', 1000, 14000),
-(144, 'H', '2018-10-01', 2000, 15000);
+(144, 'H', '2018-10-01', 2000, 15000),
+(145, 'KR2', '2019-01-29', 1000, 14000),
+(146, 'H', '2019-01-29', 2000, 15000),
+(147, 'KR1', '2019-01-29', 1000, 14000),
+(148, 'M', '2019-01-29', 1000, 14000);
 
 -- --------------------------------------------------------
 
@@ -153,7 +157,7 @@ CREATE TABLE `tb_admin` (
 --
 
 INSERT INTO `tb_admin` (`id_admin`, `name`, `password`) VALUES
-(1, 'Make It Easy', 'ADMINMIE');
+(1, 'Make It Easy', 'adminku');
 
 -- --------------------------------------------------------
 
@@ -226,7 +230,8 @@ CREATE TABLE `tb_pembeli` (
 INSERT INTO `tb_pembeli` (`id`, `nama`, `alamat`, `no_telp`, `no_rek`, `saldo`) VALUES
 (1, 'Tina Toon', 'Banjarmasin kota no 432', '089778456789', '90003444568', -5000000),
 (2, 'Sujoko Tedjo', 'Tangerang Selatan', '08999777789', '(BNI) 9008776554', 100000),
-(3, 'Raden Roro', 'Muntilan no 365', '3232452', '2131311', 200000);
+(3, 'Raden Roro', 'Muntilan no 365', '3232452', '2131311', 200000),
+(4, 'Isna Barid', 'Potorono Banguntapan', '0899354647999', '0877798900009 BNI', 2000000);
 
 -- --------------------------------------------------------
 
@@ -255,7 +260,7 @@ CREATE TABLE `tb_petani` (
 INSERT INTO `tb_petani` (`id`, `nama`, `nama_panggil`, `desa`, `alamat`, `no_telp`, `saldo`, `jaminan`, `kemitraan`, `status_pinjaman`, `tenggat`) VALUES
 (1, 'Nadya Rahmatun', 'tuntun', 'payakumbuh', 'Perumahan Banjardadap p41 Potorono Banguntapan Bantul DIY', '087878787888', 40000, '', 1, 0, '0000-00-00'),
 (2, 'Annisa Amalia', 'Nisa', 'Surakarta', 'jl solo baru no 234', '08009090909', 136000, '', 1, 0, '0000-00-00'),
-(3, 'Aliefya Fadhila', 'ipeh', 'Muntilan', 'Muntilan no 365', '087999987777', -6000000, 'BPKB', 1, 0, NULL),
+(3, 'Aliefya Fadhila', 'ipeh', 'Muntilan', 'Muntilan no 3654', '087999987777', -6000000, 'BPKB Motor', 1, 0, NULL),
 (4, 'Suparman', 'gaprek', 'Ngasem', 'jl pelita hati no 76', '08783458876', 20000, NULL, 0, 0, '0000-00-00'),
 (5, 'Isna', 'Isna', 'Jogja', 'Perumahan Banjardadap', '0878387246878', 500000, '', 1, 0, '2018-10-31'),
 (6, 'Salsabila', 'Bila', 'Purworejo', 'Banjarmasin kota no 432', '08999768787999', 18500, '', 1, 0, '0000-00-00'),
@@ -329,9 +334,9 @@ CREATE TABLE `transaksi_pembelinonmitra` (
   `id` int(20) NOT NULL,
   `tanggal` date NOT NULL,
   `nama_pembeli` varchar(30) NOT NULL,
-  `asal_daerah` varchar(20) NOT NULL,
+  `asal_daerah` varchar(20) DEFAULT NULL,
   `kode_cabai` varchar(5) NOT NULL,
-  `colly` int(5) NOT NULL,
+  `colly` int(5) DEFAULT NULL,
   `bersih` decimal(5,2) NOT NULL,
   `harga` int(8) NOT NULL,
   `transferan` int(3) DEFAULT NULL
@@ -384,10 +389,10 @@ CREATE TABLE `transaksi_petaninonmitra` (
   `nama_petani` varchar(30) NOT NULL,
   `kode_cabai` varchar(5) NOT NULL,
   `harga_bersih` int(10) NOT NULL,
-  `harga_bs` int(10) NOT NULL,
+  `harga_bs` int(10) DEFAULT NULL,
   `berat_kotor` decimal(5,3) NOT NULL,
-  `berat_bs` decimal(5,3) NOT NULL,
-  `berat_susut` decimal(5,3) NOT NULL DEFAULT '0.000',
+  `berat_bs` decimal(5,3) DEFAULT NULL,
+  `berat_susut` decimal(5,3) DEFAULT '0.000',
   `bon` decimal(5,2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -398,7 +403,8 @@ CREATE TABLE `transaksi_petaninonmitra` (
 INSERT INTO `transaksi_petaninonmitra` (`id`, `tanggal`, `nama_petani`, `kode_cabai`, `harga_bersih`, `harga_bs`, `berat_kotor`, `berat_bs`, `berat_susut`, `bon`) VALUES
 (2, '2018-06-18', 'Supomon', 'M', 6000, 1500, '90.000', '3.000', '0.000', NULL),
 (3, '2018-09-04', 'Lamuna', 'KR1', 17000, 2000, '99.999', '5.000', '0.000', NULL),
-(4, '2018-09-04', 'Nadya Rahmatun', 'H', 13000, 1000, '90.000', '4.000', '0.000', NULL);
+(4, '2018-09-04', 'Nadya Rahmatun', 'H', 13000, 1000, '90.000', '4.000', '0.000', NULL),
+(5, '2019-01-29', 'Lamuna', 'M', 11000, 1500, '90.000', '4.000', NULL, NULL);
 
 --
 -- Indexes for dumped tables
@@ -495,7 +501,7 @@ ALTER TABLE `transaksi_petaninonmitra`
 -- AUTO_INCREMENT for table `harga_cabai_petani`
 --
 ALTER TABLE `harga_cabai_petani`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=145;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=149;
 --
 -- AUTO_INCREMENT for table `pemasukan`
 --
@@ -520,7 +526,7 @@ ALTER TABLE `tb_bon`
 -- AUTO_INCREMENT for table `tb_pembeli`
 --
 ALTER TABLE `tb_pembeli`
-  MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `tb_petani`
 --
@@ -550,7 +556,7 @@ ALTER TABLE `transaksi_petani`
 -- AUTO_INCREMENT for table `transaksi_petaninonmitra`
 --
 ALTER TABLE `transaksi_petaninonmitra`
-  MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- Constraints for dumped tables
 --

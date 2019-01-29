@@ -464,7 +464,7 @@
           $('#desa').val(data.desa);
           $('#alamat').val(data.alamat);
           $('#no_telp').val(data.no_telp);
-          $('jaminan').val(data.jaminan);
+          $('#jaminan').val(data.jaminan);
         },
         error: function(data){
           alert('Terjadi Kesalahan');
@@ -480,7 +480,7 @@
       var desa = $('#desa').val()
       var alamat = $('#alamat').val()
       var no_telp = $('#no_telp').val()
-      var jaminan = $('jaminan').val()
+      var jaminan = $('#jaminan').val()
 
       $.ajax({
         url:"<?php echo base_url();?>DataProfil/update_profil_petani",

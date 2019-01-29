@@ -572,10 +572,10 @@
             url: '<?php echo base_url();?>Cabai/submitHargaPetani',
             data: $('#formHargaCabai').serialize(),
             success: function (response) {
-              if (alert(response)) {location.reload(true)}
+              if (!alert(response)) {location.reload(true)}
             },
             error: function() {
-              alert('Mohon Maaf, ada sedikit erro, mohon ulangi');
+              alert('Mohon Maaf, ada sedikit error, mohon ulangi');
             }
           });
       e.preventDefault();
