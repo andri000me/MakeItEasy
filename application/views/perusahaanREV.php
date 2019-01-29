@@ -91,11 +91,11 @@
 
        <div class="row">
         <div class="col-md-12">
-          <div class="box">
+        <!--  <div class="box">
             <div class="box-header with-border">
               <h3 class="box-title">Rekap Transaksi Tahun : 
                 <b>
-                  <?php echo date('Y', strtotime($today_month)) ?>
+                  <?php //echo date('Y', strtotime($today_month)) ?>
                 </b>
               </h3> 
 
@@ -115,23 +115,23 @@
                 </div>
                 <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
               </div>
-            </div>
+            </div> -->
             <!-- /.box-header -->
-            <div class="box-body">
+            <!-- <div class="box-body">
               <div class="row">
                 <div class="col-md-8">
                   <p class="text-center">
                     <strong>Sales: 1 Jan, 2018 - 30 Jul, 2018</strong>
                   </p>
 
-                  <div class="chart">
+                  <div class="chart"> -->
                     <!-- Sales Chart Canvas -->
-                    <canvas id="salesChart" style="height: 180px;"></canvas>
-                  </div>
+                    <!-- <canvas id="salesChart" style="height: 180px;"></canvas>
+                  </div> -->
                   <!-- /.chart-responsive -->
-                </div>
+                <!-- </div> -->
                 <!-- /.col -->
-                <div class="col-md-4">
+                <!-- <div class="col-md-4">
                   <div class="box-footer no-padding">
                     <ul class="nav nav-stacked">
                       <li style="padding: 10px 15px; background: #f0f0f0">Keadaan Perusahaan <span class="pull-right text-green">LABA</span></li>
@@ -141,14 +141,14 @@
                       <li style="padding: 10px 15px;">Pinjaman uang <span class="pull-right "> Rp. 584.212</span></li>
                     </ul>
                   </div>
-                </div>
+                </div> -->
                 <!-- /.col -->
-              </div>
+              <!-- </div> -->
               <!-- /.row -->
-            </div>
+            <!-- </div> -->
             <!-- ./box-body -->
             
-          </div>
+          <!-- </div> -->
           <!-- /.box -->
         </div>
         <!-- /.col -->
