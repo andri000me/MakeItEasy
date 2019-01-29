@@ -22,6 +22,15 @@
 </head>
 <body class="hold-transition lockscreen" style="height:500px!important">
 <!-- Automatic element centering -->
+<?php if($this->session->flashdata('changed')) : ?>
+  <div class="alert alert-success" style="margin: 20px 10px 0 10px">
+    <strong>Password berhasil diubah! </strong> Silakan login kembali
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+<?php endif; ?>
+
 <div class="lockscreen-wrapper">
   <div class="lockscreen-logo">
     <a href="../../index2.html"><b>Make It</b>Easy</a>

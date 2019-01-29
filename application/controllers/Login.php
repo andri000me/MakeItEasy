@@ -67,15 +67,11 @@ class Login extends CI_Controller {
 
         $data['password'] = $new_password;
 
-    	$result = $this->model_admin->update_password(1, $data);
-        //show success or error message
-        // if ($result==true) {
-        //     $this->session->set_flashdata('true', 'Password berhasil diubah, silakan login kembali');
-        // } else {
-        //     $this->session->set_flashdata('error', 'Error! Tidak berhasil');
-        // }
+    	$this->model_admin->update_password(1, $data);
 
-        redirect('Login');
+        //show success message
+        $this->session->set_flashdata('changed', 'Password berhasil diubah, silakan login kembali');
+        $this->load->view('loginMIE');
     }
 
 }

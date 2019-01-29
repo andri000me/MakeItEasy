@@ -72,10 +72,10 @@
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-left">
-                  <a href="#" class="btn btn-default btn-flat">Ubah Password</a>
+                  <a href="<?php echo base_url()?>Login/ubah_password" class="btn btn-default btn-flat">Ubah Password</a>
                 </div>
                 <div class="pull-right">
-                  <a href="#" class="btn btn-danger btn-flat">Sign out</a>
+                  <a href="<?php echo base_url()?>Login/logout" class="btn btn-danger btn-flat">Sign out</a>
                 </div>
               </li>
             </ul>
@@ -183,14 +183,14 @@
         </li>
         <li class="header">AKUN ADMIN</li>
         <li>
-          <a href="#">
+          <a href="<?php echo base_url()?>Login/ubah_password">
             <i class="fa fa-lock text-warning"></i> <span>Ubah Password</span>
 
           </a>
         </li>
 
         <li>
-          <a href="#">
+          <a href="<?php echo base_url()?>Login/logout">
             <i class="fa fa-sign-out text-danger"></i> <span>Keluar</span>
           </a>
         </li>

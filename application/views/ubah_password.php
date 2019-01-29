@@ -93,8 +93,19 @@
     });
 
     $('#conf_password').change(function(){
-      var newPass = $('#new_password').val();
-      var conf = $('#conf_password').val();
+      confirmation();
+
+      $('#new_password').change(function(){
+        confirmation();
+      })
+    })
+      
+
+  });
+
+  function confirmation (){
+    var newPass = $('#new_password').val();
+    var conf = $('#conf_password').val();
 
       if (newPass == conf) {
         document.getElementById('submit_pass').disabled = false;
@@ -103,9 +114,8 @@
         document.getElementById('submit_pass').disabled = true;
         $('#error_confPass').html('Konfirmasi password tidak sesuai');
       }
-    });
-
-  });
+  
+  }
 
 </script>
 </body>
