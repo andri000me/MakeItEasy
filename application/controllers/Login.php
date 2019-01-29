@@ -43,6 +43,41 @@ class Login extends CI_Controller {
         redirect($url);
     }
 
+    function ubah_password()
+    {
+    	$this->load->view('ubah_password');
+    }
+
+    function check_password()
+    {
+        $password = $this->input->post('old_password');
+
+        $check = $this->model_admin->auth_admin($password, 1);
+        
+        if($check->num_rows() > 0){
+            echo json_encode(false);
+        } else {
+            echo json_encode(true);
+        }
+    }
+
+    function update_password()
+    {
+    	$new_password = $this->input->post("new_password");
+
+        $data['password'] = $new_password;
+
+    	$result = $this->model_admin->update_password(1, $data);
+        //show success or error message
+        // if ($result==true) {
+        //     $this->session->set_flashdata('true', 'Password berhasil diubah, silakan login kembali');
+        // } else {
+        //     $this->session->set_flashdata('error', 'Error! Tidak berhasil');
+        // }
+
+        redirect('Login');
+    }
+
 }
 
 ?>

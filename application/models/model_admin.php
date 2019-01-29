@@ -12,6 +12,6 @@ class model_admin extends CI_Model {
 	function update_password($id, $data)
 	{
 		$this->db->where('id_admin', $id);
-		$this->db->update('db_admin', $data);
+		$this->db->update('tb_admin', $data);
 	}
 }
