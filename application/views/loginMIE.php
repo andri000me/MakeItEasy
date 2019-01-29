@@ -4,6 +4,8 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Make It Easy</title>
+  <!-- Favicon -->
+  <link rel="icon" href="<?php echo base_url();?>assets/img/logomie.png">
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -28,24 +30,28 @@
   <div class="lockscreen-name">UD. Yumi Putra</div>
 
   <!-- START LOCK SCREEN ITEM -->
-  <div class="lockscreen-item">
     <!-- lockscreen image -->
-    <div class="lockscreen-image">
+    <div style="position:relative; margin: 10px auto 30px auto; width:290px">
+    <div class="lockscreen-image" >
       <img src="<?php echo base_url();?>assets/img/logomie.png" alt="User Image">
     </div>
     <!-- /.lockscreen-image -->
 
     <!-- lockscreen credentials (contains the form) -->
-    <form class="lockscreen-credentials" method="post" action="<?php echo base_url()?>Login/Auth">
-      <h3 style="padding-bottom: 5px"><?php echo $this->session->flashdata('msg') ?></h3>
+    <form class="lockscreen-credentials" method="post" action="<?php echo base_url()?>Login/Auth" style="margin-left: 50px!important">
+    <div style="background: #fff; padding-left: 20px">
       <div class="input-group">
         <input name="password" type="password" class="form-control" placeholder="password" required>
         <div class="input-group-btn">
           <button type="submit" class="btn"><i class="fa fa-arrow-right text-muted"></i></button>
         </div>
       </div>
+    </div>
+      <b class="text-red" style="padding-left: 30px"><?php echo $this->session->flashdata('msg') ?></b>
     </form>
     <!-- /.lockscreen credentials -->
+    </div> 
+    <!-- div style -->
 
   </div>
   <!-- /.lockscreen-item -->
@@ -55,7 +61,7 @@
   <div class="text-center">
     <!-- <a href="login.html">Or sign in as a different user</a> -->
   </div>
-  <div class="lockscreen-footer text-center">
+  <div class="lockscreen-footer text-center" style="margin-top: 80px" >
     Copyright &copy; 2018 <b><a href="https://adminlte.io" class="text-black">Make It Easy Team</a></b><br>
     Yogyakarta
   </div>
