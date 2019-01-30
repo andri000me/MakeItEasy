@@ -218,7 +218,9 @@
                             </tr>
                           </thead>
                           <tbody>
-                            <?php $no=1; foreach ($tb_transaksi as $tb): ?>
+                            <?php $no=1; foreach ($tb_transaksi as $tb): 
+                              $berat_bersih=$tb->berat_kotor-$tb->berat_bs-$tb->berat_susut;
+                              $jumlah_uang = ($berat_bersih*$tb->harga_bersih)+($tb->berat_bs*$tb->harga_bs);  ?>
                               <tr>
                                 <td><?= $no ?></td>
                                 <td><?= $tb->tanggal ?></td>
@@ -229,9 +231,9 @@
                                 <td><?= number_format($tb->berat_kotor,1) ?></td>
                                 <td><?= number_format($tb->berat_bs,1) ?></td>
                                 <td><?= number_format($tb->berat_susut,1) ?></td>
-                                <td><?= $tb->berat_kotor-$tb->berat_bs-$tb->berat_susut ?></td>
+                                <td><?= $berat_bersih ?></td>
                                 <td>Rp<?= number_format($tb->harga_bersih,0,',','.') ?></td>
-                                <td>Rp<?= number_format(($tb->berat_kotor-$tb->berat_bs)*$tb->harga_bersih + $tb->berat_bs*$tb->harga_bs,0,',','.') ?></td>
+                                <td>Rp<?= number_format($jumlah_uang,0,',','.') ?></td>
                                 <td>Rp<?= number_format($tb->bon,0,',','.') ?></td>
                                 <td>Rp<?= number_format($tb->saldo,0,',','.') ?></td>
                                 <!-- <td><button id="<?= $tb->id ?>" type="button" class="btn btn-info btn-xs edit_data" data-toggle="modal" data-target="#editSetoran">edit</button> <a href="<?php //echo base_url();?>Transaksi/delete_petani/<?= $tb->id ?>" class="btn btn-danger btn-xs">Hapus</a></td> -->

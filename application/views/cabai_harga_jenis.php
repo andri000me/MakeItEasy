@@ -112,10 +112,10 @@
                               <tr id="field1">
                                 <td><?php
                                     $dd_cabai_attribute = 'id="cabai" class="form-control select2" style="width:100%" required';
-                                    echo form_dropdown('cabai1', $dd_cabai, $cabai_selected, $dd_cabai_attribute);
+                                    echo form_dropdown('cabai[]', $dd_cabai, $cabai_selected, $dd_cabai_attribute);
                                   ?></td>
-                                <td><input type="text" name="harga_bs1" class="form-control"></td>
-                                <td id="bersih1"><input type="text" name="harga_bersih1" class="form-control"></td>
+                                <td><input type="text" name="harga_bs[]" class="form-control" required></td>
+                                <td id="bersih1"><input type="text" name="harga_bersih[]" class="form-control" required></td>
                                 <td>
                                   <button id="add1" onclick="addField()" class="btn btn-info add-more" type="button" style="">+</button>
                                   <button id="remove1" class="btn btn-danger remove-me" type="button" style="display: none;">-</button>
@@ -566,13 +566,14 @@
 
     $('#formHargaCabai').on('submit', function(e) {
 
-      console.log($('#formHargaCabai').serialize());
+      console.log($('#formHargaCabai').serializeArray());
       $.ajax({
             type: 'POST',
             url: '<?php echo base_url();?>Cabai/submitHargaPetani',
-            data: $('#formHargaCabai').serialize(),
+            data: $('#formHargaCabai').serializeArray(),
             success: function (response) {
-              if (!alert(response)) {location.reload(true)}
+              alert(response) 
+              //{location.reload(true)}
             },
             error: function() {
               alert('Mohon Maaf, ada sedikit error, mohon ulangi');
@@ -616,7 +617,7 @@
           $counter = $counter + 1;
           $dd_cabai_attribute = 'id="cabai" class="form-control select2" style="width:100%" required';
 
-          $dropdown = form_dropdown('cabai'.$counter, $dd_cabai, $cabai_selected, $dd_cabai_attribute);
+          $dropdown = form_dropdown('cabai[]', $dd_cabai, $cabai_selected, $dd_cabai_attribute);
         ?>
 
         var dropdown = <?php echo json_encode($dropdown); ?>;
@@ -624,7 +625,7 @@
         var addto = "#field" + next;
         var addRemove = "#field" + (next);
         next = next + 1;
-        var newIn = '<tr id="field' + next +'"><td>' + dropdown +'</td><td><input type="text" name="harga_bs' + next +'" class="form-control"></td><td class="bersih'+ next +'"><input type="text" name="harga_bersih'+ next +'" class="form-control"></td><td><button id="add'+ next +'" onclick="addField()" class="btn btn-info add-more" type="button" style="">+</button><button id="remove' + next + '" class="btn btn-danger remove-me" style="display: none;">-</button></td></tr></tr>';
+        var newIn = '<tr id="field' + next +'"><td>' + dropdown +'</td><td><input type="text" name="harga_bs[]" class="form-control" required></td><td class="bersih'+ next +'"><input type="text" name="harga_bersih[]" class="form-control" required></td><td><button id="add'+ next +'" onclick="addField()" class="btn btn-info add-more" type="button" style="">+</button><button id="remove' + next + '" class="btn btn-danger remove-me" style="display: none;">-</button></td></tr></tr>';
         var newInput = $(newIn);
         var removeBtn = '<td><button id="remove' + (next-1) + '" class="btn btn-danger remove-me">-</button></td></tr>';
         var removeButton = $(removeBtn);

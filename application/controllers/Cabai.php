@@ -73,23 +73,10 @@ class Cabai extends CI_Controller {
 		$tanggal = $this->input->post("tanggal");
 		$counter = $this->input->post("counter");
 
-		//mendefinisikan array kode_cabai, bs, dan bersih
-		$kode_cabai = array();
-		$bs = array();
-		$bersih = array();
-
 		//mengambil nilai kode, harga_bs, dan harga_bersih dari Serialize ajax dan memasukkannya ke array
-		for ($x=1; $x <= $counter; $x++) { 
-			${"kode".$x} = $this->input->post("cabai".$x);
-			${"harga_bs".$x} = $this->input->post("harga_bs".$x);
-			${"harga_bersih".$x} = $this->input->post("harga_bersih".$x);
-
-			if (!empty(${"kode".$x})) {
-				array_push($kode_cabai, ${"kode".$x});
-				array_push($bs, ${"harga_bs".$x});
-				array_push($bersih, ${"harga_bersih".$x});
-			}
-		}
+		$kode_cabai = $this->input->post('cabai');
+		$bs = $this->input->post('harga_bersih');
+		$bersih = $this->input->post('harga_bersih');
 
 		//jika kode tidak benilai unik, maka false
 		if (count($kode_cabai) == count(array_unique($kode_cabai))) {
