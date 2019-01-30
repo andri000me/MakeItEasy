@@ -197,7 +197,7 @@ class model_transaksi extends CI_Model {
   }
 
   function trans_bon()  {
-    $query = $this->db->query("SELECT a.id, a.tanggal, a.id_petani, a.barang, a.harga, a.kuantitas, a.ambil_uang, b.nama, b.desa FROM transaksi_bon a JOIN tb_petani b ON a.id_petani=b.id LIMIT 100");
+    $query = $this->db->query("SELECT a.id, a.tanggal, a.id_petani, a.barang, a.harga, a.kuantitas, a.ambil_uang, b.nama, b.desa FROM transaksi_bon a JOIN tb_petani b ON a.id_petani=b.id ORDER BY a.id DESC LIMIT 100");
     return $query->result();
   }
 
