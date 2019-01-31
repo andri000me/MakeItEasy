@@ -117,7 +117,7 @@
                             <label>BS/MTD :</label>
                           </div>
                           <div class="col-md-3">
-                           <input type="number" name="harga_bs" id="harga_bs" class="form-control">
+                           <input type="number" name="harga_bs" id="harga_bs" class="form-control" required>
                           </div>
                         </div>
                               
@@ -131,7 +131,7 @@
                             </div>
                             <div class="col-md-3">
                               <label>BS/MTD </label>
-                              <input type="number" step="0.01" name="berat_bs" id="berat_bs" class="form-control">kg
+                              <input type="number" step="0.01" name="berat_bs" id="berat_bs" class="form-control" required>kg
                             </div>
                             <div class="col-md-3">
                               <label>Susut </label>
@@ -226,7 +226,7 @@
                   <div class="col-sm-12">
                     <div class="box bg-solid" style="border: 2px solid #dff0d8;">
                       <div class="box-header">
-                        <h3 class="box-title text-aqua">50 Catatan Terakhir ?></h3>
+                        <h3 class="box-title text-aqua">50 Catatan Terakhir</h3>
                       </div>
                       <!-- /.box-header -->
 
@@ -349,7 +349,7 @@
                             <label>Colly :</label>
                           </div>
                           <div class="col-md-3">
-                           <input type="number" name="colly" id="colly" class="form-control">
+                           <input type="number" name="colly" id="colly" class="form-control" required>
                           </div>
                           <div class="col-md-2">
                             <label>Bersih :</label>
