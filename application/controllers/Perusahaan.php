@@ -136,7 +136,8 @@ class Perusahaan extends CI_Controller {
 	}
 
 	function rekap_cabai()	{
-		$data = $this->model_perusahaan->rincian_cabai();
+		$month = $this->input->post('bulan');
+		$data = $this->model_perusahaan->rincian_cabai($month);
 
 		echo json_encode($data);
 	}

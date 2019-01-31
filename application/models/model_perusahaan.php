@@ -61,14 +61,14 @@ class model_perusahaan extends CI_Model {
 		return $query->result();
 	}
 
-	public function rincian_cabai()
+	public function rincian_cabai($month)
 	{
 		$query= $this->db->query(
 			"SELECT a.jenis, SUM(b.bersih) as bersih FROM
-				(SELECT kode_cabai as kode, bersih FROM transaksi_pembelinonmitra
+				(SELECT tanggal, kode_cabai as kode, bersih FROM transaksi_pembelinonmitra
 					UNION ALL 
-					SELECT kode, bersih FROM transaksi_pembeli) b
-				JOIN tb_cabai a ON a.kode = b.kode GROUP BY a.jenis
+					SELECT tanggal, kode, bersih FROM transaksi_pembeli) b
+				JOIN tb_cabai a ON a.kode = b.kode WHERE b.tanggal LIKE '$month%' GROUP BY a.jenis
 			");
 
 		return $query->result();

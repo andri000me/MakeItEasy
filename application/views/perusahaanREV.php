@@ -563,10 +563,13 @@
 <script>
   //Date range picker
   $(document).ready(function() {
+      var month = $('#monthly_date').val();
       $.ajax({
         url : "http://localhost/MakeItEasy/Perusahaan/rekap_cabai",
-        type : "GET",
+        type : "POST",
         dataType: "JSON",
+        data: 
+          {bulan: month},
         success : function(data){
           console.log(data);
 
