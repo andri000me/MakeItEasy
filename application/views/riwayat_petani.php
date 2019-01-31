@@ -37,7 +37,7 @@
                         <i class="icon fa fa-leaf fa-3x"></i>
                       </div>
                       <div class="col-md-10">
-                        <h4> Petani_Bon</h4>
+                        <h4> Petani_Setoran</h4>
                         <p>Lihat riwayat setoran cabai dari petani mitra</p>
                       </div>
                     </div>

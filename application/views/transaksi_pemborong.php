@@ -75,15 +75,7 @@
             </div>
           </div>
           <!-- /.box-body -->
-          <div class="box-footer clearfix">
-            <h5 class="pull-left">
-              Jumlah pembelian hari ini
-            </h5>
-            <h4 class="pull-right" style="font-weight: bold">
-              64
-            </h4>
-          </div>
-          <!-- /.box-footer -->
+
         </div>
         <!-- /.box -->
       </div>
