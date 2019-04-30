@@ -380,7 +380,7 @@
                   <!-- END Input Setoran -->
                   <!-- Harga cabe -->
                   <div class="col-md-5">
-                                        <div class="box" style="border: 2px solid #f0f0f0;">
+                    <div class="box" style="border: 2px solid #f0f0f0;">
                       <div class="box-header with-border" style="background-color: #f0f0f0;">
                         <h3 class="box-title">Input Harga Cabai Terakhir </h3>
                         <h5 class="text-aqua"><b>Tanggal : <?php echo $max_tanggal ?></b></h5>
@@ -437,16 +437,16 @@
 
                 <!-- Tabel -->
                 <div class="row">
-                  <div class="col-md-12">
-                    <div class="box" style="border: 2px solid #f2dede;">
+                  <div class="col-sm-12">
+                    <div class="box bg-solid" style="border: 2px solid #f2dede;">
                       <div class="box-header">
                         <h3 class="box-title text-aqua">50 Catatan Terakhir </h3>
                       </div>
                       <!-- /.box-header -->
                       <div class="box-body table-responsive">
-                        <table id="tabel_transaksi" class="table table-bordered table-striped DataTable" style="font-size: 15px">
+                        <table id="tabel_transaksi" class="table table-bordered table-striped DataTable" style="font-size: 15px; width: 100%">
                           <thead>
-                            <tr class="bg-success">
+                            <tr class="bg-danger">
                               <th style="text-align: center; line-height: 50px" rowspan="2">#</th>
                               <th style="text-align: center; line-height: 50px" rowspan="2">Tanggal</th>
                               <th style="text-align: center; line-height: 50px" rowspan="2">Nama</th>
@@ -457,7 +457,7 @@
                               <th style="text-align: center; line-height: 50px" rowspan="2">Jumlah Uang</th>
                               <!-- <th style="text-align: center; line-height: 50px" rowspan="2">Action</th> -->
                             </tr>
-                            <tr class="bg-success">
+                            <tr class="bg-danger">
                               <th>Colly </th>
                               <th>Bersih </th>
                             </tr>
