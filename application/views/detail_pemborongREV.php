@@ -31,7 +31,7 @@
               <li class="list-group-item">
                 <b>No Telp/HP</b> <p class="pull-right"><?= $profil->no_telp ?></p>
               </li>
-              <li class="list-group-item">
+              <li class="list-group-item" style="padding-bottom: 25px">
                 <b>No Rekening</b> <p class="pull-right"><?= $profil->no_rek ?></p>
               </li>
               <li class="list-group-item">

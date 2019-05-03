@@ -260,7 +260,7 @@ class Transaksi extends CI_Controller {
         $saldo = $this->model_transaksi->saldoPetani($id_petani)->saldo;
         $harga_bersih = $this->model_transaksi->harga_petani($tanggal, $kode_cabai)->harga_bersih;
         $harga_bs = $this->model_transaksi->harga_petani($tanggal, $kode_cabai)->harga_bs;
-        $jumlah_uang = ($harga_bersih * ($berat_kotor - $berat_bs)) + ($harga_bs * $berat_bs);
+        $jumlah_uang = ($harga_bersih * ($berat_kotor - $berat_bs - $berat_susut)) + ($harga_bs * $berat_bs);
 
         //menghitung saldo sekarang
         $new_saldo = $saldo + $jumlah_uang;

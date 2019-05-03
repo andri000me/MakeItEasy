@@ -75,7 +75,7 @@ class Cabai extends CI_Controller {
 
 		//mengambil nilai kode, harga_bs, dan harga_bersih dari Serialize ajax dan memasukkannya ke array
 		$kode_cabai = $this->input->post('cabai');
-		$bs = $this->input->post('harga_bersih');
+		$bs = $this->input->post('harga_bs');
 		$bersih = $this->input->post('harga_bersih');
 
 		//jika kode tidak benilai unik, maka false
