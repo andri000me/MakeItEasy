@@ -108,7 +108,7 @@
                       if (!empty($riwayat_transpetani)) {
                         $no=1; foreach ($riwayat_transpetani as $key) {
                             $berat_bersih = $key->berat_kotor-$key->berat_bs-$key->berat_susut;
-                            $jumlah_uang = ($key->berat_kotor-$key->berat_bs)*$key->harga_bersih + $key->berat_bs*$key->harga_bs;
+                            $jumlah_uang = ($key->berat_kotor-$key->berat_bs-$key->berat_susut)*$key->harga_bersih + $key->berat_bs*$key->harga_bs;
 
                             echo "<tr><td>".$no."</td><td>".$key->tanggal."</td><td>".$key->id_petani."</td><td>".$key->nama."</td><td>".$key->desa."</td><td>".$key->kode_cabai."</td><td id='berat_kotor_".$key->id."'>".number_format($key->berat_kotor,1)."</td><td id='berat_bs_".$key->id."'>".number_format($key->berat_bs,1)."</td><td id='berat_susut_".$key->id."'>".number_format($key->berat_susut,1)."</td><td>".$berat_bersih."</td><td id='berat_bersih_".$key->id."'>Rp".number_format($key->harga_bersih,0,',','.')."</td><td id='jumlah_uang_".$key->id."'>Rp".number_format($jumlah_uang,0,',','.')."</td><td id='saldo_".$key->id."'>Rp".number_format($key->saldo,0,',','.')."</td><td><button id='".$key->id."' class='btn btn-info btn-xs edit_data' data-toggle='modal' data-target='#editSetoran'>edit</button> <button id='del_".$key->id."' class='delete btn btn-danger btn-xs'>Hapus</button></td></tr>";
                           

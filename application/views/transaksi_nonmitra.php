@@ -135,7 +135,7 @@
                             </div>
                             <div class="col-md-3">
                               <label>Susut </label>
-                              <input type="number" step="0.01" id="berat_susut" class="form-control">kg
+                              <input type="number" step="0.01" id="berat_susut" name="berat_susut" class="form-control">kg
                             </div>
                             <div class="col-md-3">
                               <label>Bersih </label>
@@ -805,6 +805,11 @@
       $('#berat_kotor').on('change', function() {
         showJumlahUang();
         });
+
+      $('#berat_susut').on('change', function() {
+        showJumlahUang();
+        });
+      
         $('#harga_petani').on('change', function()   {
           resetJumlahUang()
         });
@@ -827,7 +832,8 @@
       var harga_bs = $('#harga_bs').val()
       var kotor = $('#berat_kotor').val()
       var bs = $('#berat_bs').val()
-      var bersih = kotor - bs
+      var susut = $('#berat_susut').val()
+      var bersih = kotor - bs - susut
 
       var jumlah_uang = (bersih * harga_bersih) + (bs * harga_bs)
 
