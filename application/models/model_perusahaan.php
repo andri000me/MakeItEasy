@@ -28,13 +28,18 @@ class model_perusahaan extends CI_Model {
 	{
 		$query = $this->db->query(
 			"SELECT x.tanggal, SUM(x.berat_kotor) as berat_kotor, SUM(x.bon) as bon, SUM(x.jumlah_uang) as jumlah_uang FROM
-				(SELECT a.tanggal, (a.berat_kotor), a.bon, (a.berat_kotor-a.berat_bs-a.berat_susut)*b.harga_bersih + a.berat_bs*b.harga_bs as jumlah_uang
-				FROM transaksi_petani a LEFT JOIN harga_cabai_petani b ON a.kode_cabai = b.kode_cabai
+				(SELECT a.tanggal, a.berat_kotor, a.bon, (a.berat_kotor-a.berat_bs-a.berat_susut)*b.harga_bersih + a.berat_bs*b.harga_bs as jumlah_uang
+				FROM transaksi_petani a LEFT JOIN harga_cabai_petani b ON a.kode_cabai = b.kode_cabai AND a.tanggal=b.tanggal
 				UNION ALL 
 				SELECT tanggal, berat_kotor, bon, berat_bs*harga_bs + (berat_kotor-berat_bs-berat_susut)*harga_bersih as jumlah_uang FROM transaksi_petaninonmitra) x
 			WHERE tanggal LIKE '$month%' GROUP BY tanggal ORDER BY tanggal ASC");
 		return $query->result();
 	}
+
+	// SET GLOBAL event_scheduler = ON;
+	// CREATE EVENT IF NOT EXIST event_hutang ON SCHEDULE EVERY 1 DAY STARTS CURRENT_TIMESTAMP ENDS CURRENT_TIMESTAMP + INTERVAL 5 YEAR DO INSERT INTO rekap_hutang (tanggal, negatif, positif) SELECT CURRENT_DATE(), SUM(CASE WHEN saldo<0 THEN saldo ELSE 0 END), SUM(CASE WHEN saldo>=0 THEN saldo ELSE 0 END) FROM tb_petani;
+
+	
 
 
 	public function rekap_pembeli_harian($month)
@@ -72,5 +77,24 @@ class model_perusahaan extends CI_Model {
 			");
 
 		return $query->result();
+	}
+
+	public function hutang_piutang()
+	{
+		$query = $this->db->query("SELECT SUM(CASE WHEN saldo<0 THEN saldo ELSE 0 END) as negatif, SUM(CASE WHEN saldo>=0 THEN saldo ELSE 0 END) as positif FROM tb_petani");
+
+		return $query->row();
+	}
+
+	public function hutang_harian($month)
+	{
+		$query = $this->db->query("SELECT * FROM rekap_hutang WHERE tanggal LIKE '$month%'");
+
+		return $query->result();
+	}
+
+	public function add_hutang_harian()
+	{
+		$query = $this->db->query("INSERT INTO rekap_hutang (tanggal, negatif, positif) SELECT CURRENT_DATE(), SUM(CASE WHEN saldo<0 THEN saldo ELSE 0 END), SUM(CASE WHEN saldo>=0 THEN saldo ELSE 0 END) FROM tb_petani");
 	}
 }

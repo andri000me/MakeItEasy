@@ -572,8 +572,7 @@
             url: '<?php echo base_url();?>Cabai/submitHargaPetani',
             data: $('#formHargaCabai').serializeArray(),
             success: function (response) {
-              alert(response) 
-              //{location.reload(true)}
+              if (!alert(response)) {window.location.reload();}
             },
             error: function() {
               alert('Mohon Maaf, ada sedikit error, mohon ulangi');
@@ -588,7 +587,7 @@
             url: '<?php echo base_url();?>Cabai/tambahCabai',
             data: $('#formJenisCabai').serialize(),
             success: function (response) {
-              if (!alert('berhasil ditambahkan')) {location.reload(true)}
+              if (!alert('berhasil ditambahkan')) {window.location.reload();}
             },
             error: function() {
               alert('Mohon Maaf, kode cabai sudah terpakai');

@@ -613,8 +613,6 @@
       var jumlah_uang = $('#jumlah_uang').val()
       var jumlah_uang_awal = $('#jumlah_uang_awal').val()
 
-      var new_saldo = saldo - jumlah_uang_awal + jumlah_uang;
-
       $.ajax({
         url:"<?php echo base_url();?>Riwayat/updateSetoran",  
         type:"POST",  

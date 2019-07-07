@@ -15,12 +15,15 @@ class Barang extends CI_Controller {
 
 	public function index()
 		{
-			$data = array(
-				'tb_barang' => $this->model_barang->tb_barang() );
-
 			$this->load->view('header');
-			$this->load->view('barangbon', $data);
+			$this->load->view('barangbon');
 		}
+
+	public function data_barang()
+	{
+        $data=$this->model_barang->tb_barang();
+        echo json_encode($data);
+    }
 
 	public function submitBarang()
 		{
@@ -41,12 +44,11 @@ class Barang extends CI_Controller {
 	        echo json_encode($query);
 		}
 
-	function edit_barang()	{
-		$id = $this->input->post('id');
-		$query = $this->model_barang->edit_barang($id);
-
-		echo json_encode($query);
-	}
+	function show_barang(){
+        $kobar=$this->input->get('id');
+        $data=$this->model_barang->edit_barang($kobar);
+        echo json_encode($data);
+    }
 
 	function delete_barangBon()	{
 		$id = $this->input->post('id');
@@ -55,19 +57,26 @@ class Barang extends CI_Controller {
 		echo 1;
 	}
 
-	function updateBarang()	{
-		$id_barang = $this->input->post('id_barang');
-		$barang = $this->input->post('barang');
-		$harga = $this->input->post('harga');
+	function hapus_barang()
+	{
+        $kobar=$this->input->post('kode');
+        $data=$this->model_barang->delete_barangBon($kobar);
+        echo json_encode($data);
+    }
 
-		$data = array(
-			'barang' => $barang,
-			'harga' => $harga );
+	function update_barang()
+	{
+        $kobar=$this->input->post('kobar');
+        $nabar=$this->input->post('nabar');
+        $harga=$this->input->post('harga');
 
-		$this->model_barang->updateBarang($id_barang, $data);
+        $barang = array(
+        	'barang' => $nabar,
+        	'harga' => $harga );
 
-		echo 'berhasil';
-	}
+        $data=$this->model_barang->updateBarang($kobar, $barang);
+        echo json_encode($data);
+    }
 
 
 }
