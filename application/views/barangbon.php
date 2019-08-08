@@ -563,7 +563,7 @@
                     $('[name="harga_edit"]').val("");
                     $('#ModalaEdit').modal('hide');
                     tampil_data_barang();
-                }
+                },
                 error: function(){
                   alert('gagal update data')
                 }
@@ -583,7 +583,7 @@
                     success: function(data){
                             $('#ModalHapus').modal('hide');
                             tampil_data_barang();
-                    }
+                    },
                     error: function(){
                       alert('gagal menghapus data');
                     }

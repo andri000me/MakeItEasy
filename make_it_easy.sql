@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.1
--- http://www.phpmyadmin.net
+-- version 4.8.5
+-- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 29, 2019 at 09:27 AM
--- Server version: 10.1.19-MariaDB
--- PHP Version: 5.5.38
+-- Generation Time: Jul 07, 2019 at 10:33 PM
+-- Server version: 10.1.38-MariaDB
+-- PHP Version: 7.3.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -93,7 +95,15 @@ INSERT INTO `harga_cabai_petani` (`id`, `kode_cabai`, `tanggal`, `harga_bs`, `ha
 (145, 'KR2', '2019-01-29', 1000, 14000),
 (146, 'H', '2019-01-29', 2000, 15000),
 (147, 'KR1', '2019-01-29', 1000, 14000),
-(148, 'M', '2019-01-29', 1000, 14000);
+(148, 'M', '2019-01-29', 1000, 14000),
+(149, 'H', '2019-06-11', 2000, 13000),
+(150, 'M', '2019-06-11', 1000, 11000),
+(151, 'KR2', '2019-06-11', 900, 8000),
+(152, 'KR1', '2019-06-11', 1000, 14000),
+(153, 'H', '2019-06-12', 500, 11000),
+(154, 'KR2', '2019-06-12', 500, 11000),
+(155, 'KR1', '2019-06-12', 1000, 13000),
+(156, 'M', '2019-06-12', 2000, 13000);
 
 -- --------------------------------------------------------
 
@@ -143,6 +153,32 @@ INSERT INTO `pengeluaran` (`id`, `tanggal`, `jenis`, `harga_satuan`, `jumlah`) V
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `rekap_hutang`
+--
+
+CREATE TABLE `rekap_hutang` (
+  `id` int(11) NOT NULL,
+  `tanggal` date NOT NULL,
+  `negatif` int(11) NOT NULL,
+  `positif` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `rekap_hutang`
+--
+
+INSERT INTO `rekap_hutang` (`id`, `tanggal`, `negatif`, `positif`) VALUES
+(1, '2019-06-13', -6710000, 3092500),
+(2, '2019-06-27', -6578890, 3092588),
+(3, '2019-06-28', -6710000, 3092500),
+(4, '2019-07-01', -6710000, 3092500),
+(5, '2019-07-02', -6710000, 3092500),
+(6, '2019-07-05', -6710000, 3092500),
+(8, '2019-07-08', -6710000, 3092500);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `tb_admin`
 --
 
@@ -180,7 +216,12 @@ INSERT INTO `tb_bon` (`id`, `barang`, `harga`) VALUES
 (2, 'Plastik Bungkus', 5500),
 (3, 'Pestisida', 21000),
 (5, 'Bibit Cabai', 14000),
-(7, 'Bagor', 2000);
+(7, 'Bagor', 2000),
+(8, 'Suara1', 190000),
+(9, 'separuh', 300000),
+(10, 'dirimu', 400000),
+(11, 'aahhhh ahahahaha', 2000000),
+(12, 'dengar laraku', 2020000);
 
 -- --------------------------------------------------------
 
@@ -199,12 +240,15 @@ CREATE TABLE `tb_cabai` (
 --
 
 INSERT INTO `tb_cabai` (`kode`, `jenis`, `aktif`) VALUES
+('A', 'AKu ingin', 1),
+('C', 'cintamu', 1),
 ('FW', 'Very Well', 1),
 ('FW1', 'Very Well Super', 1),
 ('H', 'Hijau', 1),
+('K', 'kamu mengerti', 1),
 ('KR1', 'Keriting Super', 1),
 ('KR2', 'Keriting Kecil', 1),
-('M', 'Merah', 1),
+('M', 'Merahh', 1),
 ('RW1', 'Rawit Super', 1),
 ('RW2', 'Rawit Kecil', 1);
 
@@ -259,12 +303,12 @@ CREATE TABLE `tb_petani` (
 
 INSERT INTO `tb_petani` (`id`, `nama`, `nama_panggil`, `desa`, `alamat`, `no_telp`, `saldo`, `jaminan`, `kemitraan`, `status_pinjaman`, `tenggat`) VALUES
 (1, 'Nadya Rahmatun', 'tuntun', 'payakumbuh', 'Perumahan Banjardadap p41 Potorono Banguntapan Bantul DIY', '087878787888', 40000, '', 1, 0, '0000-00-00'),
-(2, 'Annisa Amalia', 'Nisa', 'Surakarta', 'jl solo baru no 234', '08009090909', 136000, '', 1, 0, '0000-00-00'),
+(2, 'Annisa Amalia', 'Nisa', 'Surakarta', 'jl solo baru no 234', '08009090909', 681500, '', 1, 0, '0000-00-00'),
 (3, 'Aliefya Fadhila', 'ipeh', 'Muntilan', 'Muntilan no 3654', '087999987777', -6000000, 'BPKB Motor', 1, 0, NULL),
-(4, 'Suparman', 'gaprek', 'Ngasem', 'jl pelita hati no 76', '08783458876', 20000, NULL, 0, 0, '0000-00-00'),
-(5, 'Isna', 'Isna', 'Jogja', 'Perumahan Banjardadap', '0878387246878', 500000, '', 1, 0, '2018-10-31'),
-(6, 'Salsabila', 'Bila', 'Purworejo', 'Banjarmasin kota no 432', '08999768787999', 18500, '', 1, 0, '0000-00-00'),
-(7, 'Lucinta', 'Luna', 'Nglambor', 'Muntilan no 365', '09787888888', 300000, '', 1, 0, '0000-00-00'),
+(4, 'Suparman', 'gaprek', 'Ngasem', 'jl pelita hati no 76', '08783458876', 964500, NULL, 0, 0, '0000-00-00'),
+(5, 'Isna', 'Isna', 'Jogja', 'Perumahan Banjardadap', '0878387246878', -24000, '', 1, 0, '0000-00-00'),
+(6, 'Salsabila', 'Bila', 'Purworejo', 'Banjarmasin kota no 432', '08999768787999', 1206500, '', 1, 0, '0000-00-00'),
+(7, 'Lucinta', 'Luna', 'Nglambor', 'Muntilan no 365', '09787888888', -686000, '', 1, 0, '0000-00-00'),
 (8, 'Ichi', 'Chichi', 'Bajarndadap', 'Muntilan no 365', '12121212', 200000, '', 1, 0, NULL);
 
 -- --------------------------------------------------------
@@ -297,7 +341,12 @@ INSERT INTO `transaksi_bon` (`id`, `id_transaksi`, `tanggal`, `id_petani`, `bara
 (39, 0, '2018-09-03', 7, NULL, NULL, NULL, 200000),
 (51, 22, '2018-09-14', 4, 'Uang', 335000, 1, 335000),
 (52, 23, '2018-09-17', 2, 'Pestisida', 21000, 2, 0),
-(53, 23, '2018-09-17', 2, 'Uang', 100000, 1, 100000);
+(53, 23, '2018-09-17', 2, 'Uang', 100000, 1, 100000),
+(54, 27, '2019-06-11', 7, 'Plastik Bungkus', 5500, 8, 0),
+(55, 27, '2019-06-11', 7, 'Pestisida', 21000, 2, 0),
+(56, 27, '2019-06-11', 7, 'Uang', 900000, 1, 900000),
+(57, 28, '2019-06-11', 5, 'Plastik Bungkus', 5500, 80, 0),
+(58, 28, '2019-06-11', 5, 'Pupuk Organik', 21000, 4, 0);
 
 -- --------------------------------------------------------
 
@@ -375,7 +424,12 @@ INSERT INTO `transaksi_petani` (`id`, `tanggal`, `id_petani`, `kode_cabai`, `ber
 (5, '2018-09-03', 4, 'KR1', '90.00', '5.00', '0.50', NULL, 2440000),
 (6, '2018-09-03', 2, 'M', '110.00', '5.00', '0.00', NULL, 4150000),
 (22, '2018-09-14', 4, NULL, NULL, NULL, NULL, 335000, 20000),
-(23, '2018-09-17', 2, NULL, NULL, NULL, NULL, 142000, 136000);
+(23, '2018-09-17', 2, NULL, NULL, NULL, NULL, 142000, 136000),
+(24, '2019-06-11', 2, 'H', '45.00', '3.00', '0.50', NULL, 681500),
+(25, '2019-06-11', 6, 'KR1', '90.00', '5.00', '0.50', NULL, 1206500),
+(26, '2019-06-11', 4, 'M', '90.00', '3.00', '0.50', NULL, 974500),
+(27, '2019-06-11', 7, NULL, NULL, NULL, NULL, 986000, -686000),
+(28, '2019-06-11', 5, NULL, NULL, NULL, NULL, 524000, -24000);
 
 -- --------------------------------------------------------
 
@@ -402,9 +456,9 @@ CREATE TABLE `transaksi_petaninonmitra` (
 
 INSERT INTO `transaksi_petaninonmitra` (`id`, `tanggal`, `nama_petani`, `kode_cabai`, `harga_bersih`, `harga_bs`, `berat_kotor`, `berat_bs`, `berat_susut`, `bon`) VALUES
 (2, '2018-06-18', 'Supomon', 'M', 6000, 1500, '90.000', '3.000', '0.000', NULL),
-(3, '2018-09-04', 'Lamuna', 'KR1', 17000, 2000, '99.999', '5.000', '0.000', NULL),
+(3, '2018-09-04', 'Lamuna', 'KR1', 17000, 2000, '99.999', '4.000', '1.000', NULL),
 (4, '2018-09-04', 'Nadya Rahmatun', 'H', 13000, 1000, '90.000', '4.000', '0.000', NULL),
-(5, '2019-01-29', 'Lamuna', 'M', 11000, 1500, '90.000', '4.000', NULL, NULL);
+(5, '2019-01-29', 'Lamuna', 'M', 11000, 1500, '90.000', '4.000', '0.000', NULL);
 
 --
 -- Indexes for dumped tables
@@ -427,6 +481,12 @@ ALTER TABLE `pemasukan`
 -- Indexes for table `pengeluaran`
 --
 ALTER TABLE `pengeluaran`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `rekap_hutang`
+--
+ALTER TABLE `rekap_hutang`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -501,62 +561,80 @@ ALTER TABLE `transaksi_petaninonmitra`
 -- AUTO_INCREMENT for table `harga_cabai_petani`
 --
 ALTER TABLE `harga_cabai_petani`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=149;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=157;
+
 --
 -- AUTO_INCREMENT for table `pemasukan`
 --
 ALTER TABLE `pemasukan`
   MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
 --
 -- AUTO_INCREMENT for table `pengeluaran`
 --
 ALTER TABLE `pengeluaran`
   MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `rekap_hutang`
+--
+ALTER TABLE `rekap_hutang`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
 --
 -- AUTO_INCREMENT for table `tb_admin`
 --
 ALTER TABLE `tb_admin`
   MODIFY `id_admin` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
 --
 -- AUTO_INCREMENT for table `tb_bon`
 --
 ALTER TABLE `tb_bon`
-  MODIFY `id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
 --
 -- AUTO_INCREMENT for table `tb_pembeli`
 --
 ALTER TABLE `tb_pembeli`
   MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
 --
 -- AUTO_INCREMENT for table `tb_petani`
 --
 ALTER TABLE `tb_petani`
   MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
 --
 -- AUTO_INCREMENT for table `transaksi_bon`
 --
 ALTER TABLE `transaksi_bon`
-  MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
+  MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
+
 --
 -- AUTO_INCREMENT for table `transaksi_pembeli`
 --
 ALTER TABLE `transaksi_pembeli`
   MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
 --
 -- AUTO_INCREMENT for table `transaksi_pembelinonmitra`
 --
 ALTER TABLE `transaksi_pembelinonmitra`
   MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
 --
 -- AUTO_INCREMENT for table `transaksi_petani`
 --
 ALTER TABLE `transaksi_petani`
-  MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+
 --
 -- AUTO_INCREMENT for table `transaksi_petaninonmitra`
 --
 ALTER TABLE `transaksi_petaninonmitra`
   MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
 --
 -- Constraints for dumped tables
 --
@@ -580,6 +658,15 @@ ALTER TABLE `transaksi_pembeli`
 ALTER TABLE `transaksi_petani`
   ADD CONSTRAINT `FK_transaksiCabai` FOREIGN KEY (`kode_cabai`) REFERENCES `tb_cabai` (`kode`),
   ADD CONSTRAINT `FK_transaksiPetani` FOREIGN KEY (`id_petani`) REFERENCES `tb_petani` (`id`);
+
+DELIMITER $$
+--
+-- Events
+--
+CREATE DEFINER=`root`@`localhost` EVENT `event_hutang` ON SCHEDULE EVERY 1 DAY STARTS '2019-06-27 13:21:55' ENDS '2024-06-27 13:21:55' ON COMPLETION NOT PRESERVE ENABLE DO INSERT INTO rekap_hutang (tanggal, negatif, positif) SELECT CURRENT_DATE(), SUM(CASE WHEN saldo<0 THEN saldo ELSE 0 END), SUM(CASE WHEN saldo>=0 THEN saldo ELSE 0 END) FROM tb_petani$$
+
+DELIMITER ;
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

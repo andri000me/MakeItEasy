@@ -302,6 +302,7 @@
               <h3 class="box-title">Hutang Piutang Harian (Rp)</h3>
 
               <div class="box-tools pull-right">
+                <button id="input_today" type="button" class="btn btn-primary">Input Today</button>
                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                 </button>
                 <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
@@ -771,7 +772,21 @@
   });
   //.end hutang harian chart
 
-
+  //add row to hutang_harian
+  $('#input_today').click(function(){
+    // alert('okay');
+    $.ajax({
+        url : "http://localhost/MakeItEasy/Perusahaan/add_data_hutang_harian",
+        type : "POST",
+        dataType: "JSON",
+        data: 
+          {month: month},
+        success : function(data){
+          addData(chart_hutang, data.tanggal, )
+        }
+    })
+  })
+  //.end add row to hutang_harian
 
   $('#monthly_date').datepicker({
     format : "yyyy-mm",

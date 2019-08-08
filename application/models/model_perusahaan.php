@@ -97,4 +97,16 @@ class model_perusahaan extends CI_Model {
 	{
 		$query = $this->db->query("INSERT INTO rekap_hutang (tanggal, negatif, positif) SELECT CURRENT_DATE(), SUM(CASE WHEN saldo<0 THEN saldo ELSE 0 END), SUM(CASE WHEN saldo>=0 THEN saldo ELSE 0 END) FROM tb_petani");
 	}
+
+
+// 	CREATE TABLE IF NOT EXISTS messages (
+//     id INT PRIMARY KEY AUTO_INCREMENT,
+//     message VARCHAR(255) NOT NULL,
+//     created_at DATETIME NOT NULL
+// );
+
+	// SET GLOBAL event_scheduler = ON;
+
+	// `event_hutang` ON SCHEDULE EVERY 1 DAY STARTS '2019-06-27 13:21:55' ENDS '2024-06-27 13:21:55' ON COMPLETION NOT PRESERVE ENABLE DO INSERT INTO rekap_hutang (tanggal, negatif, positif) SELECT CURRENT_DATE(), SUM(CASE WHEN saldo<0 THEN saldo ELSE 0 END), SUM(CASE WHEN saldo>=0 THEN saldo ELSE 0 END) FROM tb_petani
+
 }
