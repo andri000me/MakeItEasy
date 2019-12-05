@@ -93,22 +93,22 @@
                               <th style="text-align: center; line-height: 50px; width: 150px">Edit</th>
                             </tr>
                           </thead>
-                          <tbody>
+                          <tbody id="show_data">
                             <?php 
-                              $no=1;
-                              foreach ($tb_barang as $tb) {
-                                echo '<tr>
-                                <td>'.$no.'</td>
-                                <td>'.$tb->barang.'</td>
-                                <td>'.$tb->harga.'</td>
-                                <td>
-                                  <button class="edit_data btn btn-sm btn-info" id="edit_'.$tb->id.'" data-toggle="modal" data-target="#editHarga" ><i class="fa fa-edit" ></i> Edit </button>
-                                  <button class="delete btn btn-sm btn-danger" id="del_'.$tb->id.'""><i class="fa fa-trash-o"></i> Hapus </button>
-                                </td>
-                                </tr>';
+                              // $no=1;
+                              // foreach ($tb_barang as $tb) {
+                              //   echo '<tr>
+                              //   <td>'.$no.'</td>
+                              //   <td>'.$tb->barang.'</td>
+                              //   <td>'.$tb->harga.'</td>
+                              //   <td>
+                              //     <button class="edit_data btn btn-sm btn-info" id="edit_'.$tb->id.'" data-toggle="modal" data-target="#editHarga" ><i class="fa fa-edit" ></i> Edit </button>
+                              //     <button class="delete btn btn-sm btn-danger" id="del_'.$tb->id.'""><i class="fa fa-trash-o"></i> Hapus </button>
+                              //   </td>
+                              //   </tr>';
 
-                                $no++;
-                              }
+                              //   $no++;
+                              // }
 
                               ?>
 
@@ -116,7 +116,7 @@
                         </table>
 
                         <!-- modal edit Harga -->
-                        <div class="modal fade" id="editHarga">
+                       <!--  <div class="modal fade" id="editHarga">
                           <div class="modal-dialog">
                             <div class="modal-content">
                               <div class="modal-header">
@@ -150,11 +150,80 @@
                                 <button type="button" class="btn btn-info" id="update_button">Update</button>
                               </div>
                             </div>
-                            <!-- /.modal-content -->
-                          </div>
+                            /.modal-content -->
+                          <!-- </div> -->
                           <!-- /.modal-dialog -->
-                        </div>
+                        <!-- </div> --> 
                         <!-- /.modal -->
+
+      <!-- MODAL EDIT -->
+        <div class="modal fade" id="ModalaEdit" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
+            <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 class="modal-title" id="myModalLabel">Edit Barang</h3>
+            </div>
+            <form class="form-horizontal">
+                <div class="modal-body">
+ 
+                    <div class="form-group">
+                        <label class="control-label col-xs-3" >Kode Barang</label>
+                        <div class="col-xs-9">
+                            <input name="kobar_edit" id="kode_barang2" class="form-control" type="text" placeholder="Kode Barang" style="width:335px;" readonly>
+                        </div>
+                    </div>
+ 
+                    <div class="form-group">
+                        <label class="control-label col-xs-3" >Nama Barang</label>
+                        <div class="col-xs-9">
+                            <input name="nabar_edit" id="nama_barang2" class="form-control" type="text" placeholder="Nama Barang" style="width:335px;" required>
+                        </div>
+                    </div>
+ 
+                    <div class="form-group">
+                        <label class="control-label col-xs-3" >Harga</label>
+                        <div class="col-xs-9">
+                            <input name="harga_edit" id="harga2" class="form-control" type="text" placeholder="Harga" style="width:335px;" required>
+                        </div>
+                    </div>
+ 
+                </div>
+ 
+                <div class="modal-footer">
+                    <button class="btn" data-dismiss="modal" aria-hidden="true">Tutup</button>
+                    <button class="btn btn-info" id="btn_update">Update</button>
+                </div>
+            </form>
+            </div>
+            </div>
+        </div>
+        <!--END MODAL EDIT-->
+ 
+        <!--MODAL HAPUS-->
+        <div class="modal fade" id="ModalHapus" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">X</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Hapus Barang</h4>
+                    </div>
+                    <form class="form-horizontal">
+                    <div class="modal-body">
+                                           
+                            <input type="hidden" name="kode" id="textkode" value="">
+                            <div class="alert alert-warning"><p>Apakah Anda yakin mau memhapus barang ini?</p></div>
+                                         
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
+                        <button class="btn_hapus btn btn-danger" id="btn_hapus">Hapus</button>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!--END MODAL HAPUS-->
 
                       </div>
                       <!-- /.box-body -->
@@ -416,102 +485,114 @@
 
 <script>
   $(document).ready(function(){
-    $('#tabel_transaksi').DataTable()
+
+    tampil_data_barang();   //pemanggilan fungsi tampil barang.
+    
+    //get datatable for tabel_bon
     $('#tabel_bon').DataTable()
 
-    $('#stok').on('change', function() {
-      var stok = $('#stok').val()
-      var harga_beli = $('#harga_beli').val()
-      var jumlah_bayar = stok * harga_beli
-
-      $('#jumlah_bayar').val(jumlah_bayar)
-    });
-
-    $('.jenis_cabai').select2()
-    $('.kode_cabai').select2()
-    $('.jenis_bon').select2()
-
-    //menghapus
-    $('.delete').click(function(){
-        var el = this;
-        var id = this.id;
-        console.log(id);
-        var splitid = id.split("_");
-
-        // Delete id
-        var deleteid = splitid[1];
-   
-          if(confirm('Apakah Anda yakin menghapus transaksi?'))
-          {
-            // AJAX Request
+    //fungsi tampil barang
+        function tampil_data_barang(){
             $.ajax({
-              url: '<?php echo base_url();?>Barang/delete_barangBon',
-              type: 'POST',
-              data: { id:deleteid },
-              success: function(response){
-
-                // Removing row from HTML Table
-                $(el).closest('tr').css('background','tomato');
-                $(el).closest('tr').fadeOut(600, function(){ 
-                 $(this).remove();
-                });
-              },
-              error: function(){
-                alert('Gagal menghapus');
-              }
+                type  : 'ajax',
+                url   : '<?php echo base_url()?>Barang/data_barang',
+                async : false,
+                dataType : 'json',
+                success : function(data){
+                    var html = '';
+                    var i;
+                    for(i=0; i<data.length; i++){
+                        html += '<tr>'+
+                                '<td>'+data[i].id+'</td>'+
+                                '<td>'+data[i].barang+'</td>'+
+                                '<td>'+data[i].harga+'</td>'+
+                                '<td style="text-align:right;">'+
+                                    '<a href="javascript:;" class="btn btn-info btn-xs item_edit" data="'+data[i].id+'">Edit</a>'+' '+
+                                    '<a href="javascript:;" class="btn btn-danger btn-xs item_hapus" data="'+data[i].id+'">Hapus</a>'+
+                                '</td>'+
+                                '</tr>';
+                    }
+                    $('#show_data').html(html);
+                }
             });
-          }
-      });
-
-      $('.edit_data').click(function(){
-          var id = this.id;
-          var splitid = id.split("_");
-           var id_barang = splitid[1];
-           editBarang(id_barang);
-      });
-
-      $('#update_button').click(function(){
-          updateBarang();
-      })
-  })
-
-  
-function editBarang(id_barang)  {
-           $.ajax({  
-                url:"<?php echo base_url();?>Barang/edit_barang",  
-                method:"POST",  
-                data:{id:id_barang},
-                dataType: "json",
-                success:function(data){
-                     $('#id_barang').val(data.id);
-                     $('#barang').val(data.barang);
-                     $('#edit_harga').val(data.harga);
-                }  
-           });
-  }
-
-function updateBarang() {
-      var id_barang = $('#id_barang').val()
-      var barang = $('#barang').val()
-      var harga = $('#edit_harga').val()
-
-      $.ajax({
-        url:"<?php echo base_url();?>Barang/updateBarang",  
-        type:"POST",  
-        data:{
-          id_barang: id_barang,
-          barang: barang,
-          harga: harga },    
-        success:function(data){
-          location.reload(true);
-          $('#successful_edit').html('<div class="alert alert-success alert-dismissible"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>Berhasil!</strong>  Setoran Petani berhasil diperbarui</div>');
-        },
-        error: function() {
-          alert('gagal mengedit, coba lagi!')
         }
-      })
-  }
+    //!end function tampil data
 
+    //GET UPDATE
+        $('#show_data').on('click','.item_edit',function(){
+            var id=$(this).attr('data');
+            $.ajax({
+                type : "GET",
+                url  : "<?php echo base_url('Barang/show_barang')?>",
+                dataType : "JSON",
+                data : {id:id},
+                success: function(data){
+                    $.each(data,function(id, barang, harga){
+                        $('#ModalaEdit').modal('show');
+                        $('[name="kobar_edit"]').val(data.id);
+                        $('[name="nabar_edit"]').val(data.barang);
+                        $('[name="harga_edit"]').val(data.harga);
+                    });
+                }
+            });
+            return false;
+        });
+    //!END get update
+
+    //GET HAPUS
+        $('#show_data').on('click','.item_hapus',function(){
+            var id=$(this).attr('data');
+            $('#ModalHapus').modal('show');
+            $('[name="kode"]').val(id);
+        });
+    //END Hapus
+
+    //Update Barang
+        $('#btn_update').on('click',function(){
+            var kobar=$('#kode_barang2').val();
+            var nabar=$('#nama_barang2').val();
+            var harga=$('#harga2').val();
+            $.ajax({
+                type : "POST",
+                url  : "<?php echo base_url('Barang/update_barang')?>",
+                dataType : "JSON",
+                data : {kobar:kobar , nabar:nabar, harga:harga},
+                success: function(data){
+                    $('[name="kobar_edit"]').val("");
+                    $('[name="nabar_edit"]').val("");
+                    $('[name="harga_edit"]').val("");
+                    $('#ModalaEdit').modal('hide');
+                    tampil_data_barang();
+                },
+                error: function(){
+                  alert('gagal update data')
+                }
+            });
+            return false;
+        });
+      //END Hapus Barang
+ 
+      //Hapus Barang
+        $('#btn_hapus').on('click',function(){
+            var kode=$('#textkode').val();
+            $.ajax({
+            type : "POST",
+            url  : "<?php echo base_url('Barang/hapus_barang')?>",
+            dataType : "JSON",
+                    data : {kode: kode},
+                    success: function(data){
+                            $('#ModalHapus').modal('hide');
+                            tampil_data_barang();
+                    },
+                    error: function(){
+                      alert('gagal menghapus data');
+                    }
+                });
+                return false;
+            });
+        //END Hapus Barang
+
+  });
 
 </script>
 

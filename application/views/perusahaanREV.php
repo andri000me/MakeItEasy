@@ -58,8 +58,34 @@
         <!-- /.col -->
         <!-- fix for small devices only -->
         <div class="clearfix visible-sm-block"></div>
+         <div class="col-md-5 col-sm-12">
+          <div class="box box-default">
+            <div class="box-header with-border">
+              <h3 class="box-title">Hutang dan Piutang (Rp)</h3>
 
-        <div class="col-md-4 col-sm-6 col-xs-12">
+              <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+              </div>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+              <div class="chart-responsive">
+                <canvas id="hutang_piutang" height="150"></canvas>
+              </div>
+                  <!-- ./chart-responsive -->
+            </div>
+            <!-- /.box-body -->
+            <div class="box-footer no-padding">
+            </div>
+            <!-- /.footer -->
+          </div>
+          <!-- /.box -->
+          <div class="clearfix"></div>
+        </div>
+
+        <div class="col-md-5 col-sm-6 col-xs-12">
           <div class="info-box">
             <span class="info-box-icon bg-yellow"><i class="fa fa-group"></i></span>
 
@@ -73,7 +99,7 @@
         </div>
         <!-- /.col -->
 
-        <div class="col-md-4 col-sm-6 col-xs-12">
+        <div class="col-md-5 col-sm-6 col-xs-12">
           <div class="info-box">
             <span class="info-box-icon bg-red"><i class="fa fa-shopping-cart"></i></span>
 
@@ -91,6 +117,7 @@
 
        <div class="row">
         <div class="col-md-12">
+
         <!--  <div class="box">
             <div class="box-header with-border">
               <h3 class="box-title">Rekap Transaksi Tahun : 
@@ -268,6 +295,63 @@
 
       <!-- row dibawah grafik -->
       <div class="row">
+      <!-- Grafik Hutang Piutang Harian -->
+        <div class="col-md-6 col-sm-12">
+          <div class="box box-default">
+            <div class="box-header with-border">
+              <h3 class="box-title">Hutang Piutang Harian (Rp)</h3>
+
+              <div class="box-tools pull-right">
+                <button id="input_today" type="button" class="btn btn-primary">Input Today</button>
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+              </div>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+              <div class="chart-responsive">
+                <canvas id="hutang_harian" height="150"></canvas>
+              </div>
+                  <!-- ./chart-responsive -->
+            </div>
+            <!-- /.box-body -->
+            <div class="box-footer no-padding">
+            </div>
+            <!-- /.footer -->
+          </div>
+          <!-- /.box -->
+          <div class="clearfix"></div>
+        </div>
+        <!-- ./cabai terjual -->
+        <!-- Cabai Terjual -->
+        <div class="col-md-6 col-sm-12">
+          <div class="box box-default">
+            <div class="box-header with-border">
+              <h3 class="box-title">Cabai Terjual (kg)</h3>
+
+              <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+              </div>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+              <div class="chart-responsive">
+                <canvas id="ringkasan_cabai" height="150"></canvas>
+              </div>
+                  <!-- ./chart-responsive -->
+            </div>
+            <!-- /.box-body -->
+            <div class="box-footer no-padding">
+            </div>
+            <!-- /.footer -->
+          </div>
+          <!-- /.box -->
+          <div class="clearfix"></div>
+        </div>
+        <!-- ./cabai terjual -->
         <!-- Table pendapatan dan pengeluaran -->
         <div class="col-md-6 col-sm-12">
           <div class="box box-primary">
@@ -299,34 +383,7 @@
             </div>
           </div>
         </div>
-        <!-- ./col -->
-        <div class="col-md-6 col-sm-12">
-          <div class="box box-default">
-            <div class="box-header with-border">
-              <h3 class="box-title">Cabai Terjual (kg)</h3>
-
-              <div class="box-tools pull-right">
-                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                </button>
-                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-              </div>
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body">
-              <div class="chart-responsive">
-                <canvas id="ringkasan_cabai" height="150"></canvas>
-              </div>
-                  <!-- ./chart-responsive -->
-            </div>
-            <!-- /.box-body -->
-            <div class="box-footer no-padding">
-            </div>
-            <!-- /.footer -->
-          </div>
-          <!-- /.box -->
-          <div class="clearfix"></div>
-        </div>
-        <!-- ./col -->
+        <!-- ./Table pendapatan dan pengeluaran -->
       </div>
       <!-- END row dibawah grafik -->
     </section>
@@ -564,6 +621,8 @@
   //Date range picker
   $(document).ready(function() {
       var month = $('#monthly_date').val();
+
+      //chart cabai terjual
       $.ajax({
         url : "http://localhost:8080/MakeItEasy/Perusahaan/rekap_cabai",
         type : "POST",
@@ -623,25 +682,139 @@
           window.myDoughnut = new Chart(ctx, config);
         }
       });
+    //.end cabai harian
 
-    $('#monthly_date').datepicker({
-      format : "yyyy-mm",
-      todayHighlight : 'true',
-      startView : "months",
-      minViewMode : "months"
+    //hutang piutang chart
+    $.ajax({
+      url : "http://localhost/MakeItEasy/Perusahaan/hutang_piutang",
+      type : "GET",
+      dataType: "JSON",
+      success : function(data){
+        console.log(data);
+
+
+        var positif = data.positif;
+        var negatif = data.negatif * -1;
+        var ctx2 = document.getElementById('hutang_piutang').getContext('2d');
+        var myChart = new Chart(ctx2, {
+          type: 'bar',
+          data: {
+              labels: ['Piutang', 'Hutang'],
+              datasets: [{
+                label: 'Total',
+                data: [negatif, positif],
+                backgroundColor: [
+                  'rgba(230, 46, 0, 1)',
+                  'rgba(0, 179, 0, 1)'
+                  
+                ],
+              }]
+          },
+          options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                      beginAtZero: true
+                  }
+                }]
+            }
+          }
+        });
+      }
     });
-    //$('#pickbulan').daterangepicker()
-    //$('#picktahun').daterangepicker()
-    $('.rekap_hari').DataTable()
-    $('#rekap_bulan').DataTable()
-    $('#rekap_tahun').DataTable()
+  //.end hutang piutang chart
+
+  //hutang harian chart
+  $.ajax({
+        url : "http://localhost/MakeItEasy/Perusahaan/hutang_harian",
+        type : "POST",
+        dataType: "JSON",
+        data: {month: month},
+        success : function(data){
+          console.log(data);
+
+          var tanggal = [];
+          var hutang = [];
+          var piutang = [];
+
+          for (var i in data) {
+            tanggal.push(data[i].tanggal);
+            piutang.push(data[i].negatif * -1);
+            hutang.push(data[i].positif);
+          }
+
+          var ctx3 = document.getElementById('hutang_harian').getContext('2d');
+        var chart_hutang = new Chart(ctx3, {
+          type: 'bar',
+          data: {
+              labels: tanggal,
+              datasets: [
+              { label: 'Piutang',
+                data: piutang,
+                backgroundColor:'rgba(230, 46, 0, 1)'
+              },
+              { label: 'Hutang',
+                data: hutang,
+                backgroundColor: 'rgba(0, 179, 0, 1)'
+              }]
+          },
+          options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                      beginAtZero: true
+                  }
+                }]
+            }
+          }
+      });
+    }
+  });
+  //.end hutang harian chart
+
+  //add row to hutang_harian
+  $('#input_today').click(function(){
+    // alert('okay');
+    $.ajax({
+        url : "http://localhost/MakeItEasy/Perusahaan/add_data_hutang_harian",
+        type : "POST",
+        dataType: "JSON",
+        data: 
+          {month: month},
+        success : function(data){
+          addData(chart_hutang, data.tanggal, )
+        }
+    })
+  })
+  //.end add row to hutang_harian
+
+  $('#monthly_date').datepicker({
+    format : "yyyy-mm",
+    todayHighlight : 'true',
+    startView : "months",
+    minViewMode : "months"
+  });
+  //$('#pickbulan').daterangepicker()
+  //$('#picktahun').daterangepicker()
+  $('.rekap_hari').DataTable()
+  $('#rekap_bulan').DataTable()
+  $('#rekap_tahun').DataTable()
 
   //Date picker
     $('#datepicker').datepicker({
       autoclose: true 
-      })
+    })
 
-  });
+    function addData(chart, label, data) {
+        chart.data.labels.push(label);
+        chart.data.datasets.forEach((dataset) => {
+            dataset.data.push(data);
+        });
+        chart.update();
+    }
+
+
+});
 </script>
 </body>
 </html>

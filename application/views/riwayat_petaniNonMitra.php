@@ -199,15 +199,19 @@
             <b>Berat</b>
           </div>
           <div class="row">
-              <div class="col-md-4">
+              <div class="col-md-3">
                 <label>Kotor</label>
                 <input type="number" step="0.01" name="berat_kotor" id="berat_kotor" class="form-control">kg
               </div>
-              <div class="col-md-4">
+              <div class="col-md-3">
                 <label>BS/MTD </label>
                 <input type="number" step="0.01" name="berat_bs" id="berat_bs" class="form-control">kg
               </div>
-              <div class="col-md-4">
+              <div class="col-md-3">
+                <label>Susut </label>
+                <input type="number" step="0.01" name="berat_susut" id="berat_susut" class="form-control" required="">kg
+              </div>
+              <div class="col-md-3">
                 <label>Bersih </label>
                 <input type="number" step="0.01" id="berat_bersih" class="form-control" disabled="">kg
               </div>

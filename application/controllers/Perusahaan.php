@@ -142,6 +142,31 @@ class Perusahaan extends CI_Controller {
 		echo json_encode($data);
 	}
 
+	function hutang_piutang()
+	{
+		$data = $this->model_perusahaan
+		->hutang_piutang();
+
+		echo json_encode($data);
+	}
+
+	function hutang_harian()
+	{
+		$month = $this->input->post('month');
+		$data = $this->model_perusahaan->hutang_harian($month);
+
+		echo json_encode($data);
+	}
+
+	function add_data_hutang_harian()
+	{
+		$this->model_perusahaan->add_hutang_harian();
+		$month = $this->input->post('month');
+		$data = $this->model_perusahaan->hutang_harian($month);
+
+		echo json_encode($data);
+	}
+
 	function coba()	{
 		$rekap_petani = $this->db->query(
 			"SELECT x.tanggal, SUM(x.berat_kotor) as berat_kotor, SUM(x.bon) as bon, SUM(x.jumlah_uang) as jumlah_uang FROM
