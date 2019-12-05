@@ -397,11 +397,11 @@
 
                 <p>Execution time 5 seconds</p>
               </div>
-            </a>
           </li>
         </ul>
         <!-- /.control-sidebar-menu -->
 
+            </a>
         <h3 class="control-sidebar-heading">Tasks Progress</h3>
         <ul class="control-sidebar-menu">
           <li>
@@ -565,7 +565,7 @@
   $(document).ready(function() {
       var month = $('#monthly_date').val();
       $.ajax({
-        url : "http://localhost/MakeItEasy/Perusahaan/rekap_cabai",
+        url : "http://localhost:8080/MakeItEasy/Perusahaan/rekap_cabai",
         type : "POST",
         dataType: "JSON",
         data: 

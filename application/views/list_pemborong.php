@@ -17,7 +17,7 @@
     <!-- Info boxes -->
     <div class="row">
       <!-- /.col -->
-      <div class="col-md-4 col-sm-6 col-xs-12">
+      <div class="col-md-4 col-sm-6 col-xs-6">
         <div class="info-box bg-maroon">
           <span class="info-box-icon" style="height: 100px!important"><i class="fa fa-cart-plus"></i></span>
 
@@ -28,7 +28,7 @@
               <div class="progress-bar" style="width: 100%"></div>
             </div>
             <span class="progress-description">
-              <button class="btn btn-block bg-purple pull-right" data-toggle="modal" data-target="#addPembeli"><i class="fa fa-user-plus"></i>Tambah Pembeli</button>
+              <button class="btn btn-block bg-purple pull-right" data-toggle="modal" data-target="#addPembeli"><i class="fa fa-user-plus"></i>Tambah Pembeli</button> 
             </span>
           </div>
           <!-- /.info-box-content -->
@@ -36,6 +36,9 @@
         <!-- /.info-box -->
       </div>
       <!-- /.col -->
+      <div class="col-md-2 col-sm-2 col-xs-6 ">
+        <a href="<?php echo base_url();?>Import_Pembeli"><button class="btn-app btn-block bg-purple-gradient" style="font-size:16px; height: 100px"><i class="fa fa-file-excel-o" style="font-size:43px"></i>Import data dari Excel</button></a>
+      </div>
     </div>
     <!-- /.row -->
 
