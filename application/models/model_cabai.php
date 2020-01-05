@@ -25,7 +25,7 @@ class model_cabai extends CI_Model {
 
 	public function tb_transpetani($tanggal)
 	{
-  		$query = $this->db->query("SELECT a.id, a.id_petani, a.berat_bs, a.berat_kotor, a.kode_cabai, c.harga_bersih, c.harga_bs, a.saldo as saldo_trans, b.saldo as saldo_petani FROM transaksi_petani a JOIN harga_cabai_petani c ON a.kode_cabai=c.kode_cabai AND a.tanggal=c.tanggal INNER JOIN tb_petani b ON a.id_petani=b.id WHERE a.tanggal='$tanggal'");
+  		$query = $this->db->query("SELECT a.id, a.tanggal, a.id_petani, a.berat_bs, a.berat_kotor, a.berat_susut, a.kode_cabai, c.harga_bersih, c.harga_bs, a.saldo as saldo_trans, b.saldo as saldo_petani FROM transaksi_petani a JOIN harga_cabai_petani c ON a.kode_cabai=c.kode_cabai AND a.tanggal=c.tanggal INNER JOIN tb_petani b ON a.id_petani=b.id WHERE a.tanggal='$tanggal'");
   		if($query->num_rows() > 0)
   			{
   				return $query->result();
@@ -45,6 +45,11 @@ class model_cabai extends CI_Model {
 	}
 
 	function update_saldoTrans($data) {
+
+		// $this->db->where_in('id', $id);
+		// $this->db->delete('transaksi_petani');
+		// $this->db->insert_batch('transaksi_petani', $data);
+
 		$this->db->update_batch('transaksi_petani', $data, 'id');
 	}
 

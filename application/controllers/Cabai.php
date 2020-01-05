@@ -108,11 +108,22 @@ class Cabai extends CI_Controller {
 				if (!empty($transpetani)) {
 					$j=0;
 					foreach ($transpetani as $key) {
+
 						$id_transaksi = $key->id;
 						$id_petani = $key->id_petani;
 						$jumlah_uang = $key->harga_bs * $key->berat_bs + $key->harga_bersih * ($key->berat_kotor - $key->berat_bs - $key->berat_susut);
 						$saldo_petani = $key->saldo_petani;
 						$new_saldo = $saldo_petani + $jumlah_uang;
+
+						// $id_trans[$j] = $id_transaksi;
+						// $data2[$j]['tanggal'] = $key->tanggal;
+						// $data2[$j]['id_petani'] = $id_petani;
+						// $data2[$j]['kode_cabai'] = $key->kode_cabai;
+						// $data2[$j]['berat_kotor'] = $key->berat_kotor;
+						// $data2[$j]['berat_bs'] = $key->berat_bs;
+						// $data2[$j]['berat_susut'] = $key->berat_susut;
+						// $data2[$j]['saldo'] = $new_saldo;
+
 
 						$data2[$j]['id'] = $id_transaksi;
 						$data2[$j]['saldo'] = $new_saldo;
