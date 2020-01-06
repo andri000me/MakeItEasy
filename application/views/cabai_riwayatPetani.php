@@ -152,6 +152,7 @@
             </div>
             <div class="col-md-6">
               <input type="text" name="jenis_cabai" class="form-control" id="jenis_cabai" disabled>
+              <input type="text" name="kode_cabai" id="kode_cabai" hidden="">
               
             </div>
           </div>
@@ -434,6 +435,7 @@
         $('#id_harga').val(data.id);
         $('#tanggal').val(data.tanggal);
         $('#jenis_cabai').val(data.jenis + " (" + data.kode_cabai + ")");
+        $('#kode_cabai').val(data.kode_cabai);
         $('#harga_bersih').val(data.harga_bersih);
         $('#harga_bs').val(data.harga_bs);
       },
@@ -446,6 +448,7 @@
   function updateHarga()  {
     var tanggal = $('#tanggal').val();
     var id_harga = $('#id_harga').val();
+    var kode_cabai = $('#kode_cabai').val();
     var harga_bs = $('#harga_bs').val();
     var harga_bersih = $('#harga_bersih').val();
 
@@ -454,6 +457,7 @@
       method:"POST",
       data:{
         id: id_harga,
+        kode_cabai: kode_cabai,
         tanggal: tanggal,
         harga_bersih: harga_bersih,
         harga_bs: harga_bs

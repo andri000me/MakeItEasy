@@ -36,6 +36,19 @@ class model_cabai extends CI_Model {
   			}
 	}
 
+	public function tb_transpetani_update($tanggal, $kode_cabai)
+	{
+  		$query = $this->db->query("SELECT a.id, a.tanggal, a.id_petani, a.berat_bs, a.berat_kotor, a.berat_susut, a.kode_cabai, c.harga_bersih, c.harga_bs, a.saldo as saldo_trans, b.saldo as saldo_petani FROM transaksi_petani a JOIN harga_cabai_petani c ON a.kode_cabai=c.kode_cabai AND a.tanggal=c.tanggal INNER JOIN tb_petani b ON a.id_petani=b.id WHERE a.tanggal='$tanggal' AND a.kode_cabai='$kode_cabai'");
+  		if($query->num_rows() > 0)
+  			{
+  				return $query->result();
+  			}
+  		else
+  			{
+  				return array();
+  			}
+	}
+
 	function submitPetani($data)	{
 		$this->db->insert_batch('harga_cabai_petani', $data);
 	}

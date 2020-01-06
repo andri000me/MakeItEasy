@@ -208,6 +208,7 @@ class Cabai extends CI_Controller {
 	function update_harga()	{
 		$tanggal = $this->input->post('tanggal');
 		$id = $this->input->post('id');
+		$kode_cabai = $this->input->post('kode_cabai');
 		$harga_bersih = $this->input->post('harga_bersih');
 		$harga_bs = $this->input->post('harga_bs');
 
@@ -215,24 +216,28 @@ class Cabai extends CI_Controller {
 			'harga_bersih' => $harga_bersih,
 			'harga_bs' => $harga_bs);
 
-		$this->model_cabai->update_harga($id, $data);
 
 		//untuk update nilai saldo_petani dan saldo_trans
-		$transpetani = $this->model_cabai->tb_transpetani($tanggal);
+		//ambil harga lama
+		$transpetani = $this->model_cabai->tb_transpetani_update($tanggal, $kode_cabai);
+
+		// simpan harga baru
+		$this->model_cabai->update_harga($id, $data);
+
 		if (!empty($transpetani)) {
 			$j=0;
 			foreach ($transpetani as $key) {
 				$id_transaksi = $key->id;
 				$id_petani = $key->id_petani;
 				$jumlah_uang = $key->harga_bs * $key->berat_bs + $key->harga_bersih * ($key->berat_kotor - $key->berat_bs - $key->berat_susut );
-				$new_jumlah_uang = $harga_bs * $key->harga_bs + $harga_bersih * ($key->berat_kotor - $key->berat_bs - $key->berat_susut );
+				$new_jumlah_uang = $harga_bs * $key->berat_bs + $harga_bersih * ($key->berat_kotor - $key->berat_bs - $key->berat_susut );
 				$saldo_petani = $key->saldo_petani;
-				$saldo_trans = $key->saldo_trans;
-				$new_saldo_petani = $saldo_petani - $jumlah_uang + $new_jumlah_uang;
-				$new_saldo_trans = $saldo_trans - $jumlah_uang + $new_jumlah_uang;
+				// $saldo_trans = $key->saldo_trans;
+				$new_saldo_petani = $saldo_petani + ($new_jumlah_uang - $jumlah_uang);
+				// $new_saldo_trans = $saldo_trans + ($new_jumlah_uang - $jumlah_uang);
 
 				$data2[$j]['id'] = $id_transaksi;
-				$data2[$j]['saldo'] = $new_saldo_trans;
+				$data2[$j]['saldo'] = $new_saldo_petani;
 
 				$data3[$j]['id'] = $id_petani;
 				$data3[$j]['saldo'] = $new_saldo_petani;
