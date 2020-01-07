@@ -624,7 +624,7 @@
 
       //chart cabai terjual
       $.ajax({
-        url : "http://localhost:8080/MakeItEasy/Perusahaan/rekap_cabai",
+        url : "http://localhost/MakeItEasy/Perusahaan/rekap_cabai",
         type : "POST",
         dataType: "JSON",
         data: 
