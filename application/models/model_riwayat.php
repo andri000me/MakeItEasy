@@ -3,70 +3,92 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class model_riwayat extends CI_Model {
 
-	public function riwayat_transpetani($startdate, $enddate)
-  	{
-      $query = $this->db->query("SELECT a.id, a.id_petani, b.nama, b.desa, a.tanggal, a.kode_cabai, a.berat_kotor, a.berat_bs, a.berat_susut, c.harga_bersih, c.harga_bs, a.saldo FROM transaksi_petani a JOIN tb_petani b JOIN harga_cabai_petani c WHERE (a.tanggal BETWEEN '$startdate' AND '$enddate') AND a.id_petani=b.id AND a.kode_cabai=c.kode_cabai AND a.tanggal=c.tanggal");
-      if($query->num_rows() > 0)
-        {
-          return $query->result();
-        }
-      else
-        {
-          return array();
-        }
-  	}
+  var $order = array('id' => 'desc'); // default order
 
-  public function riwayat_transpetanibon($startdate, $enddate)
-    {
-      $query = $this->db->query("SELECT a.id, a.id_petani, b.nama, b.desa, a.tanggal, a.bon, a.saldo FROM transaksi_petani a JOIN tb_petani b ON a.id_petani=b.id WHERE (a.tanggal BETWEEN '$startdate' AND '$enddate') AND a.bon IS NOT NULL");
-      if($query->num_rows() > 0)
-        {
-          return $query->result();
-        }
-      else
-        {
-          return array();
-        }
-    }
+//RIWAYAT TRANSAKSI PETANI (SETORAN)
+  private function _get_list_setoran_petani()
+  {
+      $this->db->select('a.id, a.id_petani, b.nama, b.desa, a.tanggal, a.kode_cabai, a.berat_kotor, a.berat_bs, a.berat_susut, c.harga_bersih, c.harga_bs, a.saldo');
+      $this->db->from('transaksi_petani a');
+      $this->db->join('tb_petani b', 'a.id_petani=b.id');
+      $this->db->join('harga_cabai_petani c', 'a.kode_cabai=c.kode_cabai');
+      $this->db->where('a.tanggal=c.tanggal');
 
-  	public function riwayat_transborong($startdate, $enddate)
-  	{
-      $query = $this->db->query("SELECT a.id, a.id_pembeli, b.nama, b.alamat, a.tanggal, a.kode, a.colly, a.kode, a.bersih, a.saldo, a.transferan, a.harga as harga_bersih FROM transaksi_pembeli a JOIN tb_pembeli b ON a.id_pembeli=b.id WHERE a.tanggal BETWEEN '$startdate' AND '$enddate'");
-      if($query->num_rows() > 0)
-        {
-          return $query->result();
+      if ($_POST['startdate']!='' && $_POST['enddate']!='') {
+            $startdate = $_POST['startdate'];
+            $enddate = $_POST['enddate'];
+            $where = "a.tanggal BETWEEN '$startdate' AND '$enddate'";
+           $this->db->where($where);
         }
-      else
-        {
-          return array();
-        }
-  	}
+  }
 
-    public function riwayat_transpetaniNonMitra($startdate, $enddate)
-    {
-      $query = $this->db->query("SELECT * FROM transaksi_petaninonmitra WHERE tanggal BETWEEN '$startdate' AND '$enddate'");
-      if($query->num_rows() > 0)
-        {
-          return $query->result();
-        }
-      else
-        {
-          return array();
-        }
-    }
 
-    public function riwayat_transpembeliNonMitra($startdate, $enddate)
-    {
-      $query = $this->db->query("SELECT * FROM transaksi_pembelinonmitra WHERE tanggal BETWEEN '$startdate' AND '$enddate'");
-      if($query->num_rows() > 0)
-        {
-          return $query->result();
+//END RIWAYAT TRANSAKSI PETANI (SETORAN)
+
+
+//RIWAYAT TRANSAKSI PETANI (BON)
+  private function _get_list_bon_petani()
+  {
+    $this->db->select('a.id, a.id_petani, b.nama, b.desa, a.tanggal, a.bon, a.saldo');
+    $this->db->from('transaksi_petani a');
+    $this->db->join('tb_petani b', 'a.id_petani=b.id');
+    $bon="a.bon IS NOT NULL";
+    $this->db->where($bon);
+
+    if ($_POST['startdate']!='' && $_POST['enddate']!='') {
+            $startdate = $_POST['startdate'];
+            $enddate = $_POST['enddate'];
+            $where = "a.tanggal BETWEEN '$startdate' AND '$enddate'";
+           $this->db->where($where);
         }
-      else
-        {
-          return array();
+  }
+//END RIWAYAT TRANSAKSI PETANI (BON)
+
+
+//RIWAYAT TRANSAKSI PEMBELI
+  private function _get_list_trans_pembeli()
+  {
+    $this->db->select('a.id, a.id_pembeli, b.nama, b.alamat, a.tanggal, a.kode, a.colly, a.kode, a.bersih, a.saldo, a.transferan, a.harga as harga_bersih');
+    $this->db->from('transaksi_pembeli a');
+    $this->db->join('tb_pembeli b', 'a.id_pembeli=b.id');
+
+    if ($_POST['startdate']!='' && $_POST['enddate']!='') {
+            $startdate = $_POST['startdate'];
+            $enddate = $_POST['enddate'];
+            $where = "a.tanggal BETWEEN '$startdate' AND '$enddate'";
+           $this->db->where($where);
         }
-    }
+  }
+//END RIWAYAT TRANSAKSI PEMBELI
+
+  
+//RIWAYAT TRANSAKSI PETANI NON MITRA
+  private function _get_list_trans_petani_nonMitra()
+  {
+    $this->db->from('transaksi_petaninonmitra');
+
+    if ($_POST['startdate']!='' && $_POST['enddate']!='') {
+            $startdate = $_POST['startdate'];
+            $enddate = $_POST['enddate'];
+            $where = "tanggal BETWEEN '$startdate' AND '$enddate'";
+           $this->db->where($where);
+        }
+  }
+//END RIWAYAT TRANSAKSI PETANI NON MITRA
+
+//RIWAYAT TRANSAKSI PEMBELI NON MITRA
+  private function _get_list_trans_pembeli_nonMitra()
+  {
+    $this->db->from('transaksi_pembelinonmitra');
+
+    if ($_POST['startdate']!='' && $_POST['enddate']!='') {
+            $startdate = $_POST['startdate'];
+            $enddate = $_POST['enddate'];
+            $where = "tanggal BETWEEN '$startdate' AND '$enddate'";
+           $this->db->where($where);
+        }
+  }
+//RIWAYAT TRANSAKSI PEMBELI NON MITRA
 
     public function edit_transpetani($id)
     {
@@ -171,6 +193,68 @@ class model_riwayat extends CI_Model {
         }
     }
 
+
+  //FOR DATATABLES
+    private function _get_datatables_query($column_search, $column_order)
+    {
+        $i = 0;
+        foreach ($column_search as $item) // loop column 
+        {
+            if($_POST['search']['value']) // if datatable send POST for search
+            {
+                 
+                if($i===0) // first loop
+                {
+                    $this->db->group_start(); // open bracket. query Where with OR clause better with bracket. because maybe can combine with other WHERE with AND.
+                    $this->db->like($item, $_POST['search']['value']);
+                }
+                else
+                {
+                    $this->db->or_like($item, $_POST['search']['value']);
+                }
+ 
+                if(count($column_search) - 1 == $i) //last loop
+                    $this->db->group_end(); //close bracket
+            }
+            $i++;
+        }
+         
+        if(isset($_POST['order'])) // here order processing
+        {
+            $this->db->order_by($column_order[$_POST['order']['0']['column']], $_POST['order']['0']['dir']);
+        } 
+        else if(isset($this->order))
+        {
+            $order = $this->order;
+            $this->db->order_by(key($order), $order[key($order)]);
+        }
+    }
+ 
+    function get_datatables($column_search, $column_order, $list)
+    {
+        $this->$list();
+        $this->_get_datatables_query($column_search, $column_order);
+        if($_POST['length'] != -1)
+        $this->db->limit($_POST['length'], $_POST['start']);
+        $query = $this->db->get();
+        return $query->result();
+    }
+ 
+    function count_filtered($column_search, $column_order, $list)
+    {
+      $this->$list();
+      $this->_get_datatables_query($column_search, $column_order);
+      $query = $this->db->get();
+      return $query->num_rows();
+    }
+ 
+    public function count_all($list)
+    {
+      $this->$list();
+      return $this->db->count_all_results();
+    }
+
+  //END FOR DATATABLES
 
 }
 ?>

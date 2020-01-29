@@ -44,7 +44,6 @@
                   </div>
                 </div>
 
-                <form action="<?php echo base_url();?>Riwayat/RiwayatPetani" method="post">
                   <div class="form-group col-md-3">
                     <label>Tanggal Mulai :</label>
 
@@ -52,7 +51,7 @@
                       <div class="input-group-addon">
                         <i class="fa fa-calendar"></i>
                       </div>
-                      <input type="text" class="form-control input-tanggal" name="start" id="start" required value="<?php echo $startdate ?>">
+                      <input type="text" class="form-control input-tanggal" name="startdate" id="startdate" required>
                     </div>
                   </div>
 
@@ -62,14 +61,13 @@
                       <div class="input-group-addon">
                         <i class="fa fa-calendar"></i>
                       </div>
-                      <input type="text" class="form-control input-tanggal" name="end" id="end" required value="<?php echo $enddate ?>">
+                      <input type="text" class="form-control input-tanggal" name="enddate" id="enddate" required>
                     </div>
                   </div>
 
                   <div class="col-md-2">
-                      <input type="submit" class="btn btn-info" value="Cek Transaksi" style="margin-top: 25px">
+                      <input id="btn_date" type="submit" class="btn btn-info" value="Cek Transaksi" style="margin-top: 25px">
                   </div>
-                </form>
               </div>
 
               <div id="successful_edit">
@@ -81,7 +79,7 @@
               <div class="row">
                 <div class="col-md-12 table-responsive">
                   <hr>
-                  <table id="example2" class="table table-bordered table-striped datatables">
+                  <table id="setoran_petani" class="table table-bordered table-striped datatables">
                     <thead>
                   <tr class="bg-gray">
                     <th style="text-align: center; line-height: 50px" rowspan="2">#</th>
@@ -104,22 +102,6 @@
                   </tr>
                 </thead>
                   <tbody>
-                    <?php
-                      if (!empty($riwayat_transpetani)) {
-                        $no=1; foreach ($riwayat_transpetani as $key) {
-                            $berat_bersih = $key->berat_kotor-$key->berat_bs-$key->berat_susut;
-                            $jumlah_uang = ($key->berat_kotor-$key->berat_bs-$key->berat_susut)*$key->harga_bersih + $key->berat_bs*$key->harga_bs;
-
-                            echo "<tr><td>".$no."</td><td>".$key->tanggal."</td><td>".$key->id_petani."</td><td>".$key->nama."</td><td>".$key->desa."</td><td>".$key->kode_cabai."</td><td id='berat_kotor_".$key->id."'>".number_format($key->berat_kotor,1)."</td><td id='berat_bs_".$key->id."'>".number_format($key->berat_bs,1)."</td><td id='berat_susut_".$key->id."'>".number_format($key->berat_susut,1)."</td><td>".$berat_bersih."</td><td id='berat_bersih_".$key->id."'>Rp".number_format($key->harga_bersih,0,',','.')."</td><td id='jumlah_uang_".$key->id."'>Rp".number_format($jumlah_uang,0,',','.')."</td><td id='saldo_".$key->id."'>Rp".number_format($key->saldo,0,',','.')."</td><td><button id='".$key->id."' class='btn btn-info btn-xs edit_data' data-toggle='modal' data-target='#editSetoran'>edit</button> <button id='del_".$key->id."' class='delete btn btn-danger btn-xs'>Hapus</button></td></tr>";
-                          
-                            $no++;
-                        }
-                      }
-                      else {
-                            echo "<tr><td colspan='12' class='text-center'> Tidak ada data yang ditampilkan </td></tr>";
-                      }
-
-                    ?>
                   </tbody>
                 </table>
                 <!-- ./table -->
@@ -142,7 +124,7 @@
 
 
   <!-- Modal Edit Setoran-->
-    <div id="editSetoran" class="modal fade" role="dialog">
+    <div id="modal_edit" class="modal fade" role="dialog">
       <div class="modal-dialog">
 
         <!-- Modal content-->
@@ -189,14 +171,6 @@
           </div>
           <div class="col-md-8">
             <input type="text" name="cabai" id="cabai" class="form-control" style="width: 100%" readonly required>
-            <!-- <select name="cabai" id="cabai" class="form-control" style="width: 100%">
-              <option value="" selected>Pilih Jenis Cabai</option>
-              <?php
-                  //foreach ($dd_cabai as $key) {
-                    //echo "<option value=".$key->kode.">".$key->jenis." (".$key->kode.") </option>";
-                 // };
-              ?>
-            </select> -->
           </div>
         </div>
 
@@ -258,7 +232,7 @@
 
       </div>
     </div>
-    <!-- END Modal Input Setoran -->
+  <!-- END Modal Edit Setoran -->
 
 
   <!-- /.content-wrapper -->
@@ -471,7 +445,9 @@
 <!-- Bootstrap 3.3.7 -->
 <script src="<?php echo base_url();?>assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- bootstrap datepicker -->
-<script src="<?php echo base_url();?>assets/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.js""></script>
+<script src="<?php echo base_url();?>assets/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.js"boot></script>
+<!-- Notify.js -->
+<script src="<?php echo base_url();?>assets/js/notify.min.js"></script>
 <!-- Select2 -->
 <script src="<?php echo base_url();?>assets/bower_components/select2/dist/js/select2.full.min.js"></script>
 <!-- DataTables -->
@@ -486,106 +462,110 @@
 <!-- AdminLTE for demo purposes -->
 <script src="<?php echo base_url();?>assets/js/demo.js"></script>
 <script type="text/javascript">
+  var dataTable;
+
   $(document).ready(function(){
      $('.input-tanggal').datepicker({
       format : 'yyyy-mm-dd',
       todayHighlight : 'true'
     });
 
-     $('.datatables').DataTable();
+//Datatable ajax
+    dataTable = $('#setoran_petani').DataTable({ 
+        "processing": true, //Feature control the processing indicator.
+        "serverSide": true, //Feature control DataTables' server-side processing mode.
+        "order": [], //Initial no order.
+ 
+        // Load data for the table's content from an Ajax source
+        "ajax": {
+            "url": "<?php echo site_url('Riwayat/list_riwayat_petani')?>",
+            "type": "POST",
+            "data": function(data){
+                data.startdate = $('#startdate').val();
+                data.enddate = $('#enddate').val()
+            }
+        },
+ 
+        //Set column definition initialisation properties.
+        "columnDefs": [
+        { 
+            "targets": [ -1, -3, -4, -5, -6, -7, -8 ], //last column
+            "orderable": false, //set not orderable
+        },
+        ],
+ 
+    });
+
+//Filter Tanggal
+    $('#btn_date').click(function(){
+        dataTable.draw();
+    })
 
      //dropdown jenis cabai
       $(".select2").select2({
           placeholder: "Please Select"
       });
 
-
-     $('.delete').click(function(){
-      var el = this;
-      var id = this.id;
-      console.log(id);
-      var splitid = id.split("_");
-
-      // Delete id
-      var deleteid = splitid[1];
- 
-        if(confirm('Apakah Anda yakin menghapus transaksi?'))
-        {
-          // AJAX Request
-          $.ajax({
-            url: '<?php echo base_url();?>Riwayat/delete_transpetani',
-            type: 'POST',
-            data: { id:deleteid },
-            success: function(response){
-
-              // Removing row from HTML Table
-              $(el).closest('tr').css('background','tomato');
-              $(el).closest('tr').fadeOut(600, function(){ 
-               $(this).remove();
-              });
-            },
-            error: function(){
-              alert('Gagal menghapus');
-            }
-          });
-        }
-      });
-
-      $('.edit_data').click(function(){
-           var id_transaksi = this.id;
-           editSetoran(id_transaksi);
-      });
-
-      //Menghitung Berat Bersih dan Jumlah Uang
+  //Menghitung Berat Bersih dan Jumlah Uang
       $('#berat_kotor').on('change', function()  {
         showJumlahUang();
       }); 
       $('#berat_susut').on('change', function()  {
           showJumlahUang();
       }); 
-
       $('#berat_bs').on('change', function()  {
         showJumlahUang();
       });
 
+  //update data
       $('#btn_update').click(function(){
         updateSetoran();
-      }); 
+      });
 
   });
 
-  function editSetoran(id_trans)  {
-           $.ajax({  
-                url:"<?php echo base_url();?>Riwayat/edit_transpetani",  
-                method:"POST",  
-                data:{id_transaksi:id_trans},  
-                dataType:"json",  
-                success:function(data){
-                    var berat_bersih = data.berat_kotor - data.berat_bs - data.berat_susut;
-                    var jumlah_uang = berat_bersih * data.harga_bersih + data.berat_bs * data.harga_bs;
-                    //var opt= document.getElementById('cabai').options[0];
+  function reload_table(){
+      dataTable.ajax.reload(null,false); //reload datatable ajax
+    } 
 
-                     $('#id_transaksi').val(data.id);
-                     $('#tanggal').val(data.tanggal);  
-                     $('#nama_petani').val('[' + data.id_petani + '] ' + data.nama + ' (' + data.desa + ')');
-                     $('#saldo_trans').val(data.saldo_trans);
-                     $('#saldo_petani').val(data.saldo_petani);
-                     $('#cabai').val(data.kode_cabai + ' (' + data.jenis + ')');
-                     //$('#cabai_selected').attr('value', data.kode_cabai)  
-                     //document.getElementById("cabai_selected").innerHTML = "<option value='ER' selected>Mecoba</option>";
-                     // opt.value = 'ER';
-                     // opt.text = 'berhasil';
-                     // document.getElementById("cabai").selectedIndex = "0";
-                     $('#harga_bersih').val(data.harga_bersih);
-                     $('#harga_bs').val(data.harga_bs);   
-                     $('#berat_kotor').val(data.berat_kotor);
-                     $('#berat_bs').val(data.berat_bs);
-                     $('#berat_bersih').val(berat_bersih);
-                     $('#berat_susut').val(data.berat_susut);
-                     $('#jumlah_uang').val(jumlah_uang);
-                     $('#jumlah_uang_awal').val(jumlah_uang);
-                }  
-           });
+  function editSetoran(id_trans)  {
+    $('.form-group').removeClass('has-error'); // clear error class
+
+     $.ajax({  
+          url:"<?php echo base_url();?>Riwayat/edit_transpetani",  
+          method:"POST",  
+          data:{id_transaksi:id_trans},  
+          dataType:"json",  
+          success:function(data){
+              var berat_bersih = data.berat_kotor - data.berat_bs - data.berat_susut;
+              var jumlah_uang = berat_bersih * data.harga_bersih + data.berat_bs * data.harga_bs;
+              //var opt= document.getElementById('cabai').options[0];
+
+               $('#id_transaksi').val(data.id);
+               $('#tanggal').val(data.tanggal);  
+               $('#nama_petani').val('[' + data.id_petani + '] ' + data.nama + ' (' + data.desa + ')');
+               $('#saldo_trans').val(data.saldo_trans);
+               $('#saldo_petani').val(data.saldo_petani);
+               $('#cabai').val(data.kode_cabai + ' (' + data.jenis + ')');
+               //$('#cabai_selected').attr('value', data.kode_cabai)  
+               //document.getElementById("cabai_selected").innerHTML = "<option value='ER' selected>Mecoba</option>";
+               // opt.value = 'ER';
+               // opt.text = 'berhasil';
+               // document.getElementById("cabai").selectedIndex = "0";
+               $('#harga_bersih').val(data.harga_bersih);
+               $('#harga_bs').val(data.harga_bs);   
+               $('#berat_kotor').val(data.berat_kotor);
+               $('#berat_bs').val(data.berat_bs);
+               $('#berat_bersih').val(berat_bersih);
+               $('#berat_susut').val(data.berat_susut);
+               $('#jumlah_uang').val(jumlah_uang);
+               $('#jumlah_uang_awal').val(jumlah_uang);
+               $('#modal_edit').modal('show'); // show bootstrap modal when complete loaded
+          },
+          error: function (jqXHR, textStatus, errorThrown){
+              alert('Error get data from ajax');
+          }  
+     });
   }
 
   function showJumlahUang() {
@@ -627,10 +607,38 @@
           jumlah_uang: jumlah_uang,
           jumlah_uang_awal: jumlah_uang_awal},    
         success:function(data){
-          location.reload(true);
-          $('#successful_edit').html('<div class="alert alert-success alert-dismissible"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>Berhasil!</strong>  Setoran Petani berhasil diperbarui</div>');
+          $('#modal_edit').modal('hide');
+          $.notify("Berhasil Mengubah Data",
+                  {   className: "success",
+                      position: "top right" },
+                );
+          reload_table();
         }
       })
+  }
+
+  function hapusSetoran(id){ 
+        if(confirm('Apakah Anda yakin menghapus transaksi?'))
+        {
+          //AJAX Request
+          $.ajax({
+            url: '<?php echo base_url();?>Riwayat/delete_transpetani',
+            type: 'POST',
+            data: { id:id },
+            success: function(response){
+              //menghapus dan me reload table ajax
+                $('#modal_edit').modal('hide');
+                $.notify("Berhasil Menghapus Data",
+                  {   className: "warning",
+                      position: "top right" },
+                );
+                reload_table();
+            },
+            error: function(){
+              alert('Gagal menghapus');
+            }
+          });
+        }
   }
 
   

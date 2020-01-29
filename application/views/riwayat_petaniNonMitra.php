@@ -46,7 +46,6 @@
                   </div>
                 </div>               
 
-                <form action="<?php echo base_url();?>/Riwayat/RiwayatPetaniNonMitra" method="post">
                   <div class="form-group col-md-3">
                     <label>Tanggal Mulai :</label>
 
@@ -54,7 +53,7 @@
                       <div class="input-group-addon">
                         <i class="fa fa-calendar"></i>
                       </div>
-                      <input type="text" class="form-control input-tanggal" name="start" id="start" required value="<?php echo $startdate ?>">
+                      <input type="text" class="form-control input-tanggal" name="startdate" id="startdate" required>
                     </div>
                   </div>
 
@@ -64,14 +63,13 @@
                       <div class="input-group-addon">
                         <i class="fa fa-calendar"></i>
                       </div>
-                      <input type="text" class="form-control input-tanggal" name="end" id="end" required value="<?php echo $enddate ?>">
+                      <input type="text" class="form-control input-tanggal" name="enddate" id="enddate" required>
                     </div>
                   </div>
 
                   <div class="col-md-2">
-                      <input type="submit" class="btn btn-info" value="Cek Transaksi" style="margin-top: 25px">
+                      <input id="btn_date" type="submit" class="btn btn-info" value="Cek Transaksi" style="margin-top: 25px">
                   </div>
-                </form>
               </div>
 
 
@@ -79,7 +77,7 @@
               <div class="row">
                 <div class="col-md-12 table-responsive">
                   <hr>
-                  <table id="example2" class="table table-bordered table-striped datatables">
+                  <table id="tb_transaksi" class="table table-bordered table-striped datatables">
                     <thead>
                       <tr class="bg-success">
                         <th style="text-align: center; line-height: 50px" rowspan="2">#</th>
@@ -101,23 +99,7 @@
                       </tr>
                     </thead>
                   <tbody>
-                    <?php
-                      if (!empty($riwayat_transpetani)) {
-                        $no=1; foreach ($riwayat_transpetani as $key) {
-                            $berat_bersih = $key->berat_kotor-$key->berat_bs-$key->berat_susut;
-                            $jumlah_uang = $berat_bersih * $key->harga_bersih + $key->berat_bs * $key->harga_bs;
 
-                            echo "<tr><td>".$no."</td><td>".$key->tanggal."</td><td>".$key->nama_petani."</td><td>".$key->kode_cabai."</td><td>Rp".number_format($key->harga_bs,0,',','.')."</td><td>Rp".number_format($key->harga_bersih,0,',','.')."</td><td>".number_format($key->berat_kotor,1)."</td><td>".number_format($key->berat_bs,1)."</td><td>".number_format($key->berat_susut,1)."</td><td>".number_format($berat_bersih,1)."</td><td>Rp".number_format($jumlah_uang,0,',','.')."</td>
-                                  <td><button id='".$key->id."' class='btn btn-info btn-xs edit_data' data-toggle='modal' data-target='#editSetoran'>edit</button> <button id='del_".$key->id."' class='delete btn btn-danger btn-xs'>Hapus</button></td></tr>";
-                        
-                            $no++;
-                        }
-                      }
-                      else {
-                            echo "<tr><td colspan='12' class='text-center'> Tidak ada data yang ditampilkan </td></tr>";
-                      }
-
-                    ?>
                   </tbody>
                 </table>
                 <!-- ./table -->
@@ -140,7 +122,7 @@
   <!-- /.content-wrapper -->
 
 <!-- Modal Edit Setoran-->
-    <div id="editSetoran" class="modal fade" role="dialog">
+    <div id="modal_editSetoran" class="modal fade" role="dialog">
       <div class="modal-dialog">
 
         <!-- Modal content-->
@@ -448,10 +430,12 @@
 <!-- Bootstrap 3.3.7 -->
 <script src="<?php echo base_url();?>assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- bootstrap datepicker -->
-<script src="<?php echo base_url();?>assets/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.js""></script>
+<script src="<?php echo base_url();?>assets/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.js"></script>
 <!-- DataTables -->
 <script src="<?php echo base_url();?>assets/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="<?php echo base_url();?>assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<!-- Notify.js -->
+<script src="<?php echo base_url();?>assets/js/notify.min.js"></script>
 <!-- Slimscroll -->
 <script src="<?php echo base_url();?>assets/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
 <!-- FastClick -->
@@ -461,97 +445,103 @@
 <!-- AdminLTE for demo purposes -->
 <script src="<?php echo base_url();?>assets/js/demo.js"></script>
 <script type="text/javascript">
+  var dataTable;
+
   $(document).ready(function(){
      $('.input-tanggal').datepicker({
       format : 'yyyy-mm-dd',
       todayHighlight : 'true'
     });
 
-     $('.datatables').DataTable()
+  //Datatable ajax
+    dataTable = $('#tb_transaksi').DataTable({ 
+        "processing": true, //Feature control the processing indicator.
+        "serverSide": true, //Feature control DataTables' server-side processing mode.
+        "order": [], //Initial no order.
 
-          $('.delete').click(function(){
-      var el = this;
-      var id = this.id;
-      console.log(id);
-      var splitid = id.split("_");
-
-      // Delete id
-      var deleteid = splitid[1];
- 
-        if(confirm('Apakah Anda yakin menghapus transaksi?'))
-        {
-          // AJAX Request
-          $.ajax({
-            url: '<?php echo base_url();?>Riwayat/delete_transNonMitra',
-            type: 'POST',
-            data: { id: deleteid, table: 'transaksi_petaninonmitra' },
-            success: function(response){
-
-              // Removing row from HTML Table
-              $(el).closest('tr').css('background','tomato');
-              $(el).closest('tr').fadeOut(600, function(){ 
-               $(this).remove();
-              });
-            },
-            error: function(){
-              alert('Gagal menghapus');
+        // Load data for the table's content from an Ajax source
+        "ajax": {
+            "url": "<?php echo site_url('Riwayat/list_riwayat_petani_nonMitra')?>",
+            "type": "POST",
+            "data": function(data){
+                data.startdate = $('#startdate').val();
+                data.enddate = $('#enddate').val()
             }
-          });
-        }
-      });
+        },
 
-      $('.edit_data').click(function(){
-           var id_transaksi = this.id;
-           editSetoran(id_transaksi);
-      });
+        //Set column definition initialisation properties.
+        "columnDefs": [
+          { 
+              "targets": [ -1, 0, -3 ], //last column
+              "orderable": false, //set not orderable
+          },
+        ],
 
-      //Menghitung Berat Bersih dan Jumlah Uang
-      $('#berat_kotor').on('change', function()  {
+    });
+
+  //Filter Tanggal
+    $('#btn_date').click(function(){
+        dataTable.draw();
+    })
+
+    $('.edit_data').click(function(){
+         var id_transaksi = this.id;
+         editSetoran(id_transaksi);
+    });
+
+    //Menghitung Berat Bersih dan Jumlah Uang
+    $('#berat_kotor').on('change', function()  {
+      showJumlahUang();
+    }); 
+    $('#berat_susut').on('change', function()  {
         showJumlahUang();
-      }); 
-      $('#berat_susut').on('change', function()  {
-          showJumlahUang();
-      }); 
-      $('#berat_bs').on('change', function()  {
-        showJumlahUang();
-      });
-      $('#harga_bs').on('change', function()  {
-        showJumlahUang();
-      });
-      $('#harga_petani').on('change', function()  {
-        showJumlahUang();
-      });
+    }); 
+    $('#berat_bs').on('change', function()  {
+      showJumlahUang();
+    });
+    $('#harga_bs').on('change', function()  {
+      showJumlahUang();
+    });
+    $('#harga_petani').on('change', function()  {
+      showJumlahUang();
+    });
 
 
-      $('#btn_update').click(function(){
-        updateSetoran();
-      });
-  })
+    $('#btn_update').click(function(){
+      updateSetoran();
+    });
+  });
 
-  function editSetoran(id_trans)  {
-           $.ajax({  
-                url:"<?php echo base_url();?>Riwayat/edit_transNonMitra",  
-                method:"POST",  
-                data:{id_transaksi:id_trans, table: 'transaksi_petaninonmitra'},  
-                dataType:"json",  
-                success:function(data){
-                    var berat_bersih = data.berat_kotor - data.berat_bs - data.berat_susut;
-                    var jumlah_uang = berat_bersih * data.harga_bersih + data.berat_bs * data.harga_bs;
-                    //var opt= document.getElementById('cabai').options[0];
+  function reload_table()
+  {
+      dataTable.ajax.reload(null,false); //reload datatable ajax 
+  };
 
-                     $('#id_transaksi').val(data.id);
-                     $('#tanggal').val(data.tanggal);  
-                     $('#nama_petani').val(data.nama_petani);
-                     $('#cabai').val(data.kode_cabai + ' (' + data.jenis + ')');
-                     $('#harga_petani').val(data.harga_bersih);
-                     $('#harga_bs').val(data.harga_bs);   
-                     $('#berat_kotor').val(data.berat_kotor);
-                     $('#berat_bs').val(data.berat_bs);
-                     $('#berat_bersih').val(berat_bersih);
-                     $('#berat_susut').val(data.berat_susut);
-                     $('#jumlah_uang').val(jumlah_uang);
-                }  
-           });
+  function editTransaksi(id_trans)  {
+   $.ajax({  
+        url:"<?php echo base_url();?>Riwayat/edit_transNonMitra",  
+        method:"POST",  
+        data:{id_transaksi:id_trans, table: 'transaksi_petaninonmitra'},  
+        dataType:"json",  
+        success:function(data){
+            var berat_bersih = data.berat_kotor - data.berat_bs - data.berat_susut;
+            var jumlah_uang = berat_bersih * data.harga_bersih + data.berat_bs * data.harga_bs;
+            //var opt= document.getElementById('cabai').options[0];
+
+             $('#id_transaksi').val(data.id);
+             $('#tanggal').val(data.tanggal);  
+             $('#nama_petani').val(data.nama_petani);
+             $('#cabai').val(data.kode_cabai + ' (' + data.jenis + ')');
+             $('#harga_petani').val(data.harga_bersih);
+             $('#harga_bs').val(data.harga_bs);   
+             $('#berat_kotor').val(data.berat_kotor);
+             $('#berat_bs').val(data.berat_bs);
+             $('#berat_bersih').val(berat_bersih);
+             $('#berat_susut').val(data.berat_susut);
+             $('#jumlah_uang').val(jumlah_uang);
+             $('#modal_editSetoran').modal('show');
+        }  
+   });
   }
 
   function showJumlahUang() {
@@ -594,11 +584,42 @@
           jumlah_uang: jumlah_uang,
           table: 'transaksi_petaninonmitra' },
         success:function(data){
-          location.reload(true);
-          $('#successful_edit').html('<div class="alert alert-success alert-dismissible"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>Berhasil!</strong>  Setoran Petani berhasil diperbarui</div>');
+          $('#modal_editSetoran').modal('hide');
+          $.notify('Berhasil mengubah data',
+          {
+            className: 'success',
+            position: 'top right'
+          });
+          reload_table();
         }
       })
   }
+
+  function deleteTransaksi(id)
+  {
+    if(confirm('Apakah Anda yakin menghapus transaksi?'))
+    {
+      // AJAX Request
+      $.ajax({
+        url: '<?php echo base_url();?>Riwayat/delete_transNonMitra',
+        type: 'POST',
+        data: { id: id, table: 'transaksi_petaninonmitra' },
+        success: function(response){
+          $('#modal_editSetoran').modal('hide');
+          $.notify('Berhasil menghapus data',
+            {
+              className: 'warning',
+              position: 'top right'
+            });
+            reload_table();
+        },
+        error: function(){
+          alert('Gagal menghapus');
+        }
+      });
+    }
+  }
+
 
 </script>
 </body>

@@ -44,7 +44,6 @@
                    
                   </div>
                 </div>
-                <form action="<?php echo base_url();?>/Riwayat/RiwayatPembeliNonMitra" method="post">
                   <div class="form-group col-md-3">
                     <label>Tanggal Mulai :</label>
 
@@ -52,7 +51,7 @@
                       <div class="input-group-addon">
                         <i class="fa fa-calendar"></i>
                       </div>
-                      <input type="text" required class="form-control input-tanggal" name="start" id="start" value="<?php echo $startdate ?>">
+                      <input type="text" required class="form-control input-tanggal" name="startdate" id="startdate">
                     </div>
                   </div>
 
@@ -62,14 +61,13 @@
                       <div class="input-group-addon">
                         <i class="fa fa-calendar"></i>
                       </div>
-                      <input type="text" required class="form-control input-tanggal" name="end" id="end" value="<?php echo $enddate ?>">
+                      <input type="text" required class="form-control input-tanggal" name="enddate" id="enddate">
                     </div>
                   </div>
 
                   <div class="col-md-2">
-                      <input type="submit" class="btn btn-info" value="Cek Transaksi" style="margin-top: 25px">
+                      <input id="btn_date" type="submit" class="btn btn-info" value="Cek Transaksi" style="margin-top: 25px">
                   </div>
-                </form>
               </div>
 
 
@@ -77,7 +75,7 @@
               <div class="row">
                 <div class="col-md-12 table-responsive">
                   <hr>
-                  <table id="example2" class="table table-bordered table-striped datatables">
+                  <table id="tb_transaksi" class="table table-bordered table-striped datatables">
                     <thead>
                       <tr class="bg-success">
                         <th style="text-align: center; line-height: 50px" rowspan="2">#</th>
@@ -96,22 +94,6 @@
                       </tr>
                     </thead>
                   <tbody>
-                    <?php
-                      if (!empty($riwayat_transpembeli)) {
-                        $no=1; foreach ($riwayat_transpembeli as $key) {
-                            $jumlah_uang = $key->bersih * $key->harga;
-
-                            echo "<tr><td>".$no."</td><td>".$key->tanggal."</td><td>".$key->nama_pembeli."</td><td>".$key->asal_daerah."</td><td>".$key->colly."</td><td>".$key->kode_cabai."</td><td>".number_format($key->bersih,1)."</td><td>Rp".number_format($key->harga,0,',','.')."</td><td>Rp".number_format($jumlah_uang,0,',','.')."</td>
-                                  <td><button id='".$key->id."' class='btn btn-info btn-xs edit_data' data-toggle='modal' data-target='#editPembelian'>edit</button> <button id='del_".$key->id."' class='delete btn btn-danger btn-xs'>Hapus</button></td></tr>";
-                        
-                            $no++;
-                        }
-                      }
-                      else {
-                            echo "<tr><td colspan='12' class='text-center'> Tidak ada data yang ditampilkan </td></tr>";
-                      }
-
-                    ?>
                   </tbody>
                 </table>
                 <!-- ./table -->
@@ -134,7 +116,7 @@
   <!-- /.content-wrapper -->
 
   <!-- Modal Input Setoran-->
-    <div id="editPembelian" class="modal fade" role="dialog">
+    <div id="modal_editPembelian" class="modal fade" role="dialog">
       <div class="modal-dialog">
 
         <!-- Modal content-->
@@ -427,10 +409,12 @@
 <!-- Bootstrap 3.3.7 -->
 <script src="<?php echo base_url();?>assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- bootstrap datepicker -->
-<script src="<?php echo base_url();?>assets/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.js""></script>
+<script src="<?php echo base_url();?>assets/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.js"></script>
 <!-- DataTables -->
 <script src="<?php echo base_url();?>assets/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="<?php echo base_url();?>assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<!-- Notify.js -->
+<script src="<?php echo base_url();?>assets/js/notify.min.js"></script>
 <!-- Slimscroll -->
 <script src="<?php echo base_url();?>assets/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
 <!-- FastClick -->
@@ -440,44 +424,46 @@
 <!-- AdminLTE for demo purposes -->
 <script src="<?php echo base_url();?>assets/js/demo.js"></script>
 <script type="text/javascript">
+  var dataTable;
+
   $(document).ready(function(){
       $('.input-tanggal').datepicker({
       format : 'yyyy-mm-dd',
       todayHighlight : 'true'
     });
 
-    $('.datatables').DataTable();
+  //Datatable ajax
+    dataTable = $('#tb_transaksi').DataTable({ 
+        "processing": true, //Feature control the processing indicator.
+        "serverSide": true, //Feature control DataTables' server-side processing mode.
+        "order": [], //Initial no order.
 
-    $('.delete').click(function(){
-        var el = this;
-        var id = this.id;
-        console.log(id);
-        var splitid = id.split("_");
+        // Load data for the table's content from an Ajax source
+        "ajax": {
+            "url": "<?php echo site_url('Riwayat/list_riwayat_pembeli_nonMitra')?>",
+            "type": "POST",
+            "data": function(data){
+                data.startdate = $('#startdate').val();
+                data.enddate = $('#enddate').val()
+            }
+        },
 
-        // Delete id
-        var deleteid = splitid[1];
-   
-          if(confirm('Apakah Anda yakin menghapus transaksi?'))
-          {
-            // AJAX Request
-            $.ajax({
-              url: '<?php echo base_url();?>Riwayat/delete_transNonMitra',
-              type: 'POST',
-              data: { id:deleteid, table: 'transaksi_pembelinonmitra'},
-              success: function(response){
+        //Set column definition initialisation properties.
+        "columnDefs": [
+          { 
+              "targets": [ -1, 0, -3 ], //last column
+              "orderable": false, //set not orderable
+          },
+        ],
 
-                // Removing row from HTML Table
-                $(el).closest('tr').css('background','tomato');
-                $(el).closest('tr').fadeOut(600, function(){ 
-                 $(this).remove();
-                });
-              },
-              error: function(){
-                alert('Gagal menghapus');
-              }
-            });
-          }
-      });
+    });
+
+  //Filter Tanggal
+    $('#btn_date').click(function(){
+        dataTable.draw();
+    })
+
+    
 
       $('.edit_data').click(function(){
            var id_transaksi = this.id;
@@ -498,7 +484,12 @@
       });
   });
 
-  function editPembelian(id_trans)  {
+  function reload_table()
+  {
+      dataTable.ajax.reload(null,false); //reload datatable ajax 
+  };
+
+  function editTransaksi(id_trans)  {
            $.ajax({  
                 url:"<?php echo base_url();?>Riwayat/edit_transNonMitra",  
                 method:"POST",  
@@ -516,6 +507,7 @@
                      $('#colly').val(data.colly);
                      $('#bersih').val(data.bersih);
                      $('#jumlah_uang').val(jumlah_uang);
+                     $('#modal_editPembelian').modal('show');
                 }  
            });
   }
@@ -548,10 +540,40 @@
           bersih: bersih,
           harga: harga},    
         success:function(data){
-          location.reload(true);
-          $('#successful_edit').html('<div class="alert alert-success alert-dismissible"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>Berhasil!</strong>  Setoran Petani berhasil diperbarui</div>');
+          $('#modal_editPembelian').modal('hide');
+          $.notify('Berhasil mengubah data',
+          {
+            className: 'success',
+            position: 'top right'
+          });
+          reload_table();
         }
       })
+  }
+
+  function deleteTransaksi(id)
+  {
+    if(confirm('Apakah Anda yakin menghapus transaksi?'))
+    {
+      // AJAX Request
+      $.ajax({
+        url: '<?php echo base_url();?>Riwayat/delete_transNonMitra',
+        type: 'POST',
+        data: { id:id, table: 'transaksi_pembelinonmitra'},
+        success: function(response){
+          $('#modal_editPembelian').modal('hide');
+          $.notify('Berhasil menghapus data',
+            {
+              className: 'warning',
+              position: 'top right'
+            });
+            reload_table();
+        },
+        error: function(){
+          alert('Gagal menghapus');
+        }
+      });
+    }
   }
 
 

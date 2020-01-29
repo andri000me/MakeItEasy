@@ -17,7 +17,6 @@
     <!-- Main content -->
     <section class="content">
 
-
       <div class="row">
 
         <div class="col-md-12">
@@ -25,25 +24,25 @@
             <div class="box-header">
               <h3 class="box-title">Riwayat Transaksi berdasarkan Tanggal</h3>
             </div>
-
             <div class="box-body">
-            <!-- Date range -->
+            
+
+              <!-- Date range -->
               <div class="row">
                 <div class="col-md-4">
-                  <div class="callout callout-info">
+                  <div class="callout callout-success">
                     <div class="row">
                       <div class="col-md-2">
-                        <i class="icon fa fa-cubes fa-3x"></i>
+                        <i class="icon fa fa-leaf fa-3x"></i>
                       </div>
                       <div class="col-md-10">
-                        <h4> Petani_Bon</h4>
-                        <p>Lihat riwayat transaksi bon dari petani mitra</p>
+                        <h4> Petani_BON</h4>
+                        <p>Lihat riwayat BON dari petani mitra</p>
                       </div>
                     </div>
                   </div>
                 </div>
 
-                <form action="<?php echo base_url();?>Riwayat/RiwayatPetaniBon" method="post">
                   <div class="form-group col-md-3">
                     <label>Tanggal Mulai :</label>
 
@@ -51,7 +50,7 @@
                       <div class="input-group-addon">
                         <i class="fa fa-calendar"></i>
                       </div>
-                      <input type="text" class="form-control input-tanggal" name="start" id="start" required value="<?php echo $startdate ?>">
+                      <input type="text" class="form-control input-tanggal" name="startdate" id="startdate" required>
                     </div>
                   </div>
 
@@ -61,14 +60,13 @@
                       <div class="input-group-addon">
                         <i class="fa fa-calendar"></i>
                       </div>
-                      <input type="text" class="form-control input-tanggal" name="end" id="end" required value="<?php echo $enddate ?>">
+                      <input type="text" class="form-control input-tanggal" name="enddate" id="enddate" required>
                     </div>
                   </div>
 
                   <div class="col-md-2">
-                      <input type="submit" class="btn btn-info" value="Cek Transaksi" style="margin-top: 25px">
+                      <input id="btn_date" type="submit" class="btn btn-info" value="Cek Transaksi" style="margin-top: 25px">
                   </div>
-                </form>
               </div>
 
               <div id="successful_edit">
@@ -80,7 +78,7 @@
               <div class="row">
                 <div class="col-md-12 table-responsive">
                   <hr>
-                  <table id="example2" class="table table-bordered table-striped datatables">
+                  <table id="tb_bon" class="table table-bordered table-striped datatables">
                     <thead>
                   <tr class="bg-gray">
                     <th style="text-align: center; line-height: 50px">#</th>
@@ -94,19 +92,6 @@
                   </tr>
                 </thead>
                   <tbody>
-                    <?php
-                      if (!empty($riwayat_transpetani)) {
-                        $no=1; foreach ($riwayat_transpetani as $key) {
-                            echo "<tr><td>".$no."</td><td>".$key->tanggal."</td><td>".$key->id_petani."</td><td>".$key->nama."</td><td>".$key->desa."</td><td id='bon_".$key->id."'>Rp".number_format($key->bon,0,',','.')."</td><td id='saldo_".$key->id."'>Rp".number_format($key->saldo,0,',','.')."</td><td><button id='".$key->id."' class='detail btn btn-info btn-xs edit_data' data-toggle='modal' data-target='#detailBon'>detail</button> <button id='del_".$key->id."' class='delete btn btn-danger btn-xs'>Hapus</a></td></tr>";
-                          
-                            $no++;
-                        }
-                      }
-                      else {
-                            echo "<tr><td colspan='12' class='text-center'> Tidak ada data yang ditampilkan </td></tr>";
-                      }
-
-                    ?>
                   </tbody>
                 </table>
                 <!-- ./table -->
@@ -127,9 +112,8 @@
     <!-- /.content -->
   </div>
 
-
   <!-- Modal Detail BON-->
-    <div id="detailBon" class="modal fade" role="dialog">
+    <div id="modal_bon" class="modal fade" role="dialog">
       <div class="modal-dialog">
 
         <!-- Modal content-->
@@ -396,7 +380,9 @@
 <!-- Bootstrap 3.3.7 -->
 <script src="<?php echo base_url();?>assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- bootstrap datepicker -->
-<script src="<?php echo base_url();?>assets/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.js""></script>
+<script src="<?php echo base_url();?>assets/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.js"></script>
+<!-- Notify.js -->
+<script src="<?php echo base_url();?>assets/js/notify.min.js"></script>
 <!-- Select2 -->
 <script src="<?php echo base_url();?>assets/bower_components/select2/dist/js/select2.full.min.js"></script>
 <!-- DataTables -->
@@ -411,60 +397,53 @@
 <!-- AdminLTE for demo purposes -->
 <script src="<?php echo base_url();?>assets/js/demo.js"></script>
 <script type="text/javascript">
+  var dataTable;
+
   $(document).ready(function(){
      $('.input-tanggal').datepicker({
       format : 'yyyy-mm-dd',
       todayHighlight : 'true'
     });
 
-     $('.datatables').DataTable();
+//Datatable ajax
+  dataTable = $('#tb_bon').DataTable({ 
+      "processing": true, //Feature control the processing indicator.
+      "serverSide": true, //Feature control DataTables' server-side processing mode.
+      "order": [], //Initial no order.
 
-     //dropdown jenis cabai
-      $(".select2").select2({
-          placeholder: "Please Select"
-      });
+      // Load data for the table's content from an Ajax source
+      "ajax": {
+          "url": "<?php echo site_url('Riwayat/list_riwayat_bon_petani')?>",
+          "type": "POST",
+          "data": function(data){
+              data.startdate = $('#startdate').val();
+              data.enddate = $('#enddate').val()
+          }
+      },
 
-
-     $('.delete').click(function(){
-      var el = this;
-      var id = this.id;
-      console.log(id);
-      var splitid = id.split("_");
-
-      // Delete id
-      var deleteid = splitid[1];
- 
-        if(confirm('Apakah Anda yakin menghapus transaksi?'))
-        {
-          // AJAX Request
-          $.ajax({
-            url: '<?php echo base_url();?>Riwayat/delete_transpetanibon',
-            type: 'POST',
-            data: { id:deleteid },
-            success: function(response){
-
-              // Removing row from HTML Table
-              $(el).closest('tr').css('background','tomato');
-              $(el).closest('tr').fadeOut(600, function(){ 
-               $(this).remove();
-              });
-            },
-            error: function(){
-              alert('Gagal menghapus');
-            }
-          });
-        }
-      });
-
-    $('.detail').click(function(){
-      var id_transaksi = this.id;
-
-      getDetailBon(id_transaksi);
-    });
+      //Set column definition initialisation properties.
+      "columnDefs": [
+      { 
+          "targets": [ -1, 0, -3 ], //last column
+          "orderable": false, //set not orderable
+      },
+      ],
 
   });
 
-  function getDetailBon(id_transaksi) {
+//Filter Tanggal
+  $('#btn_date').click(function(){
+      dataTable.draw();
+  })
+
+//dropdown jenis cabai
+  $(".select2").select2({
+      placeholder: "Please Select"
+  });
+
+});
+
+function getDetailBon(id_transaksi) {
     var no=1;
 
     $.ajax({
@@ -495,10 +474,35 @@
         $('#tanggal').html(response[0].tanggal);
         $('#nama_petani').html(response[0].nama);
         $('#tb_body_detail').html(row);
+
+        $('#modal_bon').modal('show');
       }
   
     })
   }
+
+  function deleteBon(id){
+    if(confirm('Apakah Anda yakin menghapus transaksi?'))
+        {
+          // AJAX Request
+          $.ajax({
+            url: '<?php echo base_url();?>Riwayat/delete_transpetanibon',
+            type: 'POST',
+            data: { id:id },
+            success: function(response){
+                $('#modal_bon').modal('hide');
+                $.notify("Berhasil Menghapus Data",
+                  {   className: "warning",
+                      position: "top right" },
+                );
+                dataTable.ajax.reload(null,false);
+            },
+            error: function(){
+              alert('Gagal menghapus');
+            }
+          });
+        }
+      };
 
   
 </script>

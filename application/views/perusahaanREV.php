@@ -296,7 +296,7 @@
       <!-- row dibawah grafik -->
       <div class="row">
       <!-- Grafik Hutang Piutang Harian -->
-        <div class="col-md-6 col-sm-12">
+        <div class="col-md-8 col-sm-12">
           <div class="box box-default">
             <div class="box-header with-border">
               <h3 class="box-title">Hutang Piutang Harian (Rp)</h3>
@@ -325,7 +325,7 @@
         </div>
         <!-- ./cabai terjual -->
         <!-- Cabai Terjual -->
-        <div class="col-md-6 col-sm-12">
+        <div class="col-md-4 col-sm-12">
           <div class="box box-default">
             <div class="box-header with-border">
               <h3 class="box-title">Cabai Terjual (kg)</h3>
@@ -618,13 +618,15 @@
 <script src="<?php echo base_url();?>assets/js/demo.js"></script>
 
 <script>
+
+  var chart_hutang;
   //Date range picker
   $(document).ready(function() {
       var month = $('#monthly_date').val();
 
       //chart cabai terjual
       $.ajax({
-        url : "http://localhost:8080/MakeItEasy/Perusahaan/rekap_cabai",
+        url : "http://localhost/MakeItEasy/Perusahaan/rekap_cabai",
         type : "POST",
         dataType: "JSON",
         data: 
@@ -744,7 +746,7 @@
           }
 
           var ctx3 = document.getElementById('hutang_harian').getContext('2d');
-        var chart_hutang = new Chart(ctx3, {
+        chart_hutang = new Chart(ctx3, {
           type: 'bar',
           data: {
               labels: tanggal,
@@ -782,7 +784,8 @@
         data: 
           {month: month},
         success : function(data){
-          addData(chart_hutang, data.tanggal, )
+          // addData(chart_hutang, data.tanggal)
+          window.location.reload();
         }
     })
   })

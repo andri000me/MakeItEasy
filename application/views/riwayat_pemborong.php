@@ -43,7 +43,6 @@
                    
                   </div>
                 </div>
-                <form action="<?php echo base_url();?>/Riwayat/RiwayatPemborong" method="post">
                   <div class="form-group col-md-3">
                     <label>Tanggal Mulai :</label>
 
@@ -51,7 +50,7 @@
                       <div class="input-group-addon">
                         <i class="fa fa-calendar"></i>
                       </div>
-                      <input type="text" class="form-control input-tanggal" name="start" id="start" required value="<?php echo $startdate ?>">
+                      <input type="text" class="form-control input-tanggal" name="startdate" id="startdate" required >
                     </div>
                   </div>
 
@@ -61,14 +60,13 @@
                       <div class="input-group-addon">
                         <i class="fa fa-calendar"></i>
                       </div>
-                      <input type="text" class="form-control input-tanggal" name="end" id="end" required value="<?php echo $enddate ?>">
+                      <input type="text" class="form-control input-tanggal" name="enddate" id="enddate" required >
                     </div>
                   </div>
 
                   <div class="col-md-2">
-                      <input type="submit" class="btn btn-info" value="Cek Transaksi" style="margin-top: 25px">
+                      <input id="btn_date" type="submit" class="btn btn-info" value="Cek Transaksi" style="margin-top: 25px">
                   </div>
-                </form>
               </div>
 
               <!-- /.form group -->
@@ -76,7 +74,7 @@
               <div class="row">
                 <div class="col-md-12 table-responsive">
                   <hr>
-                  <table id="example1" class="table table-bordered table-striped datatables">
+                  <table id="tb_transaksi" class="table table-bordered table-striped datatables">
                    <thead>
                       <tr class="bg-gray">
                         <th style="text-align: center; line-height: 10px" rowspan="2">#</th>
@@ -98,23 +96,6 @@
                       </tr>
                   </thead>
                   <tbody>
-                    <?php
-                      if (!empty($riwayat_transborong)) {
-                        $no=1; foreach ($riwayat_transborong as $key) {
-
-                          $jumlah_uang = $key->bersih * $key->harga_bersih;
-
-                            echo "<tr><td>".$no."</td><td>".$key->tanggal."</td><td>".$key->id_pembeli."</td><td>".$key->nama."</td><td>".$key->alamat."</td><td>".$key->colly."</td><td>".$key->kode."</td><td>".number_format($key->bersih,1)."</td><td>Rp".number_format($key->harga_bersih,0,',','.')."</td><td>Rp".number_format($jumlah_uang,0,',','.')."</td><td>Rp".number_format($key->transferan,0,',','.')."</td>
-                                  <td>".number_format($key->saldo,0,',','.')."</td><td><button id='".$key->id."' class='btn btn-info btn-xs edit_data' data-toggle='modal' data-target='#editPembelian'>edit</button> <button id='del_".$key->id."' class='delete btn btn-danger btn-xs'>Hapus</button></td></tr>";
-                          
-                            $no++;
-                        }
-                      }
-                      else {
-                            echo "<tr><td colspan='12' class='text-center'> Tidak ada data yang ditampilkan </td></tr>";
-                      }
-
-                    ?>
                   </tbody>
                 </table>
                 <!-- ./table -->
@@ -136,7 +117,7 @@
   </div>
 
   <!-- Modal Input Setoran-->
-    <div id="editPembelian" class="modal fade" role="dialog">
+    <div id="modal_editPembelian" class="modal fade" role="dialog">
       <div class="modal-dialog">
 
         <!-- Modal content-->
@@ -453,10 +434,14 @@
 <!-- Bootstrap 3.3.7 -->
 <script src="<?php echo base_url();?>assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- bootstrap datepicker -->
-<script src="<?php echo base_url();?>assets/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.js""></script>
+<script src="<?php echo base_url();?>assets/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.js"></script>
 <!-- DataTables -->
 <script src="<?php echo base_url();?>assets/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="<?php echo base_url();?>assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<!-- Notify.js -->
+<script src="<?php echo base_url();?>assets/js/notify.min.js"></script>
+<!-- Select2 -->
+<script src="<?php echo base_url();?>assets/bower_components/select2/dist/js/select2.full.min.js"></script>
 <!-- Slimscroll -->
 <script src="<?php echo base_url();?>assets/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
 <!-- FastClick -->
@@ -466,91 +451,97 @@
 <!-- AdminLTE for demo purposes -->
 <script src="<?php echo base_url();?>assets/js/demo.js"></script>
 <script type="text/javascript">
+  var dataTable;
+
   $(document).ready(function(){
       $('.input-tanggal').datepicker({
       format : 'yyyy-mm-dd',
       todayHighlight : 'true'
     });
 
-      $('.datatables').DataTable()
+    //Datatable ajax
+    dataTable = $('#tb_transaksi').DataTable({ 
+        "processing": true, //Feature control the processing indicator.
+        "serverSide": true, //Feature control DataTables' server-side processing mode.
+        "order": [], //Initial no order.
 
-      $('.delete').click(function(){
-        var el = this;
-        var id = this.id;
-        console.log(id);
-        var splitid = id.split("_");
+        // Load data for the table's content from an Ajax source
+        "ajax": {
+            "url": "<?php echo site_url('Riwayat/list_riwayat_pembeli')?>",
+            "type": "POST",
+            "data": function(data){
+                data.startdate = $('#startdate').val();
+                data.enddate = $('#enddate').val()
+            }
+        },
 
-        // Delete id
-        var deleteid = splitid[1];
-   
-          if(confirm('Apakah Anda yakin menghapus transaksi?'))
-          {
-            // AJAX Request
-            $.ajax({
-              url: '<?php echo base_url();?>Riwayat/delete_transpemborong',
-              type: 'POST',
-              data: { id:deleteid },
-              success: function(response){
+        //Set column definition initialisation properties.
+        "columnDefs": [
+        { 
+            "targets": [ -1, 0, -3 ], //last column
+            "orderable": false, //set not orderable
+        },
+        ],
 
-                // Removing row from HTML Table
-                $(el).closest('tr').css('background','tomato');
-                $(el).closest('tr').fadeOut(600, function(){ 
-                 $(this).remove();
-                });
-              },
-              error: function(){
-                alert('Gagal menghapus');
-              }
-            });
-          }
-      });
+    });
 
-      $('.edit_data').click(function(){
-           var id_transaksi = this.id;
-           editPembelian(id_transaksi);
-      });
+  //Filter Tanggal
+    $('#btn_date').click(function(){
+        dataTable.draw();
+    })
 
-      //Menghitung jumlah uang
-      $('#bersih').on('change', function()  {
-        showJumlahUang();
-      })
-      $('#harga_pembeli').on('change', function()  {
-        showJumlahUang();
-      })
+    $('.edit_data').click(function(){
+         var id_transaksi = this.id;
+         editPembelian(id_transaksi);
+    });
 
+    //Menghitung jumlah uang
+    $('#bersih').on('change', function()  {
+      showJumlahUang();
+    })
+    $('#harga_pembeli').on('change', function()  {
+      showJumlahUang();
+    })
 
-      $('#btn_update').click(function(){
-        updatePembelian();
-      });
+    //update transaksi pembeli
+    $('#btn_update').click(function(){
+      updatePembelian();
+    });
 
   })
 
-  function editPembelian(id_trans)  {
-           $.ajax({  
-                url:"<?php echo base_url();?>Transaksi/edit_transborong",  
-                method:"POST",  
-                data:{id_transaksi:id_trans},  
-                dataType:"json",  
-                success:function(data){
-                    var jumlah_uang = data.bersih * data.harga;
-                    //var opt= document.getElementById('cabai').options[0];
+  function reload_table()
+  {
+      dataTable.ajax.reload(null,false); //reload datatable ajax 
+  }
 
-                     $('#id_transaksi').val(data.id);
-                     $('#tanggal').val(data.tanggal);  
-                     $('#nama_pembeli').val('[' + data.id_pembeli + '] ' + data.nama);
-                     $('#id_pembeli').val(data.id_pembeli)
-                     $('#saldo_pembeli').val(data.saldo_pembeli);
-                     $('#saldo_trans').val(data.saldo_trans);
-                     $('#cabai').val(data.kode + ' (' + data.jenis + ')');
-                     $('#harga_pembeli').val(data.harga);   
-                     $('#colly').val(data.colly);
-                     $('#bersih').val(data.bersih);
-                     $('#jumlah_uang').val(jumlah_uang);
-                     $('#jumlah_uang_awal').val(jumlah_uang);
-                     $('#transferan').val(data.transferan);
-                     $('#transferan_awal').val(data.transferan);
-                }  
-           });
+  function editPembelian(id_trans)  {
+     $.ajax({  
+          url:"<?php echo base_url();?>Transaksi/edit_transborong",  
+          method:"POST",  
+          data:{id_transaksi:id_trans},  
+          dataType:"json",  
+          success:function(data){
+              var jumlah_uang = data.bersih * data.harga;
+              //var opt= document.getElementById('cabai').options[0];
+
+               $('#id_transaksi').val(data.id);
+               $('#tanggal').val(data.tanggal);  
+               $('#nama_pembeli').val('[' + data.id_pembeli + '] ' + data.nama);
+               $('#id_pembeli').val(data.id_pembeli)
+               $('#saldo_pembeli').val(data.saldo_pembeli);
+               $('#saldo_trans').val(data.saldo_trans);
+               $('#cabai').val(data.kode + ' (' + data.jenis + ')');
+               $('#harga_pembeli').val(data.harga);   
+               $('#colly').val(data.colly);
+               $('#bersih').val(data.bersih);
+               $('#jumlah_uang').val(jumlah_uang);
+               $('#jumlah_uang_awal').val(jumlah_uang);
+               $('#transferan').val(data.transferan);
+               $('#transferan_awal').val(data.transferan);
+               $('#modal_editPembelian').modal('show');
+          }  
+     });
   }
 
   function showJumlahUang() {
@@ -591,11 +582,42 @@
           transferan: transferan,
           transferan_awal: transferan_awal},    
         success:function(data){
-          location.reload(true);
-          $('#successful_edit').html('<div class="alert alert-success alert-dismissible"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>Berhasil!</strong>  Setoran Petani berhasil diperbarui</div>');
+          $('#modal_editPembelian').modal('hide');
+          $.notify('Berhasil mengubah data',
+          {
+            className: 'success',
+            position: 'top right'
+          });
+          reload_table();
         }
       })
   }
+
+  function deleteTransaksi(deleteid)
+  {
+    if(confirm('Apakah Anda yakin menghapus transaksi?'))
+      {
+        // AJAX Request
+        $.ajax({
+          url: '<?php echo base_url();?>Riwayat/delete_transpemborong',
+          type: 'POST',
+          data: { id:deleteid },
+          success: function(response){
+            $('#modal_editPembelian').modal('hide');
+            $.notify('Berhasil menghapus data',
+            {
+              className: 'warning',
+              position: 'top right'
+            });
+            reload_table();
+          },
+          error: function(){
+            alert('Gagal menghapus');
+          }
+        });
+      }
+  }
+
 </script>
 </body>
 </html>
