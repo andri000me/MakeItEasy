@@ -1,3 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Make It Easy</title>
+  <!-- Favicon (ini diganti gambar yang sesuai-->
+  <link rel="icon" href="<?php echo base_url();?>assets/img/logomie.png">
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <!-- Bootstrap 3.3.7 -->
+  <link rel="stylesheet" href="<?php echo base_url();?>/assets/bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="<?php echo base_url();?>assets/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.css">
+  <!-- daterange picker -->
+  <link rel="stylesheet" href="<?php echo base_url();?>/assets/bower_components/bootstrap-daterangepicker/daterangepicker.css">
+  <!-- DataTables -->
+  <link rel="stylesheet" href="<?php echo base_url();?>assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css"> 
+  <!-- Select2 -->
+  <link rel="stylesheet" href="<?php echo base_url();?>assets/bower_components/select2/dist/css/select2.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="<?php echo base_url();?>/assets/css/AdminLTE.min.css">
+   <link rel="stylesheet" href="<?php echo base_url();?>/assets/css/inpo-box.css">
+  <!-- AdminLTE Skins. Choose a skin from the css/skins
+       folder instead of downloading all of them to reduce the load. -->
+  <link rel="stylesheet" href="<?php echo base_url();?>/assets/css/skins/_all-skins.min.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="<?php echo base_url();?>/assets/bower_components/font-awesome/css/font-awesome.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="<?php echo base_url();?>/assets/bower_components/Ionicons/css/ionicons.min.css">
+  <!-- Google Font -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+  <!---------------- NOTED ------------------>
+
+</head>
+<body class="hold-transition skin-red sidebar-mini">
+<div class="wrapper">
+
+  <header class="main-header">
+    <!-- Logo -->
+    <a href="<?php echo base_url();?>Transaksi/transpetani" class="logo">
+      <span class="logo-lg"><b>Make It</b> Easy</span>
+    </a>
+
+    <!-- Header Navbar: style can be found in header.less -->
+    <nav class="navbar navbar-static-top">
+
+      <div class="navbar-custom-menu">
+        <ul class="nav navbar-nav">
+
+          <!-- User Account: style can be found in dropdown.less -->
+          <li class="dropdown user user-menu">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              <img src="<?php echo base_url();?>/assets/img/user2-160x160.jpg" class="user-image" alt="User Image">
+              <span class="hidden-xs">ADMIN</span>
+            </a>
+            <ul class="dropdown-menu">
+              <!-- User image -->
+              <li class="user-header">
+                <img src="<?php echo base_url();?>/assets/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                <p>
+                  Admin
+                </p>
+              </li>
+              <!-- Menu Footer-->
+              <li class="user-footer">
+                <div class="pull-left">
+                  <a href="<?php echo base_url()?>Login/ubah_password" class="btn btn-default btn-flat">Ubah Password</a>
+                </div>
+                <div class="pull-right">
+                  <a href="<?php echo base_url()?>Login/logout" class="btn btn-danger btn-flat">Sign out</a>
+                </div>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper"> 
   <!-- Content Header (Page header) -->
@@ -34,7 +114,7 @@
                 <b>Nama Panggil </b><span class="pull-right"><?= $profil->nama_panggil ?></span> 
               </li>
               <li class="list-group-item">
-                <b>Saldo <span id="profilSaldo" class="pull-right text-success">Rp<?= number_format($profil->saldo,0,',','.') ?></span> </b>
+                <b>Saldo <span class="pull-right text-success"><?= $profil->saldo ?></span> </b>
               </li>
               <li class="list-group-item">
                 <b>Alamat</b>
@@ -46,8 +126,7 @@
               <li class="list-group-item">
                 <b>Jaminan </b> <br>
                 <p class="text-right"><?= $profil->jaminan ?></p>
-                <button id="editButton" class="btn btn-default btn-block" data-toggle="modal" data-target="#editPetani" ><i class="fa fa-edit"></i>  <b>Edit Profil</b></button>
-                <button id="saldoButton" class="btn btn-warning btn-block" href="javascript:void(0)" onclick="editSaldo(<?= $profil->id ?>)" ><i class="fa fa-money"></i>  <b>Edit Saldo</b></button> 
+                <button id="editButton" class="btn btn-default btn-block" data-toggle="modal" data-target="#editPetani" ><i class="fa fa-edit"></i>  <b>Edit Profil</b></button> 
               </li>
             </ul>
 
@@ -70,27 +149,44 @@
         </div>
         <!-- /.box-header -->
         <div class="box-body table-responsive">
-          <table id="tb_transaksi" class="table table-hover" style="font-size: 15px">
+          <table id="example1" class="table table-hover" style="font-size: 15px">
             <thead>
               <tr class="bg-success">
                 <th style="text-align: center; line-height: 50px" rowspan="2">No</th>
                 <th style="text-align: center; line-height: 50px" rowspan="2">Tanggal</th>
                 <th style="text-align: center; line-height: 50px" rowspan="2">Jenis Cabai</th>
-                <th style="text-align: center;" colspan="3">Berat</th>
                 <th style="text-align: center; line-height: 50px" rowspan="2">Harga Bersih</th>
+                <th style="text-align: center; line-height: 50px" rowspan="2">Harga BS</th>
+                <th style="text-align: center;" colspan="4">Berat</th>
                 <th style="text-align: center; line-height: 50px" rowspan="2">Jumlah Uang</th>
                 <th style="text-align: center; line-height: 50px" rowspan="2">Bon</th>
                 <th style="text-align: center; line-height: 50px" rowspan="2">Saldo</th>
-                <th style="text-align: center; line-height: 50px" rowspan="2">Aksi</th>
               </tr>
               <tr class="bg-success">
                 <th>Kotor </th>
                 <th>BS/ MTL </th>
+                <th>Susut </th>
                 <th>Bersih </th>
               </tr>
             </thead>
 
             <tbody>
+            <?php $no=1; foreach ($tb_transaksi as $tb): ?>
+              <tr>
+                <td><?= $no ?></td>
+                <td><?= $tb->tanggal ?></td>
+                <td><?= $tb->kode_cabai ?></td>
+                <td><?php if(!is_null($tb->berat_kotor)) {echo 'Rp'.number_format($tb->harga_bersih,0,',','.');} ?></td>
+                <td><?php if(!is_null($tb->berat_kotor)){echo "Rp".number_format($tb->harga_bs,0,',','.');} ?></td>
+                <td><?= $tb->berat_kotor ?></td>
+                <td><?= $tb->berat_bs ?></td>
+                <td><?= $tb->berat_susut ?></td>
+                <td><?php if(!is_null($tb->berat_kotor)){echo $tb->berat_kotor - $tb->berat_bs - $tb->berat_susut;} ?></td>
+                <td><?php if(!is_null($tb->berat_kotor)){echo "Rp".number_format($tb->harga_bs * $tb->berat_bs + $tb->harga_bersih * ($tb->berat_kotor - $tb->berat_bs - $tb->berat_susut ),0,'.',',');} ?></td>
+                <td><?php if(!is_null($tb->bon)){echo "Rp".number_format($tb->bon,0,',','.');} ?></td>
+                <td><?php echo "Rp".number_format($tb->saldo,0,',','.'); ?></td>
+              </tr>
+              <?php $no++; endforeach ?>
             </tbody>
 
           </table>
@@ -311,7 +407,7 @@
 
 <!-- ./wrapper -->
 
-<!-- Modal edit Petani -->
+<!-- Modal add Petani -->
 <div class="modal fade" id="editPetani">
   <div class="modal-dialog">
     <!-- Modal content-->
@@ -409,106 +505,6 @@
 </div>
 <!-- END Modal edit Petani -->
 
-<!-- Modal Edit Saldo -->
-<div class="modal fade" id="modal_editSaldo">
-  <div class="modal-dialog">
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Tambahkan Petani Mitra</h4>
-      </div>
-
-        <!-- One "tab" for each step in the form: -->
-        <div class="modal-body">
-
-          <div class="row" style="padding-bottom: 5px">
-            <div class="col-md-4">
-              <label>ID :</label>
-            </div>
-            <div class="col-md-8">
-              <input type="text" name="id_petani2" id="id_petani2" class="form-control" required readonly>
-            </div>
-          </div>
-
-          <div class="row" style="padding-bottom: 5px">
-            <div class="col-md-4">
-              <label>Nama Petani :</label>
-            </div>
-            <div class="col-md-8">
-              <input type="text" name="nama_petani2" id="nama_petani2" class="form-control" required readonly>
-            </div>
-          </div>
-
-          <div class="row" style="padding-bottom: 5px">
-            <div class="col-md-4">
-              <label>Saldo :</label>
-            </div>
-            <div class="col-md-8">
-              <input type="text" name="saldo" id="saldo" class="form-control" required="">
-            </div>
-          </div>
-
-        </div>
-      
-        <div class="modal-footer">
-          <button type="submit" class="btn btn-warning" id="btn_simpanSaldo" onclick="updateSaldo(<?= $profil->id ?>)">Simpan</button>
-        </div>
-        <!-- /.modal-footer -->
-    </div>
-  </div>
-</div>
-<!-- END Modal edit Saldo -->
-
-<!-- Modal Detail BON-->
-  <div id="modal_bon" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Detail Bon</h4>
-        </div>
-    <div class="modal-body">
-
-      <div class="row" style="padding-bottom: 5px">
-        <div class="col-md-4">
-          <label>Tanggal :</label>
-        </div>
-        <div class="col-md-8">
-          <p id="tanggal"></p>
-        </div>
-      </div>
-
-      <table id="tb_detail" class="table table-bordered table-striped">
-        <thead>
-          <tr id="tb_detail_judul">
-            <th>No</th>
-            <th>Jenis BON</th>
-            <th>Harga</th>
-            <th>Kuantitas</th>
-            <th>Jumlah</th>
-            <th>Keterangan</th>
-          </tr>
-        </thead>
-        <tbody id="tb_body_detail">
-          
-        </tbody>
-      </table>
-
-    </div>
-
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div>
-
-      </div>
-
-    </div>
-  </div>
-<!-- END Modal BON -->
-
 <!-- jQuery 3 -->
 <script src="<?php echo base_url();?>assets/bower_components/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap 3.3.7 -->
@@ -518,8 +514,6 @@
 <!-- DataTables -->
 <script src="<?php echo base_url();?>assets/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="<?php echo base_url();?>assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
-<!-- Notify.js -->
-<script src="<?php echo base_url();?>assets/js/notify.min.js"></script>
 <!-- Slimscroll -->
 <script src="<?php echo base_url();?>assets/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
 <!-- FastClick -->
@@ -530,33 +524,8 @@
 <script src="<?php echo base_url();?>assets/js/demo.js"></script>
 
 <script>
-  var dataTable;
-
   $(document).ready(function(){
-    
-    dataTable = $('#tb_transaksi').DataTable({ 
-      "processing": true, //Feature control the processing indicator.
-      "serverSide": true, //Feature control DataTables' server-side processing mode.
-      "order": [], //Initial no order.
-
-      // Load data for the table's content from an Ajax source
-      "ajax": {
-          "url": "<?php echo site_url('DataProfil/get_transaksi_petani')?>",
-          "type": "POST",
-          "data": function(data){
-            data.id = $('#petaniID').val();
-          }
-      },
-
-      //Set column definition initialisation properties.
-      "columnDefs": [
-      { 
-          "targets": [0, 3, 4, 5, 6, 7,8, 9, 10],
-          "orderable": false, //set not orderable
-      },
-      ],
-
-  });
+    $('#example1').DataTable();
 
     $('#editButton').click(function(){
       var id = $('#petaniID').val();
@@ -618,89 +587,6 @@
 
 
   })
-
-  function editSaldo(id)
-  {
-    $.ajax({
-        url:"<?php echo base_url();?>DataProfil/edit_profil_petani",
-        method:"POST",
-        data:
-          {id: id},
-        dataType: "json",
-        success: function(data){
-          $('#id_petani2').val(data.id);
-          $('#nama_petani2').val(data.nama);
-          $('#saldo').val(data.saldo);
-          $('#modal_editSaldo').modal('show');
-        },
-        error: function(data){
-          alert('Terjadi Kesalahan');
-        }
-      })
-  }
-
-  function updateSaldo(id)
-  {
-    if(confirm('Apakah Anda Yakin Mengubah Saldo?')){
-      $.ajax({
-        url:"<?php echo base_url();?>DataProfil/update_saldo_petani",
-        method: "POST",
-        data: {
-          id: id,
-          saldo: $('#saldo').val()
-        },
-        dataType: "json",
-        success: function(data){
-          $('#profilSaldo').text(data.saldo);
-          $.notify("Berhasil Mengubah Saldo",
-            {   className: "warning",
-                position: "top right" },
-          );
-          $('#modal_editSaldo').modal('hide');
-        },
-        error: function(data){
-          alert('Terjadi Kesalahan');
-        }
-      })
-    }
-  }
-
-  function detailBon(id_transaksi) {
-    var no=1;
-
-    $.ajax({
-      url: '<?php echo base_url();?>Riwayat/getDetailBon',
-      type: 'POST',
-      data: {id_transaksi:id_transaksi},
-      dataType: 'json',
-      success: function(response){
-        var row = '';
-        var total = 0;
-
-        for(var i=0; i<response.length; i++)
-        {
-          var jumlah = response[i].harga * response[i].kuantitas;
-          var no = i + 1;
-          row += '<tr>';
-          row += '<td>'+ no +'</td>';
-          row += '<td>'+ response[i].barang +'</td>';
-          row += '<td>Rp'+ response[i].harga +'</td>';
-          row += '<td>'+ response[i].kuantitas +'</td>';
-          row += '<td>Rp'+ jumlah +'</td>';
-          row += '<td>'+ response[i].keterangan + '</td></tr>';
-
-          total += jumlah;
-        }
-
-        row += '<tr><td align="center" colspan="4"><b> Total <b></td>';
-        row += '<td><b>Rp'+ total +'</b></td></tr>';
-        $('#tanggal').html(response[0].tanggal);
-        $('#tb_body_detail').html(row);
-        $('#modal_bon').modal('show');
-      }
-  
-    })
-  }
 
 </script>
 

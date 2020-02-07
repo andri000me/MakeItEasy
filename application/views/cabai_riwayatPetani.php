@@ -42,7 +42,6 @@
                    
                   </div>
                 </div>
-                <form action="<?php echo base_url();?>Cabai/riwayatPetani" method="post">
                   <div class="form-group col-md-3">
                     <label>Tanggal Mulai :</label>
 
@@ -50,7 +49,7 @@
                       <div class="input-group-addon">
                         <i class="fa fa-calendar"></i>
                       </div>
-                      <input type="text" class="form-control input-tanggal" name="start" id="start" required value="<?php echo $startdate ?>">
+                      <input type="text" class="form-control input-tanggal" name="startdate" id="startdate" required>
                     </div>
                   </div>
 
@@ -60,14 +59,13 @@
                       <div class="input-group-addon">
                         <i class="fa fa-calendar"></i>
                       </div>
-                      <input type="text" class="form-control input-tanggal" name="end" id="end" required value="<?php echo $enddate ?>">
+                      <input type="text" class="form-control input-tanggal" name="enddate" id="enddate" required>
                     </div>
                   </div>
 
                   <div class="col-md-2">
-                      <input type="submit" class="btn btn-info" value="Cek Harga" style="margin-top: 25px">
+                      <input id="btn_date" type="submit" class="btn btn-info" value="Cek Harga" style="margin-top: 25px">
                   </div>
-                </form>
               </div>
 
               <!-- /.form group -->
@@ -91,20 +89,6 @@
                             </tr>
                           </thead>
                           <tbody>
-                             <?php
-                                if (!empty($riwayat_cabai)) {
-                                  $no=1; foreach ($riwayat_cabai as $key) {
-
-                                      echo "<tr><td>".$no."</td><td>".$key->tanggal."</td><td>".$key->jenis."</td><td>".$key->kode_cabai."</td><td>".$key->harga_bs."</td><td>".$key->harga_bersih."</td><td><button class='btn btn-sm btn-info edit_harga' data-toggle='modal' data-target='#editHarga' id='".$key->id."'><i class='fa fa-edit'></i> Edit </button></td></tr>";
-                                    
-                                      $no++;
-                                  }
-                                }
-                                else {
-                                       echo "<tr><td colspan='12' class='text-center'> Tidak ada data yang ditampilkan </td></tr>";
-                                }
-
-                              ?>
                           </tbody>
                         </table>
                 <!-- ./table -->
@@ -126,7 +110,7 @@
   </div>
 
 <!-- modal edit -->
-  <div class="modal fade" id="editHarga">
+  <div class="modal fade" id="modal_editHarga">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -175,6 +159,52 @@
         <div class="modal-footer">
           <button type="button" class="btn pull-left btn-danger" data-dismiss="modal">Close</button>
           <button type="button" class="btn btn-info" id="TombolSimpan">Simpan</button>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+<!-- /.modal -->
+
+<!-- modal confirm update -->
+  <div class="modal fade" id="modal_confirmUpdate">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">Konfirmasi Transaksi yang Berubah</h4>
+        </div>
+        <div class="modal-body">
+          <div style="overflow: auto; height: 400px" >
+            <table id="tabel_confirm" class="table table-bordered table-striped datatables " style="font-size: 15px; width: 100%;">
+              <thead>
+                <tr class="bg-success">
+                  <th style="text-align: center; line-height: 50px" rowspan="2">No</th>
+                  <th style="text-align: center; line-height: 50px" rowspan="2">Tanggal</th>
+                  <th style="text-align: center; line-height: 50px" rowspan="2">Id Petani</th>
+                  <th style="text-align: center; line-height: 50px" rowspan="2">Nama Petani</th>
+                  <th style="text-align: center; line-height: 50px" rowspan="2">Kode Cabai</th>
+                  <th style="text-align: center;" colspan="2">Berat</th>
+                  <th style="text-align: center; line-height: 50px" rowspan="2">Jumlah Uang</th>
+                  <th style="text-align: center; line-height: 50px" rowspan="2">Saldo Transaksi</th>
+                  <th style="text-align: center; line-height: 50px" rowspan="2">Saldo Petani</th>
+                </tr>
+                <tr class="bg-success">
+                  <th>BS/ MTL </th>
+                  <th>Bersih </th>
+                </tr>
+              </thead>
+              <tbody>
+              </tbody>
+            </table>
+        <!-- ./table -->
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn pull-left btn-danger" data-dismiss="modal">Oke</button>
         </div>
       </div>
       <!-- /.modal-content -->
@@ -394,10 +424,12 @@
 <!-- Bootstrap 3.3.7 -->
 <script src="<?php echo base_url();?>assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- bootstrap datepicker -->
-<script src="<?php echo base_url();?>assets/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.js""></script>
+<script src="<?php echo base_url();?>assets/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.js"></script>
 <!-- DataTables -->
 <script src="<?php echo base_url();?>assets/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="<?php echo base_url();?>assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<!-- Notify.js -->
+<script src="<?php echo base_url();?>assets/js/notify.min.js"></script>
 <!-- Slimscroll -->
 <script src="<?php echo base_url();?>assets/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
 <!-- FastClick -->
@@ -407,18 +439,71 @@
 <!-- AdminLTE for demo purposes -->
 <script src="<?php echo base_url();?>assets/js/demo.js"></script>
 <script type="text/javascript">
+  var dataTable;
+  var table_confirm;
+
   $(document).ready(function(){
       $('.input-tanggal').datepicker({
       format : 'yyyy-mm-dd',
       todayHighlight : 'true'
     });
 
-    $('.datatables').DataTable()
-
-    $('.edit_harga').click(function(){
-           var id_cabai = this.id;
-           editHarga(id_cabai);
+    //Datatable ajax
+    dataTable = $('#tabel_transaksi').DataTable({ 
+        "processing": true, //Feature control the processing indicator.
+        "serverSide": true, //Feature control DataTables' server-side processing mode.
+        "order": [], //Initial no order.
+ 
+        // Load data for the table's content from an Ajax source
+        "ajax": {
+            "url": "<?php echo site_url('Cabai/list_riwayat_cabai')?>",
+            "type": "POST",
+            "data": function(data){
+                data.startdate = $('#startdate').val();
+                data.enddate = $('#enddate').val()
+            }
+        },
+ 
+        //Set column definition initialisation properties.
+        "columnDefs": [
+        { 
+            "targets": [ -1, 0], //last column
+            "orderable": false, //set not orderable
+        },
+        ],
     });
+
+    table_confirm = $('#tabel_confirm').DataTable({ 
+        "processing": true, //Feature control the processing indicator.
+        "serverSide": true, //Feature control DataTables' server-side processing mode.
+        "order": [], //Initial no order.
+
+        // Load data for the table's content from an Ajax source
+        "ajax": {
+            "url": "<?php echo site_url('Cabai/list_transaksi_changed')?>",
+            "type": "POST",
+            "data": function(data){
+                data.tanggal = $('#tanggal').val();
+                data.kode_cabai = $('#kode_cabai').val();
+            }
+        },
+
+        //Set column definition initialisation properties.
+        "columnDefs": [
+        { 
+            "targets": [ -3, -4, -5, 0], //last column
+            "orderable": false, //set not orderable
+        },
+        ],
+
+        "autowidth": false,
+        "responsive": true,
+    });
+
+//Filter Tanggal
+    $('#btn_date').click(function(){
+        dataTable.draw();
+    })
 
     $('#TombolSimpan').click(function(){
         updateHarga();
@@ -438,6 +523,7 @@
         $('#kode_cabai').val(data.kode_cabai);
         $('#harga_bersih').val(data.harga_bersih);
         $('#harga_bs').val(data.harga_bs);
+        $('#modal_editHarga').modal('show');
       },
       error: function(){
         alert('error');
@@ -462,8 +548,15 @@
         harga_bersih: harga_bersih,
         harga_bs: harga_bs
       },
-      success: function(){
-        if (!alert('data berhasil diubah')){location.reload(true)}
+      success: function(data){
+        $('#modal_editHarga').modal('hide');
+        $.notify("Berhasil Mengubah Data",
+                  {   className: "success",
+                      position: "top right" },
+                );
+        table_confirm.draw();
+        $('#modal_confirmUpdate').modal('show');
+        dataTable.ajax.reload(null,false); //reload datatable ajax
       },
       error: function(){
         alert('gagal merubah harga')

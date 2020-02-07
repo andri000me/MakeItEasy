@@ -49,12 +49,69 @@ class DataProfil extends CI_Controller {
 			$id = $this->uri->segment(3);
 
 			$data = array(
-				'profil' => $this->model_profil->profil_petani($id),
-				'tb_transaksi' => $this->model_profil->transaksi_petani($id)
+				'profil' => $this->model_profil->profil_petani($id)
 			);
 
 			$this->load->view('header');
 			$this->load->view('detail_petaniREV', $data);
+		}
+
+	public function get_transaksi_petani()
+		{
+			$id = $_POST['id'];
+
+              $column_order = array(null, 'a.tanggal', 'a.kode_cabai', null, null, null, null, null, null, null, null, null, null);
+              $column_search = array('a.tanggal', 'a.kode_cabai', 'a.bon');
+              $list = $this->model_profil->get_datatables($column_search, $column_order, '_get_list_transaksi_petani');
+              $data = array();
+              $no = $_POST['start'];
+              foreach ($list as $key) {
+              	if (!is_null($key->berat_kotor)) {
+              		$berat_bersih = $key->berat_kotor - $key->berat_bs - $key->berat_susut;
+              		$jumlah_uang = ($berat_bersih * $key->harga_bersih) + ($key->berat_bs * $key->harga_bs);
+              	}
+
+              	$no++;
+              	$row = array();
+              	$row[] = $no;
+              	$row[] = $key->tanggal;
+              	$row[] = $key->kode_cabai;
+              	$row[] = number_format($key->berat_kotor,2,',','.');
+              	$row[] = number_format($key->berat_bs,2,',','.');
+              	if (!is_null($key->berat_kotor)) {
+              		$row[] = number_format($berat_bersih,2,',','.');
+              		$row[] = 'Rp'.number_format($key->harga_bersih,0,',','.');
+              		$row[] = 'Rp'.number_format($jumlah_uang,0,',','.');
+              	} else{
+              		$row[] = null;
+              		$row[] = null;
+              		$row[] = null;
+              	}
+              	if (!is_null($key->bon)) {
+              		$row[] = 'Rp'.number_format($key->bon,0,',','.');
+              	} else{
+              		$row[] = null;
+              	}
+              	$row[] = 'Rp'.number_format($key->saldo,0,',','.');
+
+              	if (!is_null($key->bon)) {
+              		$row[] = '<a class="btn btn-sm btn-info" title="Detail" href="javascript:void(0)" onclick="detailBon('."'".$key->id."'".')">Detail</a>';
+              	} else {
+              		$row[] = null;
+              	}
+
+              	$data[] = $row;
+              }
+
+              $output = array(
+                        "draw" => $_POST['draw'],
+                        "recordsTotal" => $this->model_profil->count_all('_get_list_transaksi_petani'),
+                        "recordsFiltered" => $this->model_profil->count_filtered($column_search, $column_order, '_get_list_transaksi_petani'),
+                        "data" => $data,
+                        "id" => $id,
+                );
+        //output to json format
+        echo json_encode($output);
 		}
 
 	public function detailPembeli()
@@ -107,6 +164,23 @@ class DataProfil extends CI_Controller {
 		$this->db->update('tb_petani', $data);
 
 		echo "success";
+	}
+
+	function update_saldo_petani(){
+		$id = $this->input->post('id');
+		$saldo = $this->input->post('saldo');
+
+		$data = array('saldo' => $saldo);
+
+		$this->db->where('id', $id);
+		$this->db->update('tb_petani', $data);
+
+		$this->db->select('saldo');
+		$this->db->from('tb_petani');
+		$this->db->where('id', $id);
+
+		$new_saldo = $this->db->get();
+		echo json_encode($new_saldo->row());
 	}
 
 	function update_profil_pembeli()	{

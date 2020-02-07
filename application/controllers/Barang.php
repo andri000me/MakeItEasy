@@ -10,7 +10,6 @@ class Barang extends CI_Controller {
 		if($this->session->userdata('masuk') != TRUE){
 			redirect(base_url('Login'));
 		}
-		
 	}
 
 	public function index()

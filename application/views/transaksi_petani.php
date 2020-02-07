@@ -299,6 +299,7 @@
                               <th style="text-align: center; line-height: 50px">Kuantitas</th>
                               <th style="text-align: center; line-height: 50px">Total</th>
                               <th style="text-align: center; line-height: 50px">Ambil Uang</th>
+                              <th style="text-align: center; line-height: 50px">Keterangan</th>
                             </tr>
                           </thead>
                           <tbody>
@@ -314,6 +315,7 @@
                                 <td><?= $tb->kuantitas ?></td>
                                 <td><?= $tb->harga*$tb->kuantitas ?></td>
                                 <td><?= $tb->ambil_uang ?></td>
+                                <td><?= $tb->keterangan ?></td>
                               </tr>
                             <?php $no++; endforeach ?>
                           </tbody>
@@ -648,7 +650,7 @@
       </div>
 
       <div class="modal-footer">
-        <input type="submit" class="btn btn-info" value="Submit">
+        <input id="btn_submit" type="submit" class="btn btn-info" value="Submit">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
       </div>
 
@@ -823,6 +825,16 @@
               </div>
               <div class="col-md-8">
                 <input type="text" class="form-control input-tanggal" id="tenggat" name="tenggat">
+              </div>
+            <br>
+          </div>
+
+          <div class="row" style="padding : 10px 0px">
+              <div class="col-md-4"> 
+                <label>Keterangan:</label>
+              </div>
+              <div class="col-md-8">
+                <input type="text" class="form-control" id="keterangan" name="keterangan">
               </div>
             <br>
           </div>
@@ -1138,8 +1150,8 @@
            data: {tanggal: $('#tanggal').val(), kode_cabai: $('#cabai').val()  },
            success: function(harga){
               if (!harga) {
-                $('#harga_petani').val("")
-                $('#harga_bs').val("") 
+                $('#btn_submit').attr('disabled','disabled');
+                alert('Masukkan harga cabai terlebih dahulu');
               }
               else {
               $('#harga_petani').val(harga.harga_bersih)

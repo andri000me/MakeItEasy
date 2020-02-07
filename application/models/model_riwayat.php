@@ -182,7 +182,7 @@ class model_riwayat extends CI_Model {
     }
 
     function detail_bon($id)  {
-      $query = $this->db->query("SELECT a.id, a.id_transaksi, a.tanggal, a.barang, a.harga, a.kuantitas, b.nama, b.desa FROM transaksi_bon a JOIN tb_petani b ON a.id_petani = b.id WHERE id_transaksi = '$id'");
+      $query = $this->db->query("SELECT a.id, a.id_transaksi, a.tanggal, a.barang, a.harga, a.kuantitas, b.nama, b.desa, a.keterangan FROM transaksi_bon a JOIN tb_petani b ON a.id_petani = b.id WHERE id_transaksi = '$id'");
       if($query->num_rows() > 0)
         {
           return $query->result();

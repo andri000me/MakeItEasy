@@ -10,29 +10,88 @@ class Cabai extends CI_Controller {
 
 		if($this->session->userdata('masuk') != TRUE){
 			redirect(base_url('Login'));
-		}
-		
+		}	
 	}
 
 	public function index()
 		{
-			$this->load->view('header');
-			$this->load->view('harga_cabebon');
-			$this->load->view('footer');
+			redirect('Cabai/hargaJenis');
 		}
 
 	function riwayatPetani()	{
-			$startdate = $this->input->post('start');
-	    	$enddate = $this->input->post('end');
-
-	    	$data = array(
-	    		'riwayat_cabai' =>  $this->model_cabai->cabai_petani($startdate, $enddate),
-	    		'startdate' => $startdate,
-	    		'enddate' => $enddate );
-
 			$this->load->view('header');
-			$this->load->view('cabai_riwayatPetani', $data);
+			$this->load->view('cabai_riwayatPetani');
 	}
+
+	public function list_riwayat_cabai()
+    {
+        $column_order = array(null,'a.tanggal','b.jenis', 'a.kode_cabai', 'a.harga_bs', 'a.harga_bersih', null); //set column field database for datatable orderable
+        $column_search = array('b.jenis','a.kode_cabai'); //set column field database for datatable searchable just firstname , lastname , address are searchable
+        $list = $this->model_cabai->get_datatables($column_search, $column_order, '_get_list_riwayat_cabai');
+        $data = array();
+        $no = $_POST['start'];
+        foreach ($list as $key) {
+            $no++;
+            $row = array();
+            $row[] = $no;
+            $row[] = $key->tanggal;
+            $row[]= $key->jenis;
+            $row[] = $key->kode_cabai;
+            $row[] = number_format($key->harga_bs,0,',','.');
+            $row[] = number_format($key->harga_bersih,0,',','.');
+
+            //add html for action
+            $row[] = '<a class="btn btn-sm btn-primary" title="Edit" href="javascript:void(0)" onclick="editHarga('."'".$key->id."'".')">Edit</a>';
+ 
+            $data[] = $row;
+        }
+ 
+        $output = array(
+                        "draw" => $_POST['draw'],
+                        "recordsTotal" => $this->model_cabai->count_all('_get_list_riwayat_cabai'),
+                        "recordsFiltered" => $this->model_cabai->count_filtered($column_search, $column_order, '_get_list_riwayat_cabai'),
+                        "data" => $data,
+                );
+        //output to json format
+        echo json_encode($output);
+    }
+
+    function list_transaksi_changed(){
+    	$column_order = array(null,'a.tanggal','b.id_petani', 'b.nama', 'a.kode_cabai', null, null, null, 'a.saldo', 'b.saldo'); //set column field database for datatable orderable
+        $column_search = array('b.nama','a.saldo', 'b.saldo'); //set column field database for datatable searchable just firstname , lastname , address are searchable
+        $list = $this->model_cabai->get_datatables($column_search, $column_order, '_get_list_transaksi_changed');
+        $data = array();
+        $no = $_POST['start'];
+        foreach ($list as $key) {
+        	$berat_bersih = $key->berat_kotor - $key->berat_bs - $key->berat_susut;
+        	$jumlah_uang = ($berat_bersih * $key->harga_bersih) + ($key->berat_bs * $key->harga_bs);
+
+            $no++;
+            $row = array();
+            $row[] = $no;
+            $row[] = $key->tanggal;
+            $row[] = $key->id_petani;
+            $row[] = $key->nama;
+            $row[] = $key->kode_cabai;
+            $row[] = $key->berat_bs;
+            $row[] = $berat_bersih;
+            $row[] = number_format($jumlah_uang,0,',','.');
+            $row[] = number_format($key->saldo_transaksi,0,',','.');
+            $row[] = number_format($key->saldo_petani,0,',','.');
+
+            //add html for action
+            $data[] = $row;
+        }
+ 
+        $output = array(
+                        "draw" => $_POST['draw'],
+                        "recordsTotal" => $this->model_cabai->count_all('_get_list_transaksi_changed'),
+                        "recordsFiltered" => $this->model_cabai->count_filtered($column_search, $column_order, '_get_list_transaksi_changed'),
+                        "data" => $data,
+                );
+        //output to json format
+        echo json_encode($output);	
+    }
 
 	function riwayatPembeli()	{
 		$startdate = $this->input->post('start');
@@ -103,40 +162,6 @@ class Cabai extends CI_Controller {
 
 				$this->model_cabai->submitPetani($data1);
 
-				//untuk update nilai saldo petani, jika pada saat input setoran, harga cabai belum diinputkan
-				$transpetani = $this->model_cabai->tb_transpetani($tanggal);
-				if (!empty($transpetani)) {
-					$j=0;
-					foreach ($transpetani as $key) {
-
-						$id_transaksi = $key->id;
-						$id_petani = $key->id_petani;
-						$jumlah_uang = $key->harga_bs * $key->berat_bs + $key->harga_bersih * ($key->berat_kotor - $key->berat_bs - $key->berat_susut);
-						$saldo_petani = $key->saldo_petani;
-						$new_saldo = $saldo_petani + $jumlah_uang;
-
-						// $id_trans[$j] = $id_transaksi;
-						// $data2[$j]['tanggal'] = $key->tanggal;
-						// $data2[$j]['id_petani'] = $id_petani;
-						// $data2[$j]['kode_cabai'] = $key->kode_cabai;
-						// $data2[$j]['berat_kotor'] = $key->berat_kotor;
-						// $data2[$j]['berat_bs'] = $key->berat_bs;
-						// $data2[$j]['berat_susut'] = $key->berat_susut;
-						// $data2[$j]['saldo'] = $new_saldo;
-
-
-						$data2[$j]['id'] = $id_transaksi;
-						$data2[$j]['saldo'] = $new_saldo;
-
-						$data3[$j]['id'] = $id_petani;
-						$data3[$j]['saldo'] = $new_saldo;
-
-						$j++;
-					}
-
-					$this->model_cabai->update_saldoTrans($data2);
-					$this->model_cabai->update_saldoPetani($data3);
-				}
 				echo 'input harga cabai berhasil';
 			}
 			else echo 'Mohon ulangi pengisian, harga cabai telah diinputkan sebelumnya';
@@ -238,6 +263,8 @@ class Cabai extends CI_Controller {
 
 				$data2[$j]['id'] = $id_transaksi;
 				$data2[$j]['saldo'] = $new_saldo_petani;
+				date_default_timezone_set('Asia/Jakarta');
+				$data2[$j]['updated_at'] = date('Y-m-d H:i:s');
 
 				$data3[$j]['id'] = $id_petani;
 				$data3[$j]['saldo'] = $new_saldo_petani;
@@ -245,11 +272,21 @@ class Cabai extends CI_Controller {
 				$j++;
 			}
 
-			$this->model_cabai->update_saldoTrans($data2);
 			$this->model_cabai->update_saldoPetani($data3);
+			$this->model_cabai->update_saldoTrans($data2);
 		}
 
-		echo 1;
+		$return_data = array(
+			'tanggal' => $tanggal,
+			'kode_cabai' => $kode_cabai 
+		);
+
+		echo json_encode($return_data);
+	}
+
+	public function ConfirmEdit()
+	{
+		$this->load->view('cabai_confirmEdit');
 	}
 
 }

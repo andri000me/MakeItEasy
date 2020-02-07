@@ -150,6 +150,7 @@
               <th>Harga</th>
               <th>Kuantitas</th>
               <th>Jumlah</th>
+              <th>Keterangan</th>
             </tr>
           </thead>
           <tbody id="tb_body_detail">
@@ -167,7 +168,7 @@
 
       </div>
     </div>
-    <!-- END Modal Input Setoran -->
+  <!-- END Modal BON -->
 
 
   <!-- /.content-wrapper -->

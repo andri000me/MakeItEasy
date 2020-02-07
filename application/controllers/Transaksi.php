@@ -427,6 +427,7 @@ class Transaksi extends CI_Controller {
             $qty = $this->input->post('qty[]');
             $ambil_uang = $this->input->post('ambil_uang');
             $tenggat = $this->input->post('tenggat');
+            $keterangan = $this->input->post('keterangan');
             $saldo = $this->model_transaksi->saldoPetani($id_petani)->saldo;
 
             $initial = array(
@@ -437,6 +438,7 @@ class Transaksi extends CI_Controller {
             $id_transaksi = $this->model_transaksi->input_transaksi_petani($initial);
             
             $jumlah_uang = 0; $i=0;
+            //jika hanya mengisi barang
             if (!empty($barang) && !empty($qty) && empty($ambil_uang)) {
                 foreach ($barang as $key => $value) {
                     $price[] = $this->model_barang->price_barang($value)->harga;
@@ -451,12 +453,15 @@ class Transaksi extends CI_Controller {
                     $data1[$i]['barang'] = $nama_barang[$key];
                     $data1[$i]['harga'] = $price[$key];
                     $data1[$i]['kuantitas'] = $qty[$key];
+                    $data1[$i]['keterangan'] = $keterangan;
 
                     $i++;
                 }
                 $this->model_transaksi->inputBatchBon($data1);
-
-            } elseif (!empty($barang) && !empty($qty) && !empty($ambil_uang)) {
+            }
+            
+            //jika mengisi barang dan uang
+            elseif (!empty($barang) && !empty($qty) && !empty($ambil_uang)) {
                 foreach ($barang as $key => $value) {
                     $price[] = $this->model_barang->price_barang($value)->harga;
                     $nama_barang[] = $this->model_barang->price_barang($value)->barang;
@@ -470,6 +475,7 @@ class Transaksi extends CI_Controller {
                     $data1[$i]['barang'] = $nama_barang[$key];
                     $data1[$i]['harga'] = $price[$key];
                     $data1[$i]['kuantitas'] = $qty[$key];
+                    $data1[$i]['keterangan'] = $keterangan;
 
                     $i++;
                 }
@@ -481,12 +487,14 @@ class Transaksi extends CI_Controller {
                 $data2['barang'] = 'Uang';
                 $data2['harga'] = $ambil_uang;
                 $data2['kuantitas'] = 1;
+                $data2['keterangan'] = $keterangan;
 
                 $jumlah_uang = $jumlah_uang + $ambil_uang;
 
                 $this->model_transaksi->inputBatchBon($data1);
                 $this->model_transaksi->inputUangBon($data2);
             }
+            //jika hanya mengisi uang
             elseif (empty($barang) && !empty($ambil_uang)) {
                 $data2['tanggal'] = $tanggal;
                 $data2['id_transaksi'] = $id_transaksi;
@@ -495,6 +503,7 @@ class Transaksi extends CI_Controller {
                 $data2['barang'] = 'Uang';
                 $data2['harga'] = $ambil_uang;
                 $data2['kuantitas'] = 1;
+                $data2['keterangan'] = $keterangan;
 
                 $jumlah_uang = $jumlah_uang + $ambil_uang;
 
